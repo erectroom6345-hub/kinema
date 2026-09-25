@@ -1,0 +1,75 @@
+{
+  "input_summary": {
+    "blog_name": "Beauty Notes",
+    "blog_url": "https://example.blogspot.com",
+    "article_url": "https://example.blogspot.com/2026/09/serum-habit.html",
+    "article_title": "ゆらぎやすい時期の導入美容液の選び方で整える、日常の小さな習慣",
+    "topic": "ゆらぎやすい時期の導入美容液の選び方",
+    "genre": "beauty",
+    "is_pr": true,
+    "publish_date": "2026-09-22",
+    "has_source_body": false
+  },
+  "analysis": {
+    "is_product_oriented": false,
+    "reason": "悩み整理寄りの語彙（整え）が目立ちます。",
+    "suggested_hooks": [
+      "よくある悩みから入る",
+      "今日からできる小さな整え方を示す",
+      "完璧を目指さない言い回しにする"
+    ],
+    "image_keywords": [
+      "skincare still life",
+      "soft sunlight bathroom",
+      "notebook planning",
+      "ゆらぎやすい時期の導入美容液の選び方"
+    ]
+  },
+  "blog_draft": {
+    "title": "ゆらぎやすい時期の導入美容液の選び方で整える、日常の小さな習慣",
+    "outline": [
+      "はじめに",
+      "よくあるつまずき",
+      "考え方の整理",
+      "今日からできること",
+      "まとめ"
+    ],
+    "body_markdown": "# ゆらぎやすい時期の導入美容液の選び方で整える、日常の小さな習慣\n\n※本記事にはPRを含みます。\n\n![skincare still life](https://pixabay.com/get/hero-example.jpg)\n\n*Image by Demo from Pixabay*\n\n## はじめに\n\nゆらぎやすい時期の導入美容液の選び方について、結論から先に整理します。医薬的な効果効能の断定、即効性の断言、過度なビフォーアフター誇張は避ける。\n\n![notebook planning](https://pixabay.com/get/inline-example.jpg)\n\n*Image by Demo from Pixabay*\n\n## よくあるつまずき\n\nよくある悩みから入る\n\n## 考え方の整理\n\n今日からできる小さな整え方を示す\n\n## 今日からできること\n\n完璧を目指さない言い回しにする\n\n## まとめ\n\n完璧を目指すより、続けやすい選択を残しておく方が負担は小さくなります。\n",
+    "body_html": "<h1>ゆらぎやすい時期の導入美容液の選び方で整える、日常の小さな習慣</h1>\n<p>※本記事にはPRを含みます。</p>\n<figure><img src=\"https://pixabay.com/get/hero-example.jpg\" alt=\"skincare still life\" /></figure>"
+  },
+  "images": {
+    "hero": {
+      "source": "pixabay",
+      "url": "https://pixabay.com/get/hero-example.jpg",
+      "alt": "skincare still life",
+      "credit": "Image by Demo from Pixabay"
+    },
+    "inline": [
+      {
+        "source": "pixabay",
+        "url": "https://pixabay.com/get/inline-example.jpg",
+        "alt": "内容を整理するためのイメージ",
+        "credit": "Image by Demo from Pixabay"
+      }
+    ]
+  },
+  "outputs": {
+    "instagram": {
+      "caption": "保存用に、ゆらぎやすい時期の導入美容液の選び方の考え方をやさしく整理しました ※PR\n\n・いきなり正解を探さない\n・自分に合う軸を先に決める\n・続けやすさを優先する\n\n詳しくはこちら\nhttps://example.blogspot.com/2026/09/serum-habit.html"
+    },
+    "threads": [
+      "案1: 会話と共感から入る",
+      "案2: やらなくていいことから入る",
+      "案3: 情報過多への共感から入る"
+    ],
+    "x": [
+      "Day1 要点",
+      "Day2 続けやすさ",
+      "Day3 条件を先に決める",
+      "Day4 習慣",
+      "Day5 合う人・合わない人",
+      "Day6 保存用メモ",
+      "Day7 URL付き"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "content-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Blogger向け記事作成支援と、Instagram / Threads / X 下書き生成ツール",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx src/cli/index.ts",
+    "generate": "tsx src/cli/index.ts",
+    "test": "tsx --test tests/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "opena": "^0.1.19",
+    "openai": "^7.23.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

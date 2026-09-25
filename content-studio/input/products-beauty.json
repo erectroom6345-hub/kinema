@@ -1,0 +1,168 @@
+{
+  "sale": [
+    {
+      "id": "beauty-sale-001",
+      "brand": "hince",
+      "category": "korean_cosmetics",
+      "productName": "hinceのセール確認用商品",
+      "productUrl": "https://example.com/hince-sale-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "sale",
+      "genre": "韓国コスメ",
+      "articleTitle": "セール中にチェックしたい韓国コスメ",
+      "articleBody": "話題になりやすい韓国コスメは、気になった時に早めに見ておきたいです。セール対象やポイント対象になっていることもあるので、詳細は商品ページで確認したいです。",
+      "labels": {
+        "sale": true,
+        "point": true,
+        "conditionalDeal": true,
+        "detailCheck": true
+      }
+    }
+  ],
+  "main": [
+    {
+      "id": "beauty-main-001",
+      "brand": "コスメデコルテ",
+      "category": "makeup",
+      "productName": "コスメデコルテの定番メイク商品",
+      "productUrl": "https://example.com/decorte-main-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "main",
+      "genre": "メイク用品",
+      "articleTitle": "30代の毎日メイクに合わせやすい上質コスメ",
+      "articleBody": "毎日のメイクに少し上質なアイテムを入れると、全体の雰囲気が整いやすいです。高嶺のメイクは、少し高めでも使いやすいものを選ぶイメージでまとめています。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": false,
+        "detailCheck": true
+      }
+    },
+    {"id": "beauty-main-002",
+      "brand": "イプサ",
+      "category": "skincare",
+      "productName": "イプサの定番スキンケア商品",
+      "productUrl": "https://example.com/ipsa-main-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "main",
+      "genre": "スキンケア",
+      "articleTitle": "安定して使いやすいスキンケアを選びたい時に",
+      "articleBody": "スキンケアは、毎日続けやすいことも大事です。高嶺は肌に合うものを落ち着いて使うイメージで、派手すぎない定番感を重視しています。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": true,
+        "detailCheck": true
+      }
+    },
+    {
+      "id": "beauty-main-003",
+      "brand": "FANCL",
+      "category": "supplement",
+      "productName": "FANCLの美容サプリ確認用商品",
+      "productUrl": "https://example.com/fancl-main-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "main",
+      "genre": "サプリ",
+      "articleTitle": "外側だけでなく内側のケアも意識したい時に",
+      "articleBody": "美容はスキンケアやメイクだけでなく、内側からのケアも気になります。続けやすさや取り入れやすさを見ながら選びたいです。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": true,
+        "detailCheck": true
+      }
+    }
+  ],
+  "niche": [
+    {"id": "beauty-niche-001",
+      "brand": "hince",
+      "category": "korean_cosmetics",
+      "productName": "hinceの掘り出し物候補",
+      "productUrl": "https://example.com/hince-niche-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "niche",
+      "genre": "韓国コスメ",
+      "articleTitle": "人とかぶりにくいけれど気になる韓国コスメ",
+      "articleBody": "定番だけでなく、少し雰囲気を変えたい時に見たくなるアイテムもあります。派手すぎず今っぽいものを選びたい時に気になります。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": false,
+        "detailCheck": true
+      }
+    }
+  ],
+  "routine": [
+    {
+      "id": "beauty-routine-001",
+      "brand": "コスメデコルテ",
+      "category": "makeup",
+      "productName": "高嶺メイクの定番アイテム",
+      "productUrl": "https://example.com/decorte-routine-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "routine",
+      "genre": "メイク用品",
+      "articleTitle": "高嶺が普段のメイクで大切にしたいこと",
+      "articleBody": "高嶺のメイクは、派手すぎないのにきれいに見えることを大切にしています。少し高めでも気分が上がるものを選んで、毎日の仕上がりを整えたいイメージです。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": false,
+        "detailCheck": true
+      }
+    },
+    {"id": "beauty-routine-002",
+      "brand": "イプサ",
+      "category": "skincare",
+      "productName": "高嶺スキンケアの定番アイテム",
+      "productUrl": "https://example.com/ipsa-routine-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "routine",
+      "genre": "スキンケア",
+      "articleTitle": "高嶺がスキンケアで安定感を重視したい理由",
+      "articleBody": "スキンケアは毎日使うものだからこそ、無理なく続けやすいことを大切にしたいです。高嶺は肌に合う感覚を大事にしながら、落ち着いて使えるものを選ぶイメージです。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": false,
+        "detailCheck": true
+      }
+    },
+    {
+      "id": "beauty-routine-003",
+      "brand": "SK-II",
+      "category": "special_care",
+      "productName": "高嶺の特別ケア用アイテム",
+      "productUrl": "https://example.com/skii-routine-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "routine",
+      "genre": "特別ケア",
+      "articleTitle": "たまに取り入れたいご褒美ケアの考え方",
+      "articleBody": "毎日のケアとは別に、少し特別感のあるアイテムを取り入れたくなる時もあります。高嶺は普段使いとご褒美感のバランスを大切にしたいイメージです。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": false,
+        "detailCheck": true
+      }
+    },
+    {"id": "beauty-routine-004",
+      "brand": "FANCL",
+      "category": "supplement",
+      "productName": "高嶺の内側ケア用アイテム",
+      "productUrl": "https://example.com/fancl-routine-item",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "routine",
+      "genre": "サプリ",
+      "articleTitle": "高嶺が内側のケアも意識したい時に",
+      "articleBody": "見た目のケアだけでなく、日々の積み重ねも大切にしたいです。高嶺は無理のない範囲で取り入れやすい内側ケアも意識しているイメージです。",
+      "labels": {
+        "sale": false,
+        "point": false,
+        "conditionalDeal": false,
+        "detailCheck": true
+      }
+    }
+  ]
+}
