@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.miyasakaharuki.contentstudio</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/run-beauty.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <key>HOME</key>
+      <string>/Users/miyasakaharuki</string>
+    </dict>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key>
+      <integer>9</integer>
+      <key>Minute</key>
+      <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/beauty-cron.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/beauty-cron.log</string>
+
+    <!-- ログイン直後の即時実行はしない（毎朝9時のみ） -->
+    <key>RunAtLoad</key>
+    <false/>
+  </dict>
+</plist>

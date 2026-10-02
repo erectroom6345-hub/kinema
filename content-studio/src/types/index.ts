@@ -108,15 +108,18 @@ export interface BloggerDraftRequest {
   title: string;
   contentHtml: string;
   labels?: string[];
+  /** true=下書き / false=即公開（beauty自動投稿は false） */
   isDraft?: boolean;
 }
 
 export interface BloggerDraftResult {
   postId: string;
+  /** 公開時は個別記事URL。下書きでは空になりうる */
   url?: string;
 }
 
 export interface BloggerClient {
+  /** posts.insert。isDraft=false で公開し、レスポンスの url を返す */
   saveDraft(request: BloggerDraftRequest): Promise<BloggerDraftResult>;
 }
 

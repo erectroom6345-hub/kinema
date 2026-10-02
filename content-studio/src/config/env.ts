@@ -22,6 +22,10 @@ export interface AppConfig {
   ollamaTimeoutMs: number;
   bloggerApiKey: string;
   bloggerBlogId: string;
+  /** OAuth クライアント（posts.insert 用） */
+  bloggerClientId: string;
+  bloggerClientSecret: string;
+  bloggerRefreshToken: string;
   defaultGenre: Genre;
   defaultStockProvider: StockProviderName;
   /** Instagram投稿用の固定画像（相対パス可・文字なし想定） */
@@ -50,6 +54,9 @@ export function getConfig(): AppConfig {
     ollamaTimeoutMs: Number(process.env.OLLAMA_TIMEOUT_MS ?? "600000") || 600_000,
     bloggerApiKey: process.env.BLOGGER_API_KEY ?? "",
     bloggerBlogId: process.env.BLOGGER_BLOG_ID ?? "",
+    bloggerClientId: process.env.BLOGGER_CLIENT_ID ?? "",
+    bloggerClientSecret: process.env.BLOGGER_CLIENT_SECRET ?? "",
+    bloggerRefreshToken: process.env.BLOGGER_REFRESH_TOKEN ?? "",
     defaultGenre: (genre as Genre) || "beauty",
     defaultStockProvider: provider === "pexels" ? "pexels" : "pixabay",
     instagramFixedImage: (process.env.INSTAGRAM_FIXED_IMAGE ?? "assets/instagram-fixed.jpg").trim(),

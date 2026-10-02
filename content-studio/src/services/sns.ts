@@ -33,17 +33,52 @@ export async function createSnsOutputs(params: {
     };
     return {
       instagram: {
-        caption:
+        caption: ensureInstagramProfileCta(
           parsed.instagram?.caption && parsed.instagram.caption.trim().length >= 20
             ? parsed.instagram.caption.trim()
             : fallback.instagram.caption,
+        ),
       },
-      threads: padWithFallback(parsed.threads, fallback.threads, 3),
-      x: padWithFallback(parsed.x, fallback.x, 7),
+      threads: ensureArticleUrlOnEach(
+        padWithFallback(parsed.threads, fallback.threads, 3),
+        params.articleUrl,
+      ),
+      x: ensureArticleUrlOnLast(
+        padWithFallback(parsed.x, fallback.x, 7),
+        params.articleUrl,
+      ),
     };
   } catch {
     return fallback;
   }
+}
+
+function ensureInstagramProfileCta(caption: string): string {
+  const base = caption
+    .replace(/\n*https?:\/\/\S+/gi, "")
+    .trim();
+  const profileLine = "詳しくは、プロフィールのリンクからご覧ください";
+  if (base.includes("プロフィールのリンク")) return base;
+  // ハッシュタグの直前に挿入。なければ末尾。
+  const hashIdx = base.search(/\n#/);
+  if (hashIdx >= 0) {
+    return `${base.slice(0, hashIdx)}\n\n${profileLine}${base.slice(hashIdx)}`;
+  }
+  return `${base}\n\n${profileLine}`;
+}
+
+function ensureArticleUrlOnEach(items: string[], articleUrl: string): string[] {
+  const url = articleUrl.trim();
+  if (!url) return items;
+  return items.map((item) => (item.includes(url) ? item : `${item.trim()}\n${url}`));
+}
+
+function ensureArticleUrlOnLast(items: string[], articleUrl: string): string[] {
+  const url = articleUrl.trim();
+  if (!url || items.length === 0) return items;
+  const last = items[items.length - 1] ?? "";
+  if (last.includes(url)) return items;
+  return [...items.slice(0, -1), `${last.trim()}\n${url}`];
 }
 
 function extractJsonObject(raw: string): string {
@@ -123,9 +158,10 @@ export function buildFallbackSns(params: {
   const prTail = params.isPr ? "\n\n※PR" : "";
   const threadPr = params.isPr ? " ※PR" : "";
   const xPr = params.isPr ? " ※PR" : "";
-  const urlBlock = params.articleUrl
-    ? `\n\n${voice.urlLead}\n${params.articleUrl}`
-    : `\n\n${voice.urlLead}`;
+  // InstagramはURLを本文に入れずプロフィール誘導。X/Threadsは末尾に articleUrl。
+  const igCta = "\n\n詳しくは、プロフィールのリンクからご覧ください";
+  const articleUrl = params.articleUrl.trim();
+  const threadUrlTail = articleUrl ? `\n${articleUrl}` : "";
   const tag = topic.replace(/\s+/g, "");
 
   // Instagram / Threads / X は同じ条件順（postType → genre）の voice を共有する
@@ -136,14 +172,14 @@ ${voice.igBody}
 ${voice.bullets.map((item) => `・${item}`).join("\n")}
 
 ${voice.saveLine}
-${urlBlock}
+${igCta}
 
 #${tag} #${voice.hashTag}${prTail}`;
 
   const threads = [
-    `${voice.th1} ${voice.th1Follow}${threadPr}`,
-    `${voice.th2}${threadPr}`,
-    `${voice.th3}${threadPr}`,
+    `${voice.th1} ${voice.th1Follow}${threadPr}${threadUrlTail}`,
+    `${voice.th2}${threadPr}${threadUrlTail}`,
+    `${voice.th3}${threadPr}${threadUrlTail}`,
   ];
 
   const x = [
@@ -153,7 +189,7 @@ ${urlBlock}
     voice.x3,
     voice.x4,
     voice.x5,
-    params.articleUrl ? `${voice.xClose} ${params.articleUrl}` : voice.xClose,
+    articleUrl ? `${voice.xClose}\n${articleUrl}` : voice.xClose,
   ];
 
   return {
@@ -180,9 +216,9 @@ function buildCompatibleFallback(params: {
   const prTail = params.isPr ? "\n\n※PR" : "";
   const threadPr = params.isPr ? " ※PR" : "";
   const xPr = params.isPr ? " ※PR" : "";
-  const url = params.articleUrl
-    ? `\n\n気になった方は、こちらにもまとめています🌿\n${params.articleUrl}`
-    : "\n\n気になった方は、ブログにもやさしくまとめています🌿";
+  const igCta = "\n\n詳しくは、プロフィールのリンクからご覧ください";
+  const articleUrl = params.articleUrl.trim();
+  const threadUrlTail = articleUrl ? `\n${articleUrl}` : "";
   const hook = params.analysis.suggested_hooks[0] ?? params.topic;
   const tag = params.topic.replace(/\s+/g, "");
 
@@ -196,14 +232,14 @@ function buildCompatibleFallback(params: {
 ・続けやすさを優先する
 
 迷ったときの安心材料として、保存しておいてもらえたら嬉しいです✨
-${url}
+${igCta}
 
 #${tag} #整理ノート${prTail}`;
 
   const threads = [
-    `${params.topic}で、正解を探しすぎて疲れてしまうことありませんか？💭 条件をひとつ決めると、気持ちが楽になることもあります🌿${threadPr}`,
-    `${params.topic}は、頑張りすぎると続きにくいですよね💭 「やらなくていいこと」をひとつ減らすくらいで充分かもしれません✨${threadPr}`,
-    `調べ始めると、情報が多すぎて決めにくくなることありませんか？💭 ${hook}という視点で、やさしく整理してみました🌿${threadPr}`,
+    `${params.topic}で、正解を探しすぎて疲れてしまうことありませんか？💭 条件をひとつ決めると、気持ちが楽になることもあります🌿${threadPr}${threadUrlTail}`,
+    `${params.topic}は、頑張りすぎると続きにくいですよね💭 「やらなくていいこと」をひとつ減らすくらいで充分かもしれません✨${threadPr}${threadUrlTail}`,
+    `調べ始めると、情報が多すぎて決めにくくなることありませんか？💭 ${hook}という視点で、やさしく整理してみました🌿${threadPr}${threadUrlTail}`,
   ];
 
   const x = [
@@ -213,8 +249,8 @@ ${url}
     `完璧なケアより、負担の少ない習慣の方が結果的に続きやすいです。`,
     `合う人・合わない人を先に書くと、読み手も判断しやすくなります。`,
     `保存用に、選び方の軸を記事側へまとめています。`,
-    params.articleUrl
-      ? `今週のメモ。詳しい整理はこちら ${params.articleUrl}`
+    articleUrl
+      ? `今週のメモ。詳しい整理はこちら\n${articleUrl}`
       : `今週のメモ。詳しい整理はブログ側に置いています。`,
   ];
 

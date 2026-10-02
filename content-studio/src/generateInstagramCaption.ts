@@ -17,6 +17,7 @@ type ArticleInput = {
     postType?: string;
     imageUrl?: string;
     url?: string;
+    blogUrl?: string;
   };
 };
 
@@ -37,6 +38,10 @@ function buildToneGuidance(postType: string, genre: string, brand = "", productN
     `・postType（補正）: ${type || "(未設定)"} → ${postTypeAxis}`,
     "・まず genre の商品タイプを崩さないこと",
     "・そのうえで postType の補正を重ねること",
+    "・Instagramは集客用。購入・広告リンクの直訴求はしない",
+    "・「商品ページへ」「今すぐ購入」「公式でチェック」など直リンク誘導の言い回しは使わない",
+    "・記事URLやhttpリンクは caption に書かない（末尾はプロフィール誘導に固定する）",
+    "・「詳しくはプロフィールのリンクから」につながる自然な一文でよい",
     "・caption には、少しだけ「見つけてうれしい」「早めに見ておきたい」気持ちを自然に足してよい",
     "・押し売りや効果効能の断定はしない",
     "・別ジャンルの話には寄せない",
@@ -137,6 +142,166 @@ function isLessFamousGood(brand: string, productName: string): boolean {
   return Boolean(brand.trim() || productName.trim());
 }
 
+const OLLAMA_BASE_URL = (process.env.OLLAMA_BASE_URL ?? "http://127.0.0.1:11434").replace(/\/$/, "");
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL ?? "gemma3:4b";
+/** 起動確認用。短い時間で落ちる */
+const OLLAMA_HEALTH_TIMEOUT_MS = Number(process.env.OLLAMA_HEALTH_TIMEOUT_MS ?? "5000") || 5_000;
+/**
+ * caption生成の待ち上限。
+ * 冷起動（モデル再ロード）で2分超えることがあるため、既定は5分。
+ * （ブログ用 llm.ts は 600s。caption は短文なので 300s を既定にする）
+ */
+const OLLAMA_GENERATE_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS ?? "300000") || 300_000;
+
+function isAbortError(error: unknown): boolean {
+  // Node の AbortSignal.timeout() は name=TimeoutError / message="The operation was aborted due to timeout"
+  return (
+    (error instanceof Error && (error.name === "AbortError" || error.name === "TimeoutError")) ||
+    (typeof DOMException !== "undefined" &&
+      error instanceof DOMException &&
+      (error.name === "AbortError" || error.name === "TimeoutError"))
+  );
+}
+
+function isConnectionError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  const msg = `${error.message} ${("cause" in error && error.cause instanceof Error) ? error.cause.message : ""}`;
+  return /ECONNREFUSED|ENOTFOUND|EHOSTUNREACH|fetch failed|network/i.test(msg);
+}
+
+/** ブログトップ・仮値は不可。個別記事URLのみ可 */
+function isUnusableBlogUrl(blogUrl: string): boolean {
+  const raw = blogUrl.trim();
+  if (!raw) return true;
+  if (/example\.com(\/|$)/i.test(raw) || /YOURBLOG/i.test(raw) || /REPLACE-/i.test(raw)) {
+    return true;
+  }
+  try {
+    const u = new URL(raw);
+    if (u.protocol !== "http:" && u.protocol !== "https:") return true;
+    const path = (u.pathname || "/").replace(/\/+$/, "") || "/";
+    return path === "/";
+  } catch {
+    return true;
+  }
+}
+
+/** Ollama が生きているか確認してから generate する */
+async function assertOllamaAlive(): Promise<void> {
+  const url = `${OLLAMA_BASE_URL}/api/tags`;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      signal: AbortSignal.timeout(OLLAMA_HEALTH_TIMEOUT_MS),
+    });
+    if (!res.ok) {
+      throw new Error(
+        `Ollamaは応答しましたがヘルスチェックに失敗しました (HTTP ${res.status})。` +
+          ` URL: ${url}`,
+      );
+    }
+  } catch (error) {
+    if (isAbortError(error)) {
+      throw new Error(
+        `Ollamaに接続できませんでした（ヘルスチェック ${OLLAMA_HEALTH_TIMEOUT_MS / 1000}秒タイムアウト）。` +
+          ` 未起動か、応答が極端に遅い可能性があります。` +
+          ` 確認: curl ${OLLAMA_BASE_URL}/api/tags  / 起動例: ollama serve`,
+      );
+    }
+    if (isConnectionError(error)) {
+      throw new Error(
+        `Ollamaが未起動です（${OLLAMA_BASE_URL} に接続できません）。` +
+          ` 起動例: ollama serve  / 確認: curl ${OLLAMA_BASE_URL}/api/tags`,
+      );
+    }
+    const detail = error instanceof Error ? error.message : String(error);
+    throw new Error(`Ollamaの起動確認に失敗しました: ${detail}`);
+  }
+}
+
+/**
+ * 冷起動対策: 本生成前に極短プロンプトでモデルを起こす。
+ * 失敗しても本生成へ進む（本生成側の timeout / エラーに任せる）。
+ */
+async function warmUpOllamaModel(): Promise<void> {
+  const url = `${OLLAMA_BASE_URL}/api/generate`;
+  const warmTimeoutMs = Math.min(120_000, OLLAMA_GENERATE_TIMEOUT_MS);
+  try {
+    console.log(`Ollamaウォームアップ開始 (model=${OLLAMA_MODEL}, timeout=${warmTimeoutMs / 1000}s)`);
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        prompt: "OK",
+        stream: false,
+        options: { num_predict: 8 },
+      }),
+      signal: AbortSignal.timeout(warmTimeoutMs),
+    });
+    if (!res.ok) {
+      console.warn(`Ollamaウォームアップ失敗 (HTTP ${res.status})。本生成を続行します。`);
+      return;
+    }
+    console.log("Ollamaウォームアップ完了");
+  } catch (error) {
+    const detail = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+    console.warn(`Ollamaウォームアップ失敗 (${detail})。本生成を続行します。`);
+  }
+}
+
+async function callOllamaGenerate(prompt: string): Promise<string> {
+  const url = `${OLLAMA_BASE_URL}/api/generate`;
+  console.log(
+    `Ollama caption生成開始 (model=${OLLAMA_MODEL}, timeout=${OLLAMA_GENERATE_TIMEOUT_MS / 1000}s, promptChars=${prompt.length})`,
+  );
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        prompt,
+        stream: false,
+        // captionは短文。上限を付けて遅い応答を抑える
+        options: {
+          num_predict: 256,
+        },
+      }),
+      signal: AbortSignal.timeout(OLLAMA_GENERATE_TIMEOUT_MS),
+    });
+
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(
+        `Ollamaのcaption生成APIがエラーを返しました (HTTP ${res.status})。` +
+          ` model=${OLLAMA_MODEL}` +
+          (body ? ` body=${body.slice(0, 300)}` : ""),
+      );
+    }
+
+    const data = (await res.json()) as { response?: string };
+    return data.response ?? "";
+  } catch (error) {
+    if (isAbortError(error)) {
+      throw new Error(
+        `Ollamaのcaption生成がタイムアウトしました（${OLLAMA_GENERATE_TIMEOUT_MS / 1000}秒）。` +
+          ` model=${OLLAMA_MODEL}。冷起動や負荷で遅い可能性があります。` +
+          ` OLLAMA_TIMEOUT_MS で延長できます。`,
+      );
+    }
+    if (isConnectionError(error)) {
+      throw new Error(
+        `Ollamaへの接続が切れました（生成中）。未起動になったか、プロセスが落ちた可能性があります。` +
+          ` URL: ${url}`,
+      );
+    }
+    throw error;
+  }
+}
+
 async function generateCaption() {
   const title = (article.title || article.articleTitle || "").trim();
   const body = (article.body || article.articleBody || "").trim();
@@ -145,26 +310,41 @@ async function generateCaption() {
   const productName = (article.product?.name || "").trim();
   const brand = (article.product?.brand || "").trim();
   const imageUrl = article.product?.imageUrl || article.imageUrl || "";
+  const rawBlogUrl = (article.product?.blogUrl || "").trim();
+  const blogUrlUsable = !isUnusableBlogUrl(rawBlogUrl);
+  const blogUrl = blogUrlUsable ? rawBlogUrl : "";
 
   if (!postType || !genre) {
     throw new Error("product.postType と product.genre が article.json に必要です");
+  }
+  if (!blogUrlUsable) {
+    console.warn(
+      `blogUrl 未整備のため URLなし投稿で続行します: ${rawBlogUrl || "(空)"}`,
+    );
   }
 
   const toneGuidance = buildToneGuidance(postType, genre, brand, productName);
 
   const prompt = `
-あなたは美容ブログのInstagram運用担当です。
-次の商品・記事をもとに、Instagram投稿用のcaptionを1本だけ作ってください。
+あなたは美容BloggerのInstagram運用担当です。
+次の商品・記事をもとに、Instagram投稿用のcaption本文を1本だけ作ってください。
+Instagramは集客用です。購入・広告リンクはInstagramに直貼りしません。
+${blogUrlUsable
+  ? "詳しい紹介はブログにあります。ただし caption 本文や末尾にURLは書かないでください。誘導はプロフィールリンク向けにします。"
+  : "今回は記事URL未設定でも、caption にURLは書かず、雰囲気紹介のみにする。"}
 
 条件
 ・ですます調
 ・やわらかい文体
 ・短め
-・100文字から180文字程度
+・100文字から160文字程度
 ・ハッシュタグ不要
-・本文だけ返す
+・本文だけ返す（URLは書かない）
 ・誇張しない
 ・押し売りしない
+・商品ページ・公式サイト・購入リンク・広告リンクへの直誘導はしない
+・http/https のURL文字列は出力しない
+・末尾に「プロフィールのリンクからご覧ください」につながる自然な一文を入れてよい（URLは付けない）
 ・ブランド名を [ブランド] の形で書かない
 ・ブランド名を出すなら「◯◯のアイテム」「◯◯らしい雰囲気」「◯◯で気になる一品」など、日本語の文中で自然につなげる
 ・ブランド名の出現は1回か2回までに抑える
@@ -186,26 +366,38 @@ ${title || "(未設定)"}
 ${body || "(未設定)"}
 `;
 
-  const res = await fetch("http://127.0.0.1:11434/api/generate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "gemma3:4b",
-      prompt,
-      stream: false,
-    }),
-  });
-
-  const data = (await res.json()) as { response?: string };
-  const caption = sanitizeCaption(data.response ?? "");
+  await assertOllamaAlive();
+  await warmUpOllamaModel();
+  const rawCaption = await callOllamaGenerate(prompt);
+  let caption = sanitizeCaption(rawCaption);
 
   if (!caption) {
-    throw new Error("caption生成に失敗しました");
+    throw new Error(
+      `Ollamaからcaptionが空で返されました (model=${OLLAMA_MODEL})。` +
+        ` モデル未取得の可能性: ollama pull ${OLLAMA_MODEL}`,
+    );
   }
 
-  return { caption, imageUrl };
+  if (blogUrlUsable) {
+    console.log(`blogUrl は保持のみ（IG本文にはURLを付けません）: ${blogUrl}`);
+  }
+
+  caption = appendProfileLead(caption);
+
+  return { caption, imageUrl, blogUrl, blogUrlUsable };
+}
+
+/** Instagram末尾はURLなしのプロフィール誘導に統一する */
+function appendProfileLead(caption: string): string {
+  const base = caption
+    .trim()
+    // LLMが付けたURL行を除去
+    .replace(/\n*https?:\/\/\S+/gi, "")
+    .replace(/\n*詳しくはブログ記事で紹介しています\s*$/u, "")
+    .trim();
+  const profileLine = "詳しくは、プロフィールのリンクからご覧ください";
+  if (base.includes("プロフィールのリンク")) return base;
+  return `${base}\n\n${profileLine}`;
 }
 
 /** LLM出力の前後のかぎ括弧・引用符を除去し、改行と角括弧挿入を整える */
@@ -234,16 +426,22 @@ function unwrapCaptionBrackets(text: string): string {
 }
 
 async function main() {
-  const { caption, imageUrl } = await generateCaption();
+  const { caption, imageUrl, blogUrl, blogUrlUsable } = await generateCaption();
 
   const result = {
     imageUrl,
     caption: normalizeCaption(caption),
+    blogUrl: blogUrlUsable ? blogUrl : "",
   };
 
   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf-8");
 
   console.log("caption生成成功");
+  console.log(
+    blogUrlUsable
+      ? `投稿モード: IGプロフィール誘導 / blogUrl保持=${blogUrl}`
+      : "投稿モード: IGプロフィール誘導 / blogUrl未整備",
+  );
   console.log(`postType: ${article.product?.postType ?? ""}`);
   console.log(`genre: ${article.product?.genre ?? ""}`);
   console.log(result.caption);
@@ -251,6 +449,7 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("生成エラー:", err);
+  const msg = err instanceof Error ? err.message : String(err);
+  console.error("生成エラー:", msg);
   process.exit(1);
 });

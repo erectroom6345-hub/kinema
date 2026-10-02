@@ -66,7 +66,8 @@ export class OllamaClient implements LlmClient {
         prompt,
         stream: false,
         options: {
-          num_predict: options?.json ? 1200 : 2048,
+          // ブログ本文は導入・本題・まとめで厚め。JSON（SNS）は短めのまま。
+          num_predict: options?.json ? 1200 : 3500,
         },
       }),
       signal: AbortSignal.timeout(this.timeoutMs),

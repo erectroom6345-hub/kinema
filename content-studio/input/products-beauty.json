@@ -6,15 +6,35 @@
       "category": "korean_cosmetics",
       "productName": "hinceのセール確認用商品",
       "productUrl": "https://example.com/hince-sale-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/korean-cosmetics-sale-check.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "sale",
       "genre": "韓国コスメ",
       "articleTitle": "セール中にチェックしたい韓国コスメ",
-      "articleBody": "話題になりやすい韓国コスメは、気になった時に早めに見ておきたいです。セール対象やポイント対象になっていることもあるので、詳細は商品ページで確認したいです。",
+      "articleBody": "話題になりやすい韓国コスメは、気になった時にブログで条件や雰囲気を整理しておきたいです。セール対象やポイントの有無も含め、詳しくはブログ記事で確認できます。",
       "labels": {
         "sale": true,
         "point": true,
         "conditionalDeal": true,
+        "detailCheck": true
+      }
+    },
+    {
+      "id": "beauty-sale-002",
+      "brand": "hince",
+      "category": "korean_cosmetics",
+      "productName": "blogUrlテスト用（翌朝Blogger記事URLを入れる）",
+      "productUrl": "https://example.com/hince-sale-auto-test",
+      "blogUrl": "",
+      "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
+      "postType": "sale",
+      "genre": "韓国コスメ",
+      "articleTitle": "blogUrlテスト：翌朝自動生成のBlogger個別記事URLを使う",
+      "articleBody": "Instagram誘導テスト用です。blogUrl は空のままにし、翌朝9時に自動生成・公開されたBloggerの個別記事URL（ブログトップではなく /年/月/記事.html 形式）を後からこの商品の blogUrl に貼り付けてから run-beauty.sh で確認します。商品・広告リンクは Instagram に直貼りしません。",
+      "labels": {
+        "sale": true,
+        "point": false,
+        "conditionalDeal": false,
         "detailCheck": true
       }
     }
@@ -26,6 +46,7 @@
       "category": "makeup",
       "productName": "コスメデコルテの定番メイク商品",
       "productUrl": "https://example.com/decorte-main-item",
+      "blogUrl": "https://beauty-diary-30s.blogspot.com/2026/10/30.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "main",
       "genre": "メイク用品",
@@ -38,11 +59,13 @@
         "detailCheck": true
       }
     },
-    {"id": "beauty-main-002",
+    {
+      "id": "beauty-main-002",
       "brand": "イプサ",
       "category": "skincare",
       "productName": "イプサの定番スキンケア商品",
       "productUrl": "https://example.com/ipsa-main-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/stable-skincare-pick.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "main",
       "genre": "スキンケア",
@@ -61,6 +84,7 @@
       "category": "supplement",
       "productName": "FANCLの美容サプリ確認用商品",
       "productUrl": "https://example.com/fancl-main-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/inner-care-supplement.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "main",
       "genre": "サプリ",
@@ -75,11 +99,13 @@
     }
   ],
   "niche": [
-    {"id": "beauty-niche-001",
+    {
+      "id": "beauty-niche-001",
       "brand": "hince",
       "category": "korean_cosmetics",
       "productName": "hinceの掘り出し物候補",
       "productUrl": "https://example.com/hince-niche-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/lesser-known-korean-cosmetics.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "niche",
       "genre": "韓国コスメ",
@@ -100,6 +126,7 @@
       "category": "makeup",
       "productName": "高嶺メイクの定番アイテム",
       "productUrl": "https://example.com/decorte-routine-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/everyday-makeup-notes.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "routine",
       "genre": "メイク用品",
@@ -112,11 +139,13 @@
         "detailCheck": true
       }
     },
-    {"id": "beauty-routine-002",
+    {
+      "id": "beauty-routine-002",
       "brand": "イプサ",
       "category": "skincare",
       "productName": "高嶺スキンケアの定番アイテム",
       "productUrl": "https://example.com/ipsa-routine-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/everyday-skincare-notes.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "routine",
       "genre": "スキンケア",
@@ -135,6 +164,7 @@
       "category": "special_care",
       "productName": "高嶺の特別ケア用アイテム",
       "productUrl": "https://example.com/skii-routine-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/special-care-notes.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "routine",
       "genre": "特別ケア",
@@ -147,11 +177,13 @@
         "detailCheck": true
       }
     },
-    {"id": "beauty-routine-004",
+    {
+      "id": "beauty-routine-004",
       "brand": "FANCL",
       "category": "supplement",
       "productName": "高嶺の内側ケア用アイテム",
       "productUrl": "https://example.com/fancl-routine-item",
+      "blogUrl": "https://YOURBLOG.blogspot.com/2026/09/inner-care-routine.html",
       "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
       "postType": "routine",
       "genre": "サプリ",

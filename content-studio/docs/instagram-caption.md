@@ -3,6 +3,16 @@
 `run-beauty.sh` → `src/generateInstagramCaption.ts` が生成経路。  
 `product.postType` と `product.genre` を必ず読む。
 
+## 誘導方針（重要）
+
+- Instagramは**集客用**。バリューコマース等の**広告・商品ページ直リンクは貼らない**
+- Instagram caption 末尾は **URLなし**。「詳しくは、プロフィールのリンクからご覧ください」のみ
+- `blogUrl`（Blogger個別記事）は X / Threads 用。IG本文には付けない（JSONには保持）
+  - ○ `https://beauty-diary-30s.blogspot.com/2026/09/記事スラッグ.html`
+  - × `https://beauty-diary-30s.blogspot.com/`（ブログトップは不可）
+- 自動取得: `run-beauty.sh` STEP2 `publishBeautyBlogger.ts` が未整備時に Blogger 公開し `product.blogUrl` へ書き戻す
+- `productUrl` は商品ページ確認用（任意）。Instagram caption には使わない
+
 ## genre（商品タイプ）
 
 | genre | 軸 |

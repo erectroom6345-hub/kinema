@@ -55,11 +55,14 @@ test("X は7本、Threads は3案を返す", () => {
   assert.match(sns.x[6] ?? "", /https:\/\/example.blogspot.com\/post/);
   assert.match(sns.instagram.caption, /疲れてしまうこと、ありませんか/);
   assert.match(sns.instagram.caption, /保存して/);
+  assert.match(sns.instagram.caption, /プロフィールのリンクからご覧ください/);
   assert.match(sns.instagram.caption, /※PR\s*$/);
+  assert.doesNotMatch(sns.instagram.caption, /https?:\/\//);
   assert.doesNotMatch(sns.instagram.caption, /疲れちゃった|ない？|あるよ|うれしいな/);
   assert.doesNotMatch(sns.instagram.caption, /^[^\n]*※PR/);
   assert.match(sns.threads[0] ?? "", /正解を探しすぎて|ありませんか/);
-  assert.match(sns.threads[0] ?? "", /※PR\s*$/);
+  assert.match(sns.threads[0] ?? "", /※PR/);
+  assert.match(sns.threads[0] ?? "", /https:\/\/example.blogspot.com\/post\s*$/);
   assert.doesNotMatch(sns.threads[0] ?? "", /なんか最近|止まっちゃう|置いておくね/);
   assert.match(sns.threads[0] ?? "", /？💭 .+/);
 });

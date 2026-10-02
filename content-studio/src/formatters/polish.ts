@@ -4,11 +4,16 @@ export function polishBlogMarkdown(markdown: string): string {
 }
 
 const KNOWN_HEADINGS = new Set([
+  "気になりやすいところ",
+  "選び方のヒント",
+  "自分に合いそうかの目安",
+  "導入",
+  "本題",
+  "まとめ",
   "はじめに",
   "よくあるつまずき",
   "考え方の整理",
   "今日からできること",
-  "まとめ",
   "どんな人に向きやすいか",
   "見るべきポイント",
   "使い方のヒント",
@@ -32,7 +37,10 @@ export function buildPublicBody(raw: string): string {
 }
 
 function hasArticleStructure(value: string): boolean {
-  return /はじめに/.test(value) && /まとめ/.test(value);
+  return (
+    /(?:導入|はじめに|気になりやすい|選び方)/.test(value) &&
+    /(?:まとめ|合いそうか|目安)/.test(value)
+  ) || /特徴を見るとき|選びやすい理由/.test(value);
 }
 
 function extractPublicRange(text: string): string {
