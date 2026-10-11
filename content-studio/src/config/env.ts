@@ -51,7 +51,8 @@ export function getConfig(): AppConfig {
     openaiModel: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
     ollamaBaseUrl: process.env.OLLAMA_BASE_URL ?? "http://127.0.0.1:11434",
     ollamaModel: process.env.OLLAMA_MODEL ?? "gemma3:4b",
-    ollamaTimeoutMs: Number(process.env.OLLAMA_TIMEOUT_MS ?? "600000") || 600_000,
+    // 朝/手動は ollamaRuntime 側で上書きされる。ここは手動既定の保険値。
+    ollamaTimeoutMs: Number(process.env.OLLAMA_TIMEOUT_MS ?? "180000") || 180_000,
     bloggerApiKey: process.env.BLOGGER_API_KEY ?? "",
     bloggerBlogId: process.env.BLOGGER_BLOG_ID ?? "",
     bloggerClientId: process.env.BLOGGER_CLIENT_ID ?? "",

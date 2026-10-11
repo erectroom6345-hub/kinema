@@ -2,7 +2,8 @@
  * beauty 経路用: article.json のメモ本文を膨らませて Blogger 公開し、URL を blogUrl に書き戻す。
  * - Blogger本文は createBlogDraft で生成（Ollama失敗時は必ずフォールバック）
  * - article.body（短いメモ）は Instagram 用に残し、blogBody に公開本文を保存
- * - 既に有効な blogUrl がある場合は公開をスキップ
+ * - 既定: 毎回新しい Blogger 記事を公開（日次投稿で本文が作られないのを防ぐ）
+ * - 既存URL流用だけしたい時は BLOGGER_REUSE_EXISTING_URL=true
  * - Instagram caption には URL を入れない（保持のみ。X/Threads 向け）
  */
 import "dotenv/config";
@@ -19,10 +20,51 @@ import {
   type BlogGenerationSource,
 } from "./services/blog.ts";
 import { publicBodyToHtml } from "./formatters/polish.ts";
+import {
+  collectSharedCatalogImageUrls,
+  enrichContentHtml,
+  extractImageSrcs,
+  isFixedSharedImageUrl,
+  isUsableAffiliateUrl,
+  isUsableImageUrl,
+  resolveProductImageForBackfill,
+} from "./services/bloggerContentEnrich.ts";
+import { logOllamaRuntime } from "./config/ollamaRuntime.ts";
 
 const articlePath = "input/article.json";
 const productsPath = "input/products-beauty.json";
 const outBodyPath = path.resolve("output", "last-blogger-body.txt");
+const outHtmlPath = path.resolve("output", "last-blogger-content.html");
+const blogReadyPath = path.resolve("output", "blog-ready.json");
+
+type ImageStatus = "ok" | "missing" | "broken" | "fixed-skipped";
+
+function writeBlogReady(payload: {
+  ok: boolean;
+  mode: "published" | "reused" | "sample" | "failed";
+  blogUrl?: string;
+  productId?: string;
+  reason?: string;
+  imageStatus?: ImageStatus;
+  imageUrl?: string;
+  imageSource?: string;
+  imageCount?: number;
+  warning?: string;
+}): void {
+  fs.mkdirSync(path.dirname(blogReadyPath), { recursive: true });
+  fs.writeFileSync(
+    blogReadyPath,
+    `${JSON.stringify(
+      {
+        ...payload,
+        at: new Date().toISOString(),
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
+}
 
 interface ArticleFile {
   title?: string;
@@ -37,6 +79,9 @@ interface ArticleFile {
     genre?: string;
     postType?: string;
     blogUrl?: string;
+    /** アフィリエイト/商品詳細URL（仮URLは本文に載せない） */
+    url?: string;
+    imageUrl?: string;
   };
 }
 
@@ -51,7 +96,113 @@ interface ProductsFile {
 interface ProductItem {
   id: string;
   blogUrl?: string;
+  imageUrl?: string;
+  productUrl?: string;
   [key: string]: unknown;
+}
+
+function allCatalogImageUrls(products: ProductsFile): string[] {
+  const out: string[] = [];
+  for (const key of Object.keys(products)) {
+    const arr = products[key];
+    if (!Array.isArray(arr)) continue;
+    for (const item of arr) {
+      const u = String(item?.imageUrl || "").trim();
+      if (u) out.push(u);
+    }
+  }
+  return out;
+}
+
+async function isImageUrlReachable(url: string): Promise<boolean> {
+  const tryOnce = async (method: string, headers?: Record<string, string>) => {
+    const res = await fetch(url, {
+      method,
+      headers: {
+        "User-Agent": "content-studio-image-check/1.0",
+        Accept: "image/*,*/*",
+        ...(headers || {}),
+      },
+      redirect: "follow",
+      signal: AbortSignal.timeout(12000),
+    });
+    if (res.ok || res.status === 206) {
+      const ct = (res.headers.get("content-type") || "").toLowerCase();
+      if (!ct || ct.startsWith("image/") || ct.includes("octet-stream")) return true;
+    }
+    return false;
+  };
+  try {
+    if (await tryOnce("HEAD")) return true;
+  } catch {
+    /* fall through */
+  }
+  try {
+    return await tryOnce("GET", { Range: "bytes=0-1023" });
+  } catch {
+    return false;
+  }
+}
+
+async function resolvePublishImage(opts: {
+  catalogImageUrl: string;
+  productPageUrl: string;
+  sharedCatalogUrls: string[];
+}): Promise<{
+  imageUrl: string;
+  imageSource: string;
+  imageStatus: ImageStatus;
+  warning?: string;
+}> {
+  const catalog = (opts.catalogImageUrl || "").trim();
+  if (catalog && isFixedSharedImageUrl(catalog, opts.sharedCatalogUrls)) {
+    console.warn(
+      `WARN: catalog.imageUrl は固定共有画像のため商品画像扱いしない: ${catalog}`,
+    );
+  }
+
+  // 方針: 必ず公式商品ページから実画像を優先解決する。
+  // 固定画像のホットリンク成功扱いは再発させない。
+  const pageFirst = await resolveProductImageForBackfill({
+    catalogImageUrl: "", // catalog は後段。固定画像混入を避ける
+    productPageUrl: opts.productPageUrl,
+    sharedCatalogUrls: opts.sharedCatalogUrls,
+  });
+  const catalogFallback =
+    catalog &&
+    isUsableImageUrl(catalog) &&
+    !isFixedSharedImageUrl(catalog, opts.sharedCatalogUrls)
+      ? { url: catalog, source: "catalog.imageUrl" }
+      : null;
+  const resolved = pageFirst || catalogFallback;
+
+  if (!resolved) {
+    const warning =
+      "商品画像0件: 公式ページから実画像を解決できず、usable な catalog も無い（本文のみ公開 / partial）";
+    console.warn(`WARN: ${warning}`);
+    return { imageUrl: "", imageSource: "", imageStatus: "missing", warning };
+  }
+
+  const reachable = await isImageUrlReachable(resolved.url);
+  if (!reachable) {
+    const warning = `商品画像URLに到達できない(403等)のため挿入スキップ: ${resolved.url} (source=${resolved.source})`;
+    console.warn(`WARN: ${warning}`);
+    return {
+      imageUrl: resolved.url,
+      imageSource: resolved.source,
+      imageStatus: "broken",
+      warning,
+    };
+  }
+
+  console.log(
+    `商品画像確定: source=${resolved.source} url=${resolved.url}`,
+  );
+  return {
+    imageUrl: resolved.url,
+    imageSource: resolved.source,
+    imageStatus: "ok",
+  };
 }
 
 function readJson<T>(filePath: string): T {
@@ -192,9 +343,15 @@ async function generateBloggerBody(article: ArticleFile): Promise<{
   const title = (article.title || "").trim();
   const sourceBody = (article.body || "").trim();
   const genre = (article.product?.genre || config.defaultGenre || "beauty").trim();
+  const brand = (article.product?.brand || "").trim();
+  const productName = (article.product?.name || "").trim();
   const topic =
-    (article.product?.name || article.product?.brand || title || genre).trim() || "美容";
+    [brand, productName].filter(Boolean).join(" ") ||
+    title ||
+    genre ||
+    "美容";
   const isPr = Boolean(article.affiliateNote && article.affiliateNote.trim());
+  console.log(`Blogger題材: brand=${brand || "-"} productName=${productName || "-"} topic=${topic}`);
 
   const analysis = analyzeArticle({
     title,
@@ -252,6 +409,7 @@ async function generateBloggerBody(article: ArticleFile): Promise<{
 async function main(): Promise<void> {
   loadEnv();
   const config = getConfig();
+  logOllamaRuntime();
 
   if (!fs.existsSync(articlePath)) {
     throw new Error(`${articlePath} がありません。先に商品選択を実行してください。`);
@@ -270,14 +428,23 @@ async function main(): Promise<void> {
     throw new Error("article.json に product.id が必要です");
   }
 
-  // 本文生成は公開スキップ時も実行可（SAMPLE_BLOG_BODY=1 または 公開が必要なとき）
+  // 本文生成は公開スキップ時も実行可（SAMPLE_BLOG_BODY=1）
   const forceSample = process.env.SAMPLE_BLOG_BODY === "1";
-  const needPublish = isUnusableBlogUrl(existing);
+  const reuseExisting =
+    String(process.env.BLOGGER_REUSE_EXISTING_URL || "").toLowerCase() === "true" &&
+    !isUnusableBlogUrl(existing);
+  const needPublish = !reuseExisting && !forceSample;
 
-  if (!needPublish && !forceSample) {
-    console.log(`既存の有効な blogUrl を使用（Blogger公開スキップ）: ${existing}`);
+  if (reuseExisting && !forceSample) {
+    console.log(`BLOGGER_REUSE_EXISTING_URL=true のため公開スキップ: ${existing}`);
     console.log("※ Instagram caption には URL を入れません（X/Threads 用に保持）");
-    console.log("※ 本文サンプルだけ欲しい場合は SAMPLE_BLOG_BODY=1 で実行");
+    writeBlogReady({
+      ok: true,
+      mode: "reused",
+      blogUrl: existing,
+      productId,
+      reason: "BLOGGER_REUSE_EXISTING_URL",
+    });
     return;
   }
 
@@ -289,7 +456,17 @@ async function main(): Promise<void> {
 
   if (!needPublish) {
     console.log("SAMPLE_BLOG_BODY=1 のため公開はスキップ（本文サンプルのみ保存）");
+    writeBlogReady({
+      ok: false,
+      mode: "sample",
+      productId,
+      reason: "SAMPLE_BLOG_BODY=1（公開なし→SNS不可）",
+    });
     return;
+  }
+
+  if (existing && !isUnusableBlogUrl(existing)) {
+    console.log(`既存 blogUrl あり → 新規記事を公開して差し替えます: ${existing}`);
   }
 
   const blogId = config.bloggerBlogId.trim();
@@ -298,8 +475,51 @@ async function main(): Promise<void> {
   }
 
   const client = createBloggerClient();
-  const contentHtml =
+  const products = readJson<ProductsFile>(productsPath);
+  const sharedCatalogUrls = collectSharedCatalogImageUrls(allCatalogImageUrls(products));
+  const catalogImageUrl = (article.product?.imageUrl || "").trim();
+  const productPageUrl = (article.product?.url || "").trim();
+
+  console.log(
+    `[blogger:image] catalogImageUrl=${catalogImageUrl || "(空)"}` +
+      ` fixed=${catalogImageUrl ? isFixedSharedImageUrl(catalogImageUrl, sharedCatalogUrls) : false}` +
+      ` productPageUrl=${productPageUrl || "(空)"}`,
+  );
+
+  const imageResolved = await resolvePublishImage({
+    catalogImageUrl,
+    productPageUrl,
+    sharedCatalogUrls,
+  });
+  const publishImageUrl =
+    imageResolved.imageStatus === "ok" ? imageResolved.imageUrl : "";
+
+  const baseHtml =
     generated.contentHtml.trim() || bodyToHtml(generated.publicBody, article.affiliateNote);
+  const contentHtml = enrichContentHtml(baseHtml, {
+    productId,
+    productName: (article.product?.name || "").trim(),
+    productUrl: productPageUrl,
+    imageUrl: publishImageUrl,
+    // affiliateNote は enrich 側でリンク直下に付ける（baseHtml 側の重複は許容）
+    affiliateNote: "",
+    sharedCatalogUrls,
+  });
+  const insertedImgCount = extractImageSrcs(contentHtml).filter(
+    (src) => !isFixedSharedImageUrl(src, sharedCatalogUrls),
+  ).length;
+  if (insertedImgCount === 0) {
+    console.warn(
+      "WARN: 最終HTMLの商品画像枚数=0（画像なしのまま公開します / partial warning）",
+    );
+  } else {
+    console.log(`最終HTMLの商品画像枚数=${insertedImgCount}`);
+  }
+
+  // 公開前に enrich 済みHTMLも残す（last-blogger-body.txt はプレーン本文）
+  fs.mkdirSync(path.dirname(outHtmlPath), { recursive: true });
+  fs.writeFileSync(outHtmlPath, `${contentHtml}\n`, "utf8");
+
   const labels = [article.product?.genre, article.product?.postType]
     .map((v) => (v || "").trim())
     .filter(Boolean);
@@ -308,6 +528,12 @@ async function main(): Promise<void> {
   console.log(`blogId=${blogId}`);
   console.log(`title=${generated.title}`);
   console.log(`bodySource=${generated.generationSource}`);
+  console.log(
+    `affiliateUrl=${isUsableAffiliateUrl(productPageUrl) ? "yes" : "no"}` +
+      ` productImage=${imageResolved.imageStatus === "ok" ? "yes" : "no"}` +
+      ` imageStatus=${imageResolved.imageStatus}` +
+      ` imageSource=${imageResolved.imageSource || "-"}`,
+  );
 
   const result = await client.saveDraft({
     blogId,
@@ -325,7 +551,35 @@ async function main(): Promise<void> {
   // 公開に使った本文を再保存（最終確定）
   savePostedBody(generated.publicBody, generated.generationSource);
 
-  article.product = { ...article.product, id: productId, blogUrl };
+  // 実画像が取れたら article / catalog に書き戻す（次回の固定画像混入を防ぐ）
+  if (imageResolved.imageStatus === "ok" && publishImageUrl) {
+    article.product = {
+      ...article.product,
+      id: productId,
+      blogUrl,
+      imageUrl: publishImageUrl,
+    };
+    try {
+      const nextProducts = readJson<ProductsFile>(productsPath);
+      for (const key of Object.keys(nextProducts)) {
+        const arr = nextProducts[key];
+        if (!Array.isArray(arr)) continue;
+        const hit = arr.find((p) => p?.id === productId);
+        if (hit) {
+          hit.imageUrl = publishImageUrl;
+          writeJson(productsPath, nextProducts);
+          console.log(`products-beauty.json に imageUrl を書き戻しました: ${productId}`);
+          break;
+        }
+      }
+    } catch (err) {
+      console.warn(
+        `products imageUrl 書き戻しスキップ: ${err instanceof Error ? err.message : err}`,
+      );
+    }
+  } else {
+    article.product = { ...article.product, id: productId, blogUrl };
+  }
   writeJson(articlePath, article);
   writeBackProductBlogUrl(productId, blogUrl);
 
@@ -335,6 +589,11 @@ async function main(): Promise<void> {
   console.log(`bodySource=${generated.generationSource}`);
   console.log("article.json の product.blogUrl を更新しました");
   console.log("※ Instagram caption には URL を入れません（X/Threads 用に保持）");
+  if (imageResolved.imageStatus !== "ok") {
+    console.warn(
+      `WARN: partial — Bloggerは公開したが商品画像なし imageStatus=${imageResolved.imageStatus}`,
+    );
+  }
 
   fs.writeFileSync(
     path.join(path.resolve("output"), "last-blogger-publish.json"),
@@ -346,16 +605,40 @@ async function main(): Promise<void> {
         title: generated.title,
         blogBodyChars: [...generated.publicBody].length,
         bodySource: generated.generationSource,
+        imageStatus: imageResolved.imageStatus,
+        imageUrl: publishImageUrl || imageResolved.imageUrl || "",
+        imageSource: imageResolved.imageSource || "",
+        imageCount: insertedImgCount,
       },
       null,
       2,
     )}\n`,
     "utf8",
   );
+  writeBlogReady({
+    ok: true,
+    mode: "published",
+    blogUrl,
+    productId,
+    imageStatus: imageResolved.imageStatus,
+    imageUrl: publishImageUrl || imageResolved.imageUrl || "",
+    imageSource: imageResolved.imageSource || "",
+    imageCount: insertedImgCount,
+    warning: imageResolved.warning,
+  });
 }
 
 main().catch((err) => {
   const msg = err instanceof Error ? err.message : String(err);
   console.error("Blogger公開エラー:", msg);
+  try {
+    writeBlogReady({
+      ok: false,
+      mode: "failed",
+      reason: msg.slice(0, 300),
+    });
+  } catch {
+    /* ignore */
+  }
   process.exit(1);
 });

@@ -1,11 +1,26 @@
 {
-  "imageUrl": "https://erectroom6345-hub.github.io/instagram-cards/beauty-main-001-20261002-215147.png",
-  "caption": "毎日のメイクに、上質なアイテムを少しずつ取り入れてみるのも素敵ですね。\nコスメデコルテらしい雰囲気 で気になる一品を見つけて、\nあなたらしい美しさを育んでみませんか？\nプロフィールのリンクからご覧ください。",
-  "blogUrl": "https://beauty-diary-30s.blogspot.com/2026/10/30.html",
+  "imageUrl": "https://erectroom6345-hub.github.io/instagram-cards/living-kitchen-001-20261011-182024-s1.png",
+  "caption": "キッチン、使うたびに少し散らかってストレスになっていませんか。\n「ワンタッチ開閉の密閉保存容器セット」に変えると、取り出しと片付けが一息楽になりそうです。\nワンタッチ開閉なのがポイントです。\n詳しくは、プロフィールのリンクからご覧ください ※PR",
+  "blogUrl": "https://kurashi-soubiroku.blogspot.com/p/blog-page.html",
+  "blogUtmUrl": "https://kurashi-soubiroku.blogspot.com/p/blog-page.html?utm_source=instagram&utm_medium=social&utm_campaign=living_living-kitchen-001&utm_content=instagram_20261011",
+  "threadsText": "キッチン、使うたびに少し散らかってストレスになっていませんか。\n「ワンタッチ開閉の密閉保存容器セット」に変えると、取り出しと片付けが一息楽になりそうです。\nワンタッチ開閉なのがポイントです。\nhttps://kurashi-soubiroku.blogspot.com/p/blog-page.html?utm_source=threads&utm_medium=social&utm_campaign=living_living-kitchen-001&utm_content=threads_20261011",
+  "threadsUtmUrl": "https://kurashi-soubiroku.blogspot.com/p/blog-page.html?utm_source=threads&utm_medium=social&utm_campaign=living_living-kitchen-001&utm_content=threads_20261011",
+  "xText": "キッチン、使うたびに少し散らかってストレスになっていませんか。\n「ワンタッチ開閉の密閉保存容器セット」に変えると、取り出しと片付けが一息楽になりそうです。 ※PR\nhttps://kurashi-soubiroku.blogspot.com/p/blog-page.html?utm_source=x&utm_medium=social&utm_campaign=living_living-kitchen-001&utm_content=x_20261011",
+  "xUtmUrl": "https://kurashi-soubiroku.blogspot.com/p/blog-page.html?utm_source=x&utm_medium=social&utm_campaign=living_living-kitchen-001&utm_content=x_20261011",
+  "genre": "living",
+  "productName": "ワンタッチ開閉の密閉保存容器セット",
+  "category": "kitchen",
+  "productId": "living-kitchen-001",
+  "cta": "fixed_page",
+  "pr": true,
   "imageSource": "template-card",
-  "productUrl": "https://example.com/decorte-main-item",
-  "productName": "コスメデコルテの定番メイク商品",
-  "brand": "コスメデコルテ",
-  "genre": "メイク用品",
-  "postType": "main"
+  "productUrl": "https://item.rakuten.co.jp/sample-shop/living-kitchen-001/",
+  "brand": "",
+  "postType": "main",
+  "imageUrls": [
+    "https://erectroom6345-hub.github.io/instagram-cards/living-kitchen-001-20261011-182024-s1.png",
+    "https://erectroom6345-hub.github.io/instagram-cards/living-kitchen-001-20261011-182024-s2.png",
+    "https://erectroom6345-hub.github.io/instagram-cards/living-kitchen-001-20261011-182024-s3.png"
+  ],
+  "mediaType": "carousel"
 }

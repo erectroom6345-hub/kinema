@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.miyasakaharuki.threads-auto-reply</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/run-threads-auto-reply.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <key>HOME</key>
+      <string>/Users/miyasakaharuki</string>
+    </dict>
+
+    <!-- 2時間ごと（投稿フロー 9:00 とは別） -->
+    <key>StartInterval</key>
+    <integer>7200</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/threads-auto-reply.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/threads-auto-reply.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+  </dict>
+</plist>

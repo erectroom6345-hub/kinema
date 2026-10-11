@@ -81,11 +81,13 @@ const posted = JSON.parse(fs.readFileSync(path.join(root, 'data/posted-beauty.js
 const all = [...(products.sale||[]), ...(products.main||[]), ...(products.niche||[]), ...(products.routine||[])];
 const unposted = all.filter(p => !posted.includes(p.id));
 console.log('未投稿件数:', unposted.length);
-console.log('次に選ばれる候補:', unposted[0]?.id || '(なし→ローテ)');
-if (!unposted.some(p => p.id === 'beauty-sale-002')) {
+console.log('次に選ばれる候補:', unposted[0]?.id || '(なし→日次は停止。recycleは別入口)');
+if (!unposted.length) {
+  console.warn('注意: 未投稿在庫が0です。本番日次は停止します（recycle には自動で入りません）');
+} else if (!unposted.some(p => p.id === 'beauty-sale-002')) {
   console.warn('注意: beauty-sale-002 が未投稿リストにありません');
 } else {
-  console.log('テスト商品 beauty-sale-002 は未投稿です（優先選択される想定）');
+  console.log('テスト商品 beauty-sale-002 は未投稿です');
 }
 NODE
 

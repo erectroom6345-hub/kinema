@@ -1,16 +1,44 @@
 {
-  "title": "30代の毎日メイクに合わせやすい上質コスメ",
-  "body": "毎日のメイクに少し上質なアイテムを入れると、全体の雰囲気が整いやすいです。高嶺のメイクは、少し高めでも使いやすいものを選ぶイメージでまとめています。",
+  "title": "食材の片付けが楽になる密閉保存容器",
+  "body": "冷蔵庫を開けるたびに迷子になりやすいので、ワンタッチ開閉の密閉保存容器が気になっています。",
+  "selectedSource": "unposted",
+  "pipelineGenre": "living",
   "product": {
-    "id": "beauty-main-001",
-    "name": "コスメデコルテの定番メイク商品",
-    "brand": "コスメデコルテ",
-    "category": "makeup",
-    "genre": "メイク用品",
-    "url": "https://example.com/decorte-main-item",
-    "blogUrl": "https://beauty-diary-30s.blogspot.com/2026/10/30.html",
+    "id": "living-kitchen-001",
+    "productId": "living-kitchen-001",
+    "name": "ワンタッチ開閉の密閉保存容器セット",
+    "category": "kitchen",
+    "description": "冷蔵庫やパントリーで食材を分けて置ける密閉容器。重ね置きしやすく、朝の取り出しを短くしたい人向け。",
+    "priceRange": "1,500〜3,000円",
+    "features": [
+      "ワンタッチ開閉",
+      "重ねて省スペース",
+      "中身が見やすい"
+    ],
+    "genre": "living",
+    "pipelineGenre": "living",
+    "url": "https://item.rakuten.co.jp/sample-shop/living-kitchen-001/",
+    "rakutenUrl": "https://item.rakuten.co.jp/sample-shop/living-kitchen-001/",
+    "blogUrl": "",
     "imageUrl": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW4JfEEtyjdC0NLm9XLAiqaudEHGVhAMbJxZ8Xe_5xiQJCD_uE7KW9LVKaANsOiXSlsFhJyopzfR6EYgkOh2Ia2R-m5_bWZnENig6gMh4XRG5fkIEKR_wyk5iCOORSN_MilFf5QXqoJ5koiwQOEMgVCXdFwuu4lOiTPv-sfZ19yn9UC1Rd6lYiaWqURlko/s1600/instagram-post-01.jpg",
-    "postType": "main"
+    "postType": "main",
+    "seed": true,
+    "labels": {
+      "sale": false,
+      "campaign": false,
+      "popular": true,
+      "campaignEndAt": "",
+      "saleEndAt": ""
+    },
+    "interrupt": null
   },
-  "affiliateNote": "詳細は商品ページで確認"
+  "affiliateNote": "人気候補。目安価格: 1,500〜3,000円。ポイント: ワンタッチ開閉 / 重ねて省スペース / 中身が見やすい",
+  "schedule": {
+    "weekday": "sun",
+    "scheduledCategory": "kitchen",
+    "chosenCategory": "kitchen",
+    "usedFallback": false,
+    "interrupt": null,
+    "interruptsUsedThisWeek": 2
+  }
 }

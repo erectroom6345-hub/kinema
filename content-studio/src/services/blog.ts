@@ -141,6 +141,11 @@ export function buildFallbackBlogBody(params: {
   isPr: boolean;
   blogName: string;
 }): string {
+  const genreKey = (params.genre || "").trim().toLowerCase();
+  if (genreKey === "living" || genreKey === "暮らし便利グッズ") {
+    return buildLivingFallbackBlogBody(params);
+  }
+
   const prLine = params.isPr ? "※本記事にはPRを含みます。\n\n" : "";
   const memo = params.sourceBody.trim() || params.topic;
   const hook =
@@ -176,6 +181,51 @@ ${memo}
 完璧な正解を探すより、「今の自分に無理なく続きそうか」で見ると判断しやすくなります。気になる点があれば、条件をひとつ書き出してから読み返してみてください。合う・合わないは人それぞれなので、今回の整理は答えの押し付けではなく、選ぶ前のメモとして使ってもらえたらうれしいです。
 
 迷ったときは、特徴・向き不向き・使うシーンの3点だけ思い出せば十分です。長く悩むより、一度メモを置いて翌日に見直すくらいのペースでも大丈夫です。必要以上に急がず、自分のペースで選んでみてください。${params.blogName}では、その判断の軸だけ先に持ち帰れるようにしています。
+`;
+
+  return body.trim() + "\n";
+}
+
+function buildLivingFallbackBlogBody(params: {
+  title: string;
+  topic: string;
+  sourceBody: string;
+  analysis: ArticleAnalysis;
+  isPr: boolean;
+  blogName: string;
+}): string {
+  const prLine = params.isPr ? "※本記事にはPRを含みます。\n\n" : "";
+  const memo = params.sourceBody.trim() || params.topic;
+  const hook =
+    params.analysis.suggested_hooks[0]?.trim() ||
+    `${params.topic}を暮らしの導線で見直すときのメモです`;
+  const hook2 =
+    params.analysis.suggested_hooks[1]?.trim() ||
+    "比較しすぎる前に、置き場所と使い方をひとつ決めると迷いが減ります";
+  const hookSentence = /[。．!?！？]$/.test(hook) ? hook : `${hook}。`;
+  const hook2Sentence = /[。．!?！？]$/.test(hook2) ? hook2 : `${hook2}。`;
+
+  const body = `${params.title}
+
+${prLine}${params.topic}を探し始めると、似た商品が多くて「結局どれが自分の暮らしに合いそうか」が分かりにくくなること、ありませんか。口コミやランキングを見ても、収納スペースや家事のペースまではすぐに判断しづらいものです。
+
+忙しい朝や、買い出し後の片付けなど、短いメモだけだと判断材料が足りず、かえって迷いが増えることもあります。ここでは効果を断定したり急かしたりせず、選ぶ前の整理として${params.topic}を見る視点をやさしくまとめていきます。
+
+${memo}
+
+特徴を見るときは、見た目だけでなく、置きやすさ・開け閉めのしやすさ・掃除や片付けの手間もセットで考えると選びやすいです。価格帯だけで決めず、「毎日の動線に無理なく入りそうか」を先に置くと、あとから後悔しにくくなります。
+
+選びやすい理由は、スペックを全部覚えることより、自分の条件をひとつ決めてから候補を絞ることです。たとえばキッチンか玄関か、毎日使うのか週末だけなのか。条件がはっきりすると、向いている人・向いていない人の線引きもしやすくなります。${hookSentence}
+
+向いている人は、調べすぎて疲れやすい人や、まずは小さな改善から整えたい人です。完璧な正解を探すより、今の暮らしに負担が少ない選択肢を残しておきたい人にも合いやすいです。反対に、特殊な用途だけを求める場合は、別の切り口の方が参考になるかもしれません。
+
+使うシーンとしては、朝の支度前にさっと取りたいとき、帰宅後にすぐ片付けたいとき、週末にまとめて整えたいときなどが想像しやすいです。同じアイテムでも、置き場所や組み合わせ次第で印象が変わるので、「いつ・どこで使いたいか」を一緒に考えてみると判断が楽になります。
+
+実際に候補を見るときは、話題性だけでなく、手に取る頻度・手入れの手間・他の道具との相性も軽く想像してみてください。${hook2Sentence}そのうえで「今日の暮らしにちょうどよさそうか」を残しておくと、あとで読み返したときにも役立ちます。
+
+完璧な正解を探すより、「今の自分の動線に無理なく続きそうか」で見ると判断しやすくなります。気になる点があれば、条件をひとつ書き出してから読み返してみてください。合う・合わないは人それぞれなので、今回の整理は答えの押し付けではなく、選ぶ前のメモとして使ってもらえたらうれしいです。
+
+迷ったときは、特徴・向き不向き・使うシーンの3点だけ思い出せば十分です。長く悩むより、一度メモを置いて翌日に見直すくらいのペースでも大丈夫です。${params.blogName}では、その判断の軸だけ先に持ち帰れるようにしています。
 `;
 
   return body.trim() + "\n";

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.miyasakaharuki.contentstudio-living</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/run-living.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <key>HOME</key>
+      <string>/Users/miyasakaharuki</string>
+      <key>CONTENT_PIPELINE_GENRE</key>
+      <string>living</string>
+      <key>POSTED_PRODUCTS_PATH</key>
+      <string>data/posted-living.json</string>
+      <key>LIVING_X_ENABLED</key>
+      <string>false</string>
+      <key>THREADS_AUTO_REPLY</key>
+      <string>false</string>
+      <key>OLLAMA_CAPTION_FALLBACK</key>
+      <string>true</string>
+    </dict>
+
+    <!-- 美容(9:00)のあと。IG/Threads のみ（X オフ） -->
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key>
+      <integer>10</integer>
+      <key>Minute</key>
+      <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/living-cron.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/living-cron.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+  </dict>
+</plist>

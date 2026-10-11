@@ -1,0 +1,17 @@
+{
+  "_comment": "一次ソース用のセール期間ストア。sync-beauty-sale-windows.cjs が自動更新する。手動編集しない。",
+  "updatedAt": "2026-10-11",
+  "provider": "official-page",
+  "items": {
+    "beauty-sale-001": {
+      "saleStart": "2026-09-29",
+      "saleEnd": "2026-11-13",
+      "source": "official-page:official-html-comment",
+      "pageUrl": "https://hince.jp/c/category/face/HC021",
+      "raw": "【11/13まで】",
+      "brand": "hince",
+      "productName": "トゥルーディメンションラディアンスバーム",
+      "syncedAt": "2026-10-11T00:00:07.390Z"
+    }
+  }
+}

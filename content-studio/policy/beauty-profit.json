@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "timezone": "Asia/Tokyo",
+  "_comment": "料率データ無し前提のハイブリッド利潤近似。セール緊急度×過去KPI×多様性。",
+  "recentBrandWindow": 3,
+  "recentPerfDays": 60,
+  "nicheCategories": [
+    "special_care"
+  ],
+  "weights": {
+    "saleBucket": 40,
+    "saleLabel": 15,
+    "saleUrgencyMax": 50,
+    "brandReach": 0.15,
+    "brandSaved": 2,
+    "brandInteractions": 0.5,
+    "categoryReach": 0.05,
+    "categorySaved": 0.5,
+    "noveltyUnposted": 25,
+    "noveltyLowPost": 10,
+    "brandDiversityPenalty": -30,
+    "recycleDaysSince": 0.8,
+    "recycleSuccessBonus": 15
+  }
+}

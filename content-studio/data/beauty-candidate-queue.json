@@ -1,0 +1,4430 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-11T00:00:13.147Z",
+  "items": [
+    {
+      "id": "cand-7061b971e1",
+      "brand": "hince",
+      "productName": "ヌー・グロウホワイトクッション",
+      "productUrl": "https://hince.jp/c/category/face/HC390",
+      "imageUrl": "https://hince.itembox.cloud/product/003/000000000369/000000000369-01.jpg?size&#x3D;l&w&#x3D;ODAw&t&#x3D;20260818122031",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.165Z",
+      "updatedAt": "2026-10-07T05:14:11.733Z",
+      "promotedAt": "2026-10-07T05:14:11.733Z",
+      "catalogId": "beauty-auto-7061b971e1"
+    },
+    {
+      "id": "cand-70cc0f2f08",
+      "brand": "hince",
+      "productName": "詳しくはこちら",
+      "productUrl": "https://hince.jp/c/event/2023",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "rejected",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": false,
+        "status": "rejected",
+        "reasons": [
+          "campaign_page_without_sku"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": false,
+          "pathOk": false,
+          "nameOk": false,
+          "bannedClean": false,
+          "notInCatalog": false,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-11T00:00:13.139Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-70cc0f2f08"
+    },
+    {
+      "id": "cand-6ae6819fc1",
+      "brand": "hince",
+      "productName": "ハグレイヤーチーク",
+      "productUrl": "https://hince.jp/c/category/face/HC383",
+      "imageUrl": "https://hince.itembox.cloud/product/003/000000000368/000000000368-01.jpg?size&#x3D;l&w&#x3D;ODAw&t&#x3D;20260706153736",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-07T05:14:11.734Z",
+      "promotedAt": "2026-10-07T05:14:11.734Z",
+      "catalogId": "beauty-auto-6ae6819fc1"
+    },
+    {
+      "id": "cand-210de3467a",
+      "brand": "hince",
+      "productName": "ニュー・ブラーティント",
+      "productUrl": "https://hince.jp/c/category/lip/HC308",
+      "imageUrl": "https://hince.itembox.cloud/product/003/000000000337/000000000337-01.jpg?size&#x3D;l&w&#x3D;ODAw&t&#x3D;20260220144325",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-07T05:15:02.856Z",
+      "promotedAt": "2026-10-07T05:15:02.856Z",
+      "catalogId": "beauty-auto-210de3467a"
+    },
+    {
+      "id": "cand-bf2baf0862",
+      "brand": "hince",
+      "productName": "【最大￥3,971 お得！】hinceスターターセット",
+      "productUrl": "https://hince.jp/c/event/2026/uvbasemake/HCSET055",
+      "imageUrl": "https://hince.itembox.cloud/product/002/000000000284/000000000284-01.jpg?size&#x3D;l&w&#x3D;ODAw&t&#x3D;20260902163329",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-07T05:15:02.856Z",
+      "promotedAt": "2026-10-07T05:15:02.856Z",
+      "catalogId": "beauty-auto-bf2baf0862"
+    },
+    {
+      "id": "cand-37b4d7931b",
+      "brand": "hince",
+      "productName": "",
+      "productUrl": "https://hince.jp/c/event/2026/uvpowder_primer",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "rejected",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": false,
+        "status": "rejected",
+        "reasons": [
+          "campaign_page_without_sku"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": false,
+          "pathOk": false,
+          "nameOk": false,
+          "bannedClean": false,
+          "notInCatalog": false,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-11T00:00:13.139Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-37b4d7931b"
+    },
+    {
+      "id": "cand-7d2f5b5eae",
+      "brand": "hince",
+      "productName": "--> 【12/1～12/25】セット商品ご購入でギフトラッピング無料",
+      "productUrl": "https://hince.jp/information/379/",
+      "imageUrl": "https://www.facebook.com/tr?id=456344537320825&ev=PageView&noscript=1",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-08T00:00:08.222Z",
+      "promotedAt": "2026-10-08T00:00:08.222Z",
+      "catalogId": "beauty-auto-7d2f5b5eae"
+    },
+    {
+      "id": "cand-554854e27d",
+      "brand": "hince",
+      "productName": "CATEGORY",
+      "productUrl": "https://hince.jp/c/category",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-08T00:00:08.222Z",
+      "promotedAt": "2026-10-08T00:00:08.222Z",
+      "catalogId": "beauty-auto-554854e27d"
+    },
+    {
+      "id": "cand-d9b31d766f",
+      "brand": "hince",
+      "productName": "GIFT",
+      "productUrl": "https://hince.jp/c/category/gift",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-08T00:00:08.222Z",
+      "promotedAt": "2026-10-08T00:00:08.222Z",
+      "catalogId": "beauty-auto-d9b31d766f"
+    },
+    {
+      "id": "cand-1d725fcfed",
+      "brand": "hince",
+      "productName": "SHOPLIST",
+      "productUrl": "https://hince.jp/f/shoplist",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-09T00:00:09.773Z",
+      "promotedAt": "2026-10-09T00:00:09.773Z",
+      "catalogId": "beauty-auto-1d725fcfed"
+    },
+    {
+      "id": "cand-62246332a0",
+      "brand": "hince",
+      "productName": "LOGOUT",
+      "productUrl": "https://hince.jp/p/logout",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-09T00:00:09.774Z",
+      "promotedAt": "2026-10-09T00:00:09.774Z",
+      "catalogId": "beauty-auto-62246332a0"
+    },
+    {
+      "id": "cand-01fd80c8bd",
+      "brand": "hince",
+      "productName": "FACE",
+      "productUrl": "https://hince.jp/c/category/face",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-09T00:00:09.774Z",
+      "promotedAt": "2026-10-09T00:00:09.774Z",
+      "catalogId": "beauty-auto-01fd80c8bd"
+    },
+    {
+      "id": "cand-9518f74ad9",
+      "brand": "hince",
+      "productName": "LIP",
+      "productUrl": "https://hince.jp/c/category/lip",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-10T00:00:08.327Z",
+      "promotedAt": "2026-10-10T00:00:08.327Z",
+      "catalogId": "beauty-auto-9518f74ad9"
+    },
+    {
+      "id": "cand-62da45326e",
+      "brand": "hince",
+      "productName": "EYE",
+      "productUrl": "https://hince.jp/c/category/eye",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-10T00:00:08.327Z",
+      "promotedAt": "2026-10-10T00:00:08.327Z",
+      "catalogId": "beauty-auto-62da45326e"
+    },
+    {
+      "id": "cand-fabcccd498",
+      "brand": "hince",
+      "productName": "FRAGRANCE",
+      "productUrl": "https://hince.jp/c/category/fragrance",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:14:11.166Z",
+      "updatedAt": "2026-10-10T00:00:08.327Z",
+      "promotedAt": "2026-10-10T00:00:08.327Z",
+      "catalogId": "beauty-auto-fabcccd498"
+    },
+    {
+      "id": "cand-33800a20e3",
+      "brand": "hince",
+      "productName": "SKINCARE",
+      "productUrl": "https://hince.jp/c/category/skincare",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:15:02.313Z",
+      "updatedAt": "2026-10-11T00:00:13.147Z",
+      "promotedAt": "2026-10-11T00:00:13.147Z",
+      "catalogId": "beauty-auto-33800a20e3"
+    },
+    {
+      "id": "cand-a096c0fd92",
+      "brand": "hince",
+      "productName": "TOOL",
+      "productUrl": "https://hince.jp/c/category/tool",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:15:02.313Z",
+      "updatedAt": "2026-10-11T00:00:13.147Z",
+      "promotedAt": "2026-10-11T00:00:13.147Z",
+      "catalogId": "beauty-auto-a096c0fd92"
+    },
+    {
+      "id": "cand-0a31479ae0",
+      "brand": "hince",
+      "productName": "NAIL",
+      "productUrl": "https://hince.jp/c/category/nail",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "promoted",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:15:02.314Z",
+      "updatedAt": "2026-10-11T00:00:13.147Z",
+      "promotedAt": "2026-10-11T00:00:13.147Z",
+      "catalogId": "beauty-auto-0a31479ae0"
+    },
+    {
+      "id": "cand-5b59c3e1f6",
+      "brand": "hince",
+      "productName": "お買い上げごとに ポイント還元 --> 会員ランクに応じた ポイント還元と特典",
+      "productUrl": "https://hince.jp/f/membership_program",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:15:02.314Z",
+      "updatedAt": "2026-10-11T00:00:13.141Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-5b59c3e1f6"
+    },
+    {
+      "id": "cand-e5d7e58cb6",
+      "brand": "hince",
+      "productName": "特定商取引法に基づく表示",
+      "productUrl": "https://hince.jp/p/about/terms",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-07T05:15:02.314Z",
+      "updatedAt": "2026-10-11T00:00:13.141Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-e5d7e58cb6"
+    },
+    {
+      "id": "cand-167556b922",
+      "brand": "hince",
+      "productName": "お問い合わせフォーム（PR）",
+      "productUrl": "https://hince.jp/f/contact_pr",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:05.609Z",
+      "updatedAt": "2026-10-11T00:00:13.141Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-167556b922"
+    },
+    {
+      "id": "cand-30caa99757",
+      "brand": "hince",
+      "productName": "ご利用ガイド",
+      "productUrl": "https://hince.jp/f/guide",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:05.609Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-30caa99757"
+    },
+    {
+      "id": "cand-b4119080f7",
+      "brand": "hince",
+      "productName": "個人情報保護方針",
+      "productUrl": "https://hince.jp/p/about/privacy-policy",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:05.609Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-b4119080f7"
+    },
+    {
+      "id": "cand-d34e028682",
+      "brand": "hince",
+      "productName": "会社概要",
+      "productUrl": "https://hince.jp/f/company",
+      "imageUrl": "https://hince.itembox.cloud/item/img/top/brand-opengraph.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:05.609Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-d34e028682"
+    },
+    {
+      "id": "cand-b92ffa08bb",
+      "brand": "hince",
+      "productName": "選べるリップ 2本セット",
+      "productUrl": "https://hince.jp/c/category/lip/HCSET096",
+      "imageUrl": "https://hince.itembox.cloud/product/003/000000000355/000000000355-01.jpg?size&#x3D;l&w&#x3D;ODAw&t&#x3D;20260929123212",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:05.609Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-b92ffa08bb"
+    },
+    {
+      "id": "cand-4a7347704b",
+      "brand": "コスメデコルテ",
+      "productName": "リポソーム アドバンスト リペアセラム キット 定期お届け便",
+      "productUrl": "https://www.decorte.com/site/p/teiki_liposome_serum_online.aspx",
+      "imageUrl": "https://www.decorte.com/img/freepage/202509_teiki_liposome_serum_online/ogp.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-4a7347704b"
+    },
+    {
+      "id": "cand-8c15e4e580",
+      "brand": "コスメデコルテ",
+      "productName": "リポソーム アドバンスト リペアクリーム 定期お届け便",
+      "productUrl": "https://www.decorte.com/site/p/teiki_liposome_cream_shop.aspx",
+      "imageUrl": "https://www.decorte.com/img/freepage/2025_teiki_liposome_cream_online/pc/ogp.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-8c15e4e580"
+    },
+    {
+      "id": "cand-bcd49248b1",
+      "brand": "コスメデコルテ",
+      "productName": "クレンジング",
+      "productUrl": "https://www.decorte.com/site/r/r101010/",
+      "imageUrl": "https://www.decorte.com/resources/images/ogp.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-bcd49248b1"
+    },
+    {
+      "id": "cand-88123282a4",
+      "brand": "コスメデコルテ",
+      "productName": "DECORT&Eacute;（コスメデコルテ）公式オンラインブティック",
+      "productUrl": "https://www.decorte.com/site/r/r101020/",
+      "imageUrl": "https://www.decorte.com/resources/images/ogp.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-88123282a4"
+    },
+    {
+      "id": "cand-6054c68ef9",
+      "brand": "コスメデコルテ",
+      "productName": "DECORT&Eacute;（コスメデコルテ）公式オンラインブティック",
+      "productUrl": "https://www.decorte.com/site/r/r101030/",
+      "imageUrl": "https://www.decorte.com/resources/images/ogp.jpg",
+      "source": "official-listing",
+      "status": "ready",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": true,
+        "status": "ready",
+        "reasons": [],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": true
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-6054c68ef9"
+    },
+    {
+      "id": "cand-a8bcf95529",
+      "brand": "コスメデコルテ",
+      "productName": "化粧水",
+      "productUrl": "https://www.decorte.com/site/r/r101040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-a8bcf95529"
+    },
+    {
+      "id": "cand-014505cec5",
+      "brand": "コスメデコルテ",
+      "productName": "美容液",
+      "productUrl": "https://www.decorte.com/site/r/r101050/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-014505cec5"
+    },
+    {
+      "id": "cand-dd78129662",
+      "brand": "コスメデコルテ",
+      "productName": "クリーム",
+      "productUrl": "https://www.decorte.com/site/r/r101060/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-dd78129662"
+    },
+    {
+      "id": "cand-d85eff00db",
+      "brand": "コスメデコルテ",
+      "productName": "デイクリーム",
+      "productUrl": "https://www.decorte.com/site/r/r101011/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-d85eff00db"
+    },
+    {
+      "id": "cand-8bb52d8644",
+      "brand": "コスメデコルテ",
+      "productName": "フェイスマスク",
+      "productUrl": "https://www.decorte.com/site/r/r101080/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-8bb52d8644"
+    },
+    {
+      "id": "cand-640d8261db",
+      "brand": "コスメデコルテ",
+      "productName": "マッサージ",
+      "productUrl": "https://www.decorte.com/site/r/r101090/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-640d8261db"
+    },
+    {
+      "id": "cand-e1132aa038",
+      "brand": "コスメデコルテ",
+      "productName": "UVケア",
+      "productUrl": "https://www.decorte.com/site/r/r101070/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-e1132aa038"
+    },
+    {
+      "id": "cand-b3ffbe7085",
+      "brand": "コスメデコルテ",
+      "productName": "スキンケア用アクセサリー",
+      "productUrl": "https://www.decorte.com/site/r/r106010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-b3ffbe7085"
+    },
+    {
+      "id": "cand-afa2276313",
+      "brand": "コスメデコルテ",
+      "productName": "全て見る",
+      "productUrl": "https://www.decorte.com/site/r/r1010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.115Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-afa2276313"
+    },
+    {
+      "id": "cand-23db19aa7f",
+      "brand": "コスメデコルテ",
+      "productName": "エイジングケア（シワ）",
+      "productUrl": "https://www.decorte.com/site/r/r2020/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-23db19aa7f"
+    },
+    {
+      "id": "cand-d811d1b1e3",
+      "brand": "コスメデコルテ",
+      "productName": "エイジングケア（ハリ・弾力）",
+      "productUrl": "https://www.decorte.com/site/r/r2025/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.142Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-d811d1b1e3"
+    },
+    {
+      "id": "cand-4049cebf60",
+      "brand": "コスメデコルテ",
+      "productName": "保湿ケア",
+      "productUrl": "https://www.decorte.com/site/r/r2010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-4049cebf60"
+    },
+    {
+      "id": "cand-90544b3530",
+      "brand": "コスメデコルテ",
+      "productName": "美白ケア",
+      "productUrl": "https://www.decorte.com/site/r/r2015/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-90544b3530"
+    },
+    {
+      "id": "cand-eff94a90ce",
+      "brand": "コスメデコルテ",
+      "productName": "透明感・くすみケア",
+      "productUrl": "https://www.decorte.com/site/r/r2035/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-eff94a90ce"
+    },
+    {
+      "id": "cand-f91ba9e05a",
+      "brand": "コスメデコルテ",
+      "productName": "毛穴ケア",
+      "productUrl": "https://www.decorte.com/site/r/r2030/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-f91ba9e05a"
+    },
+    {
+      "id": "cand-297f4c575a",
+      "brand": "コスメデコルテ",
+      "productName": "角質ケア",
+      "productUrl": "https://www.decorte.com/site/r/r2050/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-297f4c575a"
+    },
+    {
+      "id": "cand-d1c3967d6b",
+      "brand": "コスメデコルテ",
+      "productName": "引き締めケア",
+      "productUrl": "https://www.decorte.com/site/r/r2045/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-d1c3967d6b"
+    },
+    {
+      "id": "cand-c285c06cce",
+      "brand": "コスメデコルテ",
+      "productName": "アイケア",
+      "productUrl": "https://www.decorte.com/site/r/r2040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-c285c06cce"
+    },
+    {
+      "id": "cand-3ef9d3d1ee",
+      "brand": "コスメデコルテ",
+      "productName": "不安定肌ケア",
+      "productUrl": "https://www.decorte.com/site/r/r2060/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-3ef9d3d1ee"
+    },
+    {
+      "id": "cand-34be9a600a",
+      "brand": "コスメデコルテ",
+      "productName": "UVケア",
+      "productUrl": "https://www.decorte.com/site/r/r2055/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-08T00:00:07.116Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-34be9a600a"
+    },
+    {
+      "id": "cand-72051cfdc2",
+      "brand": "コスメデコルテ",
+      "productName": "インナービューティ",
+      "productUrl": "https://www.decorte.com/site/r/r2065/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.915Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-72051cfdc2"
+    },
+    {
+      "id": "cand-f886119e1c",
+      "brand": "コスメデコルテ",
+      "productName": "ＡＱ ミリオリティ",
+      "productUrl": "https://www.decorte.com/site/aqmeliority/r/r3010/?filtercode1010=101010&filtercode1010=101020&filtercode1010=101030&filtercode1010=101040&filtercode1010=101050&filtercode1010=101060&filtercode1010=101070&filtercode1010=101080&filtercode1010=101090",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.915Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-f886119e1c"
+    },
+    {
+      "id": "cand-36db729b00",
+      "brand": "コスメデコルテ",
+      "productName": "ＡＱ",
+      "productUrl": "https://www.decorte.com/site/r/r301110/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.915Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-36db729b00"
+    },
+    {
+      "id": "cand-c0fc25d02b",
+      "brand": "コスメデコルテ",
+      "productName": "リフトディメンション",
+      "productUrl": "https://www.decorte.com/site/liftdimension/r/r3012/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.915Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-c0fc25d02b"
+    },
+    {
+      "id": "cand-b5ba42f3fa",
+      "brand": "コスメデコルテ",
+      "productName": "イドラクラリティ",
+      "productUrl": "https://www.decorte.com/site/hydraclarity/r/r3036/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-b5ba42f3fa"
+    },
+    {
+      "id": "cand-9984278be9",
+      "brand": "コスメデコルテ",
+      "productName": "リポソーム",
+      "productUrl": "https://www.decorte.com/site/liposome/r/r3015/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-9984278be9"
+    },
+    {
+      "id": "cand-bbd98af1d2",
+      "brand": "コスメデコルテ",
+      "productName": "ホワイトロジスト",
+      "productUrl": "https://www.decorte.com/site/whitelogist/r/r3016/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-bbd98af1d2"
+    },
+    {
+      "id": "cand-f3a7e57156",
+      "brand": "コスメデコルテ",
+      "productName": "アイピーショット",
+      "productUrl": "https://www.decorte.com/site/ipshot/r/r3017/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-f3a7e57156"
+    },
+    {
+      "id": "cand-044f02333a",
+      "brand": "コスメデコルテ",
+      "productName": "ハーバルコンセントレイト",
+      "productUrl": "https://www.decorte.com/site/herbalconcentrate/r/r3039/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-044f02333a"
+    },
+    {
+      "id": "cand-c29287d76a",
+      "brand": "コスメデコルテ",
+      "productName": "UV コンフォート",
+      "productUrl": "https://www.decorte.com/site/uvcomfort/r/r3040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-c29287d76a"
+    },
+    {
+      "id": "cand-ee93516962",
+      "brand": "コスメデコルテ",
+      "productName": "フィトチューン",
+      "productUrl": "https://www.decorte.com/site/phytotune/r/r3014/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-ee93516962"
+    },
+    {
+      "id": "cand-b4088e832f",
+      "brand": "コスメデコルテ",
+      "productName": "その他",
+      "productUrl": "https://www.decorte.com/site/r/r101012/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-b4088e832f"
+    },
+    {
+      "id": "cand-7719481ded",
+      "brand": "コスメデコルテ",
+      "productName": "美容液 リポソーム アドバンスト リペアセラム",
+      "productUrl": "https://www.decorte.com/site/g/gJVAN/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-7719481ded"
+    },
+    {
+      "id": "cand-fcb8f9d40e",
+      "brand": "コスメデコルテ",
+      "productName": "クリーム リポソーム アドバンスト リペアクリーム",
+      "productUrl": "https://www.decorte.com/site/g/gJVAW/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-fcb8f9d40e"
+    },
+    {
+      "id": "cand-a9172f9483",
+      "brand": "コスメデコルテ",
+      "productName": "乳液 ＡＱ アブソリュート エマルジョン マイクロラディアンス",
+      "productUrl": "https://www.decorte.com/site/g/gJQRD/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-a9172f9483"
+    },
+    {
+      "id": "cand-53fa7c4599",
+      "brand": "コスメデコルテ",
+      "productName": "化粧水 ユース パワー エッセンス ローション",
+      "productUrl": "https://www.decorte.com/site/g/gJVXC/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-53fa7c4599"
+    },
+    {
+      "id": "cand-1a4cb59fd5",
+      "brand": "コスメデコルテ",
+      "productName": "クレンジング ＡＱ 毛穴美容液オイル",
+      "productUrl": "https://www.decorte.com/site/g/gJQRO/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.916Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-1a4cb59fd5"
+    },
+    {
+      "id": "cand-738a8349d6",
+      "brand": "コスメデコルテ",
+      "productName": "リキッドファンデーション",
+      "productUrl": "https://www.decorte.com/site/r/r102020/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.143Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-738a8349d6"
+    },
+    {
+      "id": "cand-5b01c99fdc",
+      "brand": "コスメデコルテ",
+      "productName": "パウダーファンデーション",
+      "productUrl": "https://www.decorte.com/site/r/r102010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-5b01c99fdc"
+    },
+    {
+      "id": "cand-e9ea015597",
+      "brand": "コスメデコルテ",
+      "productName": "クッションファンデーション",
+      "productUrl": "https://www.decorte.com/site/r/r102030/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-e9ea015597"
+    },
+    {
+      "id": "cand-a573600d87",
+      "brand": "コスメデコルテ",
+      "productName": "クリームファンデーション",
+      "productUrl": "https://www.decorte.com/site/r/r102040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-a573600d87"
+    },
+    {
+      "id": "cand-348af355f2",
+      "brand": "コスメデコルテ",
+      "productName": "化粧下地",
+      "productUrl": "https://www.decorte.com/site/r/r102060/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-348af355f2"
+    },
+    {
+      "id": "cand-81907aca90",
+      "brand": "コスメデコルテ",
+      "productName": "フェイスパウダー",
+      "productUrl": "https://www.decorte.com/site/r/r102070/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-81907aca90"
+    },
+    {
+      "id": "cand-831caf3c6b",
+      "brand": "コスメデコルテ",
+      "productName": "コンシーラー",
+      "productUrl": "https://www.decorte.com/site/r/r102080/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-831caf3c6b"
+    },
+    {
+      "id": "cand-ddc3b39fec",
+      "brand": "コスメデコルテ",
+      "productName": "コントロールカラー",
+      "productUrl": "https://www.decorte.com/site/r/r102090/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-ddc3b39fec"
+    },
+    {
+      "id": "cand-24a3242bcc",
+      "brand": "コスメデコルテ",
+      "productName": "ベースメイク用アクセサリー",
+      "productUrl": "https://www.decorte.com/site/r/r106020/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-24a3242bcc"
+    },
+    {
+      "id": "cand-a9b99cf65a",
+      "brand": "コスメデコルテ",
+      "productName": "全て見る",
+      "productUrl": "https://www.decorte.com/site/r/r1020/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.917Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-a9b99cf65a"
+    },
+    {
+      "id": "cand-6fb4bdd563",
+      "brand": "コスメデコルテ",
+      "productName": "ツヤ",
+      "productUrl": "https://www.decorte.com/site/r/r2525/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.918Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-6fb4bdd563"
+    },
+    {
+      "id": "cand-98b2ed66a5",
+      "brand": "コスメデコルテ",
+      "productName": "セミマット",
+      "productUrl": "https://www.decorte.com/site/r/r2520/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.918Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-98b2ed66a5"
+    },
+    {
+      "id": "cand-9e32ef9005",
+      "brand": "コスメデコルテ",
+      "productName": "ラスティング",
+      "productUrl": "https://www.decorte.com/site/r/r2530/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-09T00:00:08.918Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-9e32ef9005"
+    },
+    {
+      "id": "cand-6675c9d779",
+      "brand": "コスメデコルテ",
+      "productName": "カバー",
+      "productUrl": "https://www.decorte.com/site/r/r2510/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.565Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-6675c9d779"
+    },
+    {
+      "id": "cand-98c8c3faee",
+      "brand": "コスメデコルテ",
+      "productName": "ナチュラル",
+      "productUrl": "https://www.decorte.com/site/r/r2515/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-98c8c3faee"
+    },
+    {
+      "id": "cand-c0df9499e3",
+      "brand": "コスメデコルテ",
+      "productName": "保湿",
+      "productUrl": "https://www.decorte.com/site/r/r2535/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-c0df9499e3"
+    },
+    {
+      "id": "cand-55e982026c",
+      "brand": "コスメデコルテ",
+      "productName": "トーンアップ",
+      "productUrl": "https://www.decorte.com/site/r/r2560/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-55e982026c"
+    },
+    {
+      "id": "cand-ff51a0e565",
+      "brand": "コスメデコルテ",
+      "productName": "透明感",
+      "productUrl": "https://www.decorte.com/site/r/r2545/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-ff51a0e565"
+    },
+    {
+      "id": "cand-dc3c37862b",
+      "brand": "コスメデコルテ",
+      "productName": "リフトアップ",
+      "productUrl": "https://www.decorte.com/site/r/r2550/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-dc3c37862b"
+    },
+    {
+      "id": "cand-0dad643b60",
+      "brand": "コスメデコルテ",
+      "productName": "コントロールカラー",
+      "productUrl": "https://www.decorte.com/site/r/r2555/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-0dad643b60"
+    },
+    {
+      "id": "cand-6cea5988d8",
+      "brand": "コスメデコルテ",
+      "productName": "ＡＱ",
+      "productUrl": "https://www.decorte.com/site/r/r301112/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-6cea5988d8"
+    },
+    {
+      "id": "cand-937fd72612",
+      "brand": "コスメデコルテ",
+      "productName": "ゼン ウェア",
+      "productUrl": "https://www.decorte.com/site/zenwear/r/r3037/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-937fd72612"
+    },
+    {
+      "id": "cand-44d6fbcddd",
+      "brand": "コスメデコルテ",
+      "productName": "サンシェルター",
+      "productUrl": "https://www.decorte.com/site/sunshelter/r/r3018/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-44d6fbcddd"
+    },
+    {
+      "id": "cand-c9b387fd44",
+      "brand": "コスメデコルテ",
+      "productName": "ラクチュール",
+      "productUrl": "https://www.decorte.com/site/lacouture/r/r3026/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.566Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-c9b387fd44"
+    },
+    {
+      "id": "cand-23d19f5fbc",
+      "brand": "コスメデコルテ",
+      "productName": "イーブンパーフェクト",
+      "productUrl": "https://www.decorte.com/site/evenperfect/r/r3027/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-23d19f5fbc"
+    },
+    {
+      "id": "cand-4f1759b0e7",
+      "brand": "コスメデコルテ",
+      "productName": "エバークリスタル",
+      "productUrl": "https://www.decorte.com/site/evercrystal/r/r3028/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-4f1759b0e7"
+    },
+    {
+      "id": "cand-41123ddb16",
+      "brand": "コスメデコルテ",
+      "productName": "MAQUIEXPERT",
+      "productUrl": "https://www.decorte.com/site/maquiexpert/r/r3032/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-41123ddb16"
+    },
+    {
+      "id": "cand-b5b9626581",
+      "brand": "コスメデコルテ",
+      "productName": "その他",
+      "productUrl": "https://www.decorte.com/site/r/r102012/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-b5b9626581"
+    },
+    {
+      "id": "cand-f41792e681",
+      "brand": "コスメデコルテ",
+      "productName": "フェイスパウダー ルース パウダー",
+      "productUrl": "https://www.decorte.com/site/g/gJEFQ000/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.144Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-f41792e681"
+    },
+    {
+      "id": "cand-5f4d45b305",
+      "brand": "コスメデコルテ",
+      "productName": "リキッドファンデーション ゼン ウェア グロウ",
+      "productUrl": "https://www.decorte.com/site/g/gJEAT016/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-5f4d45b305"
+    },
+    {
+      "id": "cand-3b08b3202f",
+      "brand": "コスメデコルテ",
+      "productName": "リキッドファンデーション ゼン ウェア ステイ",
+      "productUrl": "https://www.decorte.com/site/g/gJEAM016/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-3b08b3202f"
+    },
+    {
+      "id": "cand-3652bbb14c",
+      "brand": "コスメデコルテ",
+      "productName": "パウダーファンデーション ゼン ウェア パウダーファンデーション",
+      "productUrl": "https://www.decorte.com/site/g/gJEAP016",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.567Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-3652bbb14c"
+    },
+    {
+      "id": "cand-2029e0537c",
+      "brand": "コスメデコルテ",
+      "productName": "化粧下地 ＵＶ コンフォート トーンアップＣＣ",
+      "productUrl": "https://www.decorte.com/site/g/gJSVG010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-2029e0537c"
+    },
+    {
+      "id": "cand-5b281fc248",
+      "brand": "コスメデコルテ",
+      "productName": "リップカラー",
+      "productUrl": "https://www.decorte.com/site/r/r103010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-5b281fc248"
+    },
+    {
+      "id": "cand-6f065ecd9d",
+      "brand": "コスメデコルテ",
+      "productName": "フェイスカラー",
+      "productUrl": "https://www.decorte.com/site/r/r103030/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-6f065ecd9d"
+    },
+    {
+      "id": "cand-a03d8a02ae",
+      "brand": "コスメデコルテ",
+      "productName": "アイカラー",
+      "productUrl": "https://www.decorte.com/site/r/r103020/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-a03d8a02ae"
+    },
+    {
+      "id": "cand-7c849fbf61",
+      "brand": "コスメデコルテ",
+      "productName": "アイブロウ",
+      "productUrl": "https://www.decorte.com/site/r/r103040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-7c849fbf61"
+    },
+    {
+      "id": "cand-b85f982821",
+      "brand": "コスメデコルテ",
+      "productName": "アイライナー",
+      "productUrl": "https://www.decorte.com/site/r/r103050/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-b85f982821"
+    },
+    {
+      "id": "cand-62db683e9f",
+      "brand": "コスメデコルテ",
+      "productName": "マスカラ",
+      "productUrl": "https://www.decorte.com/site/r/r103060/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-62db683e9f"
+    },
+    {
+      "id": "cand-27bdba47d6",
+      "brand": "コスメデコルテ",
+      "productName": "ネイルカラー",
+      "productUrl": "https://www.decorte.com/site/r/r103070/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-27bdba47d6"
+    },
+    {
+      "id": "cand-64bcd58fe5",
+      "brand": "コスメデコルテ",
+      "productName": "リムーバー",
+      "productUrl": "https://www.decorte.com/site/r/r103080/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.568Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-64bcd58fe5"
+    },
+    {
+      "id": "cand-1381097fde",
+      "brand": "コスメデコルテ",
+      "productName": "ポイントメイク用アクセサリー",
+      "productUrl": "https://www.decorte.com/site/r/r106030/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.569Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-1381097fde"
+    },
+    {
+      "id": "cand-d04c19c285",
+      "brand": "コスメデコルテ",
+      "productName": "全て見る",
+      "productUrl": "https://www.decorte.com/site/r/r1030/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-10T00:00:07.569Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": "beauty-auto-d04c19c285"
+    },
+    {
+      "id": "cand-67d3969aed",
+      "brand": "コスメデコルテ",
+      "productName": "AQ",
+      "productUrl": "https://www.decorte.com/site/r/r301113/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.369Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-6d3e60a220",
+      "brand": "コスメデコルテ",
+      "productName": "ルージュ デコルテ",
+      "productUrl": "https://www.decorte.com/site/r/r103090/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.369Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-f13ae19feb",
+      "brand": "コスメデコルテ",
+      "productName": "DECORT&Eacute;ポイントメイク",
+      "productUrl": "https://www.decorte.com/site/r/r3024/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.369Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-0fce1d5524",
+      "brand": "コスメデコルテ",
+      "productName": "リップカラー ルージュデコルテ クリームグロウ",
+      "productUrl": "https://www.decorte.com/site/g/gJELT013/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.369Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-0d159f4874",
+      "brand": "コスメデコルテ",
+      "productName": "リップカラー ルージュデコルテ クリームサテン",
+      "productUrl": "https://www.decorte.com/site/g/gJELM001/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.369Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-94539ea943",
+      "brand": "コスメデコルテ",
+      "productName": "アイシャドウ スキンシャドウ デザイニング パレット",
+      "productUrl": "https://www.decorte.com/site/g/gJEGP001/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-7e60cc6351",
+      "brand": "コスメデコルテ",
+      "productName": "アイシャドウ アイグロウジェム スキンシャドウ",
+      "productUrl": "https://www.decorte.com/site/g/gJEGG012/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-b2549920bc",
+      "brand": "コスメデコルテ",
+      "productName": "ネイルカラー スキニフィック ネイルラッカー",
+      "productUrl": "https://www.decorte.com/site/g/gJENQ001/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-6bc64575f3",
+      "brand": "コスメデコルテ",
+      "productName": "オードトワレ",
+      "productUrl": "https://www.decorte.com/site/r/r104010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-1fd0b17320",
+      "brand": "コスメデコルテ",
+      "productName": "オードパルファン",
+      "productUrl": "https://www.decorte.com/site/r/r104030/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-3aa712ba5f",
+      "brand": "コスメデコルテ",
+      "productName": "ヘアミスト",
+      "productUrl": "https://www.decorte.com/site/r/r104050/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-db8ab7ae30",
+      "brand": "コスメデコルテ",
+      "productName": "ホームフレグランス",
+      "productUrl": "https://www.decorte.com/site/r/r104020/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-539d1868c8",
+      "brand": "コスメデコルテ",
+      "productName": "全て見る",
+      "productUrl": "https://www.decorte.com/site/r/r1040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.145Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-c24da25b41",
+      "brand": "コスメデコルテ",
+      "productName": "AQ",
+      "productUrl": "https://www.decorte.com/site/r/r301116/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.370Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-a728d4dd38",
+      "brand": "コスメデコルテ",
+      "productName": "DECORT&Eacute; フレグランス",
+      "productUrl": "https://www.decorte.com/site/decortekimono/r/r3035/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-bf35c84fb9",
+      "brand": "コスメデコルテ",
+      "productName": "その他",
+      "productUrl": "https://www.decorte.com/site/r/r104040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-d26930f58e",
+      "brand": "コスメデコルテ",
+      "productName": "オードパルファン ＡＱ オードパルファン",
+      "productUrl": "https://www.decorte.com/site/g/gJQFB/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-8fd643bb49",
+      "brand": "コスメデコルテ",
+      "productName": "ヘアミスト ＡＱ パフュームド ヘアミスト",
+      "productUrl": "https://www.decorte.com/site/g/gJQFH/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-909aabc4a9",
+      "brand": "コスメデコルテ",
+      "productName": "オードトワレ キモノ ユイ オードトワレ",
+      "productUrl": "https://www.decorte.com/site/g/gJQIW/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-3ed170352f",
+      "brand": "コスメデコルテ",
+      "productName": "オードトワレ キモノ ツヤ オードトワレ",
+      "productUrl": "https://www.decorte.com/site/g/gJQIU/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-f8ea70ca21",
+      "brand": "コスメデコルテ",
+      "productName": "オードトワレ キモノ ヒカリ ウォーターコロン",
+      "productUrl": "https://www.decorte.com/site/g/gJQIQ/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-8d24415526",
+      "brand": "コスメデコルテ",
+      "productName": "ヘアケア",
+      "productUrl": "https://www.decorte.com/site/r/r105010/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-aa6dbc942d",
+      "brand": "コスメデコルテ",
+      "productName": "スタイリング",
+      "productUrl": "https://www.decorte.com/site/r/r105020/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.371Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-4af9e03e1c",
+      "brand": "コスメデコルテ",
+      "productName": "頭皮ケア",
+      "productUrl": "https://www.decorte.com/site/r/r105030/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.372Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-fa13c4333c",
+      "brand": "コスメデコルテ",
+      "productName": "ボディケア",
+      "productUrl": "https://www.decorte.com/site/r/r105040/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.372Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-587d649ff4",
+      "brand": "コスメデコルテ",
+      "productName": "ハンドケア",
+      "productUrl": "https://www.decorte.com/site/r/r105050/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.372Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-9cfad9f4ba",
+      "brand": "コスメデコルテ",
+      "productName": "全て見る",
+      "productUrl": "https://www.decorte.com/site/r/r1050/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.372Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-4064427c37",
+      "brand": "コスメデコルテ",
+      "productName": "AQ",
+      "productUrl": "https://www.decorte.com/site/r/r301115/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.372Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-6b2fe1c387",
+      "brand": "コスメデコルテ",
+      "productName": "ドゥ ラ ヴィ",
+      "productUrl": "https://www.decorte.com/site/delavie/r/r3029/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.372Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    },
+    {
+      "id": "cand-37257d7479",
+      "brand": "コスメデコルテ",
+      "productName": "AQ",
+      "productUrl": "https://www.decorte.com/site/r/r301114/",
+      "imageUrl": "",
+      "source": "official-listing",
+      "status": "needsReview",
+      "bucket": "main",
+      "genre": "メイク用品",
+      "category": "makeup",
+      "gate": {
+        "ok": false,
+        "status": "needsReview",
+        "reasons": [
+          "missing_image"
+        ],
+        "checks": {
+          "hasUrl": true,
+          "vcUrlOk": true,
+          "pathOk": true,
+          "nameOk": true,
+          "bannedClean": true,
+          "notInCatalog": true,
+          "hasImage": false
+        }
+      },
+      "discoveredAt": "2026-10-11T00:00:09.372Z",
+      "updatedAt": "2026-10-11T00:00:13.146Z",
+      "promotedAt": null,
+      "catalogId": null
+    }
+  ]
+}

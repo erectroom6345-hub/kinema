@@ -14,7 +14,8 @@ mkdir -p "$ROOT/output"
   echo "本番9時ジョブ (com.miyasakaharuki.contentstudio) には触れません"
 } | tee -a "$LOG"
 
-# 本体（stdout/stderr もテストログへ）
+# 本体は本番日次と同じ経路。
+# ※ .env に BEAUTY_TEST_MODE / BEAUTY_ALLOW_RECYCLE 等を残さないこと（残っていると本番ガードで停止）
 set +e
 /bin/bash "$ROOT/run-beauty.sh" >>"$LOG" 2>&1
 STATUS=$?

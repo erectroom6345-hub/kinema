@@ -20,6 +20,17 @@
       <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
       <key>HOME</key>
       <string>/Users/miyasakaharuki</string>
+      <!-- 朝9時定時: 予熱あり + 生成90s（冷起動即fallback回避）。超過時はコード側でfallback -->
+      <key>BEAUTY_MORNING_MODE</key>
+      <string>true</string>
+      <key>BEAUTY_EMPTY_FALLBACK</key>
+      <string>recycle</string>
+      <key>OLLAMA_MORNING_TIMEOUT_MS</key>
+      <string>90000</string>
+      <key>OLLAMA_MORNING_WARMUP_TIMEOUT_MS</key>
+      <string>45000</string>
+      <key>OLLAMA_MORNING_SKIP_WARMUP</key>
+      <string>false</string>
     </dict>
 
     <key>StartCalendarInterval</key>

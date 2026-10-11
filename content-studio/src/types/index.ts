@@ -1,4 +1,4 @@
-export type Genre = "beauty" | "lifestyle" | "gadget" | "food" | "generic";
+export type Genre = "beauty" | "living" | "lifestyle" | "gadget" | "food" | "generic";
 
 export type StockProviderName = "pixabay" | "pexels";
 
@@ -118,9 +118,37 @@ export interface BloggerDraftResult {
   url?: string;
 }
 
+export interface BloggerPostSummary {
+  id: string;
+  title: string;
+  url: string;
+  content: string;
+  published: string;
+  updated?: string;
+  labels?: string[];
+}
+
+export interface BloggerListPostsParams {
+  blogId: string;
+  /** RFC3339 inclusive lower bound */
+  startDate?: string;
+  /** RFC3339 exclusive-ish upper bound (API: endDate) */
+  endDate?: string;
+  maxResults?: number;
+  status?: "LIVE" | "DRAFT" | "SCHEDULED";
+}
+
 export interface BloggerClient {
   /** posts.insert。isDraft=false で公開し、レスポンスの url を返す */
   saveDraft(request: BloggerDraftRequest): Promise<BloggerDraftResult>;
+  /** 公開済み投稿一覧（本文付き）。後追い更新用 */
+  listPosts?(params: BloggerListPostsParams): Promise<BloggerPostSummary[]>;
+  /** 本文だけ更新（title/published/url は変えない） */
+  patchPostContent?(
+    blogId: string,
+    postId: string,
+    contentHtml: string,
+  ): Promise<BloggerPostSummary>;
 }
 
 export interface PipelineOptions {

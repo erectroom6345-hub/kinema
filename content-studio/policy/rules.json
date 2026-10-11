@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "engine": "local-rules-v1",
+  "description": "美容・暮らし便利グッズ投稿向けの簡易ポリシー。単語追加はこのファイルだけで行う。",
+  "categories": {
+    "effect_claim": {
+      "label": "効果効能の断定",
+      "defaultSeverity": "block",
+      "enabled": true,
+      "type": "contains",
+      "patterns": [
+        "必ず治る",
+        "絶対に治る",
+        "絶対に改善",
+        "必ず改善",
+        "100パーセント効く",
+        "100%効く",
+        "必ず効く",
+        "絶対効く",
+        "完治する",
+        "医師不要",
+        "薬いらずで治る"
+      ]
+    },
+    "exaggeration": {
+      "label": "過度な断定・誇大",
+      "defaultSeverity": "warn",
+      "enabled": true,
+      "type": "contains",
+      "patterns": [
+        "最強",
+        "完全",
+        "誰でも必ず",
+        "絶対おすすめ",
+        "絶対に買うべき",
+        "世界一",
+        "日本一",
+        "究極の",
+        "奇跡の",
+        "即効で変わる",
+        "一瞬で変わる"
+      ]
+    },
+    "fear": {
+      "label": "過度な不安煽り",
+      "defaultSeverity": "block",
+      "enabled": true,
+      "type": "contains",
+      "patterns": [
+        "今すぐやらないと危険",
+        "放置すると終わり",
+        "やらないとヤバい",
+        "放置すると手遅れ",
+        "今すぐ買わないと損",
+        "人生終わり",
+        "取り返しがつかない"
+      ]
+    },
+    "sensitive": {
+      "label": "センシティブ",
+      "defaultSeverity": "block",
+      "enabled": true,
+      "type": "contains",
+      "patterns": [
+        "自殺",
+        "死ぬしかない",
+        "殺す",
+        "差別"
+      ]
+    },
+    "disclosure": {
+      "label": "PR・広告表記（将来用）",
+      "defaultSeverity": "warn",
+      "enabled": false,
+      "type": "require_any",
+      "patterns": [
+        "#PR",
+        "#広告",
+        "PR提供",
+        "広告を含みます",
+        "プロモーションを含みます"
+      ],
+      "note": "enabled を true にすると、表記が1つも無い場合に warn/block"
+    },
+    "test_copy": {
+      "label": "テスト用文言（本番混入禁止）",
+      "defaultSeverity": "block",
+      "enabled": true,
+      "type": "contains",
+      "patterns": [
+        "blogUrlテスト",
+        "翌朝自動生成のBlogger",
+        "Blogger記事URLを入れる",
+        "Blogger個別記事URL",
+        "Instagram誘導テスト",
+        "誘導テスト用",
+        "テスト用",
+        "YOURBLOG",
+        "example.com"
+      ],
+      "note": "テスト商品・検証用タイトル/本文が本番投稿に混ざったら即停止"
+    }
+  }
+}

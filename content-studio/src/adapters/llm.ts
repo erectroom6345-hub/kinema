@@ -1,7 +1,8 @@
 import type { LlmClient, LlmMessage } from "../types/index.ts";
 import { logger } from "../utils/logger.ts";
 import { toErrorMessage } from "../utils/errors.ts";
-import { OLLAMA_BLOG_PREFIX } from "../prompts/blog.ts";
+import { buildOllamaBlogPrefix } from "../prompts/blog.ts";
+import { resolveOllamaRuntime } from "../config/ollamaRuntime.ts";
 
 export class OpenAiCompatibleClient implements LlmClient {
   constructor(
@@ -47,17 +48,29 @@ export class OllamaClient implements LlmClient {
   constructor(
     private readonly baseUrl: string,
     private readonly model: string,
-    private readonly timeoutMs = 600_000,
+    private readonly timeoutMs?: number,
+    private readonly blogNumPredict?: number,
   ) {}
 
   async complete(messages: LlmMessage[], options?: { json?: boolean }): Promise<string> {
+    const runtime = resolveOllamaRuntime();
+    const timeoutMs = this.timeoutMs ?? runtime.generateTimeoutMs;
+    const blogNumPredict = this.blogNumPredict ?? runtime.blogNumPredict;
     const bodyPrompt = messagesToPrompt(messages);
     const prompt = options?.json
       ? bodyPrompt
-      : `${OLLAMA_BLOG_PREFIX}\n\n${bodyPrompt}`;
+      : `${buildOllamaBlogPrefix()}\n\n${bodyPrompt}`;
 
     const url = `${this.baseUrl.replace(/\/$/, "")}/api/generate`;
-    logger.debug("Ollama generate start", { model: this.model, json: Boolean(options?.json) });
+    logger.debug("Ollama generate start", {
+      model: this.model,
+      json: Boolean(options?.json),
+      timeoutMs,
+      profile: runtime.profile,
+    });
+    console.log(
+      `Ollama本文生成開始 (model=${this.model}, timeout=${timeoutMs / 1000}s, profile=${runtime.profile}, num_predict=${options?.json ? 800 : blogNumPredict})`,
+    );
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -66,13 +79,12 @@ export class OllamaClient implements LlmClient {
         prompt,
         stream: false,
         options: {
-          // ブログ本文は導入・本題・まとめで厚め。JSON（SNS）は短めのまま。
-          num_predict: options?.json ? 1200 : 3500,
+          // 朝ランは短め。手動は中程度。旧 3500 は遅延の温床だった。
+          num_predict: options?.json ? 800 : blogNumPredict,
         },
       }),
-      signal: AbortSignal.timeout(this.timeoutMs),
+      signal: AbortSignal.timeout(timeoutMs),
     });
-
     if (!response.ok) {
       const body = await response.text();
       logger.debug("Ollama request failed", { status: response.status, body: body.slice(0, 500) });
@@ -109,8 +121,21 @@ export function createLlmClient(config: {
   ollamaTimeoutMs: number;
 }): LlmClient {
   if (config.llmProvider === "ollama") {
-    logger.debug("LLM provider: ollama", { model: config.ollamaModel, baseUrl: config.ollamaBaseUrl });
-    return new OllamaClient(config.ollamaBaseUrl, config.ollamaModel, config.ollamaTimeoutMs);
+    const runtime = resolveOllamaRuntime();
+    // 朝/手動は runtime を正とする（.env の 600s が朝に効いて遅延するのを防ぐ）
+    const timeoutMs = runtime.generateTimeoutMs;
+    logger.debug("LLM provider: ollama", {
+      model: config.ollamaModel,
+      baseUrl: config.ollamaBaseUrl,
+      timeoutMs,
+      profile: runtime.profile,
+    });
+    return new OllamaClient(
+      config.ollamaBaseUrl,
+      config.ollamaModel,
+      timeoutMs,
+      runtime.blogNumPredict,
+    );
   }
 
   if (config.llmProvider === "openai") {

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "timezone": "Asia/Tokyo",
+  "_comment": "美容カタログ自動補充（公式一覧クロール → candidate queue → 品質ゲート → 適格のみ products-beauty へ投入）。VC個別アフィ生成はしない（LinkSwitch用通常URL）。",
+  "enabled": true,
+  "promoteReady": true,
+  "defaultBucket": "main",
+  "maxPagesPerBrand": 2,
+  "maxDiscoverPerRun": 40,
+  "maxEnrichPerRun": 24,
+  "maxPromotePerRun": 12,
+  "fetchTimeoutMs": 12000,
+  "brands": [
+    {
+      "brand": "hince",
+      "genre": "韓国コスメ",
+      "category": "korean_cosmetics"
+    },
+    {
+      "brand": "コスメデコルテ",
+      "genre": "メイク用品",
+      "category": "makeup"
+    },
+    {
+      "brand": "イプサ",
+      "genre": "スキンケア",
+      "category": "skincare"
+    },
+    {
+      "brand": "FANCL",
+      "genre": "サプリ",
+      "category": "supplement"
+    },
+    {
+      "brand": "SK-II",
+      "genre": "特別ケア",
+      "category": "special_care"
+    }
+  ]
+}

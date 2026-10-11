@@ -1,58 +1,34 @@
 /**
  * caption 本文に残った「\n」「\r\n」などの見た目文字列を、
  * 実際の改行文字へ必ず変換する（共通・最終ゲート）。
+ *
+ * LLM や二重エスケープで `\\n` / `\\\\n` が残っても、
+ * Instagram Graph API へ渡す前に実改行へ落とす。
  */
 export function normalizeCaption(text: string): string {
   let t = String(text ?? "");
 
   for (let pass = 0; pass < 8; pass++) {
-    let out = "";
-    let changed = false;
-
-    for (let i = 0; i < t.length; i++) {
-      const ch = t[i];
-      const n1 = t[i + 1];
-      const n2 = t[i + 2];
-      const n3 = t[i + 3];
-
-      // \r\n（バックスラッシュ + r + バックスラッシュ + n）
-      if (ch === "\\" && n1 === "r" && n2 === "\\" && n3 === "n") {
-        out += "\n";
-        i += 3;
-        changed = true;
-        continue;
-      }
-
-      // \n
-      if (ch === "\\" && n1 === "n") {
-        out += "\n";
-        i += 1;
-        changed = true;
-        continue;
-      }
-
-      // \r
-      if (ch === "\\" && n1 === "r") {
-        out += "\n";
-        i += 1;
-        changed = true;
-        continue;
-      }
-
-      // 実改行の直前に余ったバックスラッシュ
-      if (ch === "\\" && n1 === "\n") {
-        out += "\n";
-        i += 1;
-        changed = true;
-        continue;
-      }
-
-      out += ch;
-    }
-
-    t = out;
-    if (!changed) break;
+    const before = t;
+    t = t
+      // 二重以上のエスケープも順に剥がす
+      .replace(/\\r\\n/g, "\n")
+      .replace(/\\n/g, "\n")
+      .replace(/\\r/g, "\n")
+      // 実改行直前の余剰バックスラッシュ
+      .replace(/\\\r?\n/g, "\n")
+      // 全角バックスラッシュ + n
+      .replace(/\uFF3Cn/gi, "\n")
+      .replace(/\uFF3Cr\uFF3Cn/gi, "\n");
+    if (t === before) break;
   }
 
+  // 実改行の正規化
+  t = t.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
   return t;
+}
+
+/** 投稿APIへ渡す直前の検証用。リテラル \n が残っていれば true */
+export function hasLiteralNewlineEscape(text: string): boolean {
+  return /\\n|\\r|\uFF3Cn/i.test(String(text ?? ""));
 }

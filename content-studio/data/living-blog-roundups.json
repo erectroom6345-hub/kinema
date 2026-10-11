@@ -1,0 +1,68 @@
+{
+  "genre": "living",
+  "affiliate": "rakuten_only",
+  "fixedPageUrl": "https://kurashi-soubiroku.blogspot.com/p/blog-page.html",
+  "updatedAt": "2026-10-06T11:29:00.000Z",
+  "categories": {
+    "kitchen": {
+      "current": {
+        "postId": "134463203035467651",
+        "url": "https://kurashi-soubiroku.blogspot.com/p/blog-page_53.html",
+        "title": "キッチン用品まとめ",
+        "productIds": [
+          "living-kitchen-001",
+          "living-kitchen-002"
+        ],
+        "localPath": "output/living/roundups/kitchen-01.html",
+        "index": 1,
+        "seededAt": "2026-10-05T15:30:53.956Z"
+      },
+      "archive": []
+    },
+    "storage": {
+      "current": {
+        "postId": "8571698483320739053",
+        "url": "https://kurashi-soubiroku.blogspot.com/p/blog-page_508.html",
+        "title": "収納グッズまとめ",
+        "productIds": [
+          "living-storage-001",
+          "living-storage-002"
+        ],
+        "localPath": "output/living/roundups/storage-01.html",
+        "index": 1,
+        "seededAt": "2026-10-05T15:30:53.972Z"
+      },
+      "archive": []
+    },
+    "cleaning": {
+      "current": {
+        "postId": "3748620899004713189",
+        "url": "https://kurashi-soubiroku.blogspot.com/p/blog-page_94.html",
+        "title": "掃除グッズまとめ",
+        "productIds": [
+          "living-cleaning-001",
+          "living-cleaning-002"
+        ],
+        "localPath": "output/living/roundups/cleaning-01.html",
+        "index": 1,
+        "seededAt": "2026-10-05T15:30:53.973Z"
+      },
+      "archive": []
+    },
+    "other": {
+      "current": {
+        "postId": "2133006878249724362",
+        "url": "https://kurashi-soubiroku.blogspot.com/p/blog-page_06.html",
+        "title": "暮らしの便利グッズまとめ",
+        "productIds": [
+          "living-other-001",
+          "living-other-002"
+        ],
+        "localPath": "output/living/roundups/other-01.html",
+        "index": 1,
+        "seededAt": "2026-10-05T15:30:53.974Z"
+      },
+      "archive": []
+    }
+  }
+}

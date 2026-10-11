@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "timezone": "Asia/Tokyo",
+  "_comment": "美容日次選定の日付条件戦略。割合制ではなく due 判定 + 優先順フォールバック。",
+  "priorityOrder": [
+    "sale",
+    "niche",
+    "routine",
+    "main"
+  ],
+  "niche": {
+    "intervalDays": 14,
+    "anchorDate": "2026-01-01"
+  },
+  "routine": {
+    "intervalDays": 60,
+    "anchorDate": "2026-01-01"
+  },
+  "sale": {
+    "_comment": "補助ミラー。一次ソースは data/beauty-sale-windows.json → products-beauty.json。手動で埋めない。",
+    "calendarDates": [],
+    "calendarRanges": [
+      {
+        "start": "2026-09-29",
+        "end": "2026-11-13",
+        "source": "auto:beauty-sale-windows",
+        "productId": "beauty-sale-001"
+      }
+    ],
+    "_autoMirroredAt": "2026-10-11T00:00:07.394Z"
+  }
+}

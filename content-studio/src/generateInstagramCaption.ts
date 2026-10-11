@@ -1,5 +1,22 @@
 import fs from "node:fs";
 import { normalizeCaption } from "./utils/normalizeCaption.ts";
+import { buildBeautyTrackUrl, describeUtm } from "./utils/utm.ts";
+import {
+  logOllamaRuntime,
+  resolveOllamaRuntime,
+} from "./config/ollamaRuntime.ts";
+import {
+  buildBeautyInstagramCaption,
+  describeBeautyPostPattern,
+} from "./templates/beautySocialCopy.ts";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const {
+  assertProductionCopyClean,
+} = require("../scripts/lib/beauty-copy-guard.cjs") as {
+  assertProductionCopyClean: (texts: unknown, label?: string) => boolean;
+};
 
 const inputPath = "input/article.json";
 const outputPath = "input/instagram-post.json";
@@ -11,6 +28,7 @@ type ArticleInput = {
   articleBody?: string;
   imageUrl?: string;
   product?: {
+    id?: string;
     name?: string;
     brand?: string;
     genre?: string;
@@ -42,14 +60,14 @@ function buildToneGuidance(postType: string, genre: string, brand = "", productN
     "・「商品ページへ」「今すぐ購入」「公式でチェック」など直リンク誘導の言い回しは使わない",
     "・記事URLやhttpリンクは caption に書かない（末尾はプロフィール誘導に固定する）",
     "・「詳しくはプロフィールのリンクから」につながる自然な一文でよい",
+    "・冒頭か2行目までに、具体的な一言を必ず入れる（例: 良い乳液を見つけました／使いやすい化粧下が気になっています）",
+    "・商品名（productName）を本文中に必ず1回は書く。ぼかした一般論だけで終わらない",
+    "・ブランド名も自然な日本語で1回は触れる（角括弧は禁止）",
     "・caption には、少しだけ「見つけてうれしい」「早めに見ておきたい」気持ちを自然に足してよい",
     "・押し売りや効果効能の断定はしない",
     "・別ジャンルの話には寄せない",
     "・ブランド名は角括弧付き（例: [hince]）で書かない",
-    "・ブランド名を出す場合は、日本語の文の中で自然につなげる",
-    "・基本形: 「ブランド名のアイテム」「ブランド名らしい雰囲気」「ブランド名で気になる一品」",
-    "・1つのcaption内でブランド名の出現は多くても1回か2回まで",
-    "・無理に入れなくて自然なら、ブランド名は省略してよい",
+    "・基本形: 「ブランド名の〇〇」「〇〇を見つけました」「〇〇が気になっています」",
   ];
 
   // サプリ × main だけ、定番の習慣寄りを優先（ほかの組み合わせは変えない）
@@ -146,12 +164,13 @@ const OLLAMA_BASE_URL = (process.env.OLLAMA_BASE_URL ?? "http://127.0.0.1:11434"
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL ?? "gemma3:4b";
 /** 起動確認用。短い時間で落ちる */
 const OLLAMA_HEALTH_TIMEOUT_MS = Number(process.env.OLLAMA_HEALTH_TIMEOUT_MS ?? "5000") || 5_000;
-/**
- * caption生成の待ち上限。
- * 冷起動（モデル再ロード）で2分超えることがあるため、既定は5分。
- * （ブログ用 llm.ts は 600s。caption は短文なので 300s を既定にする）
- */
-const OLLAMA_GENERATE_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS ?? "300000") || 300_000;
+/** Ollama失敗時にテンプレcaptionへ落とす（既定ON。止めるなら false） */
+const OLLAMA_CAPTION_FALLBACK =
+  String(process.env.OLLAMA_CAPTION_FALLBACK ?? "true").toLowerCase() !== "false";
+
+function captionRuntime() {
+  return resolveOllamaRuntime();
+}
 
 function isAbortError(error: unknown): boolean {
   // Node の AbortSignal.timeout() は name=TimeoutError / message="The operation was aborted due to timeout"
@@ -223,11 +242,20 @@ async function assertOllamaAlive(): Promise<void> {
  * 冷起動対策: 本生成前に極短プロンプトでモデルを起こす。
  * 失敗しても本生成へ進む（本生成側の timeout / エラーに任せる）。
  */
-async function warmUpOllamaModel(): Promise<void> {
+async function warmUpOllamaModel(): Promise<boolean> {
+  const runtime = captionRuntime();
+  if (runtime.skipWarmup) {
+    console.log(
+      `Ollamaウォームアップスキップ (profile=${runtime.profile} / 朝は first try に時間を使わない)`,
+    );
+    return false;
+  }
   const url = `${OLLAMA_BASE_URL}/api/generate`;
-  const warmTimeoutMs = Math.min(120_000, OLLAMA_GENERATE_TIMEOUT_MS);
+  const warmTimeoutMs = runtime.warmupTimeoutMs;
   try {
-    console.log(`Ollamaウォームアップ開始 (model=${OLLAMA_MODEL}, timeout=${warmTimeoutMs / 1000}s)`);
+    console.log(
+      `Ollamaウォームアップ開始 (model=${OLLAMA_MODEL}, timeout=${warmTimeoutMs / 1000}s, profile=${runtime.profile})`,
+    );
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -235,25 +263,66 @@ async function warmUpOllamaModel(): Promise<void> {
         model: OLLAMA_MODEL,
         prompt: "OK",
         stream: false,
+        keep_alive: "45m",
         options: { num_predict: 8 },
       }),
       signal: AbortSignal.timeout(warmTimeoutMs),
     });
     if (!res.ok) {
       console.warn(`Ollamaウォームアップ失敗 (HTTP ${res.status})。本生成を続行します。`);
-      return;
+      return false;
     }
     console.log("Ollamaウォームアップ完了");
+    return true;
   } catch (error) {
     const detail = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
     console.warn(`Ollamaウォームアップ失敗 (${detail})。本生成を続行します。`);
+    return false;
   }
 }
 
+/** genre に合わせた具体フック（乳液・化粧下地など）— Ollama プロンプト用 */
+function genreFindHook(genre: string): string {
+  switch (genre.trim()) {
+    case "スキンケア":
+      return "朝晩のスキンケアに取り入れやすそうな乳液を見つけました";
+    case "メイク用品":
+      return "毎日メイクに合わせやすいベースアイテムが気になっています";
+    case "韓国コスメ":
+      return "仕上がりの雰囲気がきれいな韓国コスメをチェックしています";
+    case "サプリ":
+      return "続けやすそうな美容サプリを見ています";
+    case "特別ケア":
+      return "ご褒美にしたくなるケアアイテムを見つけました";
+    default:
+      return "使い心地が気になるコスメを見つけました";
+  }
+}
+
+/** Ollama不通でも投稿を止めない — 美容専用テンプレのみ参照 */
+function buildFallbackCaption(params: {
+  title: string;
+  body: string;
+  brand: string;
+  productName: string;
+  genre: string;
+}): string {
+  return buildBeautyInstagramCaption({
+    brand: params.brand,
+    productName: params.productName,
+    genre: params.genre,
+    title: params.title,
+    body: params.body,
+    productId: article.product?.id,
+  });
+}
+
 async function callOllamaGenerate(prompt: string): Promise<string> {
+  const runtime = captionRuntime();
+  const timeoutMs = runtime.generateTimeoutMs;
   const url = `${OLLAMA_BASE_URL}/api/generate`;
   console.log(
-    `Ollama caption生成開始 (model=${OLLAMA_MODEL}, timeout=${OLLAMA_GENERATE_TIMEOUT_MS / 1000}s, promptChars=${prompt.length})`,
+    `Ollama caption生成開始 (model=${OLLAMA_MODEL}, timeout=${timeoutMs / 1000}s, profile=${runtime.profile}, promptChars=${prompt.length})`,
   );
   try {
     const res = await fetch(url, {
@@ -265,12 +334,12 @@ async function callOllamaGenerate(prompt: string): Promise<string> {
         model: OLLAMA_MODEL,
         prompt,
         stream: false,
-        // captionは短文。上限を付けて遅い応答を抑える
+        keep_alive: "45m",
         options: {
-          num_predict: 256,
+          num_predict: runtime.captionNumPredict,
         },
       }),
-      signal: AbortSignal.timeout(OLLAMA_GENERATE_TIMEOUT_MS),
+      signal: AbortSignal.timeout(timeoutMs),
     });
 
     if (!res.ok) {
@@ -287,9 +356,9 @@ async function callOllamaGenerate(prompt: string): Promise<string> {
   } catch (error) {
     if (isAbortError(error)) {
       throw new Error(
-        `Ollamaのcaption生成がタイムアウトしました（${OLLAMA_GENERATE_TIMEOUT_MS / 1000}秒）。` +
-          ` model=${OLLAMA_MODEL}。冷起動や負荷で遅い可能性があります。` +
-          ` OLLAMA_TIMEOUT_MS で延長できます。`,
+        `Ollamaのcaption生成がタイムアウトしました（${timeoutMs / 1000}秒）。` +
+          ` model=${OLLAMA_MODEL} profile=${runtime.profile}。` +
+          ` 朝ランは短時間でフォールバックへ切替します。`,
       );
     }
     if (isConnectionError(error)) {
@@ -303,6 +372,7 @@ async function callOllamaGenerate(prompt: string): Promise<string> {
 }
 
 async function generateCaption() {
+  logOllamaRuntime();
   const title = (article.title || article.articleTitle || "").trim();
   const body = (article.body || article.articleBody || "").trim();
   const postType = (article.product?.postType || "").trim();
@@ -318,13 +388,15 @@ async function generateCaption() {
     throw new Error("product.postType と product.genre が article.json に必要です");
   }
   if (!blogUrlUsable) {
-    console.warn(
-      `blogUrl 未整備のため URLなし投稿で続行します: ${rawBlogUrl || "(空)"}`,
+    throw new Error(
+      `blogUrl 未整備のため SNS 用 caption 生成を中止します: ${rawBlogUrl || "(空)"}` +
+        `（先に Blogger 公開が成功している必要があります）`,
     );
   }
 
   const toneGuidance = buildToneGuidance(postType, genre, brand, productName);
 
+  const findHook = genreFindHook(genre);
   const prompt = `
 あなたは美容BloggerのInstagram運用担当です。
 次の商品・記事をもとに、Instagram投稿用のcaption本文を1本だけ作ってください。
@@ -337,27 +409,30 @@ ${blogUrlUsable
 ・ですます調
 ・やわらかい文体
 ・短め
-・100文字から160文字程度
+・110文字から180文字程度
 ・ハッシュタグ不要
 ・本文だけ返す（URLは書かない）
+・改行は実際の改行（Enter）だけで書く。バックスラッシュ付きの改行記号（\\n）は絶対に書かない
 ・誇張しない
 ・押し売りしない
 ・商品ページ・公式サイト・購入リンク・広告リンクへの直誘導はしない
 ・http/https のURL文字列は出力しない
+・1行目は具体フックで始める（例: 「${findHook}。」）
+・商品名「${productName || "(商品名)"}」を必ず本文に1回書く（一般論だけで終わらない）
+・ブランド「${brand || "(ブランド)"}」も自然な日本語で1回触れる
 ・末尾に「プロフィールのリンクからご覧ください」につながる自然な一文を入れてよい（URLは付けない）
 ・ブランド名を [ブランド] の形で書かない
-・ブランド名を出すなら「◯◯のアイテム」「◯◯らしい雰囲気」「◯◯で気になる一品」など、日本語の文中で自然につなげる
-・ブランド名の出現は1回か2回までに抑える
-・なくても自然ならブランド名は無理に入れない
 ・[コスメデコルテらしい雰囲気] のように、文の一部を角括弧で囲まない
+・「上質なアイテム」「雰囲気が整う」だけのふわっと表現は禁止。何の商品かが伝わる文にする
 
 ${toneGuidance}
 
 商品情報
-・商品名: ${productName || "(未設定)"}
-・ブランド: ${brand || "(未設定)"}
+・商品名: ${productName || "(未設定)"}  ← 必須で言及
+・ブランド: ${brand || "(未設定)"}  ← 必須で言及
 ・postType: ${postType}
 ・genre: ${genre}
+・推奨フック例: ${findHook}
 
 記事タイトル
 ${title || "(未設定)"}
@@ -366,25 +441,117 @@ ${title || "(未設定)"}
 ${body || "(未設定)"}
 `;
 
-  await assertOllamaAlive();
-  await warmUpOllamaModel();
-  const rawCaption = await callOllamaGenerate(prompt);
-  let caption = sanitizeCaption(rawCaption);
-
-  if (!caption) {
-    throw new Error(
-      `Ollamaからcaptionが空で返されました (model=${OLLAMA_MODEL})。` +
-        ` モデル未取得の可能性: ollama pull ${OLLAMA_MODEL}`,
+  let caption = "";
+  let usedFallback = false;
+  try {
+    await assertOllamaAlive();
+    const runtime = captionRuntime();
+    // 朝は skipWarmup。手動のみウォーム失敗時に1回再試行
+    if (!runtime.skipWarmup) {
+      const warmed = await warmUpOllamaModel();
+      if (!warmed) {
+        console.warn("Ollamaウォーム再試行...");
+        await warmUpOllamaModel();
+      }
+    } else {
+      await warmUpOllamaModel(); // ログのみ（内部で即スキップ）
+    }
+    const rawCaption = await callOllamaGenerate(prompt);
+    caption = sanitizeCaption(rawCaption);
+    if (!caption) {
+      throw new Error(
+        `Ollamaからcaptionが空で返されました (model=${OLLAMA_MODEL})。` +
+          ` モデル未取得の可能性: ollama pull ${OLLAMA_MODEL}`,
+      );
+    }
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    if (!OLLAMA_CAPTION_FALLBACK) throw error;
+    usedFallback = true;
+    caption = sanitizeCaption(
+      buildFallbackCaption({ title, body, brand, productName, genre }),
     );
+    console.warn(`Ollama caption失敗のためフォールバックを使用: ${detail}`);
+    console.warn(`fallback caption:\n${caption}`);
   }
+  if (usedFallback) {
+    console.log("captionSource: fallback");
+  } else {
+    console.log("captionSource: ollama");
+  }
+
+  // テスト用: CAPTION_AUTO_FILL_PRODUCT=true のときだけ商品名を自動補完（本番既定OFF）
+  if (String(process.env.CAPTION_AUTO_FILL_PRODUCT || "").toLowerCase() === "true") {
+    caption = ensureProductMention(caption, { brand, productName, genre });
+  }
+
+  const productId = (article.product?.id || "").trim();
+  const blogUtmUrl =
+    blogUrlUsable && productId
+      ? buildBeautyTrackUrl({
+          blogUrl,
+          productId,
+          source: "instagram",
+        })
+      : "";
 
   if (blogUrlUsable) {
-    console.log(`blogUrl は保持のみ（IG本文にはURLを付けません）: ${blogUrl}`);
+    console.log("---- Instagram Blogger UTM ----");
+    console.log(`productId: ${productId || "-"}`);
+    console.log(`channel: instagram`);
+    console.log(`生成前URL: ${blogUrl}`);
+    console.log(`生成後URL: ${blogUtmUrl || "(なし)"}`);
+    console.log(`付与utm: ${JSON.stringify(describeUtm(blogUtmUrl))}`);
+    // 既定: caption にはURLを入れない（プロフィール誘導）。必要ならフラグで末尾追加。
+    if ((process.env.INSTAGRAM_CAPTION_BLOG_UTM || "").trim().toLowerCase() === "true") {
+      console.log("INSTAGRAM_CAPTION_BLOG_UTM=true → caption 末尾に UTM URL を追加");
+    } else {
+      console.log("blogUrl/blogUtmUrl は保持のみ（caption にはURLなし）");
+    }
   }
 
-  caption = appendProfileLead(caption);
+  caption = normalizeCaption(appendProfileLead(caption));
+  if (
+    blogUtmUrl &&
+    (process.env.INSTAGRAM_CAPTION_BLOG_UTM || "").trim().toLowerCase() === "true"
+  ) {
+    caption = normalizeCaption(`${caption}\n${blogUtmUrl}`);
+  }
 
-  return { caption, imageUrl, blogUrl, blogUrlUsable };
+  return { caption, imageUrl, blogUrl, blogUrlUsable, blogUtmUrl, productId };
+}
+
+/** caption に商品名/ブランドが無ければ先頭へ補う */
+function ensureProductMention(
+  caption: string,
+  params: { brand: string; productName: string; genre: string },
+): string {
+  const text = (caption || "").trim();
+  const brand = params.brand.trim();
+  const name = params.productName.trim();
+  const hasName = name ? text.includes(name) : true;
+  const hasBrand = brand ? text.includes(brand) : true;
+  if (hasName && hasBrand) return text;
+
+  const hook = genreFindHook(params.genre);
+  const productBit = name
+    ? brand && !name.includes(brand)
+      ? `${brand}の「${name}」`
+      : `「${name}」`
+    : brand
+      ? `${brand}のアイテム`
+      : "";
+  if (!productBit) return text;
+  const lead = buildBeautyInstagramCaption({
+    brand,
+    productName: name,
+    genre: params.genre,
+    productId: article.product?.id,
+  })
+    .split("\n")[0]
+    ?.replace(/。$/, "") || `${productBit}`;
+  console.warn(`caption に商品名が不足していたため補完: ${productBit}`);
+  return `${lead}。\n${text}`.trim();
 }
 
 /** Instagram末尾はURLなしのプロフィール誘導に統一する */
@@ -426,12 +593,32 @@ function unwrapCaptionBrackets(text: string): string {
 }
 
 async function main() {
-  const { caption, imageUrl, blogUrl, blogUrlUsable } = await generateCaption();
+  const { caption, imageUrl, blogUrl, blogUrlUsable, blogUtmUrl } = await generateCaption();
+  const finalCaption = normalizeCaption(caption);
+  try {
+    assertProductionCopyClean(
+      [finalCaption, article.title || "", article.product?.name || ""],
+      "instagram-caption",
+    );
+  } catch (err) {
+    console.error(err instanceof Error ? err.message : String(err));
+    process.exit(3);
+  }
+
+  const patternInfo = describeBeautyPostPattern({
+    brand: article.product?.brand || "",
+    productName: article.product?.name || "",
+    genre: article.product?.genre || "",
+    productId: article.product?.id,
+  });
 
   const result = {
     imageUrl,
-    caption: normalizeCaption(caption),
+    caption: finalCaption,
     blogUrl: blogUrlUsable ? blogUrl : "",
+    blogUtmUrl: blogUrlUsable ? blogUtmUrl || "" : "",
+    postPattern: patternInfo.id,
+    postPatternLabel: patternInfo.label,
   };
 
   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf-8");
@@ -442,6 +629,7 @@ async function main() {
       ? `投稿モード: IGプロフィール誘導 / blogUrl保持=${blogUrl}`
       : "投稿モード: IGプロフィール誘導 / blogUrl未整備",
   );
+  console.log(`postPattern: ${patternInfo.id} (${patternInfo.label})`);
   console.log(`postType: ${article.product?.postType ?? ""}`);
   console.log(`genre: ${article.product?.genre ?? ""}`);
   console.log(result.caption);

@@ -12,6 +12,13 @@ export const GENRE_PROFILES: Record<string, GenreProfile> = {
     inlineQueries: ["notebook planning", "minimal desk notes", "checklist paper"],
     caution: "医薬的な効果効能の断定、即効性の断言、過度なビフォーアフター誇張は避ける。",
   },
+  living: {
+    label: "暮らし便利グッズ",
+    heroQueries: ["tidy home organization", "kitchen convenience tools", "minimal living room"],
+    inlineQueries: ["storage tips notebook", "simple home desk"],
+    caution:
+      "効果の断定や過度な誇張は避ける。美容・スキンケア用語は使わない。押し売りや煽りは禁止。",
+  },
   lifestyle: {
     label: "ライフスタイル",
     heroQueries: ["cozy morning coffee", "natural light interior"],

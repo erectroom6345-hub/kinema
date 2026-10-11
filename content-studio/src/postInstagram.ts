@@ -1,11 +1,25 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
-import { normalizeCaption } from "./utils/normalizeCaption.ts";
+import { createRequire } from "node:module";
+import {
+  ensureInstagramAccessToken,
+  loadInstagramEnvFromFile,
+} from "./services/instagramAuth.ts";
+import {
+  hasLiteralNewlineEscape,
+  normalizeCaption,
+} from "./utils/normalizeCaption.ts";
+import { buildBeautyTrackUrl, describeUtm } from "./utils/utm.ts";
+
+const require = createRequire(import.meta.url);
+const { resolvePostedPath } = require("../scripts/lib/beauty-runtime.cjs") as {
+  resolvePostedPath: () => string;
+};
 
 const inputPath = "input/instagram-post.json";
 const articlePath = "input/article.json";
-const postedPath = "data/posted-beauty.json";
+const postedPath = resolvePostedPath();
 const IMAGE_URL_CHECK_TIMEOUT_MS =
   Number(process.env.IMAGE_URL_CHECK_TIMEOUT_MS ?? "10000") || 10_000;
 
@@ -14,7 +28,7 @@ type InstagramEnv = {
   igUserId: string;
 };
 
-/** 必須の Instagram 設定を早い段階で確認する（自動更新はしない） */
+/** 必須の Instagram 設定を確認する（token 延長は main 内の ensure で行う） */
 function requireInstagramEnv(): InstagramEnv {
   const accessToken = (process.env.INSTAGRAM_ACCESS_TOKEN ?? "").trim();
   const igUserId = (process.env.INSTAGRAM_ACCOUNT_ID ?? "").trim();
@@ -26,7 +40,7 @@ function requireInstagramEnv(): InstagramEnv {
   if (missing.length > 0) {
     throw new Error(
       `Instagram設定が不足しています: ${missing.join(", ")} が空です。` +
-        ` content-studio/.env を確認してください（自動更新はしません）。`,
+        ` content-studio/.env を確認してください。`,
     );
   }
 
@@ -50,12 +64,17 @@ function requireInstagramEnv(): InstagramEnv {
   return { accessToken, igUserId };
 }
 
-const { accessToken, igUserId } = requireInstagramEnv();
+loadInstagramEnvFromFile();
+let { accessToken, igUserId } = requireInstagramEnv();
 
 const raw = fs.readFileSync(inputPath, "utf-8");
 const post = JSON.parse(raw) as {
   imageUrl: string;
+  imageUrls?: string[];
+  mediaType?: string;
   caption: string;
+  blogUrl?: string;
+  blogUtmUrl?: string;
 };
 
 type GraphErrorBody = {
@@ -230,15 +249,43 @@ async function assertImageUrlReachable(imageUrl: string): Promise<void> {
   }
 }
 
-async function createMediaContainer(imageUrl: string) {
-  const url = `https://graph.facebook.com/v23.0/${igUserId}/media`;
-  // 投稿APIへ渡す直前の最終ゲート
+function resolveCaption(): string {
   const caption = normalizeCaption(post.caption || "");
+  if (hasLiteralNewlineEscape(caption)) {
+    throw new Error(
+      "caption にリテラル \\n が残っています。normalizeCaption 後も未変換です。",
+    );
+  }
+  console.log("caption (投稿API直前・実改行):");
+  console.log(caption);
+  console.log(
+    `caption check: realNewlines=${(caption.match(/\n/g) || []).length}` +
+      ` literalBackslashN=${hasLiteralNewlineEscape(caption)}` +
+      ` encodedHasPercent0A=${new URLSearchParams({ caption }).toString().includes("%0A")}`,
+  );
+  return caption;
+}
+
+function resolveImageUrls(): string[] {
+  const list = Array.isArray(post.imageUrls)
+    ? post.imageUrls.map((u) => String(u || "").trim()).filter(Boolean)
+    : [];
+  if (list.length >= 2) return list.slice(0, 10);
+  const single = assertImageUrlShape(post.imageUrl);
+  return [single];
+}
+
+async function createImageContainer(
+  imageUrl: string,
+  opts: { caption?: string; isCarouselItem?: boolean } = {},
+) {
+  const url = `https://graph.facebook.com/v23.0/${igUserId}/media`;
   const params = new URLSearchParams({
     image_url: imageUrl,
-    caption,
     access_token: accessToken,
   });
+  if (opts.caption) params.set("caption", opts.caption);
+  if (opts.isCarouselItem) params.set("is_carousel_item", "true");
 
   const res = await fetch(url, {
     method: "POST",
@@ -256,6 +303,63 @@ async function createMediaContainer(imageUrl: string) {
   }
 
   return data.id;
+}
+
+async function createCarouselContainer(childIds: string[], caption: string) {
+  const url = `https://graph.facebook.com/v23.0/${igUserId}/media`;
+  const params = new URLSearchParams({
+    media_type: "CAROUSEL",
+    children: childIds.join(","),
+    caption,
+    access_token: accessToken,
+  });
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params.toString(),
+  });
+
+  const data = (await res.json()) as GraphErrorBody;
+  console.log("carousel media response:", data);
+
+  if (!res.ok || !data.id) {
+    throw new Error(formatGraphApiFailure("media作成", res.status, data));
+  }
+
+  return data.id;
+}
+
+async function waitContainerReady(creationId: string, label: string) {
+  const maxAttempts = Number(process.env.IG_CONTAINER_WAIT_ATTEMPTS ?? "12") || 12;
+  const sleepMs = Number(process.env.IG_CONTAINER_WAIT_MS ?? "3000") || 3000;
+  for (let i = 1; i <= maxAttempts; i += 1) {
+    const url =
+      `https://graph.facebook.com/v23.0/${creationId}` +
+      `?fields=status_code,status` +
+      `&access_token=${encodeURIComponent(accessToken)}`;
+    const res = await fetch(url);
+    const data = (await res.json()) as {
+      status_code?: string;
+      status?: string;
+      error?: GraphErrorBody["error"];
+    };
+    const code = String(data.status_code || "").toUpperCase();
+    console.log(`[container] ${label} status=${code || data.status || "?"} (${i}/${maxAttempts})`);
+    if (code === "FINISHED" || code === "PUBLISHED") return;
+    if (code === "ERROR" || code === "EXPIRED") {
+      throw new Error(
+        `Instagram container 準備失敗: ${label} status=${code} id=${creationId}`,
+      );
+    }
+    if (i < maxAttempts) {
+      await new Promise((r) => setTimeout(r, sleepMs));
+    }
+  }
+  // 一部環境は status が取れないのでタイムアウト後も publish を試す
+  console.warn(`[container] ${label} status待ちタイムアウト → publish を試行`);
 }
 
 async function publishMedia(creationId: string) {
@@ -291,7 +395,7 @@ function markProductAsPosted() {
     };
     const productId = article.product?.id?.trim();
     if (!productId) {
-      console.warn("article.json に product.id が無いため posted-beauty.json は更新しません");
+      console.warn(`article.json に product.id が無いため ${postedPath} は更新しません`);
       return;
     }
 
@@ -307,28 +411,109 @@ function markProductAsPosted() {
     const updated = [...new Set([...posted, productId])];
     fs.mkdirSync(path.dirname(postedPath), { recursive: true });
     fs.writeFileSync(postedPath, `${JSON.stringify(updated, null, 2)}\n`, "utf-8");
-    console.log("posted-beauty.json に記録しました:", productId);
+    console.log(`${postedPath} に記録しました:`, productId);
   } catch (error) {
-    console.warn("posted-beauty.json の更新に失敗しました:", error);
+    console.warn(`${postedPath} の更新に失敗しました:`, error);
   }
 }
 
 async function main() {
+  try {
+    const ensured = await ensureInstagramAccessToken();
+    accessToken = ensured.accessToken;
+    igUserId = (process.env.INSTAGRAM_ACCOUNT_ID ?? igUserId).trim();
+    console.log(
+      `Instagram token: kind=${ensured.debug.kind} action=${ensured.action}` +
+        (ensured.debug.daysRemaining != null
+          ? ` remaining≈${ensured.debug.daysRemaining.toFixed(1)}d`
+          : ""),
+    );
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.warn(`[Instagram認証] ensure 失敗のため既存tokenで投稿を試行: ${msg}`);
+  }
+
   console.log(
     `Instagram設定確認OK: ACCOUNT_ID=${igUserId}, TOKEN=設定済(長さ${accessToken.length})`,
   );
 
-  const imageUrl = assertImageUrlShape(post.imageUrl);
-  await assertImageUrlReachable(imageUrl);
-  console.log("imageUrl 確認OK:", imageUrl);
+  const caption = resolveCaption();
+  const imageUrls = resolveImageUrls();
+  for (const imageUrl of imageUrls) {
+    assertImageUrlShape(imageUrl);
+    await assertImageUrlReachable(imageUrl);
+    console.log("imageUrl 確認OK:", imageUrl);
+  }
 
-  const creationId = await createMediaContainer(imageUrl);
-  console.log("creationId:", creationId);
-
-  await new Promise((r) => setTimeout(r, 5000));
+  let creationId: string;
+  if (imageUrls.length >= 2 || String(post.mediaType || "").toLowerCase() === "carousel") {
+    console.log(`Instagram カルーセル投稿 slides=${imageUrls.length}`);
+    // 注意: カルーセル/静止画に人気音楽を API で付けることはできない（Reels + Audio API のみ）
+    const childIds: string[] = [];
+    for (let i = 0; i < imageUrls.length; i += 1) {
+      const childId = await createImageContainer(imageUrls[i]!, {
+        isCarouselItem: true,
+      });
+      console.log(`carousel child[${i + 1}] creationId=${childId}`);
+      await waitContainerReady(childId, `child-${i + 1}`);
+      childIds.push(childId);
+    }
+    creationId = await createCarouselContainer(childIds, caption);
+    console.log("carousel creationId:", creationId);
+    await waitContainerReady(creationId, "carousel");
+  } else {
+    creationId = await createImageContainer(imageUrls[0]!, { caption });
+    console.log("creationId:", creationId);
+    await waitContainerReady(creationId, "image");
+  }
 
   const result = await publishMedia(creationId);
   console.log("投稿成功:", result);
+  try {
+    const productId = (() => {
+      try {
+        const article = JSON.parse(fs.readFileSync(articlePath, "utf-8")) as {
+          product?: { id?: string };
+        };
+        return (article.product?.id || "").trim();
+      } catch {
+        return "";
+      }
+    })();
+    const blogUrl = (post.blogUrl || "").trim();
+    const blogUtmUrl =
+      (post.blogUtmUrl || "").trim() ||
+      (blogUrl && productId
+        ? buildBeautyTrackUrl({ blogUrl, productId, source: "instagram" })
+        : "");
+    if (blogUrl) {
+      console.log("---- Instagram Blogger UTM ----");
+      console.log(`productId: ${productId || "-"}`);
+      console.log("channel: instagram");
+      console.log(`生成前URL: ${blogUrl}`);
+      console.log(`生成後URL: ${blogUtmUrl || "(なし)"}`);
+      console.log(`付与utm: ${JSON.stringify(describeUtm(blogUtmUrl))}`);
+    }
+    fs.mkdirSync("output", { recursive: true });
+    fs.writeFileSync(
+      "output/last-instagram-publish.json",
+      `${JSON.stringify(
+        {
+          post_id: (result as { id?: string }).id || null,
+          creation_id: creationId,
+          productId: productId || null,
+          blogUrl: blogUrl || null,
+          utmUrl: blogUtmUrl || null,
+          at: new Date().toISOString(),
+        },
+        null,
+        2,
+      )}\n`,
+      "utf8",
+    );
+  } catch (err) {
+    console.warn("last-instagram-publish.json の保存に失敗:", err);
+  }
   markProductAsPosted();
 }
 

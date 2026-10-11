@@ -71,6 +71,8 @@ export type CardContent = {
   genre: string;
   width?: number;
   height?: number;
+  /** カルーセル時の "1/3" 表示。単枚は省略可 */
+  slideLabel?: string;
 };
 
 function escapeXml(value: string): string {
@@ -143,6 +145,11 @@ export function buildInstagramCardSvg(content: CardContent): string {
   <circle cx="120" cy="980" r="220" fill="${palette.accent}" fill-opacity="0.10"/>
   <rect x="96" y="120" width="280" height="56" rx="28" fill="${palette.labelBg}"/>
   <text x="236" y="158" text-anchor="middle" fill="${palette.bg1}" font-size="28" font-weight="700" font-family="Hiragino Sans, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif">${escapeXml(genreLabel)}</text>
+  ${
+    content.slideLabel
+      ? `<text x="984" y="158" text-anchor="end" fill="${palette.muted}" font-size="28" font-family="Hiragino Sans, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif">${escapeXml(content.slideLabel)}</text>`
+      : ""
+  }
   ${titleTs}
   ${pitchTs}
   <text x="96" y="980" fill="${palette.muted}" font-size="28" font-family="Hiragino Sans, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif">Beauty Notes</text>

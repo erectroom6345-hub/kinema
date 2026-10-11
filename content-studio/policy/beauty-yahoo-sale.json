@@ -1,0 +1,34 @@
+{
+  "_comment": "Yahooショッピング由来の sale 確認設定。日付だけで sale 確定しない。トリガー日に対象ページの有効性を軽く確認する。",
+  "timezone": "Asia/Tokyo",
+  "triggerDaysOfMonth": [5, 15, 25],
+  "includeMonthEnd": true,
+  "timeoutMs": 12000,
+  "pages": {
+    "fiveDay": [
+      {
+        "id": "campaign-5day",
+        "url": "https://shopping.yahoo.co.jp/promotion/campaign/5day/",
+        "requireKeywords": ["5のつく日"],
+        "requireTodayMention": true,
+        "rejectKeywords": ["ただいま、エントリー期間外です"]
+      },
+      {
+        "id": "coupon-5day",
+        "url": "https://shopping.yahoo.co.jp/promotion/coupon/5day/",
+        "requireKeywords": ["5のつく日"],
+        "requireTodayMention": true,
+        "rejectKeywords": []
+      }
+    ],
+    "monthEnd": [
+      {
+        "id": "campaign-guide",
+        "url": "https://shopping.yahoo.co.jp/promotion/campaign/guide/",
+        "requireKeywords": ["Yahoo!ショッピング", "キャンペーン"],
+        "requireTodayMention": true,
+        "rejectKeywords": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "syncStatus": "ok",
+  "provider": "official-page",
+  "windowsCount": 1,
+  "day": "2026-10-11",
+  "note": "official-page: 1 件の sale 商品に公式ページ由来の期間を供給; yahoo: スキップ（トリガー日以外: not-trigger(day=11, eom=31)）",
+  "yahooCheckSkipped": true,
+  "yahooCheckTriggered": false,
+  "yahooSaleDetected": false,
+  "updatedAt": "2026-10-11T00:00:07.395Z"
+}

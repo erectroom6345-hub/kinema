@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "genre": "living",
+  "label": "暮らし便利グッズ",
+  "affiliate": "rakuten_only",
+  "account": "genre_dedicated",
+  "posting": {
+    "perDay": 1,
+    "requirePr": true,
+    "cta": "fixed_page",
+    "platforms": ["instagram", "threads", "x"],
+    "noDmCommentReplyCta": true
+  },
+  "snsCopy": {
+    "beats": ["悩み", "変化", "根拠", "行動"],
+    "maxLines": 5,
+    "prToken": "※PR"
+  },
+  "categories": ["kitchen", "storage", "cleaning", "other"],
+  "categorySchedule": {
+    "timezone": "Asia/Tokyo",
+    "weekly": {
+      "mon": "kitchen",
+      "tue": "cleaning",
+      "wed": "storage",
+      "thu": "kitchen",
+      "fri": "cleaning",
+      "sat": "other",
+      "sun": "kitchen"
+    },
+    "weeklyCountsTarget": {
+      "kitchen": 3,
+      "cleaning": 2,
+      "storage": 1,
+      "other": 1
+    },
+    "minCategoryGapDays": 1,
+    "fallbackOrder": ["kitchen", "cleaning", "storage", "other"]
+  },
+  "interrupt": {
+    "enabled": true,
+    "maxPerWeek": 2,
+    "priority": ["campaign", "sale"],
+    "respectCategoryGap": true,
+    "description": "sale/campaign は週最大2回まで曜日予定を上書き。popular は通常枠内の優先度のみ。"
+  },
+  "productRules": {
+    "priceMinYen": 500,
+    "priceMaxYen": 5000,
+    "preferredPriceMinYen": 1000,
+    "preferredPriceMaxYen": 3000,
+    "productCoolDownDays": 14,
+    "requiredFields": [
+      "id",
+      "name",
+      "category",
+      "description",
+      "priceRange",
+      "features",
+      "rakutenUrl",
+      "imageUrl"
+    ],
+    "labelFields": {
+      "sale": "boolean — セール品",
+      "campaign": "boolean — キャンペーン中",
+      "popular": "boolean — 人気/定番（通常枠で優先）",
+      "campaignEndAt": "ISO日付 — キャンペーン終了日（過ぎたら出さない）",
+      "saleEndAt": "ISO日付 — セール終了日（任意）"
+    }
+  },
+  "growth": {
+    "windowHours": 48,
+    "primaryPlatform": "threads",
+    "likeMedianMultiplier": 2,
+    "recentWindow": 20,
+    "minRepliesPlusQuotes": 3
+  },
+  "blog": {
+    "mode": "category_roundup",
+    "seedPerCategory": 2,
+    "appendOnlyOnHit": true,
+    "splitAfterProducts": 15,
+    "roundupTitles": {
+      "kitchen": "キッチン用品まとめ",
+      "storage": "収納グッズまとめ",
+      "cleaning": "掃除グッズまとめ",
+      "other": "暮らしの便利グッズまとめ"
+    }
+  }
+}
