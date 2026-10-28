@@ -89,27 +89,28 @@ export function patternLabel(id: BeautyPostPatternId): string {
   }
 }
 
-/** カルーセル3枚（1フック / 2商品 / 3CTA） */
+/** カルーセル3枚（1商品写真 / 2フック / 3CTA） */
 export function buildPatternCarouselSlides(
   pattern: BeautyPostPatternId,
   input: BeautyPatternInput,
 ): BeautyCarouselSlide[] {
   const brand = clean(input.brand);
   const productName = clean(input.productName);
-  const product = productPhrase(brand, productName);
   const genre = clean(input.genre) || "美容";
+
+  const productTitle = (productName || brand || "今日の候補").slice(0, 28);
 
   if (pattern === "choose") {
     return [
       {
+        kind: "product",
+        title: productTitle,
+        pitch: brand ? `${brand}｜条件に当てて確認` : "条件に当てて確認",
+      },
+      {
         kind: "template",
         title: `${genre}、何を基準に選ぶ？`,
         pitch: "迷ったら条件を2つに絞る",
-      },
-      {
-        kind: "product",
-        title: brand || productName || "今日の候補",
-        pitch: `${product}を条件に当てて確認`,
       },
       {
         kind: "template",
@@ -122,14 +123,14 @@ export function buildPatternCarouselSlides(
   if (pattern === "compare") {
     return [
       {
+        kind: "product",
+        title: productTitle,
+        pitch: brand ? `${brand}｜違いを先に見る` : "違いを先に見る",
+      },
+      {
         kind: "template",
         title: "似たアイテム、何が違う？",
         pitch: "見た目より先に違いを見る",
-      },
-      {
-        kind: "product",
-        title: brand || productName || "比較メモ",
-        pitch: `${product}の気になる差をチェック`,
       },
       {
         kind: "template",
@@ -142,14 +143,14 @@ export function buildPatternCarouselSlides(
   // checklist
   return [
     {
-      kind: "template",
-      title: "買う前に見る3点",
-      pitch: "保存して見返す用",
+      kind: "product",
+      title: productTitle,
+      pitch: "買う前チェック対象",
     },
     {
-      kind: "product",
-      title: brand || productName || "チェック対象",
-      pitch: `${product}で条件を確認`,
+      kind: "template",
+      title: "買う前に見る3点",
+      pitch: "仕上がり・使い方・普段使い",
     },
     {
       kind: "template",
@@ -181,7 +182,7 @@ export function buildPatternInstagramCaption(
   if (pattern === "compare") {
     return [
       `似たアイテムが多いときは、「何が違うのか」を先に見ると迷いが減ります。`,
-      `${product}は、仕上がりや使い方の差が気になって比較メモしています。`,
+      `${product}、仕上がりが気になったら一度試してみてください。`,
       "",
       "詳しくは、プロフィールのリンクからご覧ください",
     ].join("\n");
@@ -209,12 +210,12 @@ export function buildPatternThreadsBody(
   const product = productPhrase(clean(input.brand), clean(input.productName));
 
   if (pattern === "choose") {
-    return `${product}、選び方の条件に合うかだけ先に見ました。\nポイントは短くまとめてます。`;
+    return `${product}、続けやすさと仕上がりで見ています。\n気になったら、一度試してみてください。`;
   }
   if (pattern === "compare") {
-    return `${product}、似たアイテムとの違いが気になって比較メモ。\n差だけ整理してます。`;
+    return `${product}、似たものとの違いが気になります。\n一度試してみてください。`;
   }
-  return `${product}、買う前チェック3点で確認中。\n保存用に残してます。`;
+  return `${product}、仕上がりと使い方と普段使いで見ています。\n気になったら、一度試してみてください。`;
 }
 
 export const BEAUTY_POST_PATTERN_IDS = PATTERN_IDS;

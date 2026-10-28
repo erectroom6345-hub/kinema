@@ -2,6 +2,7 @@ import "dotenv/config";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
 import sharp from "sharp";
 import { buildInstagramCardSvg } from "./services/instagramCardTemplate.ts";
 import {
@@ -10,6 +11,20 @@ import {
   patternLabel,
   type BeautyPostPatternId,
 } from "./templates/beautyPostPatterns.ts";
+
+const require = createRequire(import.meta.url);
+const { cleanLivingProductName } = require("../scripts/lib/living-product-name.cjs") as {
+  cleanLivingProductName: (raw: string, opts?: { maxLen?: number }) => string;
+};
+const { cleanGadgetProductName } = require("../scripts/lib/gadget-product-name.cjs") as {
+  cleanGadgetProductName: (raw: string, opts?: { maxLen?: number }) => string;
+};
+const { cleanFoodProductName } = require("../scripts/lib/food-product-name.cjs") as {
+  cleanFoodProductName: (raw: string, opts?: { maxLen?: number }) => string;
+};
+const { cleanDrinkProductName } = require("../scripts/lib/drink-product-name.cjs") as {
+  cleanDrinkProductName: (raw: string, opts?: { maxLen?: number }) => string;
+};
 
 const articlePath = "input/article.json";
 const instaPath = "input/instagram-post.json";
@@ -23,6 +38,11 @@ type ArticleInput = {
     name?: string;
     brand?: string;
     imageUrl?: string;
+    affiliate?: boolean;
+    postType?: string;
+    ask?: string;
+    aside?: string;
+    cardSlides?: { title?: string; pitch?: string }[];
   };
 };
 
@@ -51,23 +71,43 @@ function envFlag(name: string, fallback: boolean): boolean {
   return fallback;
 }
 
-function buildPitch(caption: string, body: string): string {
+function buildPitch(caption: string, body: string, opts?: { living?: boolean }): string {
   const fromCaption = caption
     .split(/\n+/)
     .map((line) => line.trim())
-    .find((line) => line && !/^https?:\/\//i.test(line) && !line.includes("ブログ"));
+    .find(
+      (line) =>
+        line &&
+        !/^https?:\/\//i.test(line) &&
+        !line.includes("ブログ") &&
+        !line.includes("プロフィール") &&
+        !line.includes("保存して見返"),
+    );
   const source = (fromCaption || body || "").replace(/\s+/g, " ").trim();
-  if (!source) return "気になったら、ブログで詳しく紹介しています。";
+  if (!source) {
+    return opts?.living
+      ? "スワイプでポイントを確認"
+      : "気になったら、ブログで詳しく紹介しています。";
+  }
   return source.length > 42 ? `${source.slice(0, 41)}…` : source;
 }
 
 /** 公式商品画像をカルーセルに使えるか（VC LinkSwitch 前提の通常URL画像） */
 function usableProductImageUrl(raw: string): string {
-  const url = String(raw || "").trim();
+  let url = String(raw || "").trim();
   if (!url) return "";
   try {
     const u = new URL(url);
     if (u.protocol !== "http:" && u.protocol !== "https:") return "";
+    // 楽天サムネは小さく返ることが多い → IG向けに拡大指定
+    if (/thumbnail\.image\.rakuten\.co\.jp/i.test(u.hostname)) {
+      if (u.searchParams.has("_ex")) {
+        u.searchParams.set("_ex", "800x800");
+      } else {
+        u.searchParams.set("_ex", "800x800");
+      }
+      url = u.toString();
+    }
   } catch {
     return "";
   }
@@ -79,6 +119,46 @@ function usableProductImageUrl(raw: string): string {
     return "";
   }
   return url;
+}
+
+/**
+ * 商品写真を 1080 正方形カードに載せる（便利グッズ系は1枚目商品写真が定石）。
+ * 失敗時は null（呼び出し側でテンプレにフォールバック）。
+ */
+async function renderProductPhotoCard(
+  productImageUrl: string,
+  width: number,
+  height: number,
+): Promise<Buffer | null> {
+  try {
+    const res = await fetch(productImageUrl, {
+      headers: { "User-Agent": "content-studio-ig-card/1.0" },
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!res.ok) return null;
+    const src = Buffer.from(await res.arrayBuffer());
+    // 余白を少し広げて「カード感」を出す（美容の見栄え用）
+    const maxW = Math.floor(width * 0.86);
+    const maxH = Math.floor(height * 0.86);
+    const productPng = await sharp(src)
+      .rotate()
+      .resize(maxW, maxH, { fit: "inside", withoutEnlargement: false })
+      .png()
+      .toBuffer();
+    return sharp({
+      create: {
+        width,
+        height,
+        channels: 3,
+        background: { r: 248, g: 245, b: 241 },
+      },
+    })
+      .composite([{ input: productPng, gravity: "centre" }])
+      .png()
+      .toBuffer();
+  } catch {
+    return null;
+  }
 }
 
 function stamp(): string {
@@ -200,9 +280,28 @@ async function main() {
   const pipelineGenre = String(
     process.env.CONTENT_PIPELINE_GENRE || article.product?.id || "",
   ).toLowerCase();
-  const isBeautyPipeline =
-    !pipelineGenre.includes("living") &&
-    !String(article.product?.id || "").startsWith("living-");
+  const productIdRaw = String(article.product?.id || "");
+  const genreLower = genre.toLowerCase();
+  const isLivingPipeline =
+    pipelineGenre.includes("living") ||
+    productIdRaw.startsWith("living-") ||
+    genreLower === "living";
+  const isGadgetPipeline =
+    pipelineGenre.includes("gadget") ||
+    productIdRaw.startsWith("gadget-") ||
+    genreLower === "gadget";
+  const isFoodPipeline =
+    pipelineGenre.includes("food") ||
+    productIdRaw.startsWith("food-") ||
+    genreLower === "food";
+  const isDrinkPipeline =
+    pipelineGenre.includes("drink") ||
+    productIdRaw.startsWith("drink-") ||
+    genreLower === "drink";
+  /** living / gadget / food / drink: 商品写真1枚目 + 保存CTA */
+  const isProductFirstPipeline =
+    isLivingPipeline || isGadgetPipeline || isFoodPipeline || isDrinkPipeline;
+  const isBeautyPipeline = !isProductFirstPipeline;
   const pattern: BeautyPostPatternId | null = isBeautyPipeline
     ? pickBeautyPostPattern({ productId: article.product?.id })
     : null;
@@ -213,20 +312,69 @@ async function main() {
     title: string;
     pitch: string;
     kind: "template" | "product";
+    /** 外部URL直載せ（レガシー） / 未設定ならテンプレまたは商品写真レンダ */
     externalUrl?: string;
+    /** 商品写真を正方形カード化して Pages へ載せる（living / beauty） */
+    renderProduct?: boolean;
   };
 
   const slides: SlideOut[] = (() => {
+    const isTipPost = String(article.product?.postType || "").toLowerCase() === "tip";
+    if (isTipPost) {
+      const tipSlides = Array.isArray(article.product?.cardSlides)
+        ? article.product.cardSlides
+        : [];
+      if (tipSlides.length) {
+        return tipSlides.slice(0, maxSlides).map((s) => ({
+          kind: "template" as const,
+          title: String(s.title || article.product?.ask || article.title || "今日の話").trim(),
+          pitch: String(s.pitch || "").trim(),
+        }));
+      }
+      const ask = String(article.product?.ask || article.title || "今日の話").trim();
+      return [
+        { kind: "template" as const, title: ask, pitch: "商品リンクなし" },
+        {
+          kind: "template" as const,
+          title: "ちなみに私は",
+          pitch: String(article.product?.aside || "").trim(),
+        },
+        { kind: "template" as const, title: "よかったら教えてください", pitch: "商品リンクなし" },
+      ].slice(0, maxSlides);
+    }
     if (!carouselEnabled) {
+      if (isProductFirstPipeline && productImageUrl) {
+        return [
+          {
+            kind: "product" as const,
+            title: (
+              article.product?.name ||
+              (isDrinkPipeline
+                ? "銘酒・季節酒"
+                : isFoodPipeline
+                  ? "旬・手土産フード"
+                  : isGadgetPipeline
+                    ? "ガジェット小物"
+                    : "便利グッズ")
+            ).trim(),
+            pitch: "",
+            renderProduct: true,
+          },
+        ];
+      }
       return [
         {
           kind: "template" as const,
           title: (article.title || article.product?.name || "Beauty Notes").trim(),
-          pitch: buildPitch(insta.caption || "", article.body || ""),
+          pitch: buildPitch(insta.caption || "", article.body || "", {
+            living: isProductFirstPipeline,
+          }),
         },
       ];
     }
     if (pattern) {
+      // 美容: 1枚目に商品写真（枠付きカード）、続く枚は型フック＋CTA
+      // 生URL直載せはやめ、living と同じ renderProduct で見栄えを揃える
       return buildPatternCarouselSlides(pattern, {
         brand: article.product?.brand || "",
         productName: article.product?.name || "",
@@ -238,11 +386,102 @@ async function main() {
         .slice(0, maxSlides)
         .map((s) =>
           s.kind === "product" && productImageUrl
-            ? { ...s, externalUrl: productImageUrl }
+            ? { ...s, kind: "product" as const, renderProduct: true }
             : { ...s, kind: "template" as const },
         );
     }
-    // living など: 汎用3枚
+    // living/gadget: tip=習慣メモ3枚 / 通常=1枚目商品写真 + 説明 + 保存CTA
+    if (isProductFirstPipeline) {
+      const defaultName = isDrinkPipeline
+        ? "銘酒・季節酒"
+        : isFoodPipeline
+          ? "旬・手土産フード"
+          : isGadgetPipeline
+            ? "ガジェット小物"
+            : "便利グッズ";
+      const cleanName = isDrinkPipeline
+        ? cleanDrinkProductName
+        : isFoodPipeline
+          ? cleanFoodProductName
+          : isGadgetPipeline
+            ? cleanGadgetProductName
+            : cleanLivingProductName;
+      const isTip =
+        article.product?.affiliate === false ||
+        String(article.product?.postType || "").toLowerCase() === "tip" ||
+        String(insta.postType || "").toLowerCase() === "tip";
+      const tipSlides = Array.isArray(article.product?.cardSlides)
+        ? article.product!.cardSlides!
+        : null;
+
+      if (isTip) {
+        if (tipSlides?.length) {
+          return tipSlides.slice(0, maxSlides).map((s) => ({
+            kind: "template" as const,
+            title: String(s.title || article.product?.ask || article.product?.name || "今日の話").trim(),
+            pitch: String(s.pitch || "保存して見返す").trim(),
+          }));
+        }
+        const tipName = String(
+          article.product?.ask || article.product?.name || "今日の話",
+        ).trim();
+        return [
+          {
+            kind: "template" as const,
+            title: tipName,
+            pitch: "商品リンクなし",
+          },
+          {
+            kind: "template" as const,
+            title: tipName,
+            pitch: buildPitch(insta.caption || "", article.body || "", {
+              living: true,
+            }),
+          },
+          {
+            kind: "template" as const,
+            title: "よかったら教えてください",
+            pitch: "アフィ無し",
+          },
+        ].slice(0, maxSlides);
+      }
+
+      const displayName =
+        cleanName(
+          article.product?.name || article.title || defaultName,
+          { maxLen: 24 },
+        ) || defaultName;
+      const pitch = buildPitch(insta.caption || "", article.body || "", {
+        living: true,
+      });
+      const productFirstSlides: SlideOut[] = [];
+      if (productImageUrl) {
+        productFirstSlides.push({
+          kind: "product",
+          title: displayName,
+          pitch: "",
+          renderProduct: true,
+        });
+      } else {
+        productFirstSlides.push({
+          kind: "template",
+          title: displayName,
+          pitch: isGadgetPipeline ? "今日のガジェット" : "今日の便利グッズ",
+        });
+      }
+      productFirstSlides.push({
+        kind: "template",
+        title: displayName,
+        pitch: pitch || "使う場面がはっきりしているのがポイント",
+      });
+      productFirstSlides.push({
+        kind: "template",
+        title: "保存して見返す",
+        pitch: "気になったらストックしておこう",
+      });
+      return productFirstSlides.slice(0, maxSlides);
+    }
+    // その他: 汎用3枚
     const title = (article.title || article.product?.name || "Notes").trim();
     const pitch = buildPitch(insta.caption || "", article.body || "");
     return [
@@ -274,25 +513,50 @@ async function main() {
   const fileNames: string[] = [];
   const imageUrls: string[] = [];
 
+  let usedProductPhoto = false;
   for (let i = 0; i < slides.length; i += 1) {
     const slide = slides[i]!;
     if (slide.externalUrl) {
       imageUrls.push(slide.externalUrl);
+      usedProductPhoto = true;
       continue;
     }
     const fileName =
       slides.length === 1
         ? `${productId}-${ts}.png`
         : `${productId}-${ts}-s${i + 1}.png`;
-    const svg = buildInstagramCardSvg({
-      title: slide.title,
-      pitch: slide.pitch,
-      genre,
-      width,
-      height,
-      slideLabel: slides.length > 1 ? `${i + 1}/${slides.length}` : undefined,
-    });
-    const png = await sharp(Buffer.from(svg)).png().toBuffer();
+    let png: Buffer | null = null;
+    if (slide.renderProduct && productImageUrl) {
+      png = await renderProductPhotoCard(productImageUrl, width, height);
+      if (png) usedProductPhoto = true;
+    }
+    if (!png) {
+      const svg = buildInstagramCardSvg({
+        title: slide.title,
+        pitch:
+          slide.pitch ||
+          (isDrinkPipeline
+            ? "今日のお酒"
+            : isFoodPipeline
+              ? "今日のフード"
+              : isGadgetPipeline
+                ? "今日のガジェット"
+                : "今日の便利グッズ"),
+        genre: isDrinkPipeline
+          ? "drink"
+          : isFoodPipeline
+            ? "food"
+            : isGadgetPipeline
+              ? "gadget"
+              : isLivingPipeline
+                ? "living"
+                : genre,
+        width,
+        height,
+        slideLabel: slides.length > 1 ? `${i + 1}/${slides.length}` : undefined,
+      });
+      png = await sharp(Buffer.from(svg)).png().toBuffer();
+    }
     const outPath = path.join(publicDir, fileName);
     fs.writeFileSync(outPath, png);
     fs.writeFileSync(path.join(localDir, fileName), png);
@@ -303,7 +567,16 @@ async function main() {
   insta.imageUrl = imageUrls[0];
   insta.imageUrls = imageUrls;
   insta.mediaType = imageUrls.length > 1 ? "carousel" : "image";
-  insta.imageSource = "template-card";
+  insta.imageSource = usedProductPhoto
+    ? isProductFirstPipeline
+      ? "product-first-carousel"
+      : isBeautyPipeline
+        ? "beauty-product-carousel"
+        : "template-card"
+    : "template-card";
+  if (isProductFirstPipeline) {
+    insta.cta = "sns_self_contained";
+  }
   if (pattern) {
     insta.postPattern = pattern;
     insta.postPatternLabel = patternName;
@@ -316,13 +589,23 @@ async function main() {
       : "Instagramカード生成成功",
   );
   if (pattern) console.log(`postPattern: ${pattern} (${patternName})`);
-  console.log(`genre: ${genre || "(未設定)"}`);
+  console.log(
+    `genre: ${genre || "(未設定)"}${
+      isGadgetPipeline ? " (gadget)" : isLivingPipeline ? " (living)" : ""
+    }`,
+  );
   console.log(`mediaType: ${insta.mediaType}`);
   console.log(
-    `productImageSlide: ${productImageUrl ? "yes" : "no (テンプレで代替)"}`,
+    `productImageSlide: ${
+      usedProductPhoto
+        ? isBeautyPipeline
+          ? "yes (beauty: framed product first)"
+          : "yes (1st preferred for product-first)"
+        : "no (テンプレで代替)"
+    }`,
   );
   for (const url of imageUrls) console.log(`imageUrl: ${url}`);
-  console.log("imageSource: template-card");
+  console.log(`imageSource: ${insta.imageSource}`);
   // 音楽: カルーセル/静止画には Graph API で人気音を付けられない（Reels + Audio API のみ）
   if (imageUrls.length > 1) {
     console.log(
