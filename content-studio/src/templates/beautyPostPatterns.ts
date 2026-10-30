@@ -40,6 +40,18 @@ function productPhrase(brand: string, productName: string): string {
   return `「${name}」`;
 }
 
+/** メモ本文から質感・誰向けの短い手がかりを拾う */
+function feelHintFromBody(body?: string): string {
+  const t = clean(body || "");
+  if (!t) return "";
+  const m =
+    t.match(
+      /([^。]{8,40}?(?:仕上がり|使い心地|塗り|なじみ|香り|粉っぽ|しっとり|さらっ|向け)[^。]{0,20})/,
+    ) || null;
+  if (m?.[1]) return clean(m[1]).slice(0, 42);
+  return "";
+}
+
 function tokyoDayKey(d = new Date()): string {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Tokyo",
@@ -150,7 +162,7 @@ export function buildPatternCarouselSlides(
     {
       kind: "template",
       title: "買う前に見る3点",
-      pitch: "仕上がり・使い方・普段使い",
+      pitch: "質感・香りor使い心地・誰向け",
     },
     {
       kind: "template",
@@ -170,10 +182,14 @@ export function buildPatternInstagramCaption(
   const product = productPhrase(brand, productName);
   const genre = clean(input.genre);
 
+  const feel = feelHintFromBody(input.body);
+
   if (pattern === "choose") {
     return [
-      `${genre || "コスメ"}を選ぶとき、私は「続けやすさ」と「仕上がりの好み」の2点だけ先に決めるようにしています。`,
-      `${product}も、その条件に合いそうか見ながらチェック中です。`,
+      `${genre || "コスメ"}を選ぶとき、私は「質感・使い心地」と「誰のどんな場面向けか」を先に見るようにしています。`,
+      feel
+        ? `${product}は、${feel}。続けやすさも見ながらチェック中です。`
+        : `${product}は、仕上がりと香り（または使用感）、向いている人をセットで見ています。`,
       "",
       "詳しくは、プロフィールのリンクからご覧ください",
     ].join("\n");
@@ -181,16 +197,20 @@ export function buildPatternInstagramCaption(
 
   if (pattern === "compare") {
     return [
-      `似たアイテムが多いときは、「何が違うのか」を先に見ると迷いが減ります。`,
-      `${product}、仕上がりが気になったら一度試してみてください。`,
+      `似たアイテムが多いときは、「質感の違い」と「向いている人の違い」を先に見ると迷いが減ります。`,
+      feel
+        ? `${product}、${feel}。気になったら一度試してみてください。`
+        : `${product}、塗り感や香りの差が気になったら一度試してみてください。`,
       "",
       "詳しくは、プロフィールのリンクからご覧ください",
     ].join("\n");
   }
 
   return [
-    `買う前に見るなら、①仕上がり ②使い方 ③自分の普段使いに合うか、の3点だけで十分です。`,
-    `${product}も、このチェックで見ています。`,
+    `買う前に見るなら、①質感・塗り感 ②香りまたは使い心地 ③向いている人・使う場面、の3点だけで十分です。`,
+    feel
+      ? `${product}も、${feel}。このチェックで見ています。`
+      : `${product}も、このチェックで見ています。`,
     "",
     "詳しくは、プロフィールのリンクからご覧ください",
   ].join("\n");
@@ -209,13 +229,20 @@ export function buildPatternThreadsBody(
 ): string {
   const product = productPhrase(clean(input.brand), clean(input.productName));
 
+  const feel = feelHintFromBody(input.body);
   if (pattern === "choose") {
-    return `${product}、続けやすさと仕上がりで見ています。\n気になったら、一度試してみてください。`;
+    return feel
+      ? `${product}、${feel}。\n続けやすさも見ています。気になったら一度試してみてください。`
+      : `${product}、質感と誰向けかを先に見ています。\n気になったら、一度試してみてください。`;
   }
   if (pattern === "compare") {
-    return `${product}、似たものとの違いが気になります。\n一度試してみてください。`;
+    return feel
+      ? `${product}、${feel}。\n似たものとの違いが気になります。`
+      : `${product}、質感や香りの違いが気になります。\n一度試してみてください。`;
   }
-  return `${product}、仕上がりと使い方と普段使いで見ています。\n気になったら、一度試してみてください。`;
+  return feel
+    ? `${product}、${feel}。\n買う前チェックの材料にしています。`
+    : `${product}、質感・使い心地・向いている人で見ています。\n気になったら、一度試してみてください。`;
 }
 
 export const BEAUTY_POST_PATTERN_IDS = PATTERN_IDS;

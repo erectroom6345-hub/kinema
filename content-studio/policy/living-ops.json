@@ -7,16 +7,44 @@
   "posting": {
     "perDay": 1,
     "requirePr": true,
-    "cta": "fixed_page",
-    "platforms": ["instagram", "threads", "x"],
+    "cta": "ig_self_contained",
+    "ctaNotes": {
+      "instagram": "投稿内完結（保存CTA）。ブログ誘導なし。1枚目は商品写真",
+      "threads": "SNS完結: 楽天アフィリエイトURL直載せ。ブログ誘導なし。tipはURLなし",
+      "x": "SNS完結: 楽天アフィリエイトURL直載せ。ブログ誘導なし。tipはURLなし",
+      "blog": "カテゴリまとめ専用。SNSからの誘導先にしない（美容だけブログ誘導）"
+    },
+    "platforms": [
+      "instagram",
+      "threads",
+      "x"
+    ],
     "noDmCommentReplyCta": true
   },
-  "snsCopy": {
-    "beats": ["悩み", "変化", "根拠", "行動"],
-    "maxLines": 5,
-    "prToken": "※PR"
+  "tipPosts": {
+    "enabled": true,
+    "weekday": "sat",
+    "requirePr": false,
+    "catalogPath": "input/products-living-tips.json",
+    "description": "土曜はアフィ無しで、答えやすい質問を1つと自分の習慣を1つ（週1）。商品URLなし・※PRなし。"
   },
-  "categories": ["kitchen", "storage", "cleaning", "other"],
+  "snsCopy": {
+    "beats": [
+      "悩み",
+      "変化",
+      "根拠",
+      "行動"
+    ],
+    "maxLines": 5,
+    "prToken": "※PR",
+    "instagramAction": "気になったら、保存して見返してみてください"
+  },
+  "categories": [
+    "kitchen",
+    "storage",
+    "cleaning",
+    "other"
+  ],
   "categorySchedule": {
     "timezone": "Asia/Tokyo",
     "weekly": {
@@ -35,20 +63,45 @@
       "other": 1
     },
     "minCategoryGapDays": 1,
-    "fallbackOrder": ["kitchen", "cleaning", "storage", "other"]
+    "fallbackOrder": [
+      "kitchen",
+      "cleaning",
+      "storage",
+      "other"
+    ]
   },
   "interrupt": {
     "enabled": true,
     "maxPerWeek": 2,
-    "priority": ["campaign", "sale"],
+    "priority": [
+      "campaign",
+      "sale"
+    ],
     "respectCategoryGap": true,
     "description": "sale/campaign は週最大2回まで曜日予定を上書き。popular は通常枠内の優先度のみ。"
   },
   "productRules": {
-    "priceMinYen": 500,
-    "priceMaxYen": 5000,
-    "preferredPriceMinYen": 1000,
-    "preferredPriceMaxYen": 3000,
+    "priceMinYen": 300,
+    "priceMaxYen": 20000,
+    "preferredPriceMinYen": 800,
+    "preferredPriceMaxYen": 8000,
+    "highTicket": {
+      "priceMaxYen": 100000,
+      "categories": [],
+      "namePatterns": [
+        "防災",
+        "ソーラー",
+        "蓄電",
+        "発電機",
+        "非常用",
+        "熊よけ",
+        "クマよけ",
+        "クマ撃退",
+        "携帯トイレ",
+        "簡易トイレ"
+      ],
+      "description": "床300円は維持。通常天井2万。防災・獣害・stockpile/demand は10万まで通す。"
+    },
     "productCoolDownDays": 14,
     "requiredFields": [
       "id",

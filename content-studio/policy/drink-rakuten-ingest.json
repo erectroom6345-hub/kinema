@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "description": "drink main[] を楽天市場商品検索APIから自動生成。酒質・季節・ギフト中心。地酒/都道府県を主役にした検索は使わない。福袋/訳あり/業務用/ノンアルを除外。",
+  "replaceMain": true,
+  "minPrice": 1000,
+  "maxPrice": 40000,
+  "highTicketMaxPrice": 100000,
+  "hitsPerCategory": 3,
+  "sleepMsBetweenRequests": 1200,
+  "ngKeyword": "福袋 アウトレット 訳あり 中古 業者 卸 業務用 サンプル B級 ノンアルコール",
+  "rejectNamePatterns": [
+    "福袋",
+    "アウトレット",
+    "訳あり",
+    "B級",
+    "業者",
+    "卸売",
+    "業務用",
+    "ノンアルコール",
+    "アルコール分0"
+  ],
+  "saleSearches": [
+    {
+      "category": "sake",
+      "keyword": "日本酒 ギフト",
+      "hits": 3,
+      "pointRateFlag": 1,
+      "label": "campaign"
+    },
+    {
+      "category": "seasonal",
+      "keyword": "季節限定 日本酒",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "limited"
+    },
+    {
+      "category": "fruit",
+      "keyword": "梅酒 ギフト",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "sale"
+    }
+  ],
+  "saleEndAtDays": 3,
+  "searches": [
+    { "category": "sake", "keyword": "日本酒 純米 ギフト", "hits": 3 },
+    { "category": "sake", "keyword": "日本酒 吟醸 720ml", "hits": 2 },
+    { "category": "sake", "keyword": "日本酒 ギフト 飲み比べ", "hits": 2 },
+    { "category": "seasonal", "keyword": "ひやおろし 日本酒", "hits": 2 },
+    { "category": "seasonal", "keyword": "新酒 日本酒", "hits": 2 },
+    { "category": "seasonal", "keyword": "季節限定 日本酒", "hits": 3 },
+    { "category": "shochu", "keyword": "本格焼酎 ギフト", "hits": 2 },
+    { "category": "shochu", "keyword": "芋焼酎 ギフト", "hits": 2 },
+    { "category": "fruit", "keyword": "梅酒 ギフト", "hits": 3 },
+    { "category": "fruit", "keyword": "果実酒 リキュール", "hits": 2 },
+    { "category": "other", "keyword": "日本酒 飲み比べ セット", "hits": 2 },
+    { "category": "other", "keyword": "クラフトジン 国産", "hits": 2 }
+  ],
+  "avoidSearchKeywords": ["地酒", "ご当地", "名産", "蔵めぐり", "酒蔵ツアー"],
+  "manualOnlyLabels": ["arrival"],
+  "notes": "arrival は検索では付けない。蔵出し・再入荷が分かったときだけ手付け。地酒・産地語は検索の主役にしない。"
+}

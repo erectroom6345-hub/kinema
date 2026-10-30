@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "themes": {
+    "stinkbug": {
+      "title": "カメムシ対策",
+      "updatedAt": "2026-10-30T02:58:29.516Z",
+      "history": [
+        {
+          "at": "2026-10-30T02:58:29.516Z",
+          "day": "2026-10-30",
+          "apiCount": 5,
+          "reviewSum": 739,
+          "reviewN": 5,
+          "sampleNames": [
+            "虫除けスプレー 天然 アロマ アンチバグ プレミアム 【選べるサイズ】｜ 虫除け",
+            "クモブロッカー 500ml 【クモ用スプレー 蜘蛛の巣 スプレー クモの巣 対策",
+            "ヒバNON NON 2本セット 4本セット 6本セット【 ヒバノンノン 防虫 防"
+          ],
+          "calendarBoost": true,
+          "keyword": "カメムシ 忌避 スプレー"
+        }
+      ],
+      "lastDetection": {
+        "surged": true,
+        "reason": "first_sample_calendar",
+        "ratio": null
+      }
+    }
+  },
+  "updatedAt": "2026-10-30T02:58:30.719Z",
+  "lastRunDay": "2026-10-30"
+}

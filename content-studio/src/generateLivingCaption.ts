@@ -1,14 +1,31 @@
 /**
  * living SNS文生成（Instagram caption / Threads / X）
  *
- * 構成: 悩み → 変化 → 根拠 → 行動（固定ページ）
+ * 構成: 悩み → 変化 → 根拠 → 行動
  * - 毎回 ※PR
- * - CTA は固定ページ一択（DM/コメント/リプライ誘導なし）
- * - 楽天一本（本文にモール直リンクは置かない）
+ * - Instagram: 投稿内完結（保存CTA・URLなし）
+ * - Threads / X: 楽天アフィリエイト直載せ（SNS完結。ブログ誘導はしない）
+ * - ブログはカテゴリまとめ専用（SNSからの誘導先にしない）
+ * - DM/コメント/リプライ誘導なし
  */
+import "dotenv/config";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import { normalizeCaption } from "./utils/normalizeCaption.ts";
-import { buildTrackUrl, describeUtm } from "./utils/utm.ts";
+
+const require = createRequire(import.meta.url);
+const { cleanLivingProductName } = require("../scripts/lib/living-product-name.cjs") as {
+  cleanLivingProductName: (raw: string, opts?: { maxLen?: number }) => string;
+};
+const { buildReasonLine: buildBenefitReason } = require("../scripts/lib/product-benefit-copy.cjs") as {
+  buildReasonLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+    snippet?: string;
+    maxLen?: number;
+  }) => string;
+};
 
 const inputPath = "input/article.json";
 const outputPath = "input/instagram-post.json";
@@ -20,18 +37,25 @@ type ArticleInput = {
   product?: {
     id?: string;
     name?: string;
+    nameRaw?: string;
     category?: string;
     description?: string;
+    ask?: string;
+    aside?: string;
     priceRange?: string;
+    pointRate?: number;
     features?: string[];
     imageUrl?: string;
     rakutenUrl?: string;
     url?: string;
+    postType?: string;
+    affiliate?: boolean;
     interrupt?: string | null;
     labels?: {
       sale?: boolean;
       campaign?: boolean;
       popular?: boolean;
+      tip?: boolean;
     };
   };
 };
@@ -83,17 +107,30 @@ function worryLine(category: string): string {
   }
 }
 
+function pointOffer(pointRate?: number | null): string | null {
+  const n = Number(pointRate);
+  if (!Number.isFinite(n) || n < 2) return null;
+  return `ポイント${Math.round(n)}倍`;
+}
+
 function changeLine(
   name: string,
   category: string,
   interrupt?: string | null,
+  tip?: boolean,
+  pointRate?: number | null,
 ): string {
-  const product = name ? `「${name}」` : "便利グッズ";
-  if (interrupt === "campaign") {
-    return `${product}、いまのキャンペーン条件だけ先に見ておきたいです。`;
+  if (tip) {
+    const tipTitle = name || "この習慣";
+    return `${tipTitle}。これを意識すると、散らかりの発生源がひとつ減りそうです。`;
   }
-  if (interrupt === "sale") {
-    return `${product}、セール対象かを先に確認しておきたいです。`;
+  const product = name ? `「${name}」` : "便利グッズ";
+  const offer = pointOffer(pointRate);
+  if ((interrupt === "campaign" || interrupt === "sale") && offer) {
+    return `${product}、いま${offer}です。買い足しもしやすいタイミングです。`;
+  }
+  if (interrupt === "campaign" || interrupt === "sale") {
+    return `${product}。気になったら、一度試してみてください。`;
   }
   switch ((category || "").trim().toLowerCase()) {
     case "kitchen":
@@ -108,34 +145,59 @@ function changeLine(
 }
 
 function reasonLine(params: {
+  name?: string;
+  category?: string;
   description: string;
   features: string[];
   priceRange: string;
   interrupt?: string | null;
+  pointRate?: number | null;
 }): string {
-  if (params.interrupt === "campaign") {
-    return "期間と条件だけ、先に押さえておくメモです。";
+  const offer = pointOffer(params.pointRate);
+  const price = params.priceRange ? `税込${params.priceRange}` : "";
+  if (
+    (params.interrupt === "campaign" || params.interrupt === "sale") &&
+    offer &&
+    price
+  ) {
+    return `${price}。${offer}なので、普段より買い足しやすいです。`;
   }
-  if (params.interrupt === "sale") {
-    return "対象かどうかは、詳細を見てからで大丈夫です。";
+  if ((params.interrupt === "campaign" || params.interrupt === "sale") && offer) {
+    return `${offer}なので、買い足しやすいタイミングです。`;
   }
-  const feature = params.features.filter(Boolean)[0];
-  if (feature) {
-    // 「〜しやすい」等はそのまま、「名詞」なら「〜なのが」
-    if (/[るくい]$/u.test(feature) || /やすい|にくい|できる/.test(feature)) {
-      return `${feature}のがポイントです。`;
-    }
-    return `${feature}なのがポイントです。`;
+  if (params.interrupt === "campaign" || params.interrupt === "sale") {
+    return price || "気になったら、一度試してみてください。";
   }
-  const desc = params.description.replace(/\s+/g, " ").trim();
-  if (desc) return `${desc.slice(0, 42)}${desc.length > 42 ? "…" : ""}`;
-  if (params.priceRange) return `目安は${params.priceRange}で、試しやすい価格帯です。`;
-  return "使う場面がはっきりしているのが安心材料です。";
+  const feature = params.features
+    .map((f) => String(f || "").trim())
+    .find(
+      (f) =>
+        f &&
+        !/^ショップ[:：]/u.test(f) &&
+        !/^税込目安/u.test(f) &&
+        !/^ポイント\d+倍$/u.test(f) &&
+        !/ランキング|送料|ギフト包装|法事/.test(f),
+    );
+  const snippet = [feature, params.description].filter(Boolean).join(" ");
+  return buildBenefitReason({
+    genre: "living",
+    category: params.category,
+    name: params.name,
+    snippet,
+    maxLen: 52,
+  });
 }
 
+/** Instagram 完結用。プロフィール/ブログへ送らない */
 function actionLine(prToken: string, requirePr: boolean): string {
-  const base = "詳しくは、プロフィールのリンクからご覧ください";
+  const base = "気になったら、保存して見返してみてください";
   return requirePr ? `${base} ${prToken}` : base;
+}
+
+function buildTipCaption(ask: string, aside: string, name: string): string {
+  const question = ask.trim() || `${name}。みなさんはどうしていますか？`;
+  const mine = aside.trim();
+  return mine ? `${question}\n${mine}` : question;
 }
 
 function buildFourBeatCaption(params: {
@@ -144,135 +206,193 @@ function buildFourBeatCaption(params: {
   description: string;
   features: string[];
   priceRange: string;
+  pointRate?: number | null;
   requirePr: boolean;
   prToken: string;
   interrupt?: string | null;
+  tip?: boolean;
 }): string {
   return [
     worryLine(params.category),
-    changeLine(params.name, params.category, params.interrupt),
+    changeLine(
+      params.name,
+      params.category,
+      params.interrupt,
+      params.tip,
+      params.pointRate,
+    ),
     reasonLine(params),
     actionLine(params.prToken, params.requirePr),
   ].join("\n");
 }
 
-function buildThreadsText(caption: string, trackUrl: string): string {
-  const body = caption
-    .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
+/** Threads: 保存CTAを外し、楽天アフィURLを末尾に（tipはURLなし）。ブログ誘導はしない */
+function buildThreadsText(
+  caption: string,
+  affiliateUrl: string,
+  opts: { tip?: boolean; requirePr?: boolean; prToken?: string },
+): string {
+  let body = caption
+    .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
     .replace(/\n*https?:\/\/\S+/gi, "")
+    .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
     .trim();
-  return `${body}\n${trackUrl}`.trim();
+  if (opts.tip || !affiliateUrl) {
+    if (!opts.tip && opts.requirePr && !/※PR/.test(body)) {
+      body = `${body} ${opts.prToken || "※PR"}`;
+    }
+    return body;
+  }
+  if (opts.requirePr && !/※PR/.test(body)) {
+    body = `${body} ${opts.prToken || "※PR"}`;
+  }
+  return `${body}\n${affiliateUrl}`.trim();
 }
 
 function buildXText(params: {
   name: string;
   category: string;
-  trackUrl: string;
   requirePr: boolean;
   prToken: string;
+  affiliateUrl?: string;
+  interrupt?: string | null;
+  pointRate?: number | null;
 }): string {
   const line1 = worryLine(params.category).replace(/。$/, "");
-  const line2 = changeLine(params.name, params.category);
+  const line2 = changeLine(
+    params.name,
+    params.category,
+    params.interrupt,
+    false,
+    params.pointRate,
+  );
   const pr = params.requirePr ? ` ${params.prToken}` : "";
-  const text = `${line1}。\n${line2}${pr}\n${params.trackUrl}`;
+  const url = (params.affiliateUrl || "").trim();
+  const text = url
+    ? `${line1}。\n${line2}${pr}\n${url}`
+    : `${line1}。\n${line2}${pr}`;
   return text.length > 260 ? `${text.slice(0, 250)}…` : text;
 }
 
 function main() {
   const article = JSON.parse(fs.readFileSync(inputPath, "utf-8")) as ArticleInput;
   const ops = readOps();
+  const tip =
+    article.product?.affiliate === false ||
+    String(article.product?.postType || "").toLowerCase() === "tip" ||
+    Boolean(article.product?.labels?.tip);
+
+  // 固定ページはブログまとめ用。SNS本文には載せない（未設定でもSNS生成は続行）
   const fixedPageUrl = resolveFixedPageUrl(ops.fixedPageUrl);
-  if (!fixedPageUrl) {
-    throw new Error(
-      "LIVING_FIXED_PAGE_URL が未設定です。暮らし入口の固定ページURLを .env に設定してください。",
-    );
-  }
 
   const productId = (article.product?.id || "").trim();
-  const name = (article.product?.name || "").trim();
+  const nameRaw = (
+    article.product?.nameRaw ||
+    article.product?.name ||
+    ""
+  ).trim();
+  // tip は短いタイトルをそのまま。商品は整形名
+  const name = tip
+    ? (article.product?.name || nameRaw).trim().slice(0, 32)
+    : cleanLivingProductName((article.product?.name || nameRaw).trim(), {
+        maxLen: 28,
+      });
   const category = (article.product?.category || "other").trim();
   const description = (article.product?.description || article.body || "").trim();
   const features = Array.isArray(article.product?.features)
     ? article.product!.features!
     : [];
   const priceRange = (article.product?.priceRange || "").trim();
+  const pointRate = Number(article.product?.pointRate);
   const imageUrl = (article.product?.imageUrl || "").trim();
-  const interrupt =
-    (article.product?.interrupt ||
-      (article.product?.labels?.campaign
-        ? "campaign"
-        : article.product?.labels?.sale
-          ? "sale"
-          : null)) ||
-    null;
+  const affiliateUrl = tip
+    ? ""
+    : (article.product?.rakutenUrl || article.product?.url || "").trim();
+  const interrupt = tip
+    ? null
+    : (article.product?.interrupt ||
+        (article.product?.labels?.campaign
+          ? "campaign"
+          : article.product?.labels?.sale
+            ? "sale"
+            : null)) ||
+      null;
 
   if (!productId || !name) {
     throw new Error("article.product.id / name が必要です");
   }
+  if (!tip && !affiliateUrl) {
+    throw new Error("article.product.rakutenUrl が空です（Threads/X にアフィURLを付けられません）");
+  }
 
+  const requirePr = tip ? false : ops.requirePr;
+  const ask = (article.product?.ask || "").trim();
+  const aside = (article.product?.aside || "").trim();
   const caption = normalizeCaption(
-    buildFourBeatCaption({
-      name,
-      category,
-      description,
-      features,
-      priceRange,
-      requirePr: ops.requirePr,
-      prToken: ops.prToken,
-      interrupt,
-    }),
+    tip
+      ? buildTipCaption(ask, aside, name)
+      : buildFourBeatCaption({
+          name,
+          category,
+          description,
+          features,
+          priceRange,
+          pointRate: Number.isFinite(pointRate) ? pointRate : null,
+          requirePr,
+          prToken: ops.prToken,
+          interrupt,
+          tip,
+        }),
   );
 
-  const igUtm = buildTrackUrl({
-    blogUrl: fixedPageUrl,
-    productId,
-    source: "instagram",
-    genre: "living",
-  });
-  const threadsUtm = buildTrackUrl({
-    blogUrl: fixedPageUrl,
-    productId,
-    source: "threads",
-    genre: "living",
-  });
-  const xUtm = buildTrackUrl({
-    blogUrl: fixedPageUrl,
-    productId,
-    source: "x",
-    genre: "living",
-  });
-
-  const threadsText = buildThreadsText(caption, threadsUtm);
-  const xText = buildXText({
-    name,
-    category,
-    trackUrl: xUtm,
-    requirePr: ops.requirePr,
+  const threadsText = buildThreadsText(caption, affiliateUrl, {
+    tip,
+    requirePr,
     prToken: ops.prToken,
   });
+  const xText = tip
+    ? caption
+    : buildXText({
+        name,
+        category,
+        requirePr,
+        prToken: ops.prToken,
+        affiliateUrl,
+        interrupt,
+        pointRate: Number.isFinite(pointRate) ? pointRate : null,
+      });
 
-  console.log("---- living SNS CTA (fixed page) ----");
+  console.log("---- living SNS CTA ----");
   console.log(`productId: ${productId}`);
-  console.log(`fixedPage: ${fixedPageUrl}`);
-  console.log(`IG utm: ${JSON.stringify(describeUtm(igUtm))}`);
-  console.log(`Threads utm: ${JSON.stringify(describeUtm(threadsUtm))}`);
-  console.log(`X utm: ${JSON.stringify(describeUtm(xUtm))}`);
+  console.log(`postType: ${tip ? "tip" : "product"}`);
+  console.log(
+    `cta: ${tip ? "tip_self_contained" : "ig_self_contained + threads/x rakuten affiliate"}`,
+  );
+  if (affiliateUrl) console.log(`rakutenAffiliate: ${affiliateUrl.slice(0, 80)}...`);
+  console.log(`pr: ${requirePr}`);
+  if (fixedPageUrl) {
+    console.log(`blogFixedPage(not in SNS): ${fixedPageUrl}`);
+  }
 
   const result = {
     imageUrl,
     caption,
-    blogUrl: fixedPageUrl,
-    blogUtmUrl: igUtm,
+    // SNS完結: ブログ誘導なし。Threads/X は楽天アフィ直載せ
+    blogUrl: "",
+    blogUtmUrl: "",
     threadsText,
-    threadsUtmUrl: threadsUtm,
+    threadsUtmUrl: tip ? "" : affiliateUrl,
     xText,
-    xUtmUrl: xUtm,
+    xUtmUrl: tip ? "" : affiliateUrl,
     genre: "living",
     productName: name,
+    productNameRaw: nameRaw || undefined,
     category,
     productId,
-    cta: "fixed_page",
-    pr: ops.requirePr,
+    cta: tip ? "tip_self_contained" : "ig_self_contained",
+    pr: requirePr,
+    affiliate: !tip,
+    postType: tip ? "tip" : article.product?.postType || "main",
   };
 
   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + "\n", "utf-8");

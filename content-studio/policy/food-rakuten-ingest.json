@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "description": "food main[] を楽天市場商品検索APIから自動生成。旬・手土産・銘菓・食卓中心。ご当地/名産/都道府県名を主役にした検索は使わない。福袋/訳あり/業務用を除外。",
+  "replaceMain": true,
+  "minPrice": 500,
+  "maxPrice": 30000,
+  "highTicketMaxPrice": 100000,
+  "hitsPerCategory": 3,
+  "sleepMsBetweenRequests": 1200,
+  "ngKeyword": "福袋 アウトレット 訳あり 中古 業者 卸 業務用 賞味期限切れ サンプル セット大量 B級",
+  "rejectNamePatterns": [
+    "福袋",
+    "アウトレット",
+    "訳あり",
+    "B級",
+    "業者",
+    "卸売",
+    "業務用",
+    "賞味期限切",
+    "サンプル詰め",
+    "大量セット"
+  ],
+  "saleSearches": [
+    {
+      "category": "gift",
+      "keyword": "フード ギフト 個包装",
+      "hits": 3,
+      "pointRateFlag": 1,
+      "label": "campaign"
+    },
+    {
+      "category": "sweets",
+      "keyword": "銘菓 ギフト",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "sale"
+    },
+    {
+      "category": "seasonal",
+      "keyword": "季節限定 スイーツ",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "limited"
+    }
+  ],
+  "saleEndAtDays": 3,
+  "searches": [
+    { "category": "seasonal", "keyword": "季節限定 スイーツ", "hits": 3 },
+    { "category": "seasonal", "keyword": "旬 フルーツ ギフト", "hits": 2 },
+    { "category": "seasonal", "keyword": "秋の味覚 スイーツ", "hits": 2 },
+    { "category": "gift", "keyword": "手土産 お菓子 個包装", "hits": 3 },
+    { "category": "gift", "keyword": "フード ギフト 詰め合わせ", "hits": 2 },
+    { "category": "gift", "keyword": "焼き菓子 ギフト おしゃれ", "hits": 2 },
+    { "category": "sweets", "keyword": "老舗 銘菓", "hits": 3 },
+    { "category": "sweets", "keyword": "チーズケーキ ギフト", "hits": 2 },
+    { "category": "table", "keyword": "レトルト カレー ギフト", "hits": 2 },
+    { "category": "table", "keyword": "漬物 ギフト", "hits": 2 },
+    { "category": "table", "keyword": "調味料 ギフト", "hits": 2 },
+    { "category": "table", "keyword": "レトルト 非常食 備蓄", "hits": 3 },
+    { "category": "table", "keyword": "缶詰 ご飯 備蓄", "hits": 2 },
+    { "category": "table", "keyword": "フリーズドライ 味噌汁 備蓄", "hits": 2 },
+    { "category": "other", "keyword": "ナッツ ギフト", "hits": 2 },
+    { "category": "other", "keyword": "チョコレート ギフト 個包装", "hits": 2 },
+    { "category": "other", "keyword": "保存食 美味しい 備蓄", "hits": 3 },
+    { "category": "other", "keyword": "乾麺 そうめん 備蓄", "hits": 2 },
+    { "category": "other", "keyword": "ペットボトル 水 長期保存", "hits": 2 }
+  ],
+  "avoidSearchKeywords": ["ご当地", "名産", "名物", "北海道", "九州", "沖縄", "産地直送"],
+  "manualOnlyLabels": ["arrival"],
+  "notes": "arrival は検索では付けない。実入荷が分かったときだけ products-food.json に手で labels.arrival=true。産地語は検索の主役にしない（地域紹介と被るため）。"
+}

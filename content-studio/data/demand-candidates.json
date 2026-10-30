@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "pending": [
+    {
+      "themeId": "stinkbug",
+      "title": "カメムシ対策",
+      "problem": "カメムシが大量発生・室内侵入する",
+      "genres": [
+        "living"
+      ],
+      "detectedAt": "2026-10-30T02:58:29.516Z",
+      "day": "2026-10-30",
+      "reason": "first_sample_calendar",
+      "ratio": null,
+      "apiCount": 5,
+      "reviewSum": 739,
+      "sampleNames": [
+        "虫除けスプレー 天然 アロマ アンチバグ プレミアム 【選べるサイズ】｜ 虫除け",
+        "クモブロッカー 500ml 【クモ用スプレー 蜘蛛の巣 スプレー クモの巣 対策",
+        "ヒバNON NON 2本セット 4本セット 6本セット【 ヒバノンノン 防虫 防"
+      ],
+      "approveHint": "npm run demand:approve -- --theme=stinkbug",
+      "ingestHints": [
+        {
+          "genre": "living",
+          "category": "other",
+          "keyword": "カメムシ スプレー 忌避"
+        },
+        {
+          "genre": "living",
+          "category": "cleaning",
+          "keyword": "カメムシ 駆除"
+        }
+      ],
+      "status": "pending",
+      "updatedAt": "2026-10-30T02:58:29.517Z"
+    }
+  ],
+  "updatedAt": "2026-10-30T02:58:29.517Z"
+}

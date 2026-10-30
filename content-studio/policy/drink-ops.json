@@ -1,0 +1,173 @@
+{
+  "version": 2,
+  "genre": "drink",
+  "label": "銘酒・季節酒",
+  "affiliate": "rakuten_only",
+  "account": "genre_dedicated",
+  "positioning": {
+    "oneLiner": "いま買える、銘酒と季節酒のメモ",
+    "heroAxis": "酒質・季節・飲む場面（地酒・産地自慢は顔にしない）",
+    "notThis": [
+      "安酒まとめ特化",
+      "毎日『希少』『幻の一本』アピール",
+      "酔っ払いエンタメ",
+      "ご当地酒・蔵めぐりガイド",
+      "地域酒場ガイド（それは地域紹介ジャンル）"
+    ],
+    "vsRegional": "蔵元・産地は根拠の修飾のみ。街・蔵ツーリズム・土地の物語は地域紹介に回す。",
+    "complianceNote": "酒類。投稿は成人向けトーン。過度な煽り・多飲勧奨はしない。※PR必須。"
+  },
+  "posting": {
+    "perDay": 1,
+    "requirePr": true,
+    "cta": "ig_self_contained",
+    "ctaNotes": {
+      "instagram": "投稿内完結（保存CTA）。ブログ誘導なし。1枚目は商品写真",
+      "threads": "SNS完結: 楽天アフィリエイトURL直載せ。ブログ誘導なし。tipはURLなし",
+      "x": "SNS完結: 楽天アフィリエイトURL直載せ。ブログ誘導なし。tipはURLなし",
+      "blog": "カテゴリまとめ専用。SNSからの誘導先にしない（美容だけブログ誘導）"
+    },
+    "platforms": [
+      "instagram",
+      "threads",
+      "x"
+    ],
+    "noDmCommentReplyCta": true
+  },
+  "tipPosts": {
+    "enabled": true,
+    "weekday": "sat",
+    "requirePr": false,
+    "catalogPath": "input/products-drink-tips.json",
+    "description": "土曜はアフィ無しで、答えやすい質問を1つと自分の飲み方を1つ（週1）。商品URLなし・※PRなし。飲み過ぎの勧め、蔵めぐり・街歩きにはしない。"
+  },
+  "snsCopy": {
+    "beats": [
+      "場面",
+      "特別さ",
+      "根拠",
+      "行動"
+    ],
+    "beatsNotes": {
+      "場面": "食卓・手土産・季節の一杯など",
+      "特別さ": "銘柄・造り・季節酒としての一言。希少語は limited/arrival のみ",
+      "根拠": "酒質・製法・合う料理の短文。産地が出ても修飾に留める",
+      "行動": "保存CTA（IG）／固定ページ（Threads・X）"
+    },
+    "maxLines": 5,
+    "prToken": "※PR",
+    "instagramAction": "気になったら、保存して見返してみてください",
+    "scarceWordsPolicy": "『中々手に入らない』『幻』『希少』は interrupt=limited|arrival のときだけ許可。通常枠では使わない。",
+    "regionWordsPolicy": "『地酒の魅力』『○○県が誇る』をリードにしない。産地・蔵名は根拠行の短い修飾のみ。"
+  },
+  "categories": [
+    "sake",
+    "shochu",
+    "fruit",
+    "seasonal",
+    "other"
+  ],
+  "categoryLabels": {
+    "sake": "日本酒",
+    "shochu": "焼酎・泡盛",
+    "fruit": "梅酒・リキュール",
+    "seasonal": "季節酒・限定醸造",
+    "other": "その他のお酒"
+  },
+  "categorySchedule": {
+    "timezone": "Asia/Tokyo",
+    "weekly": {
+      "mon": "sake",
+      "tue": "seasonal",
+      "wed": "fruit",
+      "thu": "sake",
+      "fri": "shochu",
+      "sat": "other",
+      "sun": "seasonal"
+    },
+    "weeklyCountsTarget": {
+      "sake": 2,
+      "seasonal": 2,
+      "fruit": 1,
+      "shochu": 1,
+      "other": 1
+    },
+    "minCategoryGapDays": 1,
+    "fallbackOrder": [
+      "sake",
+      "seasonal",
+      "fruit",
+      "shochu",
+      "other"
+    ]
+  },
+  "interrupt": {
+    "enabled": true,
+    "maxPerWeek": 2,
+    "priority": [
+      "arrival",
+      "limited",
+      "campaign",
+      "sale"
+    ],
+    "respectCategoryGap": true,
+    "description": "arrival（実入荷）と limited（限定醸造・数量限定）を最優先。週最大2回。popular は通常枠内のみ。"
+  },
+  "productRules": {
+    "priceMinYen": 1000,
+    "priceMaxYen": 40000,
+    "preferredPriceMinYen": 1500,
+    "preferredPriceMaxYen": 12000,
+    "highTicket": {
+      "priceMaxYen": 100000,
+      "categories": [],
+      "namePatterns": ["飲み比べ", "セット", "大吟醸", "限定", "限定醸造", "希少", "古酒"],
+      "description": "床1000円。通常天井4万（銘酒）。セット・限定・limited|arrival は10万まで通す。"
+    },
+    "productCoolDownDays": 28,
+    "requiredFields": [
+      "id",
+      "name",
+      "category",
+      "description",
+      "priceRange",
+      "features",
+      "rakutenUrl",
+      "imageUrl"
+    ],
+    "optionalFields": {
+      "region": "string — 県・蔵の地域（任意・根拠用。投稿の顔にしない）",
+      "seasonTag": "string — ひやおろし、新酒、夏酒 等"
+    },
+    "labelFields": {
+      "sale": "boolean — セール品",
+      "campaign": "boolean — キャンペーン中",
+      "popular": "boolean — 人気/定番（通常枠で優先）",
+      "limited": "boolean — 数量限定・限定醸造（interrupt候補）",
+      "arrival": "boolean — 実入荷/再入荷メモ（手動）",
+      "campaignEndAt": "ISO日付 — キャンペーン終了日",
+      "saleEndAt": "ISO日付 — セール終了日（任意）",
+      "limitedEndAt": "ISO日付 — 限定終了目安（任意）"
+    }
+  },
+  "growth": {
+    "windowHours": 48,
+    "primaryPlatform": "threads",
+    "likeMedianMultiplier": 2,
+    "recentWindow": 20,
+    "minRepliesPlusQuotes": 3
+  },
+  "blog": {
+    "mode": "category_roundup",
+    "seedPerCategory": 2,
+    "appendOnlyOnHit": true,
+    "splitAfterProducts": 15,
+    "roundupTitles": {
+      "sake": "日本酒まとめ",
+      "shochu": "焼酎・泡盛まとめ",
+      "fruit": "梅酒・リキュールまとめ",
+      "seasonal": "季節酒・限定醸造まとめ",
+      "other": "銘酒メモまとめ"
+    }
+  }
+}

@@ -17,7 +17,13 @@ const {
   summarizeQueue,
   normalizeUrlKey,
 } = require("./beauty-candidate-queue.cjs");
-const { evaluateCandidate, BAD_PATH_RE } = require("./beauty-candidate-gate.cjs");
+const {
+  evaluateCandidate,
+  BAD_PATH_RE,
+  isIngestableProductUrl,
+  detectNoiseReason,
+  decodeProductName,
+} = require("./beauty-candidate-gate.cjs");
 const { isProductionEligibleProduct } = require("./beauty-copy-guard.cjs");
 const { resolvePromoteBucket } = require("./beauty-profit-score.cjs");
 const { loadWindows } = require("./beauty-sale-windows.cjs");
@@ -98,7 +104,7 @@ function cleanLinkText(html) {
 }
 
 /**
- * 一覧HTMLから商品っぽい通常URLを抽出（キーワード不要）
+ * 一覧HTMLから本商品SKU URLだけ抽出（カテゴリハブ・店舗導線は除外）
  */
 function extractListingProductLinks(html, baseUrl, brand) {
   const out = [];
@@ -115,17 +121,25 @@ function extractListingProductLinks(html, baseUrl, brand) {
       continue;
     }
     if (BAD_PATH_RE.test(path)) continue;
+
+    const sku = isIngestableProductUrl(href, { brand });
+    if (!sku.ok) continue;
+
     const verdict = isVcLinkSwitchProductUrl(href, { brand });
     if (!verdict.ok) continue;
+
+    const text = decodeProductName(cleanLinkText(m[2]).slice(0, 120));
+    if (detectNoiseReason({ productName: text, productUrl: href })) continue;
+
     const key = normalizeUrlKey(href);
     if (!key || seen.has(key)) continue;
     seen.add(key);
-    const text = cleanLinkText(m[2]).slice(0, 120);
     out.push({
       productUrl: href.split("#")[0],
       productName: text,
       brand,
       source: "official-listing",
+      skuReason: sku.reason || "",
     });
   }
   return out;
@@ -254,15 +268,77 @@ async function enrichCandidate(candidate, opts = {}) {
   }
 }
 
-function buildArticleCopy(item) {
-  const brand = item.brand || "";
-  const name = item.productName || "このアイテム";
+/**
+ * 美容メモ: 質感/塗り感・香りor使い心地・誰向け+場面を必ず入れる。
+ * 「ブログで整理します」だけのメタ文は使わない。
+ */
+function beautyFeelBeats(item) {
+  const name = String(item.productName || item.name || "");
+  const genre = String(item.genre || item.category || "");
+  const blob = `${name}\n${genre}`;
+
+  if (/ファンデ|クッション|下地|ベース|BB|CC|パウダー/.test(blob)) {
+    return {
+      feel: "粉っぽさが出にくく、薄づきでも肌が均一に見えやすいかどうかがポイント",
+      scentOrUse: "朝のメイクでも重たくなりにくいかを見ています",
+      audience: "厚塗りが苦手で、毎日の時短メイクを整えたい人",
+      scene: "出勤前や外出前のベースづくり",
+    };
+  }
+  if (/リップ|ティント|グロス|口紅/.test(blob)) {
+    return {
+      feel: "塗り始めのなめらかさと、色の出方が自分の唇に合いそうかどうかがポイント",
+      scentOrUse: "香りが強すぎないか、マスクや食事のあとも気になりにくいかを見ています",
+      audience: "普段使いで色と塗り心地のバランスを取りたい人",
+      scene: "仕事前のワンポイントや、休日の軽いメイク",
+    };
+  }
+  if (/チーク|ハイライト|シェーディング|アイ|マスカラ|ライナー/.test(blob)) {
+    return {
+      feel: "粉飛びやよれにくさ、肌なじみのよさがポイント",
+      scentOrUse: "のせたあとの自然さと、メイク直しのしやすさを見ています",
+      audience: "盛りすぎず、血色や影を足したい人",
+      scene: "毎日メイクの仕上げや、写真映えを少しだけ足したいとき",
+    };
+  }
+  if (/化粧液|化粧水|美容液|乳液|クリーム|セラム|オイル|パック|スキン/.test(blob)) {
+    return {
+      feel: "なじみの速さや、べたつきにくさ・しっとり感のバランスがポイント",
+      scentOrUse: "香りが日常使いで邪魔にならないか、朝晩続けやすいかを見ています",
+      audience: "スキンケアを負担なく続けたい人",
+      scene: "朝の支度前や、夜のリセットタイム",
+    };
+  }
+  if (/サプリ|ドリンク|インナー/.test(blob)) {
+    return {
+      feel: "続けやすさ（粒の大きさ・味・タイミング）がポイント",
+      scentOrUse: "生活リズムに無理なく入れられるかを見ています",
+      audience: "内側からのケアも意識しつつ、習慣化したい人",
+      scene: "朝食後や夜のルーティンに足すとき",
+    };
+  }
   return {
-    articleTitle: `${brand}の${name}、毎日使いで気になった点`,
-    articleBody:
-      `${name}が気になっています。` +
-      `${brand}らしい仕上がりや使い心地を、ブログで短く整理します。` +
-      `詳しい条件や雰囲気はブログ記事で確認できます。`,
+    feel: "仕上がりの印象と、手に取ったときの使い心地がポイント",
+    scentOrUse: "香りや使用感が日常使いで無理がないかを見ています",
+    audience: "自分のペースでコスメを選びたい人",
+    scene: "毎日の支度や、気分を整えたいタイミング",
+  };
+}
+
+function buildArticleCopy(item) {
+  const brand = String(item.brand || "").trim();
+  const name = String(item.productName || item.name || "このアイテム").trim();
+  const beats = beautyFeelBeats(item);
+  const brandBit = brand ? `${brand}の` : "";
+  return {
+    articleTitle: `${brandBit}${name}、${beats.audience.replace(/人$/, "")}視点で見るポイント`,
+    articleBody: [
+      `${name}が気になっています。`,
+      `${beats.feel}。`,
+      `${beats.scentOrUse}。`,
+      `${beats.audience}向けで、${beats.scene}に取り入れやすそうかが判断材料です。`,
+      `効果を断定せず、質感・香り（または使用感）・向き不向き・使う場面の順で整理します。`,
+    ].join(""),
   };
 }
 

@@ -1,0 +1,696 @@
+/**
+ * gadget 商品選定。
+ * - 曜日カレンダー（power / desk / cable / audio / phone）
+ * - sale/campaign 割り込み（週最大2回）
+ * - popular は通常枠内で優先
+ * - 同一 category 連続禁止 / 同一商品 14日クールダウン
+ * - 価格帯 500–8000（優先 1000–4000）
+ */
+const fs = require("fs");
+const path = require("path");
+const {
+  loadGadgetOps,
+  normalizeCategory,
+  estimatePriceYen,
+  scheduledCategoryForToday,
+  tokyoWeekdayKey,
+  interruptKind,
+  isPopular,
+  readLabels,
+  isSameTokyoWeek,
+} = require("./lib/gadget-ops.cjs");
+const {
+  resolveStockpilePeriod,
+  isStockpileProduct,
+} = require("./lib/stockpile-period.cjs");
+const { pickDemandFromPool } = require("./lib/demand-watch.cjs");
+const { itemPriceOk } = require("./lib/price-band.cjs");
+
+const productsPath = path.join(__dirname, "..", "input", "products-gadget.json");
+const tipsPath = path.join(__dirname, "..", "input", "products-gadget-tips.json");
+const postedPath = path.join(__dirname, "..", "data", "posted-gadget.json");
+const articlePath = path.join(__dirname, "..", "input", "article.json");
+const nextRepostPath = path.join(__dirname, "..", "output", "repost", "next-repost-gadget.json");
+const snsHistoryPath = path.join(
+  __dirname,
+  "..",
+  "output",
+  "metrics",
+  "gadget-sns-posts.jsonl",
+);
+
+function readJson(filePath, fallback) {
+  try {
+    const raw = fs.readFileSync(filePath, "utf8").trim();
+    if (!raw) return fallback;
+    return JSON.parse(raw);
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJson(filePath, data) {
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n", "utf8");
+}
+
+function flattenProducts(products) {
+  return {
+    sale: products.sale || [],
+    main: products.main || [],
+    tip: products.tip || [],
+    niche: products.niche || [],
+    routine: products.routine || [],
+  };
+}
+
+function allItems(products) {
+  const g = flattenProducts(products);
+  return [...g.sale, ...g.main, ...g.tip, ...g.niche, ...g.routine];
+}
+
+function isTipItem(item) {
+  if (!item) return false;
+  if (item.affiliate === false) return true;
+  if (String(item.postType || "").toLowerCase() === "tip") return true;
+  return Boolean(item.labels?.tip);
+}
+
+function loadProductsWithTips(ops) {
+  const products = readJson(productsPath, {});
+  const tipCfg = ops.tipPosts || {};
+  if (tipCfg.enabled === false) return products;
+  const tipFile = tipCfg.catalogPath
+    ? path.join(__dirname, "..", tipCfg.catalogPath)
+    : tipsPath;
+  const tipDoc = readJson(tipFile, { tip: [] });
+  const tips = Array.isArray(tipDoc.tip)
+    ? tipDoc.tip
+    : Array.isArray(tipDoc)
+      ? tipDoc
+      : [];
+  return {
+    ...products,
+    tip: tips,
+  };
+}
+
+function findById(products, productId) {
+  return allItems(products).find((item) => (item.id || item.productId) === productId) || null;
+}
+
+function loadSnsHistory() {
+  if (!fs.existsSync(snsHistoryPath)) return [];
+  return fs
+    .readFileSync(snsHistoryPath, "utf8")
+    .split(/\n+/)
+    .filter(Boolean)
+    .map((line) => {
+      try {
+        return JSON.parse(line);
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean)
+    .sort((a, b) => Date.parse(a.at || 0) - Date.parse(b.at || 0));
+}
+
+function lastPostedCategory(history) {
+  for (let i = history.length - 1; i >= 0; i--) {
+    const cat = normalizeCategory(history[i].category);
+    if (cat) return cat;
+  }
+  return null;
+}
+
+function recentlyPostedProductIds(history, coolDownDays) {
+  const cutoff = Date.now() - coolDownDays * 86_400_000;
+  const ids = new Set();
+  for (const row of history) {
+    const t = Date.parse(row.at || "");
+    if (!Number.isFinite(t) || t < cutoff) continue;
+    if (row.productId) ids.add(row.productId);
+  }
+  return ids;
+}
+
+function productOk(item, ops) {
+  const id = (item.id || item.productId || "").trim();
+  const name = (item.name || "").trim();
+  const rakutenUrl = (item.rakutenUrl || item.url || "").trim();
+  const imageUrl = (item.imageUrl || "").trim();
+  const description = (item.description || item.articleBody || "").trim();
+  if (!id || !name || !description) return false;
+  // tip（アフィ無し）は URL/画像なしでも可
+  if (isTipItem(item)) return true;
+  if (!rakutenUrl || !imageUrl) return false;
+  if (!itemPriceOk(item, ops)) return false;
+  return true;
+}
+
+function isPreferredPrice(item, ops) {
+  const rules = ops.productRules || {};
+  const yen = estimatePriceYen(item.priceRange);
+  if (yen == null) return false;
+  const min = rules.preferredPriceMinYen ?? 1000;
+  const max = rules.preferredPriceMaxYen ?? 3000;
+  return yen >= min && yen <= max;
+}
+
+/** 通常枠: popular → 優先価格帯 → その他 */
+function pickBest(candidates, ops) {
+  if (!candidates.length) return null;
+  const rank = (item) => {
+    let score = 0;
+    if (isPopular(item)) score += 100;
+    if (isPreferredPrice(item, ops)) score += 10;
+    return score;
+  };
+  return [...candidates].sort((a, b) => rank(b) - rank(a))[0];
+}
+
+function countInterruptsThisWeek(history) {
+  return history.filter((row) => {
+    if (!isSameTokyoWeek(row.at)) return false;
+    if (row.interrupt === "sale" || row.interrupt === "campaign") return true;
+    return String(row.selectedSource || "").startsWith("interrupt");
+  }).length;
+}
+
+function pickInterrupt(pool, ops, blockedCat) {
+  const cfg = ops.interrupt || {};
+  if (cfg.enabled === false) return null;
+  const priority = cfg.priority || ["campaign", "sale"];
+  const respectGap = cfg.respectCategoryGap !== false;
+
+  for (const kind of priority) {
+    const candidates = pool.filter((item) => interruptKind(item) === kind);
+    const ordered = [...candidates].sort((a, b) => {
+      const ap = isPreferredPrice(a, ops) ? 1 : 0;
+      const bp = isPreferredPrice(b, ops) ? 1 : 0;
+      return bp - ap;
+    });
+    for (const item of ordered) {
+      const cat = normalizeCategory(item.category, ops.categories);
+      if (respectGap && blockedCat && cat === blockedCat) continue;
+      return { item, kind, cat };
+    }
+  }
+  return null;
+}
+
+/**
+ * 優先順:
+ * 0) sale/campaign 割り込み（週 maxPerWeek、category連続は避ける）
+ * 1) 今日のスケジュール category（popular優先）
+ * 2) fallbackOrder
+ * 3) 連続除外を緩和
+ */
+function chooseItem(products, posted, ops) {
+  const tipCfg = ops.tipPosts || {};
+  const weekday = tokyoWeekdayKey();
+  const tipWeekday = String(tipCfg.weekday || "sat").toLowerCase();
+  const tipDay = tipCfg.enabled !== false && weekday === tipWeekday;
+
+  const all = allItems(products)
+    .filter((item) => productOk(item, ops))
+    // tip は tip 曜日以外の通常枠に混ぜない
+    .filter((item) => tipDay || !isTipItem(item));
+  const postedList = Array.isArray(posted) ? posted : [];
+  const history = loadSnsHistory();
+  const coolDownDays = ops.productRules?.productCoolDownDays ?? 14;
+  const recentIds = recentlyPostedProductIds(history, coolDownDays);
+  const lastCat = lastPostedCategory(history);
+  const minGap = ops.categorySchedule?.minCategoryGapDays ?? 1;
+  const scheduled = scheduledCategoryForToday(ops);
+  const fallbackOrder = ops.categorySchedule?.fallbackOrder || [
+    "power",
+    "desk",
+    "cable",
+    "audio",
+    "phone",
+    "other",
+  ];
+  const maxInterrupt = ops.interrupt?.maxPerWeek ?? 2;
+  const interruptsUsed = countInterruptsThisWeek(history);
+
+  const unposted = all.filter((item) => !postedList.includes(item.id || item.productId));
+  const basePool = (unposted.length ? unposted : all).filter(
+    (item) => !recentIds.has(item.id || item.productId),
+  );
+  const pool = basePool.length
+    ? basePool
+    : unposted.length
+      ? unposted
+      : all;
+
+  if (!pool.length) {
+    return {
+      item: null,
+      recycled: false,
+      remainingUnposted: 0,
+      meta: { scheduled, weekday, lastCat, interruptsUsed },
+    };
+  }
+
+  const byCat = (cat) =>
+    pool.filter((item) => normalizeCategory(item.category, ops.categories) === cat);
+
+  const blockedCat = minGap >= 1 ? lastCat : null;
+
+  // 0') 土曜など tip 曜日: アフィ無し習慣メモを優先（週1）
+  if (tipDay) {
+    const tipPool = pool.filter((item) => isTipItem(item));
+    const tipPick = tipPool[0] || null;
+    if (tipPick) {
+      const tipCat = normalizeCategory(tipPick.category, ops.categories);
+      return {
+        item: tipPick,
+        recycled: unposted.length === 0,
+        remainingUnposted: Math.max(
+          0,
+          unposted.length - (unposted.includes(tipPick) ? 1 : 0),
+        ),
+        meta: {
+          weekday,
+          scheduled,
+          chosenCat: tipCat,
+          lastCat,
+          usedFallback: tipCat !== scheduled,
+          preferredPrice: false,
+          coolDownSkipped: false,
+          interrupt: null,
+          interruptsUsed,
+          popular: false,
+          tip: true,
+        },
+      };
+    }
+  }
+
+  // 0-) 手動OK済みの困りごと需要を優先（自動切替はしない）
+  {
+    const demandHit = pickDemandFromPool(
+      pool,
+      "gadget",
+      ops,
+      pickBest,
+      normalizeCategory,
+      { scheduled, blockedCat },
+    );
+    if (demandHit) {
+      return {
+        item: demandHit.item,
+        recycled: unposted.length === 0,
+        remainingUnposted: Math.max(
+          0,
+          unposted.length - (unposted.includes(demandHit.item) ? 1 : 0),
+        ),
+        meta: {
+          weekday,
+          scheduled,
+          chosenCat: demandHit.chosenCat,
+          lastCat,
+          usedFallback: demandHit.usedFallback,
+          preferredPrice: isPreferredPrice(demandHit.item, ops),
+          coolDownSkipped: basePool.length === 0 && pool.length > 0,
+          interrupt: null,
+          interruptsUsed,
+          popular: isPopular(demandHit.item),
+          demandTheme: demandHit.theme.id,
+          demandTitle: demandHit.theme.title,
+        },
+      };
+    }
+  }
+
+  // 0) 備蓄期間: 備えグッズを優先
+  const stockpile = resolveStockpilePeriod("gadget", { ops });
+  if (stockpile.active) {
+    const preferred = Array.isArray(ops.stockpilePeriod?.preferredCategories)
+      ? ops.stockpilePeriod.preferredCategories
+      : ["other", "power"];
+    const stockpilePool = pool.filter((item) => isStockpileProduct(item, "gadget"));
+    const tryCats = [
+      ...preferred,
+      scheduled,
+      ...fallbackOrder.filter((c) => c !== scheduled && !preferred.includes(c)),
+    ];
+    for (const cat of tryCats) {
+      if (blockedCat && cat === blockedCat) continue;
+      const hit = pickBest(
+        stockpilePool.filter(
+          (item) => normalizeCategory(item.category, ops.categories) === cat,
+        ),
+        ops,
+      );
+      if (hit) {
+        return {
+          item: hit,
+          recycled: unposted.length === 0,
+          remainingUnposted: Math.max(
+            0,
+            unposted.length - (unposted.includes(hit) ? 1 : 0),
+          ),
+          meta: {
+            weekday,
+            scheduled,
+            chosenCat: cat,
+            lastCat,
+            usedFallback: cat !== scheduled,
+            preferredPrice: isPreferredPrice(hit, ops),
+            coolDownSkipped: basePool.length === 0 && pool.length > 0,
+            interrupt: null,
+            interruptsUsed,
+            popular: isPopular(hit),
+            stockpile: true,
+          },
+        };
+      }
+    }
+    const anyStockpile = pickBest(stockpilePool, ops);
+    if (anyStockpile) {
+      const cat = normalizeCategory(anyStockpile.category, ops.categories);
+      return {
+        item: anyStockpile,
+        recycled: unposted.length === 0,
+        remainingUnposted: Math.max(
+          0,
+          unposted.length - (unposted.includes(anyStockpile) ? 1 : 0),
+        ),
+        meta: {
+          weekday,
+          scheduled,
+          chosenCat: cat,
+          lastCat,
+          usedFallback: true,
+          preferredPrice: isPreferredPrice(anyStockpile, ops),
+          coolDownSkipped: basePool.length === 0 && pool.length > 0,
+          interrupt: null,
+          interruptsUsed,
+          popular: isPopular(anyStockpile),
+          stockpile: true,
+        },
+      };
+    }
+  }
+
+  // 1) 割り込み
+  if (interruptsUsed < maxInterrupt) {
+    const hit = pickInterrupt(pool, ops, blockedCat);
+    if (hit) {
+      return {
+        item: hit.item,
+        recycled: unposted.length === 0,
+        remainingUnposted: Math.max(
+          0,
+          unposted.length - (unposted.includes(hit.item) ? 1 : 0),
+        ),
+        meta: {
+          weekday,
+          scheduled,
+          chosenCat: hit.cat,
+          lastCat,
+          usedFallback: hit.cat !== scheduled,
+          preferredPrice: isPreferredPrice(hit.item, ops),
+          coolDownSkipped: basePool.length === 0 && pool.length > 0,
+          interrupt: hit.kind,
+          interruptsUsed,
+          popular: isPopular(hit.item),
+        },
+      };
+    }
+  }
+
+  const tryOrder = [scheduled, ...fallbackOrder.filter((c) => c !== scheduled)];
+
+  let chosen = null;
+  let chosenCat = null;
+  let usedFallback = false;
+
+  for (const cat of tryOrder) {
+    if (blockedCat && cat === blockedCat) continue;
+    const hit = pickBest(byCat(cat), ops);
+    if (hit) {
+      chosen = hit;
+      chosenCat = cat;
+      usedFallback = cat !== scheduled;
+      break;
+    }
+  }
+
+  if (!chosen) {
+    for (const cat of tryOrder) {
+      const hit = pickBest(byCat(cat), ops);
+      if (hit) {
+        chosen = hit;
+        chosenCat = cat;
+        usedFallback = true;
+        break;
+      }
+    }
+  }
+
+  if (!chosen) {
+    chosen = pickBest(pool, ops);
+    chosenCat = normalizeCategory(chosen?.category, ops.categories);
+    usedFallback = true;
+  }
+
+  const recycled = unposted.length === 0;
+  return {
+    item: chosen,
+    recycled,
+    remainingUnposted: Math.max(
+      0,
+      unposted.length - (chosen && unposted.includes(chosen) ? 1 : 0),
+    ),
+    meta: {
+      weekday,
+      scheduled,
+      chosenCat,
+      lastCat,
+      usedFallback,
+      preferredPrice: chosen ? isPreferredPrice(chosen, ops) : false,
+      coolDownSkipped: basePool.length === 0 && pool.length > 0,
+      interrupt: null,
+      interruptsUsed,
+      popular: chosen ? isPopular(chosen) : false,
+    },
+  };
+}
+
+function trySelectRepostNext(products) {
+  const use =
+    process.argv.includes("--use-repost-next") ||
+    String(process.env.GADGET_USE_REPOST || "").toLowerCase() === "true";
+  if (!use) return null;
+  const next = readJson(nextRepostPath, null);
+  if (!next || !next.productId || next.consumed) return null;
+  const item = findById(products, next.productId);
+  if (!item) return null;
+  return { item, next };
+}
+
+function buildFeaturesNote(item) {
+  const features = Array.isArray(item.features) ? item.features.filter(Boolean) : [];
+  const price = (item.priceRange || "").trim();
+  const labels = readLabels(item);
+  const parts = [];
+  if (labels.campaign) parts.push("キャンペーン確認");
+  if (labels.sale) parts.push("セール確認");
+  if (labels.popular) parts.push("人気候補");
+  if (price) parts.push(`目安価格: ${price}`);
+  if (features.length) parts.push(`ポイント: ${features.slice(0, 3).join(" / ")}`);
+  return parts.join("。");
+}
+
+function toArticleJson(item, ops, meta = {}) {
+  const id = (item.id || item.productId || "").trim();
+  const name = (item.name || "").trim();
+  const category = normalizeCategory(item.category, ops.categories);
+  const rakutenUrl = (item.rakutenUrl || item.url || "").trim();
+  const description = (item.description || item.articleBody || "").trim();
+  const title =
+    (item.articleTitle || "").trim() || `${name}、毎日の導線で使いやすいと感じた点`;
+  const body = (item.articleBody || "").trim() || description;
+  const labels = {
+    ...readLabels(item),
+    tip: Boolean(item.labels?.tip || isTipItem(item)),
+  };
+  const tip = isTipItem(item) || Boolean(meta.tip);
+  const kind = tip ? null : meta.interrupt || interruptKind(item);
+  const postType = tip
+    ? "tip"
+    : kind === "sale" || kind === "campaign"
+      ? kind
+      : item.postType || "main";
+
+  return {
+    title,
+    body,
+    selectedSource: null,
+    pipelineGenre: "gadget",
+    product: {
+      id,
+      productId: id,
+      name,
+      category,
+      description,
+      ask: String(item.ask || "").trim(),
+      aside: String(item.aside || "").trim(),
+      priceRange: item.priceRange || "",
+      pointRate: Number(item.pointRate) || null,
+      features: Array.isArray(item.features) ? item.features : [],
+      genre: "gadget",
+      pipelineGenre: "gadget",
+      url: tip ? "" : rakutenUrl,
+      rakutenUrl: tip ? "" : rakutenUrl,
+      blogUrl: "",
+      imageUrl: item.imageUrl || "",
+      postType,
+      affiliate: tip ? false : true,
+      seed: Boolean(item.seed),
+      labels,
+      interrupt: kind || null,
+      cardSlides: Array.isArray(item.cardSlides) ? item.cardSlides : undefined,
+    },
+    affiliateNote: tip ? "アフィ無し・話しかけ" : buildFeaturesNote(item),
+  };
+}
+
+function main() {
+  const ops = loadGadgetOps();
+  const forceId = (process.argv.find((a) => a.startsWith("--productId=")) || "").slice(
+    "--productId=".length,
+  );
+  const forceCat = (process.argv.find((a) => a.startsWith("--category=")) || "").slice(
+    "--category=".length,
+  );
+  const products = loadProductsWithTips(ops);
+  const posted = readJson(postedPath, []);
+
+  let selected;
+  let recycled = false;
+  let remainingUnposted = 0;
+  let selectedSource;
+  let repost = null;
+  let meta = {};
+
+  if (forceId) {
+    selected = findById(products, forceId);
+    selectedSource = "forced";
+    if (!selected) {
+      console.error(`指定 productId が見つかりません: ${forceId}`);
+      process.exit(1);
+    }
+    if (!productOk(selected, ops)) {
+      console.error(`指定商品がルール外です: ${forceId}`);
+      process.exit(1);
+    }
+    meta = {
+      interrupt: interruptKind(selected),
+      tip: isTipItem(selected),
+    };
+  } else if (forceCat) {
+    const opsForced = {
+      ...ops,
+      interrupt: { ...(ops.interrupt || {}), enabled: false },
+      categorySchedule: {
+        ...(ops.categorySchedule || {}),
+        weekly: {
+          mon: forceCat,
+          tue: forceCat,
+          wed: forceCat,
+          thu: forceCat,
+          fri: forceCat,
+          sat: forceCat,
+          sun: forceCat,
+        },
+      },
+    };
+    const chosen = chooseItem(products, posted, opsForced);
+    selected = chosen.item;
+    recycled = chosen.recycled;
+    remainingUnposted = chosen.remainingUnposted;
+    selectedSource = recycled ? "recycle" : "unposted";
+    meta = chosen.meta || {};
+  } else {
+    repost = trySelectRepostNext(products);
+    if (repost) {
+      selected = repost.item;
+      selectedSource = "repost";
+      console.log("=== 再投稿候補を適用 (--use-repost-next) ===");
+      meta = { interrupt: interruptKind(selected) };
+    } else {
+      const chosen = chooseItem(products, posted, ops);
+      selected = chosen.item;
+      recycled = chosen.recycled;
+      remainingUnposted = chosen.remainingUnposted;
+      meta = chosen.meta || {};
+      if (meta.tip) {
+        selectedSource = "tip";
+      } else if (meta.demandTheme) {
+        selectedSource = `demand-${meta.demandTheme}`;
+      } else if (meta.interrupt) {
+        selectedSource = `interrupt-${meta.interrupt}`;
+      } else {
+        selectedSource = recycled ? "recycle" : "unposted";
+      }
+    }
+  }
+
+  if (!selected) {
+    console.error("=== gadget 商品リストが空、またはルール適合商品がありません ===");
+    console.error(`参照: ${productsPath}`);
+    process.exit(1);
+  }
+
+  const article = toArticleJson(selected, ops, meta);
+  article.selectedSource = selectedSource;
+  if (meta.weekday) {
+    article.schedule = {
+      weekday: meta.weekday,
+      scheduledCategory: meta.scheduled,
+      chosenCategory: meta.chosenCat,
+      usedFallback: Boolean(meta.usedFallback),
+      interrupt: meta.interrupt || null,
+      interruptsUsedThisWeek: meta.interruptsUsed ?? 0,
+    };
+  }
+  writeJson(articlePath, article);
+
+  if (repost) {
+    writeJson(nextRepostPath, {
+      ...repost.next,
+      consumed: true,
+      consumedAt: new Date().toISOString(),
+    });
+  }
+
+  console.log("選択された商品:", article.product.id);
+  console.log("category:", article.product.category);
+  if (article.product.affiliate === false || article.product.postType === "tip") {
+    console.log("postType: tip (アフィ無し)");
+  }
+  if (meta.interrupt) {
+    console.log(
+      `interrupt: ${meta.interrupt} (week ${meta.interruptsUsed ?? 0}/${ops.interrupt?.maxPerWeek ?? 2})`,
+    );
+  } else if (meta.weekday) {
+    console.log(
+      `schedule: ${meta.weekday}→${meta.scheduled}` +
+        (meta.usedFallback ? ` (fallback→${meta.chosenCat})` : " (hit)"),
+    );
+  }
+  console.log("popular:", meta.popular || isPopular(selected) ? "yes" : "no");
+  console.log("preferredPrice:", meta.preferredPrice ? "yes" : "no");
+  console.log("pipelineGenre: gadget");
+  console.log("cta: sns_self_contained");
+  console.log("ローテ再選択:", recycled ? "yes" : "no");
+  console.log("selectedSource:", article.selectedSource);
+  console.log("残り未投稿(概算):", remainingUnposted);
+  console.log("article.json を更新しました");
+}
+
+main();

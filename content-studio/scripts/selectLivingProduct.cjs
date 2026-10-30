@@ -11,7 +11,6 @@ const path = require("path");
 const {
   loadLivingOps,
   normalizeCategory,
-  isPriceInBand,
   estimatePriceYen,
   scheduledCategoryForToday,
   tokyoWeekdayKey,
@@ -20,8 +19,11 @@ const {
   readLabels,
   isSameTokyoWeek,
 } = require("./lib/living-ops.cjs");
+const { pickDemandFromPool } = require("./lib/demand-watch.cjs");
+const { itemPriceOk } = require("./lib/price-band.cjs");
 
 const productsPath = path.join(__dirname, "..", "input", "products-living.json");
+const tipsPath = path.join(__dirname, "..", "input", "products-living-tips.json");
 const postedPath = path.join(__dirname, "..", "data", "posted-living.json");
 const articlePath = path.join(__dirname, "..", "input", "article.json");
 const nextRepostPath = path.join(__dirname, "..", "output", "repost", "next-repost-living.json");
@@ -51,6 +53,7 @@ function flattenProducts(products) {
   return {
     sale: products.sale || [],
     main: products.main || [],
+    tip: products.tip || [],
     niche: products.niche || [],
     routine: products.routine || [],
   };
@@ -58,7 +61,33 @@ function flattenProducts(products) {
 
 function allItems(products) {
   const g = flattenProducts(products);
-  return [...g.sale, ...g.main, ...g.niche, ...g.routine];
+  return [...g.sale, ...g.main, ...g.tip, ...g.niche, ...g.routine];
+}
+
+function isTipItem(item) {
+  if (!item) return false;
+  if (item.affiliate === false) return true;
+  if (String(item.postType || "").toLowerCase() === "tip") return true;
+  return Boolean(item.labels?.tip);
+}
+
+function loadProductsWithTips(ops) {
+  const products = readJson(productsPath, {});
+  const tipCfg = ops.tipPosts || {};
+  if (tipCfg.enabled === false) return products;
+  const tipFile = tipCfg.catalogPath
+    ? path.join(__dirname, "..", tipCfg.catalogPath)
+    : tipsPath;
+  const tipDoc = readJson(tipFile, { tip: [] });
+  const tips = Array.isArray(tipDoc.tip)
+    ? tipDoc.tip
+    : Array.isArray(tipDoc)
+      ? tipDoc
+      : [];
+  return {
+    ...products,
+    tip: tips,
+  };
 }
 
 function findById(products, productId) {
@@ -107,17 +136,11 @@ function productOk(item, ops) {
   const rakutenUrl = (item.rakutenUrl || item.url || "").trim();
   const imageUrl = (item.imageUrl || "").trim();
   const description = (item.description || item.articleBody || "").trim();
-  if (!id || !name || !rakutenUrl || !imageUrl || !description) return false;
-  const rules = ops.productRules || {};
-  if (
-    !isPriceInBand(
-      item.priceRange,
-      rules.priceMinYen ?? 500,
-      rules.priceMaxYen ?? 5000,
-    )
-  ) {
-    return false;
-  }
+  if (!id || !name || !description) return false;
+  // tip（アフィ無し）は URL/画像なしでも可
+  if (isTipItem(item)) return true;
+  if (!rakutenUrl || !imageUrl) return false;
+  if (!itemPriceOk(item, ops)) return false;
   return true;
 }
 
@@ -180,7 +203,15 @@ function pickInterrupt(pool, ops, blockedCat) {
  * 3) 連続除外を緩和
  */
 function chooseItem(products, posted, ops) {
-  const all = allItems(products).filter((item) => productOk(item, ops));
+  const tipCfg = ops.tipPosts || {};
+  const weekday = tokyoWeekdayKey();
+  const tipWeekday = String(tipCfg.weekday || "sat").toLowerCase();
+  const tipDay = tipCfg.enabled !== false && weekday === tipWeekday;
+
+  const all = allItems(products)
+    .filter((item) => productOk(item, ops))
+    // tip は tip 曜日以外の通常枠に混ぜない
+    .filter((item) => tipDay || !isTipItem(item));
   const postedList = Array.isArray(posted) ? posted : [];
   const history = loadSnsHistory();
   const coolDownDays = ops.productRules?.productCoolDownDays ?? 14;
@@ -188,7 +219,6 @@ function chooseItem(products, posted, ops) {
   const lastCat = lastPostedCategory(history);
   const minGap = ops.categorySchedule?.minCategoryGapDays ?? 1;
   const scheduled = scheduledCategoryForToday(ops);
-  const weekday = tokyoWeekdayKey();
   const fallbackOrder = ops.categorySchedule?.fallbackOrder || [
     "kitchen",
     "cleaning",
@@ -221,6 +251,72 @@ function chooseItem(products, posted, ops) {
     pool.filter((item) => normalizeCategory(item.category, ops.categories) === cat);
 
   const blockedCat = minGap >= 1 ? lastCat : null;
+
+  // 0') 土曜など tip 曜日: アフィ無し習慣メモを優先（週1）
+  if (tipDay) {
+    const tipPool = pool.filter((item) => isTipItem(item));
+    const tipPick = tipPool[0] || null;
+    if (tipPick) {
+      const tipCat = normalizeCategory(tipPick.category, ops.categories);
+      return {
+        item: tipPick,
+        recycled: unposted.length === 0,
+        remainingUnposted: Math.max(
+          0,
+          unposted.length - (unposted.includes(tipPick) ? 1 : 0),
+        ),
+        meta: {
+          weekday,
+          scheduled,
+          chosenCat: tipCat,
+          lastCat,
+          usedFallback: tipCat !== scheduled,
+          preferredPrice: false,
+          coolDownSkipped: false,
+          interrupt: null,
+          interruptsUsed,
+          popular: false,
+          tip: true,
+        },
+      };
+    }
+  }
+
+  // 0-) 手動OK済みの困りごと需要を優先（自動切替はしない）
+  {
+    const demandHit = pickDemandFromPool(
+      pool,
+      "living",
+      ops,
+      pickBest,
+      normalizeCategory,
+      { scheduled, blockedCat },
+    );
+    if (demandHit) {
+      return {
+        item: demandHit.item,
+        recycled: unposted.length === 0,
+        remainingUnposted: Math.max(
+          0,
+          unposted.length - (unposted.includes(demandHit.item) ? 1 : 0),
+        ),
+        meta: {
+          weekday,
+          scheduled,
+          chosenCat: demandHit.chosenCat,
+          lastCat,
+          usedFallback: demandHit.usedFallback,
+          preferredPrice: isPreferredPrice(demandHit.item, ops),
+          coolDownSkipped: basePool.length === 0 && pool.length > 0,
+          interrupt: null,
+          interruptsUsed,
+          popular: isPopular(demandHit.item),
+          demandTheme: demandHit.theme.id,
+          demandTitle: demandHit.theme.title,
+        },
+      };
+    }
+  }
 
   // 0) 割り込み
   if (interruptsUsed < maxInterrupt) {
@@ -341,8 +437,17 @@ function toArticleJson(item, ops, meta = {}) {
   const title =
     (item.articleTitle || "").trim() || `${name}、毎日の導線で使いやすいと感じた点`;
   const body = (item.articleBody || "").trim() || description;
-  const labels = readLabels(item);
-  const kind = meta.interrupt || interruptKind(item);
+  const labels = {
+    ...readLabels(item),
+    tip: Boolean(item.labels?.tip || isTipItem(item)),
+  };
+  const tip = isTipItem(item) || Boolean(meta.tip);
+  const kind = tip ? null : meta.interrupt || interruptKind(item);
+  const postType = tip
+    ? "tip"
+    : kind === "sale" || kind === "campaign"
+      ? kind
+      : item.postType || "main";
 
   return {
     title,
@@ -355,20 +460,25 @@ function toArticleJson(item, ops, meta = {}) {
       name,
       category,
       description,
+      ask: String(item.ask || "").trim(),
+      aside: String(item.aside || "").trim(),
       priceRange: item.priceRange || "",
+      pointRate: Number(item.pointRate) || null,
       features: Array.isArray(item.features) ? item.features : [],
       genre: "living",
       pipelineGenre: "living",
-      url: rakutenUrl,
-      rakutenUrl,
+      url: tip ? "" : rakutenUrl,
+      rakutenUrl: tip ? "" : rakutenUrl,
       blogUrl: "",
       imageUrl: item.imageUrl || "",
-      postType: kind === "sale" || kind === "campaign" ? kind : item.postType || "main",
+      postType,
+      affiliate: tip ? false : true,
       seed: Boolean(item.seed),
       labels,
       interrupt: kind || null,
+      cardSlides: Array.isArray(item.cardSlides) ? item.cardSlides : undefined,
     },
-    affiliateNote: buildFeaturesNote(item),
+    affiliateNote: tip ? "アフィ無し・話しかけ" : buildFeaturesNote(item),
   };
 }
 
@@ -380,7 +490,7 @@ function main() {
   const forceCat = (process.argv.find((a) => a.startsWith("--category=")) || "").slice(
     "--category=".length,
   );
-  const products = readJson(productsPath, {});
+  const products = loadProductsWithTips(ops);
   const posted = readJson(postedPath, []);
 
   let selected;
@@ -401,7 +511,10 @@ function main() {
       console.error(`指定商品がルール外です: ${forceId}`);
       process.exit(1);
     }
-    meta = { interrupt: interruptKind(selected) };
+    meta = {
+      interrupt: interruptKind(selected),
+      tip: isTipItem(selected),
+    };
   } else if (forceCat) {
     const opsForced = {
       ...ops,
@@ -438,7 +551,11 @@ function main() {
       recycled = chosen.recycled;
       remainingUnposted = chosen.remainingUnposted;
       meta = chosen.meta || {};
-      if (meta.interrupt) {
+      if (meta.tip) {
+        selectedSource = "tip";
+      } else if (meta.demandTheme) {
+        selectedSource = `demand-${meta.demandTheme}`;
+      } else if (meta.interrupt) {
         selectedSource = `interrupt-${meta.interrupt}`;
       } else {
         selectedSource = recycled ? "recycle" : "unposted";
@@ -476,6 +593,9 @@ function main() {
 
   console.log("選択された商品:", article.product.id);
   console.log("category:", article.product.category);
+  if (article.product.affiliate === false || article.product.postType === "tip") {
+    console.log("postType: tip (アフィ無し)");
+  }
   if (meta.interrupt) {
     console.log(
       `interrupt: ${meta.interrupt} (week ${meta.interruptsUsed ?? 0}/${ops.interrupt?.maxPerWeek ?? 2})`,
@@ -489,7 +609,7 @@ function main() {
   console.log("popular:", meta.popular || isPopular(selected) ? "yes" : "no");
   console.log("preferredPrice:", meta.preferredPrice ? "yes" : "no");
   console.log("pipelineGenre: living");
-  console.log("cta: fixed_page");
+  console.log("cta: sns_self_contained");
   console.log("ローテ再選択:", recycled ? "yes" : "no");
   console.log("selectedSource:", article.selectedSource);
   console.log("残り未投稿(概算):", remainingUnposted);

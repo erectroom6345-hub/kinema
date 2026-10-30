@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "description": "living main[] を楽天市場商品検索APIから自動生成。具体キーワード＋NG除外で福袋/アウトレットを避ける。",
+  "replaceMain": true,
+  "minPrice": 300,
+  "maxPrice": 20000,
+  "highTicketMaxPrice": 100000,
+  "hitsPerCategory": 3,
+  "sleepMsBetweenRequests": 1200,
+  "ngKeyword": "福袋 アウトレット 訳あり 中古 業者 卸 詰め合わせ サンプルセット B級 ジャンク",
+  "rejectNamePatterns": [
+    "福袋",
+    "アウトレット",
+    "訳あり",
+    "B級",
+    "中古",
+    "業者",
+    "卸売",
+    "詰め合わせセット",
+    "サンプル詰め",
+    "ジャンク"
+  ],
+  "saleSearches": [
+    {
+      "category": "kitchen",
+      "keyword": "キッチン 便利",
+      "hits": 3,
+      "pointRateFlag": 1,
+      "label": "campaign"
+    },
+    {
+      "category": "storage",
+      "keyword": "収納 便利",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "sale"
+    },
+    {
+      "category": "cleaning",
+      "keyword": "掃除 便利",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "sale"
+    }
+  ],
+  "saleEndAtDays": 3,
+  "searches": [
+    { "category": "kitchen", "keyword": "密閉 保存容器", "hits": 3 },
+    { "category": "kitchen", "keyword": "水切り カゴ スリム", "hits": 2 },
+    { "category": "kitchen", "keyword": "キッチン スポンジ ホルダー", "hits": 2 },
+    { "category": "storage", "keyword": "引き出し 仕切り トレー", "hits": 3 },
+    { "category": "storage", "keyword": "ケーブル 収納 ボックス", "hits": 2 },
+    { "category": "storage", "keyword": "吊り下げ 収納 ポーチ", "hits": 2 },
+    { "category": "cleaning", "keyword": "隙間 掃除 ブラシ", "hits": 3 },
+    { "category": "cleaning", "keyword": "フローリング ワイパー シート", "hits": 2 },
+    { "category": "cleaning", "keyword": "換気扇 フィルター", "hits": 2 },
+    { "category": "other", "keyword": "玄関 傘立て スリム", "hits": 2 },
+    { "category": "other", "keyword": "洗濯 ネット 便利", "hits": 2 }
+  ]
+}

@@ -33,6 +33,8 @@ type ArticleInput = {
     brand?: string;
     genre?: string;
     postType?: string;
+    ask?: string;
+    aside?: string;
     imageUrl?: string;
     url?: string;
     blogUrl?: string;
@@ -67,7 +69,10 @@ function buildToneGuidance(postType: string, genre: string, brand = "", productN
     "・押し売りや効果効能の断定はしない",
     "・別ジャンルの話には寄せない",
     "・ブランド名は角括弧付き（例: [hince]）で書かない",
-    "・基本形: 「ブランド名の〇〇」「〇〇を見つけました」「〇〇が気になっています」",
+    "・「メモ」「条件だけ先に見ておきたい」「セール対象か確認」は使わない",
+    "・割引の％は、入力に実数があるときだけ書く。なければ書かない",
+    "・お得の中身が言えないときは「一度試してみてください」と誘う",
+    "・一杯、晩酌、試飲は使わない",
   ];
 
   // サプリ × main だけ、定番の習慣寄りを優先（ほかの組み合わせは変えない）
@@ -113,7 +118,7 @@ function resolveGenreAxis(genre: string): string {
 function resolvePostTypeAxis(postType: string): string {
   switch (postType.trim().toLowerCase()) {
     case "sale":
-      return "条件確認とお得感（対象か・詳細を見て判断）";
+      return "実データのお得（ポイント倍率など。％引きは数字があるときだけ）か、なければ一度試してみる誘い";
     case "routine":
       return "日常使い";
     case "main":
@@ -420,10 +425,12 @@ ${blogUrlUsable
 ・1行目は具体フックで始める（例: 「${findHook}。」）
 ・商品名「${productName || "(商品名)"}」を必ず本文に1回書く（一般論だけで終わらない）
 ・ブランド「${brand || "(ブランド)"}」も自然な日本語で1回触れる
+・次のうち最低2つは具体語で入れる: 質感/塗り感、香りまたは使い心地、向いている人、使う場面、使ったあとの印象
+・効能・治療効果の断定は禁止（「治る」「必ず白くなる」等は不可）。体感・印象の話にする
 ・末尾に「プロフィールのリンクからご覧ください」につながる自然な一文を入れてよい（URLは付けない）
 ・ブランド名を [ブランド] の形で書かない
 ・[コスメデコルテらしい雰囲気] のように、文の一部を角括弧で囲まない
-・「上質なアイテム」「雰囲気が整う」だけのふわっと表現は禁止。何の商品かが伝わる文にする
+・「上質なアイテム」「雰囲気が整う」「ブログで整理」だけのふわっと表現は禁止。何の商品かが伝わる文にする
 
 ${toneGuidance}
 
@@ -593,6 +600,38 @@ function unwrapCaptionBrackets(text: string): string {
 }
 
 async function main() {
+  const postType = String(article.product?.postType || "").toLowerCase();
+  if (postType === "tip") {
+    const ask = (article.product?.ask || article.title || "").trim();
+    const aside = (article.product?.aside || "").trim();
+    const caption = normalizeCaption([ask, aside].filter(Boolean).join("\n"));
+    if (!caption) {
+      throw new Error("土曜の話しかけに ask がありません");
+    }
+    try {
+      assertProductionCopyClean([caption, article.title || ""], "instagram-caption");
+    } catch (err) {
+      console.error(err instanceof Error ? err.message : String(err));
+      process.exit(3);
+    }
+    const result = {
+      imageUrl: "",
+      caption,
+      blogUrl: "",
+      blogUtmUrl: "",
+      threadsText: caption,
+      postType: "tip",
+      postPattern: "tip",
+      postPatternLabel: "話しかけ",
+    };
+    fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf-8");
+    console.log("caption生成成功 (beauty tip・アフィ無し)");
+    console.log("投稿モード: 話しかけ / URLなし / ブログ誘導なし");
+    console.log(result.caption);
+    console.log("saved:", outputPath);
+    return;
+  }
+
   const { caption, imageUrl, blogUrl, blogUrlUsable, blogUtmUrl } = await generateCaption();
   const finalCaption = normalizeCaption(caption);
   try {

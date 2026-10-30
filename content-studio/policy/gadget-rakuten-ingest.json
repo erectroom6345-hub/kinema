@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "description": "gadget main[] を楽天市場商品検索APIから自動生成。充電/デスク/ケーブル中心。福袋・中古・ジャンク除外。",
+  "replaceMain": true,
+  "minPrice": 500,
+  "maxPrice": 20000,
+  "highTicketMaxPrice": 100000,
+  "hitsPerCategory": 3,
+  "sleepMsBetweenRequests": 1200,
+  "ngKeyword": "福袋 アウトレット 訳あり 中古 業者 卸 詰め合わせ サンプルセット B級 ジャンク ジャンク品 修理用",
+  "rejectNamePatterns": [
+    "福袋",
+    "アウトレット",
+    "訳あり",
+    "B級",
+    "中古",
+    "業者",
+    "卸売",
+    "詰め合わせセット",
+    "サンプル詰め",
+    "ジャンク",
+    "修理用部品"
+  ],
+  "saleSearches": [
+    {
+      "category": "power",
+      "keyword": "USB-C 充電器 小型",
+      "hits": 3,
+      "pointRateFlag": 1,
+      "label": "campaign"
+    },
+    {
+      "category": "desk",
+      "keyword": "デスク ガジェット",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "sale"
+    },
+    {
+      "category": "cable",
+      "keyword": "ケーブル 整理",
+      "hits": 2,
+      "pointRateFlag": 1,
+      "label": "sale"
+    }
+  ],
+  "saleEndAtDays": 3,
+  "searches": [
+    { "category": "power", "keyword": "USB-C 充電器 GaN 小型", "hits": 3 },
+    { "category": "power", "keyword": "モバイルバッテリー 軽量 薄型", "hits": 2 },
+    { "category": "power", "keyword": "マグネット ワイヤレス充電器", "hits": 2 },
+    { "category": "cable", "keyword": "ケーブル クリップ 配線", "hits": 3 },
+    { "category": "cable", "keyword": "USB-C ケーブル 短い", "hits": 2 },
+    { "category": "cable", "keyword": "ケーブル 収納 ボックス", "hits": 2 },
+    { "category": "desk", "keyword": "ノートPC スタンド アルミ", "hits": 3 },
+    { "category": "desk", "keyword": "モニターアーム デスク", "hits": 2 },
+    { "category": "desk", "keyword": "デスク マット 大判", "hits": 2 },
+    { "category": "audio", "keyword": "ワイヤレスイヤホン ケース", "hits": 2 },
+    { "category": "audio", "keyword": "USB DAC 小型", "hits": 2 },
+    { "category": "phone", "keyword": "スマホ スタンド 折りたたみ", "hits": 3 },
+    { "category": "phone", "keyword": "MagSafe リング ホルダー", "hits": 2 },
+    { "category": "other", "keyword": "ガジェット ポーチ 撥水", "hits": 2 },
+    { "category": "other", "keyword": "スマホ ネックストラップ", "hits": 2 },
+    { "category": "other", "keyword": "携帯トイレ 簡易トイレ 防災", "hits": 3 },
+    { "category": "other", "keyword": "防災ラジオ 手回し充電", "hits": 2 },
+    { "category": "other", "keyword": "懐中電灯 LED 防災", "hits": 2 },
+    { "category": "other", "keyword": "ランタン LED 充電式", "hits": 2 },
+    { "category": "power", "keyword": "モバイルバッテリー 大容量 防災", "hits": 3 },
+    { "category": "power", "keyword": "手回し 充電器 防災", "hits": 2 },
+    {
+      "category": "power",
+      "keyword": "ポータブル電源 ソーラー",
+      "hits": 3,
+      "maxPrice": 100000,
+      "highTicket": true
+    },
+    {
+      "category": "power",
+      "keyword": "ポータブル電源 大容量",
+      "hits": 2,
+      "maxPrice": 100000,
+      "highTicket": true
+    },
+    {
+      "category": "power",
+      "keyword": "ソーラーパネル 充電 防災",
+      "hits": 2,
+      "maxPrice": 100000,
+      "highTicket": true
+    }
+  ]
+}

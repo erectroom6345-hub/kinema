@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.miyasakaharuki.contentstudio-demand-pulse</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/bin/caffeinate</string>
+      <string>-i</string>
+      <string>/bin/bash</string>
+      <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/run-demand-pulse.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <key>HOME</key>
+      <string>/Users/miyasakaharuki</string>
+    </dict>
+
+    <!-- 毎週月曜 08:30 JST（週1脈拍） -->
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Weekday</key>
+      <integer>1</integer>
+      <key>Hour</key>
+      <integer>8</integer>
+      <key>Minute</key>
+      <integer>30</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/demand-pulse-cron.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/demand-pulse-cron.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+  </dict>
+</plist>

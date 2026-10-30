@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "description": "困りごと辞書。週1楽天脈拍で勢いを見て候補化し、手動OK後だけ投稿優先に使う。",
+  "pulse": {
+    "sleepMsBetweenRequests": 1200,
+    "hitsPerTheme": 5,
+    "surgeRatio": 1.35,
+    "minReviewSum": 80,
+    "minApiCount": 30,
+    "historyWeeks": 8
+  },
+  "notifyOnCandidate": true,
+  "themes": [
+    {
+      "id": "stinkbug",
+      "title": "カメムシ対策",
+      "problem": "カメムシが大量発生・室内侵入する",
+      "genres": ["living"],
+      "preferredCategories": {
+        "living": ["other", "cleaning"]
+      },
+      "pulseKeyword": "カメムシ 忌避 スプレー",
+      "productNamePatterns": ["カメムシ", "カメムシ忌避", "カメムシ駆除"],
+      "ingestHints": [
+        { "genre": "living", "category": "other", "keyword": "カメムシ スプレー 忌避" },
+        { "genre": "living", "category": "cleaning", "keyword": "カメムシ 駆除" }
+      ],
+      "defaultDays": 14,
+      "calendarMonths": [9, 10, 11]
+    },
+    {
+      "id": "bear-deterrent",
+      "title": "熊よけ・獣害",
+      "problem": "熊の出没が増えて外出や登山が不安",
+      "genres": ["gadget", "living"],
+      "preferredCategories": {
+        "gadget": ["other"],
+        "living": ["other"]
+      },
+      "pulseKeyword": "熊よけ 鈴 スプレー",
+      "productNamePatterns": ["熊よけ", "クマよけ", "クマ鈴", "熊鈴", "クマ撃退", "獣よけ"],
+      "ingestHints": [
+        { "genre": "gadget", "category": "other", "keyword": "熊よけ 鈴" },
+        { "genre": "living", "category": "other", "keyword": "クマ撃退スプレー" }
+      ],
+      "defaultDays": 21,
+      "calendarMonths": [4, 5, 6, 9, 10, 11]
+    },
+    {
+      "id": "blackout-power",
+      "title": "停電・非常電源",
+      "problem": "停電や災害時に充電・明かりが足りない",
+      "genres": ["gadget"],
+      "preferredCategories": {
+        "gadget": ["power", "other"]
+      },
+      "pulseKeyword": "防災 モバイルバッテリー 手回し",
+      "productNamePatterns": [
+        "防災",
+        "手回し",
+        "非常用",
+        "停電",
+        "ソーラー",
+        "ランタン",
+        "懐中電灯"
+      ],
+      "ingestHints": [
+        { "genre": "gadget", "category": "power", "keyword": "防災 モバイルバッテリー" },
+        { "genre": "gadget", "category": "other", "keyword": "手回し 充電器 防災" }
+      ],
+      "defaultDays": 21,
+      "calendarMonths": [8, 9, 10]
+    },
+    {
+      "id": "portable-toilet",
+      "title": "携帯トイレ",
+      "problem": "災害・停電時にトイレが使えない不安",
+      "genres": ["gadget", "living"],
+      "preferredCategories": {
+        "gadget": ["other"],
+        "living": ["other"]
+      },
+      "pulseKeyword": "携帯トイレ 防災 簡易",
+      "productNamePatterns": ["携帯トイレ", "簡易トイレ", "非常用トイレ"],
+      "ingestHints": [
+        { "genre": "gadget", "category": "other", "keyword": "携帯トイレ 防災" },
+        { "genre": "living", "category": "other", "keyword": "簡易トイレ 凝固剤" }
+      ],
+      "defaultDays": 21,
+      "calendarMonths": [8, 9]
+    },
+    {
+      "id": "pollen",
+      "title": "花粉対策",
+      "problem": "花粉で外出や室内がつらい",
+      "genres": ["living"],
+      "preferredCategories": {
+        "living": ["cleaning", "other"]
+      },
+      "pulseKeyword": "花粉 対策 スプレー 衣類",
+      "productNamePatterns": ["花粉", "花粉対策", "花粉ガード"],
+      "ingestHints": [
+        { "genre": "living", "category": "cleaning", "keyword": "花粉 衣類 スプレー" },
+        { "genre": "living", "category": "other", "keyword": "花粉 除去 ブラシ" }
+      ],
+      "defaultDays": 21,
+      "calendarMonths": [2, 3, 4]
+    },
+    {
+      "id": "heat-cool",
+      "title": "猛暑・冷却",
+      "problem": "暑さで体調や室内がきつい",
+      "genres": ["living", "gadget"],
+      "preferredCategories": {
+        "living": ["other"],
+        "gadget": ["other"]
+      },
+      "pulseKeyword": "冷却タオル ネッククーラー",
+      "productNamePatterns": ["冷却", "ネッククーラー", "冷感", "猛暑", "熱中症"],
+      "ingestHints": [
+        { "genre": "living", "category": "other", "keyword": "冷却タオル 冷感" },
+        { "genre": "gadget", "category": "other", "keyword": "ネッククーラー 充電" }
+      ],
+      "defaultDays": 14,
+      "calendarMonths": [6, 7, 8]
+    },
+    {
+      "id": "cockroach",
+      "title": "ゴキブリ対策",
+      "problem": "ゴキブリが出て困る",
+      "genres": ["living"],
+      "preferredCategories": {
+        "living": ["cleaning", "kitchen"]
+      },
+      "pulseKeyword": "ゴキブリ 駆除 罠",
+      "productNamePatterns": ["ゴキブリ", "ごきぶり", "ホウ酸"],
+      "ingestHints": [
+        { "genre": "living", "category": "cleaning", "keyword": "ゴキブリ 駆除 スプレー" },
+        { "genre": "living", "category": "kitchen", "keyword": "ゴキブリ 罠" }
+      ],
+      "defaultDays": 14,
+      "calendarMonths": [5, 6, 7, 8, 9]
+    },
+    {
+      "id": "food-stockpile",
+      "title": "非常食・備蓄食",
+      "problem": "災害に備えて日持ちする食を揃えたい",
+      "genres": ["food"],
+      "preferredCategories": {
+        "food": ["table", "other"]
+      },
+      "pulseKeyword": "非常食 保存食 セット",
+      "productNamePatterns": ["非常食", "保存食", "防災食", "備蓄", "長期保存"],
+      "ingestHints": [
+        { "genre": "food", "category": "table", "keyword": "非常食 セット" },
+        { "genre": "food", "category": "other", "keyword": "保存食 缶" }
+      ],
+      "defaultDays": 21,
+      "calendarMonths": [8, 9]
+    }
+  ]
+}
