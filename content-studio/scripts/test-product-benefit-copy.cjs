@@ -39,7 +39,8 @@ const beauty = buildArticleCopy({
   genre: "リップ",
 });
 assert.ok(beauty.articleBody.length > 80, beauty.articleBody);
-assert.ok(/香り|塗り|向け/.test(beauty.articleBody), beauty.articleBody);
+assert.ok(/塗り|向け|使用感/.test(beauty.articleBody), beauty.articleBody);
+assert.ok(!/香りが強め|やさしい香り|匂いが強め/.test(beauty.articleBody));
 assert.ok(!/ブログで短く整理/.test(beauty.articleBody));
 
 console.log("test-product-benefit-copy: OK");

@@ -27,6 +27,11 @@ const {
 const { isProductionEligibleProduct } = require("./beauty-copy-guard.cjs");
 const { resolvePromoteBucket } = require("./beauty-profit-score.cjs");
 const { loadWindows } = require("./beauty-sale-windows.cjs");
+const {
+  extractPageCopyBlob,
+  classifyScentFromText,
+  scentLineForCopy,
+} = require("./beauty-scent-copy.cjs");
 
 const ROOT = path.join(__dirname, "..", "..");
 const DEFAULT_POLICY_PATH = path.join(ROOT, "policy", "beauty-ingest.json");
@@ -250,6 +255,9 @@ async function enrichCandidate(candidate, opts = {}) {
     if (!page.ok) return candidate;
     const title = extractTitle(page.html);
     const image = extractImage(page.html, page.finalUrl);
+    // 追加リクエストなし。既存HTMLから香り3分岐だけ軽く抜く
+    const pageBlob = extractPageCopyBlob(page.html);
+    const scent = classifyScentFromText(pageBlob);
     const next = { ...candidate };
     if (title && (!next.productName || next.productName.length < 4)) {
       next.productName = title.replace(/\s*[|\-–].*$/, "").trim().slice(0, 120);
@@ -262,6 +270,9 @@ async function enrichCandidate(candidate, opts = {}) {
     if (image && /^https?:\/\//i.test(image)) {
       next.imageUrl = image;
     }
+    next.scentKind = scent.kind;
+    next.scentLabel = scent.label || "";
+    next.scentEvidence = scent.evidence || "";
     return next;
   } catch {
     return candidate;
@@ -269,59 +280,87 @@ async function enrichCandidate(candidate, opts = {}) {
 }
 
 /**
- * 美容メモ: 質感/塗り感・香りor使い心地・誰向け+場面を必ず入れる。
- * 「ブログで整理します」だけのメタ文は使わない。
+ * 美容メモ: 質感/塗り感・（分かるときだけ）香り・誰向け+場面。
+ * 香りは concrete / fragrance_free / unknown の3分岐。曖昧な強さ表現はしない。
  */
 function beautyFeelBeats(item) {
   const name = String(item.productName || item.name || "");
   const genre = String(item.genre || item.category || "");
   const blob = `${name}\n${genre}`;
+  const scent = {
+    kind: item.scentKind || "unknown",
+    label: item.scentLabel || "",
+  };
 
   if (/ファンデ|クッション|下地|ベース|BB|CC|パウダー/.test(blob)) {
     return {
       feel: "粉っぽさが出にくく、薄づきでも肌が均一に見えやすいかどうかがポイント",
-      scentOrUse: "朝のメイクでも重たくなりにくいかを見ています",
+      scentOrUse: scentLineForCopy(
+        scent,
+        "朝のメイクでも重たくなりにくいかを見ています",
+      ),
       audience: "厚塗りが苦手で、毎日の時短メイクを整えたい人",
       scene: "出勤前や外出前のベースづくり",
+      scentKind: scent.kind,
     };
   }
   if (/リップ|ティント|グロス|口紅/.test(blob)) {
     return {
       feel: "塗り始めのなめらかさと、色の出方が自分の唇に合いそうかどうかがポイント",
-      scentOrUse: "香りが強すぎないか、マスクや食事のあとも気になりにくいかを見ています",
+      scentOrUse: scentLineForCopy(
+        scent,
+        "マスクや食事のあとも気になりにくいか、塗り直しやすさを見ています",
+      ),
       audience: "普段使いで色と塗り心地のバランスを取りたい人",
       scene: "仕事前のワンポイントや、休日の軽いメイク",
+      scentKind: scent.kind,
     };
   }
   if (/チーク|ハイライト|シェーディング|アイ|マスカラ|ライナー/.test(blob)) {
     return {
       feel: "粉飛びやよれにくさ、肌なじみのよさがポイント",
-      scentOrUse: "のせたあとの自然さと、メイク直しのしやすさを見ています",
+      scentOrUse: scentLineForCopy(
+        scent,
+        "のせたあとの自然さと、メイク直しのしやすさを見ています",
+      ),
       audience: "盛りすぎず、血色や影を足したい人",
       scene: "毎日メイクの仕上げや、写真映えを少しだけ足したいとき",
+      scentKind: scent.kind,
     };
   }
   if (/化粧液|化粧水|美容液|乳液|クリーム|セラム|オイル|パック|スキン/.test(blob)) {
     return {
       feel: "なじみの速さや、べたつきにくさ・しっとり感のバランスがポイント",
-      scentOrUse: "香りが日常使いで邪魔にならないか、朝晩続けやすいかを見ています",
+      scentOrUse: scentLineForCopy(
+        scent,
+        "朝晩続けやすいか、なじみのよさを見ています",
+      ),
       audience: "スキンケアを負担なく続けたい人",
       scene: "朝の支度前や、夜のリセットタイム",
+      scentKind: scent.kind,
     };
   }
   if (/サプリ|ドリンク|インナー/.test(blob)) {
     return {
       feel: "続けやすさ（粒の大きさ・味・タイミング）がポイント",
-      scentOrUse: "生活リズムに無理なく入れられるかを見ています",
+      scentOrUse: scentLineForCopy(
+        scent,
+        "生活リズムに無理なく入れられるかを見ています",
+      ),
       audience: "内側からのケアも意識しつつ、習慣化したい人",
       scene: "朝食後や夜のルーティンに足すとき",
+      scentKind: scent.kind,
     };
   }
   return {
     feel: "仕上がりの印象と、手に取ったときの使い心地がポイント",
-    scentOrUse: "香りや使用感が日常使いで無理がないかを見ています",
+    scentOrUse: scentLineForCopy(
+      scent,
+      "使い心地と仕上がりを中心に見ています",
+    ),
     audience: "自分のペースでコスメを選びたい人",
     scene: "毎日の支度や、気分を整えたいタイミング",
+    scentKind: scent.kind,
   };
 }
 
@@ -330,6 +369,10 @@ function buildArticleCopy(item) {
   const name = String(item.productName || item.name || "このアイテム").trim();
   const beats = beautyFeelBeats(item);
   const brandBit = brand ? `${brand}の` : "";
+  const axis =
+    beats.scentKind === "concrete" || beats.scentKind === "fragrance_free"
+      ? "質感・香り・向き不向き・使う場面"
+      : "質感・使用感・向き不向き・使う場面";
   return {
     articleTitle: `${brandBit}${name}、${beats.audience.replace(/人$/, "")}視点で見るポイント`,
     articleBody: [
@@ -337,7 +380,7 @@ function buildArticleCopy(item) {
       `${beats.feel}。`,
       `${beats.scentOrUse}。`,
       `${beats.audience}向けで、${beats.scene}に取り入れやすそうかが判断材料です。`,
-      `効果を断定せず、質感・香り（または使用感）・向き不向き・使う場面の順で整理します。`,
+      `効果を断定せず、${axis}の順で整理します。`,
     ].join(""),
   };
 }
@@ -358,6 +401,8 @@ function toCatalogItem(candidate, bucket) {
     genre: candidate.genre || "美容",
     articleTitle: copy.articleTitle,
     articleBody: copy.articleBody,
+    scentKind: candidate.scentKind || "unknown",
+    scentLabel: candidate.scentLabel || "",
     labels: {
       sale: bucket === "sale",
       point: false,
