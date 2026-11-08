@@ -3,3 +3,4 @@ dist
 .env
 output
 *.log
+assets/reel-audio/*.mp3

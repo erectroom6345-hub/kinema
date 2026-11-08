@@ -188,7 +188,7 @@ function reasonLine(params: {
   });
 }
 
-/** Instagram 完結用。プロフィール/ブログへ送らない */
+/** Instagram 完結用。プロフィール/ブログへ送らない（ワンクリックは Threads 本文URL） */
 function actionLine(prToken: string, requirePr: boolean): string {
   const base = "気になったら、保存して見返してみてください";
   return requirePr ? `${base} ${prToken}` : base;
@@ -234,8 +234,9 @@ function buildThreadsText(
 ): string {
   let body = caption
     .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
-    .replace(/\n*https?:\/\/\S+/gi, "")
+    .replace(/\n*気になったら、動画の最後のQRからどうぞ\s*※?PR?\s*$/u, "")
     .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
+    .replace(/\n*https?:\/\/\S+/gi, "")
     .trim();
   if (opts.tip || !affiliateUrl) {
     if (!opts.tip && opts.requirePr && !/※PR/.test(body)) {
@@ -377,9 +378,9 @@ function main() {
   const result = {
     imageUrl,
     caption,
-    // SNS完結: ブログ誘導なし。Threads/X は楽天アフィ直載せ
     blogUrl: "",
     blogUtmUrl: "",
+    productUrl: affiliateUrl || "",
     threadsText,
     threadsUtmUrl: tip ? "" : affiliateUrl,
     xText,

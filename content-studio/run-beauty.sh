@@ -7,6 +7,10 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
 export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
+export CONTENT_PIPELINE_GENRE="${CONTENT_PIPELINE_GENRE:-beauty}"
+# shellcheck source=scripts/lib/pipeline-lock.sh
+source "$ROOT/scripts/lib/pipeline-lock.sh"
+pipeline_lock
 
 mkdir -p "$ROOT/output" "$ROOT/output/run-history" "$ROOT/output/metrics" "$ROOT/output/policy" "$ROOT/output/notify"
 # 前回の blog 準備フラグを消す（SNSは今回の Blogger 成功時だけ通す）
@@ -107,6 +111,8 @@ wait_pages_ready() {
         : [];
       const single = String(j.imageUrl || '').trim();
       const urls = list.length ? list : (single ? [single] : []);
+      const video = String(j.videoUrl || '').trim();
+      if (video && !urls.includes(video)) urls.push(video);
       if (!urls.length) { console.error('imageUrl が空です'); process.exit(2); }
       process.stdout.write(urls.join('\n'));
     "
@@ -403,7 +409,7 @@ run_step 1 "商品選択" bash -c '
     pid="$(node -e "const j=require(\"./input/article.json\"); process.stdout.write((j.product&&j.product.id)||\"\")")"
     empty_fb="$(node -e "const j=require(\"./input/article.json\"); process.stdout.write(j.emptyFallbackUsed? String(j.emptyFallbackMode||\"recycle\") : \"\")")"
     echo "[daily-guard] selectedSource=${src} selectedId=${pid} emptyFallback=${empty_fb:-none}"
-    if [[ "$src" == "unposted" ]]; then
+    if [[ "$src" == "unposted" || "$src" == "tip" ]]; then
       :
     elif [[ "$src" == "recycle" && -n "$empty_fb" ]]; then
       echo "WARN: 未投稿在庫0のため empty→recycle で継続 id=${pid}" >&2
@@ -424,6 +430,22 @@ run_step 1 "商品選択" bash -c '
   fi
 '
 
+BEAUTY_TIP_POST=false
+if node -e '
+  const j = require("./input/article.json");
+  const tip = j.selectedSource === "tip" || String((j.product && j.product.postType) || "") === "tip";
+  process.exit(tip ? 0 : 1);
+'; then
+  BEAUTY_TIP_POST=true
+  echo "[tip] 土曜の話しかけ。商品URLとブログは出しません"
+fi
+
+if [[ "${BEAUTY_TIP_POST}" == "true" ]]; then
+  echo "[STEP 2/${TOTAL_STEPS}] 商品URL解決 スキップ (tip)"
+  record_step 2 "商品URL解決" "skipped"
+  echo "[STEP 3/${TOTAL_STEPS}] Blogger公開とblogUrl取得 スキップ (tip)"
+  record_step 3 "Blogger公開とblogUrl取得" "skipped"
+else
 # 選定直後: 通常の商品ページURLを article.product.url に確定（LinkSwitch 用）
 # product-url-map.json → 失敗時は PRODUCT_URL_REQUIRE=true ならここで停止
 run_step 2 "商品URL解決" bash -c '
@@ -486,6 +508,7 @@ elif [[ "${IMAGE_STATUS}" == "ok" && "${IMAGE_COUNT}" == "0" ]]; then
   fi
 fi
 STEP_NAME=""
+fi
 
 run_step 4 "IG文生成" npx tsx src/generateInstagramCaption.ts
 

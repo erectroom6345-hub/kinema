@@ -7,7 +7,6 @@
 import fs from "node:fs";
 import {
   buildThreadsTextFromBeauty,
-  buildThreadsTrackUrl,
   isThreadsEnabled,
   loadThreadsEnvFromFile,
   publishThreadsTextPost,
@@ -47,6 +46,7 @@ async function main(): Promise<void> {
       brand?: string;
       genre?: string;
       pipelineGenre?: string;
+      postType?: string;
     };
   }>(articlePath);
   const insta = readJson<{
@@ -55,8 +55,11 @@ async function main(): Promise<void> {
     productName?: string;
     brand?: string;
     genre?: string;
+    postType?: string;
     threadsText?: string;
     threadsUtmUrl?: string;
+    videoUrl?: string;
+    mediaType?: string;
   }>(instaPath);
 
   const pipelineGenre = normalizePipelineGenre(
@@ -67,56 +70,74 @@ async function main(): Promise<void> {
       process.env.CONTENT_PIPELINE_GENRE,
   );
 
-  const blogUrl = (insta?.blogUrl || article?.product?.blogUrl || "").trim();
+  const isTip = String(article?.product?.postType || insta?.postType || "").toLowerCase() === "tip";
+  const blogUrl = isTip
+    ? ""
+    : (insta?.blogUrl || article?.product?.blogUrl || "").trim();
   const productId = (article?.product?.id || "").trim();
   const productName = (insta?.productName || article?.product?.name || "").trim();
   const brand = (insta?.brand || article?.product?.brand || "").trim();
   const genre = (insta?.genre || article?.product?.genre || "").trim();
-  const utmUrl =
-    (insta?.threadsUtmUrl || "").trim() ||
-    (blogUrl && productId
-      ? buildTrackUrl({
-          blogUrl,
-          productId,
-          source: "threads",
-          genre: pipelineGenre,
-        })
-      : blogUrl || "");
+  // 美容以外は SNS完結（ブログ誘導なし）。UTM は美容 or 明示 threadsUtmUrl のみ
+  const snsSelfContained = ["living", "gadget", "food", "drink"].includes(
+    pipelineGenre,
+  );
+  const utmUrl = snsSelfContained
+    ? ""
+    : (insta?.threadsUtmUrl || "").trim() ||
+      (blogUrl && productId
+        ? buildTrackUrl({
+            blogUrl,
+            productId,
+            source: "threads",
+            genre: pipelineGenre,
+          })
+        : blogUrl || "");
 
-  // living: 事前生成の threadsText を優先（なければ beauty 互換ビルダー）
+  // 事前生成 threadsText を優先。美容以外は caption 完結（URL付けない）
   let text = (insta?.threadsText || "").trim();
-  if (!text) {
-    text = buildThreadsTextFromBeauty({
-      caption: insta?.caption,
-      body: article?.body,
-      title: article?.title,
-      blogUrl,
-      productId,
-      productName,
-      brand,
-      genre,
-    });
-    // living のときは campaign を living_ に差し替え（本文末尾URL）
-    if (pipelineGenre === "living" && blogUrl && productId) {
-      const livingUtm = buildTrackUrl({
+  if (isTip) {
+    text = String(insta?.caption || text)
+      .replace(/\n*https?:\/\/\S+/gi, "")
+      .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*$/u, "")
+      .trim();
+  } else if (!text) {
+    if (snsSelfContained) {
+      text = String(insta?.caption || "")
+        .replace(/\n*https?:\/\/\S+/gi, "")
+        .trim();
+    } else {
+      text = buildThreadsTextFromBeauty({
+        caption: insta?.caption,
+        body: article?.body,
+        title: article?.title,
         blogUrl,
         productId,
-        source: "threads",
-        genre: "living",
+        productName,
+        brand,
+        genre,
       });
-      const beautyUtm = buildThreadsTrackUrl({ blogUrl, productId });
-      if (text.includes(beautyUtm)) {
-        text = text.split(beautyUtm).join(livingUtm);
-      } else if (!text.includes(livingUtm)) {
-        text = `${text.replace(/\n*https?:\/\/\S+\s*$/m, "").trim()}\n${livingUtm}`;
-      }
     }
   }
 
   console.log(`Threads投稿文プレビュー (genre=${pipelineGenre}):`);
   console.log(text);
   console.log("---");
-  if (blogUrl) {
+  if (isTip) {
+    console.log("---- Threads CTA ----");
+    console.log("mode: beauty_tip (URLなし。ブログ誘導なし)");
+  } else if (snsSelfContained) {
+    console.log("---- Threads CTA ----");
+    const hasAffiliate = /afl\.rakuten|hb\.afl\.rakuten|item\.rakuten/i.test(text);
+    const hasBlog = /blogspot\.com|blogger\.com/i.test(text);
+    console.log(
+      hasBlog
+        ? "mode: sns_self_contained (備蓄期間ブログURL直載せ)"
+        : hasAffiliate
+          ? "mode: sns_self_contained (楽天アフィ直載せ。ブログ誘導なし)"
+          : "mode: sns_self_contained (URLなし tip等。ブログ誘導なし)",
+    );
+  } else if (blogUrl) {
     console.log("---- Threads Blogger UTM ----");
     console.log(`productId: ${productId || "-"}`);
     console.log(`pipelineGenre: ${pipelineGenre}`);
@@ -128,7 +149,26 @@ async function main(): Promise<void> {
 
   readThreadsCredentialsFromEnv();
 
-  const result = await publishThreadsTextPost({ text });
+  // Threads は動画を付けるとリンクカードが出ず商品へ飛びにくい。
+  // Instagram だけリールにし、Threads はテキスト＋URL（タップ可）を既定にする。
+  // 例外: THREADS_ATTACH_VIDEO=true のときだけ videoUrl を付ける。
+  const videoUrl = String(insta?.videoUrl || "").trim();
+  const wantVideo =
+    (process.env.THREADS_ATTACH_VIDEO || "").trim().toLowerCase() === "true" &&
+    Boolean(videoUrl) &&
+    ["reel", "reels", "video"].includes(String(insta?.mediaType || "").toLowerCase());
+  if (videoUrl && !wantVideo) {
+    console.log(
+      "Threads動画は付けません（商品リンク優先）。付ける場合は THREADS_ATTACH_VIDEO=true",
+    );
+  }
+  if (wantVideo) {
+    console.log(`Threads動画: ${videoUrl}`);
+  }
+  const result = await publishThreadsTextPost({
+    text,
+    videoUrl: wantVideo ? videoUrl : undefined,
+  });
   console.log(
     JSON.stringify(
       {
@@ -137,6 +177,7 @@ async function main(): Promise<void> {
         creation_id: result.creationId,
         utmUrl: utmUrl || null,
         genre: pipelineGenre,
+        attachedVideo: wantVideo,
       },
       null,
       2,
@@ -155,6 +196,7 @@ async function main(): Promise<void> {
         utmUrl: utmUrl || null,
         productId: productId || null,
         genre: pipelineGenre,
+        attachedVideo: wantVideo,
         at: new Date().toISOString(),
       },
       null,

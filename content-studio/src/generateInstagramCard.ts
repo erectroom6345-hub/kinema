@@ -25,6 +25,19 @@ const { cleanFoodProductName } = require("../scripts/lib/food-product-name.cjs")
 const { cleanDrinkProductName } = require("../scripts/lib/drink-product-name.cjs") as {
   cleanDrinkProductName: (raw: string, opts?: { maxLen?: number }) => string;
 };
+const { buildSlideReel } = require("../scripts/lib/slide-reel.cjs") as {
+  buildSlideReel: (opts: {
+    imagePaths: string[];
+    outPath: string;
+    linkUrl?: string;
+    productName?: string;
+  }) => Promise<{
+    trackFile: string;
+    outPath: string;
+    seconds: number;
+    qr: boolean;
+  }>;
+};
 
 const articlePath = "input/article.json";
 const instaPath = "input/instagram-post.json";
@@ -38,6 +51,8 @@ type ArticleInput = {
     name?: string;
     brand?: string;
     imageUrl?: string;
+    url?: string;
+    rakutenUrl?: string;
     affiliate?: boolean;
     postType?: string;
     ask?: string;
@@ -567,6 +582,46 @@ async function main() {
   insta.imageUrl = imageUrls[0];
   insta.imageUrls = imageUrls;
   insta.mediaType = imageUrls.length > 1 ? "carousel" : "image";
+  if (envFlag("SLIDE_REEL", true) && fileNames.length) {
+    try {
+      const videoName = `${productId}-${ts}.mp4`;
+      const videoPath = path.join(publicDir, videoName);
+      const pipelineGenre = String(
+        process.env.CONTENT_PIPELINE_GENRE || insta.genre || article.product?.genre || "",
+      )
+        .trim()
+        .toLowerCase();
+      // 試し運用: drink だけ楽天アフィURLのQR終端を付ける
+      const drinkQrUrl =
+        pipelineGenre === "drink"
+          ? String(
+              insta.productUrl ||
+                article.product?.rakutenUrl ||
+                article.product?.url ||
+                "",
+            ).trim()
+          : "";
+      const built = await buildSlideReel({
+        imagePaths: fileNames.map((name) => path.join(publicDir, name)),
+        outPath: videoPath,
+        linkUrl: /^https?:\/\//i.test(drinkQrUrl) ? drinkQrUrl : undefined,
+        productName: String(insta.productName || article.product?.name || "").trim(),
+      });
+      fs.copyFileSync(videoPath, path.join(localDir, videoName));
+      fileNames.push(videoName);
+      insta.videoUrl = `${publicBase}/${videoName}`;
+      insta.mediaType = "reel";
+      insta.audioTrack = built.trackFile;
+      if (built.qr) insta.qrEndCard = "rakuten";
+      console.log(
+        `スライド動画: ${built.seconds.toFixed(1)}s track=${built.trackFile}` +
+          `${built.qr ? " qr=楽天" : ""} ${videoName}`,
+      );
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      console.warn(`スライド動画をスキップ（静止画のまま）: ${detail}`);
+    }
+  }
   insta.imageSource = usedProductPhoto
     ? isProductFirstPipeline
       ? "product-first-carousel"

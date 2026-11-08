@@ -208,9 +208,9 @@ function reasonLine(params: {
   });
 }
 
-/** Instagram 完結用。プロフィール/ブログへ送らない */
+/** Instagram: 試しでリール末尾に楽天QR。プロフィール誘導はしない */
 function actionLine(prToken: string, requirePr: boolean): string {
-  const base = "気になったら、保存して見返してみてください";
+  const base = "動画の最後は楽天QRです";
   return requirePr ? `${base} ${prToken}` : base;
 }
 
@@ -254,8 +254,10 @@ function buildThreadsText(
 ): string {
   let body = caption
     .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
-    .replace(/\n*https?:\/\/\S+/gi, "")
+    .replace(/\n*動画の最後は楽天QRです\s*※?PR?\s*$/u, "")
+    .replace(/\n*気になったら、動画の最後のQRからどうぞ\s*※?PR?\s*$/u, "")
     .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
+    .replace(/\n*https?:\/\/\S+/gi, "")
     .trim();
   if (opts.tip || !affiliateUrl) {
     if (!opts.tip && opts.requirePr && !/※PR/.test(body)) {
@@ -390,7 +392,7 @@ function main() {
   console.log(`productId: ${productId}`);
   console.log(`postType: ${tip ? "tip" : "product"}`);
   console.log(
-    `cta: ${tip ? "tip_self_contained" : "ig_self_contained + threads/x rakuten affiliate"}`,
+    `cta: ${tip ? "tip_self_contained" : "ig 楽天QR + threads/x rakuten affiliate"}`,
   );
   console.log(`pr: ${requirePr}`);
   if (affiliateUrl) console.log(`rakutenAffiliate: ${affiliateUrl.slice(0, 80)}...`);
@@ -399,9 +401,9 @@ function main() {
   const result = {
     imageUrl,
     caption,
-    // IGはURLなし。Threads/X用にアフィURLを保持
     blogUrl: "",
     blogUtmUrl: "",
+    productUrl: affiliateUrl || "",
     threadsText,
     threadsUtmUrl: tip ? "" : affiliateUrl,
     xText,
@@ -411,7 +413,7 @@ function main() {
     productNameRaw: nameRaw || undefined,
     category,
     productId,
-    cta: tip ? "tip_self_contained" : "ig_self_contained",
+    cta: tip ? "tip_self_contained" : "ig_rakuten_qr",
     pr: requirePr,
     affiliate: !tip,
     postType: tip ? "tip" : article.product?.postType || "main",

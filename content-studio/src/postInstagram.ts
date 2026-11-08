@@ -71,10 +71,14 @@ const raw = fs.readFileSync(inputPath, "utf-8");
 const post = JSON.parse(raw) as {
   imageUrl: string;
   imageUrls?: string[];
+  videoUrl?: string;
   mediaType?: string;
   caption: string;
   blogUrl?: string;
   blogUtmUrl?: string;
+  productUrl?: string;
+  threadsUtmUrl?: string;
+  productId?: string;
 };
 
 type GraphErrorBody = {
@@ -250,7 +254,14 @@ async function assertImageUrlReachable(imageUrl: string): Promise<void> {
 }
 
 function resolveCaption(): string {
-  const caption = normalizeCaption(post.caption || "");
+  // Instagram はキャプション内URLをタップ不可。押せないURLは載せない。
+  // ワンクリック導線は Threads 本文の商品URL。プロフィール誘導もしない。
+  const caption = normalizeCaption(post.caption || "")
+    .replace(/\n*https?:\/\/\S+/gi, "")
+    .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
+    .replace(/\n*気になったら、動画の最後のQRからどうぞ\s*※?PR?\s*$/u, "")
+    // 「動画の最後は楽天QRです」は drink 試し運用なので残す
+    .trim();
   if (hasLiteralNewlineEscape(caption)) {
     throw new Error(
       "caption にリテラル \\n が残っています。normalizeCaption 後も未変換です。",
@@ -332,9 +343,59 @@ async function createCarouselContainer(childIds: string[], caption: string) {
   return data.id;
 }
 
-async function waitContainerReady(creationId: string, label: string) {
-  const maxAttempts = Number(process.env.IG_CONTAINER_WAIT_ATTEMPTS ?? "12") || 12;
-  const sleepMs = Number(process.env.IG_CONTAINER_WAIT_MS ?? "3000") || 3000;
+async function createReelContainer(videoUrl: string, caption: string) {
+  const url = `https://graph.facebook.com/v23.0/${igUserId}/media`;
+  const params = new URLSearchParams({
+    media_type: "REELS",
+    video_url: videoUrl,
+    caption,
+    share_to_feed: "true",
+    access_token: accessToken,
+  });
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params.toString(),
+  });
+
+  const data = (await res.json()) as GraphErrorBody;
+  console.log("reel media response:", data);
+
+  if (!res.ok || !data.id) {
+    throw new Error(formatGraphApiFailure("reel media作成", res.status, data));
+  }
+
+  return data.id;
+}
+
+async function assertVideoUrlReachable(videoUrl: string): Promise<void> {
+  const res = await fetch(videoUrl, {
+    method: "GET",
+    headers: { Range: "bytes=0-64" },
+    signal: AbortSignal.timeout(20_000),
+  });
+  if (!res.ok && res.status !== 206) {
+    throw new Error(`videoUrl が取得できませんでした (HTTP ${res.status}): ${videoUrl}`);
+  }
+  const contentType = (res.headers.get("content-type") || "").toLowerCase();
+  if (contentType && !contentType.includes("video") && !contentType.includes("mp4") && !contentType.includes("octet-stream")) {
+    throw new Error(`videoUrl の Content-Type が動画ではありません (${contentType}): ${videoUrl}`);
+  }
+}
+
+async function waitContainerReady(
+  creationId: string,
+  label: string,
+  opts: { maxAttempts?: number; sleepMs?: number } = {},
+) {
+  const maxAttempts =
+    opts.maxAttempts ??
+    (Number(process.env.IG_CONTAINER_WAIT_ATTEMPTS ?? "12") || 12);
+  const sleepMs =
+    opts.sleepMs ?? (Number(process.env.IG_CONTAINER_WAIT_MS ?? "3000") || 3000);
   for (let i = 1; i <= maxAttempts; i += 1) {
     const url =
       `https://graph.facebook.com/v23.0/${creationId}` +
@@ -438,6 +499,19 @@ async function main() {
   );
 
   const caption = resolveCaption();
+  const videoUrl = String(post.videoUrl || "").trim();
+  const asReel =
+    Boolean(videoUrl) &&
+    ["reel", "reels", "video"].includes(String(post.mediaType || "").toLowerCase());
+  let creationId: string;
+  if (asReel) {
+    assertImageUrlShape(videoUrl);
+    await assertVideoUrlReachable(videoUrl);
+    console.log("videoUrl 確認OK:", videoUrl);
+    creationId = await createReelContainer(videoUrl, caption);
+    console.log("reel creationId:", creationId);
+    await waitContainerReady(creationId, "reel", { maxAttempts: 30, sleepMs: 4000 });
+  } else {
   const imageUrls = resolveImageUrls();
   for (const imageUrl of imageUrls) {
     assertImageUrlShape(imageUrl);
@@ -445,7 +519,6 @@ async function main() {
     console.log("imageUrl 確認OK:", imageUrl);
   }
 
-  let creationId: string;
   if (imageUrls.length >= 2 || String(post.mediaType || "").toLowerCase() === "carousel") {
     console.log(`Instagram カルーセル投稿 slides=${imageUrls.length}`);
     // 注意: カルーセル/静止画に人気音楽を API で付けることはできない（Reels + Audio API のみ）
@@ -465,6 +538,7 @@ async function main() {
     creationId = await createImageContainer(imageUrls[0]!, { caption });
     console.log("creationId:", creationId);
     await waitContainerReady(creationId, "image");
+  }
   }
 
   const result = await publishMedia(creationId);

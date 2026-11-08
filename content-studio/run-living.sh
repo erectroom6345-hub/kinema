@@ -18,6 +18,9 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PA
 export CONTENT_PIPELINE_GENRE=living
 export POSTED_PRODUCTS_PATH="${POSTED_PRODUCTS_PATH:-data/posted-living.json}"
 export THREADS_AUTO_REPLY=false
+# shellcheck source=scripts/lib/pipeline-lock.sh
+source "$ROOT/scripts/lib/pipeline-lock.sh"
+pipeline_lock
 
 DRY_RUN=false
 for arg in "$@"; do
@@ -120,6 +123,8 @@ wait_pages_ready() {
         : [];
       const single = String(j.imageUrl || '').trim();
       const urls = list.length ? list : (single ? [single] : []);
+      const video = String(j.videoUrl || '').trim();
+      if (video && !urls.includes(video)) urls.push(video);
       if (!urls.length) { console.error('imageUrl が空です'); process.exit(2); }
       process.stdout.write(urls.join('\n'));
     "
@@ -235,7 +240,7 @@ apply_living_sns_env() {
 apply_living_sns_env
 
 if [[ -z "${LIVING_FIXED_PAGE_URL:-}" && "${DRY_RUN}" != "true" ]]; then
-  LAST_ERROR="LIVING_FIXED_PAGE_URL が未設定です（暮らし入口の固定ページ）"
+  LAST_ERROR="LIVING_FIXED_PAGE_URL が未設定です（ブログまとめ用。SNS誘導には使わない）"
   CURRENT_STEP=0
   STEP_NAME="環境準備"
   fail_and_exit 1
@@ -267,6 +272,19 @@ ensure_ollama
 record_step 0 "Ollama起動確認" "ok"
 STEP_NAME=""
 
+# 前段: 楽天APIで products-living.json の main[] を自動生成（既存選定はファイル読みのまま）
+# LIVING_RAKUTEN_INGEST_ENABLED=false でスキップ可。未設定キー時は script が fail → 本線停止。
+if [[ "${LIVING_RAKUTEN_INGEST_ENABLED:-true}" != "false" ]]; then
+  run_step 0 "楽天カタログ取得" bash -c '
+    set -euo pipefail
+    node scripts/fetch-living-rakuten-catalog.cjs
+    node scripts/check-living-catalog-no-sample.cjs
+  '
+else
+  echo "[STEP 0/${TOTAL_STEPS}] 楽天カタログ取得 スキップ (LIVING_RAKUTEN_INGEST_ENABLED=false)"
+  record_step 0 "楽天カタログ取得" "skipped"
+fi
+
 run_step 1 "商品選択" bash -c '
   node scripts/selectLivingProduct.cjs
   cat input/article.json
@@ -277,7 +295,16 @@ run_step 2 "楽天URL確認" bash -c '
   node -e "
     const fs = require(\"fs\");
     const j = JSON.parse(fs.readFileSync(\"input/article.json\",\"utf8\"));
+    const tip = j.product && (j.product.affiliate === false || j.product.postType === \"tip\" || (j.product.labels && j.product.labels.tip));
     const u = (j.product && (j.product.rakutenUrl || j.product.url) || \"\").trim();
+    if (tip) {
+      j.product.url = \"\";
+      j.product.rakutenUrl = \"\";
+      j.product.affiliate = false;
+      fs.writeFileSync(\"input/article.json\", JSON.stringify(j, null, 2) + \"\\n\");
+      console.log(\"tip投稿: rakutenUrl スキップ（アフィ無し）\");
+      process.exit(0);
+    }
     if (!u) { console.error(\"rakutenUrl が空です\"); process.exit(2); }
     j.product.url = u;
     j.product.rakutenUrl = u;

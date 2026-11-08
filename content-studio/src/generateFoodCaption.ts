@@ -274,7 +274,7 @@ function reasonLine(params: {
   });
 }
 
-/** Instagram 完結用。プロフィール/ブログへ送らない */
+/** Instagram 完結用。プロフィール/ブログへ送らない（ワンクリックは Threads 本文URL） */
 function actionLine(prToken: string, requirePr: boolean): string {
   const base = "気になったら、保存して見返してみてください";
   return requirePr ? `${base} ${prToken}` : base;
@@ -322,8 +322,9 @@ function buildThreadsText(
 ): string {
   let body = caption
     .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
-    .replace(/\n*https?:\/\/\S+/gi, "")
+    .replace(/\n*気になったら、動画の最後のQRからどうぞ\s*※?PR?\s*$/u, "")
     .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
+    .replace(/\n*https?:\/\/\S+/gi, "")
     .trim();
   if (opts.tip || !affiliateUrl) {
     if (!opts.tip && opts.requirePr && !/※PR/.test(body)) {
@@ -458,6 +459,15 @@ function main() {
           genre: "food",
         })
       : "";
+  const blogUtmIg =
+    stockpile && fixedPageUrl
+      ? buildTrackUrl({
+          blogUrl: fixedPageUrl,
+          productId,
+          source: "instagram",
+          genre: "food",
+        })
+      : "";
   const blogUtmX =
     stockpile && fixedPageUrl
       ? buildTrackUrl({
@@ -469,6 +479,7 @@ function main() {
       : "";
   const snsUrlThreads = tip ? "" : stockpile ? blogUtmThreads : affiliateUrl;
   const snsUrlX = tip ? "" : stockpile ? blogUtmX : affiliateUrl;
+  // IGキャプションにURLは載せない（タップ不可）。Threads/X にだけ付ける。
 
   const threadsText = buildThreadsText(caption, snsUrlThreads, {
     tip,
@@ -514,9 +525,9 @@ function main() {
   const result = {
     imageUrl,
     caption,
-    // IGはURLなし。備蓄期間は Threads/X にブログURL、通常は楽天アフィ
     blogUrl: stockpile ? fixedPageUrl : "",
-    blogUtmUrl: stockpile ? blogUtmThreads : "",
+    blogUtmUrl: stockpile ? blogUtmIg : "",
+    productUrl: affiliateUrl || "",
     threadsText,
     threadsUtmUrl: tip ? "" : snsUrlThreads,
     xText,

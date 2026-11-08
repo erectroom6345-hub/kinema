@@ -1,0 +1,25 @@
+{
+  "license": "Pixabay Content License",
+  "licenseUrl": "https://pixabay.com/service/license-summary/",
+  "note": "mp3 はローカル専用。単体再配布はしない。動画に混ぜて使う。",
+  "tracks": [
+    {
+      "file": "01-soft-background-piano.mp3",
+      "title": "Soft Background Piano",
+      "author": "Clavier-Music",
+      "page": "https://pixabay.com/music/modern-classical-soft-background-piano-285589/"
+    },
+    {
+      "file": "02-calm-background-piano.mp3",
+      "title": "Calm Background Piano Music",
+      "author": "Clavier-Music",
+      "page": "https://pixabay.com/music/modern-classical-calm-background-piano-music-239267/"
+    },
+    {
+      "file": "03-gentle-morning-keys.mp3",
+      "title": "Piano Soft Gentle Morning Keys",
+      "author": "alex-morgan",
+      "page": "https://pixabay.com/music/small-drama-piano-soft-gentle-morning-keys-575879/"
+    }
+  ]
+}

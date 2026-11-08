@@ -36,27 +36,64 @@ function apiBase(apiVersion?: string): string {
   return `https://graph.threads.net/${ver}`;
 }
 
-/** living 投稿経路か（shell の CONTENT_PIPELINE_GENRE / POSTED_PRODUCTS_PATH） */
-export function shouldUseLivingThreadsEnv(): boolean {
+/** 専用アカウント系ジャンル（美容 THREADS_* にフォールバックしない） */
+export type DedicatedThreadsGenre = "living" | "gadget" | "food" | "drink";
+
+export function getDedicatedThreadsGenre(): DedicatedThreadsGenre | null {
   const genre = (process.env.CONTENT_PIPELINE_GENRE || "").trim().toLowerCase();
-  if (genre === "living") return true;
+  if (genre === "living" || genre === "gadget" || genre === "food" || genre === "drink") return genre;
   const posted = (process.env.POSTED_PRODUCTS_PATH || "").trim();
-  return /posted-living\.json$/i.test(posted) || posted.includes("posted-living");
+  if (/posted-living\.json$/i.test(posted) || posted.includes("posted-living")) {
+    return "living";
+  }
+  if (/posted-gadget\.json$/i.test(posted) || posted.includes("posted-gadget")) {
+    return "gadget";
+  }
+  if (/posted-food\.json$/i.test(posted) || posted.includes("posted-food")) {
+    return "food";
+  }
+  if (/posted-drink\.json$/i.test(posted) || posted.includes("posted-drink")) {
+    return "drink";
+  }
+  return null;
 }
 
-/**
- * dotenv 再読込で美容 THREADS_* に戻ったあと、暮らし用 LIVING_* を共通キーへ載せ直す。
- * LIVING_* が空なら何もしない（美容設定のまま＝run-living 側の警告と対応）。
- */
-export function applyLivingThreadsEnvOverrides(): void {
-  if (!shouldUseLivingThreadsEnv()) return;
+function dedicatedThreadsPrefix(
+  genre: DedicatedThreadsGenre,
+): "LIVING" | "GADGET" | "FOOD" | "DRINK" {
+  if (genre === "drink") return "DRINK";
+  if (genre === "food") return "FOOD";
+  if (genre === "gadget") return "GADGET";
+  return "LIVING";
+}
 
-  const token = (process.env.LIVING_THREADS_ACCESS_TOKEN || "").trim();
-  const userId = (process.env.LIVING_THREADS_USER_ID || "").trim();
-  const enabled = (process.env.LIVING_THREADS_ENABLED || "").trim();
-  const appId = (process.env.LIVING_THREADS_APP_ID || "").trim();
-  const appSecret = (process.env.LIVING_THREADS_APP_SECRET || "").trim();
-  const redirectUri = (process.env.LIVING_THREADS_REDIRECT_URI || "").trim();
+/** living 投稿経路か（shell の CONTENT_PIPELINE_GENRE / POSTED_PRODUCTS_PATH） */
+export function shouldUseLivingThreadsEnv(): boolean {
+  return getDedicatedThreadsGenre() === "living";
+}
+
+export function shouldUseGadgetThreadsEnv(): boolean {
+  return getDedicatedThreadsGenre() === "gadget";
+}
+
+export function shouldUseFoodThreadsEnv(): boolean {
+  return getDedicatedThreadsGenre() === "food";
+}
+
+export function shouldUseDrinkThreadsEnv(): boolean {
+  return getDedicatedThreadsGenre() === "drink";
+}
+
+function applyDedicatedThreadsEnvOverrides(
+  genre: DedicatedThreadsGenre,
+): void {
+  const prefix = dedicatedThreadsPrefix(genre);
+  const token = (process.env[`${prefix}_THREADS_ACCESS_TOKEN`] || "").trim();
+  const userId = (process.env[`${prefix}_THREADS_USER_ID`] || "").trim();
+  const enabled = (process.env[`${prefix}_THREADS_ENABLED`] || "").trim();
+  const appId = (process.env[`${prefix}_THREADS_APP_ID`] || "").trim();
+  const appSecret = (process.env[`${prefix}_THREADS_APP_SECRET`] || "").trim();
+  const redirectUri = (process.env[`${prefix}_THREADS_REDIRECT_URI`] || "").trim();
 
   if (!token && !userId && !enabled) return;
 
@@ -68,21 +105,48 @@ export function applyLivingThreadsEnvOverrides(): void {
   if (redirectUri) process.env.THREADS_REDIRECT_URI = redirectUri;
 
   console.log(
-    `[Threads認証] living 設定を適用: USER_ID=${userId || "(empty)"}` +
+    `[Threads認証] ${genre} 設定を適用: USER_ID=${userId || "(empty)"}` +
       ` ENABLED=${(process.env.THREADS_ENABLED || "").trim() || "(unset)"}` +
       ` TOKEN=${token ? `設定済(長さ${token.length})` : "(empty)"}`,
   );
 }
 
 /**
+ * dotenv 再読込で美容 THREADS_* に戻ったあと、暮らし用 LIVING_* を共通キーへ載せ直す。
+ * LIVING_* が空なら何もしない（美容設定のまま＝run-living 側の警告と対応）。
+ */
+export function applyLivingThreadsEnvOverrides(): void {
+  if (!shouldUseLivingThreadsEnv()) return;
+  applyDedicatedThreadsEnvOverrides("living");
+}
+
+export function applyGadgetThreadsEnvOverrides(): void {
+  if (!shouldUseGadgetThreadsEnv()) return;
+  applyDedicatedThreadsEnvOverrides("gadget");
+}
+
+export function applyFoodThreadsEnvOverrides(): void {
+  if (!shouldUseFoodThreadsEnv()) return;
+  applyDedicatedThreadsEnvOverrides("food");
+}
+
+export function applyDrinkThreadsEnvOverrides(): void {
+  if (!shouldUseDrinkThreadsEnv()) return;
+  applyDedicatedThreadsEnvOverrides("drink");
+}
+
+/**
  * content-studio/.env を優先して読み込む（既存 process.env を上書き）。
  * dotenv 既定は「既に export 済みの値を上書きしない」ため、古いシェル変数が残ると古い token になる。
- * living 経路では直後に LIVING_THREADS_* を再適用する。
+ * living/gadget/food/drink 経路では直後に専用 THREADS_* を再適用する。
  */
 export function loadThreadsEnvFromFile(cwd = process.cwd()): string {
   const envPath = path.resolve(cwd, ".env");
   loadDotenv({ path: envPath, override: true });
   applyLivingThreadsEnvOverrides();
+  applyGadgetThreadsEnvOverrides();
+  applyFoodThreadsEnvOverrides();
+  applyDrinkThreadsEnvOverrides();
   return envPath;
 }
 
@@ -90,21 +154,22 @@ export function readThreadsCredentialsFromEnv(): ThreadsCredentials {
   // 読み出し直前に .env を再適用（シェルに古い THREADS_* が残っていてもファイル優先）
   loadThreadsEnvFromFile();
 
-  const living = shouldUseLivingThreadsEnv();
-  // living は美容 THREADS_* にフォールバックしない（誤投稿防止）
-  const accessToken = living
-    ? (process.env.LIVING_THREADS_ACCESS_TOKEN ?? "").trim()
+  const dedicated = getDedicatedThreadsGenre();
+  const prefix = dedicated ? dedicatedThreadsPrefix(dedicated) : null;
+  // 専用ジャンルは美容 THREADS_* にフォールバックしない（誤投稿防止）
+  const accessToken = prefix
+    ? (process.env[`${prefix}_THREADS_ACCESS_TOKEN`] ?? "").trim()
     : (process.env.THREADS_ACCESS_TOKEN ?? "").trim();
-  const userId = living
-    ? (process.env.LIVING_THREADS_USER_ID ?? "").trim()
+  const userId = prefix
+    ? (process.env[`${prefix}_THREADS_USER_ID`] ?? "").trim()
     : (process.env.THREADS_USER_ID ?? "").trim();
 
   const missing: string[] = [];
   if (!accessToken) {
-    missing.push(living ? "LIVING_THREADS_ACCESS_TOKEN" : "THREADS_ACCESS_TOKEN");
+    missing.push(prefix ? `${prefix}_THREADS_ACCESS_TOKEN` : "THREADS_ACCESS_TOKEN");
   }
   if (!userId) {
-    missing.push(living ? "LIVING_THREADS_USER_ID" : "THREADS_USER_ID");
+    missing.push(prefix ? `${prefix}_THREADS_USER_ID` : "THREADS_USER_ID");
   }
   if (missing.length > 0) {
     throw new ThreadsAuthError(
@@ -112,8 +177,8 @@ export function readThreadsCredentialsFromEnv(): ThreadsCredentials {
     );
   }
 
-  // 下流の Graph 呼び出しが THREADS_* を見る場合に備え、living 値を共通キーへ載せる
-  if (living) {
+  // 下流の Graph 呼び出しが THREADS_* を見る場合に備え、専用値を共通キーへ載せる
+  if (prefix) {
     process.env.THREADS_ACCESS_TOKEN = accessToken;
     process.env.THREADS_USER_ID = userId;
   }
@@ -127,10 +192,12 @@ export function readThreadsCredentialsFromEnv(): ThreadsCredentials {
 
 export function isThreadsEnabled(): boolean {
   loadThreadsEnvFromFile();
-  if (shouldUseLivingThreadsEnv()) {
-    const livingEnabled = (process.env.LIVING_THREADS_ENABLED ?? "").trim();
-    if (livingEnabled) return livingEnabled.toLowerCase() === "true";
-    // LIVING_THREADS_ENABLED 未設定時のみ共通キー（apply 済み）を見る
+  const dedicated = getDedicatedThreadsGenre();
+  if (dedicated) {
+    const prefix = dedicatedThreadsPrefix(dedicated);
+    const dedicatedEnabled = (process.env[`${prefix}_THREADS_ENABLED`] ?? "").trim();
+    if (dedicatedEnabled) return dedicatedEnabled.toLowerCase() === "true";
+    // 専用 *_THREADS_ENABLED 未設定時のみ共通キー（apply 済み）を見る
   }
   return (process.env.THREADS_ENABLED ?? "").trim().toLowerCase() === "true";
 }
@@ -179,8 +246,9 @@ export async function syncThreadsUserIdFromMe(
     const msg = err instanceof Error ? err.message : String(err);
     console.warn(`[Threads認証] THREADS_USER_ID の .env 保存に失敗（メモリ上は修正）: ${msg}`);
     process.env.THREADS_USER_ID = me.id;
-    if (shouldUseLivingThreadsEnv()) {
-      process.env.LIVING_THREADS_USER_ID = me.id;
+    const dedicated = getDedicatedThreadsGenre();
+    if (dedicated) {
+      process.env[`${dedicatedThreadsPrefix(dedicated)}_THREADS_USER_ID`] = me.id;
     }
   }
   return { ...base, userId: me.id };
@@ -212,25 +280,27 @@ function persistThreadsEnvKey(key: string, value: string, envPath = path.resolve
   process.env[key] = v;
 }
 
-/** .env の THREADS_ACCESS_TOKEN（living 時は LIVING_THREADS_ACCESS_TOKEN）を更新 */
+/** .env の THREADS_ACCESS_TOKEN（living/gadget 時は専用キー）を更新 */
 export function persistThreadsAccessToken(newToken: string, envPath = path.resolve(".env")): void {
   const token = newToken.trim();
   if (!token) throw new ThreadsAuthError("[Threads認証] 空の token は保存できません");
-  const living = shouldUseLivingThreadsEnv();
-  const key = living ? "LIVING_THREADS_ACCESS_TOKEN" : "THREADS_ACCESS_TOKEN";
+  const dedicated = getDedicatedThreadsGenre();
+  const prefix = dedicated ? dedicatedThreadsPrefix(dedicated) : null;
+  const key = prefix ? `${prefix}_THREADS_ACCESS_TOKEN` : "THREADS_ACCESS_TOKEN";
   persistThreadsEnvKey(key, token, envPath);
   process.env.THREADS_ACCESS_TOKEN = token;
-  if (living) process.env.LIVING_THREADS_ACCESS_TOKEN = token;
+  if (prefix) process.env[`${prefix}_THREADS_ACCESS_TOKEN`] = token;
   console.log(`[Threads認証] .env の ${key} を更新しました`);
 }
 
 export function persistThreadsUserId(userId: string, envPath = path.resolve(".env")): void {
   const id = userId.trim();
-  const living = shouldUseLivingThreadsEnv();
-  const key = living ? "LIVING_THREADS_USER_ID" : "THREADS_USER_ID";
+  const dedicated = getDedicatedThreadsGenre();
+  const prefix = dedicated ? dedicatedThreadsPrefix(dedicated) : null;
+  const key = prefix ? `${prefix}_THREADS_USER_ID` : "THREADS_USER_ID";
   persistThreadsEnvKey(key, id, envPath);
   process.env.THREADS_USER_ID = id;
-  if (living) process.env.LIVING_THREADS_USER_ID = id;
+  if (prefix) process.env[`${prefix}_THREADS_USER_ID`] = id;
   console.log(`[Threads認証] .env の ${key} を更新しました userId=${id}`);
 }
 
@@ -407,8 +477,10 @@ export async function ensureThreadsAccessToken(
         const msg = err instanceof Error ? err.message : String(err);
         console.warn(`[Threads認証] .env 保存に失敗（メモリ上の新tokenで続行）: ${msg}`);
         process.env.THREADS_ACCESS_TOKEN = refreshed.accessToken;
-        if (shouldUseLivingThreadsEnv()) {
-          process.env.LIVING_THREADS_ACCESS_TOKEN = refreshed.accessToken;
+        const dedicated = getDedicatedThreadsGenre();
+        if (dedicated) {
+          process.env[`${dedicatedThreadsPrefix(dedicated)}_THREADS_ACCESS_TOKEN`] =
+            refreshed.accessToken;
         }
       }
       return { ...base, accessToken: refreshed.accessToken };
@@ -647,52 +719,70 @@ async function postForm(
   fields: Record<string, string>,
   ctx?: { userId?: string },
 ): Promise<Record<string, unknown>> {
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(fields),
-  });
-  const raw = await res.text();
-  let json: Record<string, unknown> = {};
-  try {
-    json = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
-  } catch {
-    json = { raw: raw.slice(0, 500) };
-  }
-
-  if (!res.ok) {
-    const err = json.error as {
-      message?: string;
-      code?: number;
-      error_subcode?: number;
-      error_user_msg?: string;
-    } | undefined;
-    const detail =
-      `HTTP ${res.status}` +
-      (err?.code != null ? ` code=${err.code}` : "") +
-      (err?.error_subcode != null ? ` subcode=${err.error_subcode}` : "") +
-      (err?.message ? ` message=${err.message}` : "") +
-      (err?.error_user_msg ? ` user_msg=${err.error_user_msg}` : "") +
-      ` url=${redactUrl(url)}` +
-      (ctx?.userId ? ` userId=${ctx.userId}` : "") +
-      (fields.creation_id ? ` creation_id=${fields.creation_id}` : "") +
-      ` body=${raw.slice(0, 400)}`;
-
-    const error = new Error(`Threads ${label}失敗: ${detail}`) as Error & {
-      httpStatus?: number;
-      apiCode?: number;
-    };
-    error.httpStatus = res.status;
-    error.apiCode = err?.code;
-
-    if (isThreadsAuthFailure(res.status, json)) {
-      throw new ThreadsAuthError(
-        `[Threads認証] ${label}で認証エラー。再認証が必要です。 ${detail}`,
-      );
+  let lastNetworkErr: unknown;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(fields),
+      });
+    } catch (err) {
+      lastNetworkErr = err;
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`Threads ${label} ネットワーク再試行 ${attempt}/3: ${msg}`);
+      if (attempt < 3) {
+        await sleep(2_000 * attempt);
+        continue;
+      }
+      throw new Error(`Threads ${label}失敗: fetch failed (${msg})`);
     }
-    throw error;
+    const raw = await res.text();
+    let json: Record<string, unknown> = {};
+    try {
+      json = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
+    } catch {
+      json = { raw: raw.slice(0, 500) };
+    }
+
+    if (!res.ok) {
+      const err = json.error as {
+        message?: string;
+        code?: number;
+        error_subcode?: number;
+        error_user_msg?: string;
+      } | undefined;
+      const detail =
+        `HTTP ${res.status}` +
+        (err?.code != null ? ` code=${err.code}` : "") +
+        (err?.error_subcode != null ? ` subcode=${err.error_subcode}` : "") +
+        (err?.message ? ` message=${err.message}` : "") +
+        (err?.error_user_msg ? ` user_msg=${err.error_user_msg}` : "") +
+        ` url=${redactUrl(url)}` +
+        (ctx?.userId ? ` userId=${ctx.userId}` : "") +
+        (fields.creation_id ? ` creation_id=${fields.creation_id}` : "") +
+        ` body=${raw.slice(0, 400)}`;
+
+      const error = new Error(`Threads ${label}失敗: ${detail}`) as Error & {
+        httpStatus?: number;
+        apiCode?: number;
+      };
+      error.httpStatus = res.status;
+      error.apiCode = err?.code;
+
+      if (isThreadsAuthFailure(res.status, json)) {
+        throw new ThreadsAuthError(
+          `[Threads認証] ${label}で認証エラー。再認証が必要です。 ${detail}`,
+        );
+      }
+      throw error;
+    }
+    return json;
   }
-  return json;
+  throw lastNetworkErr instanceof Error
+    ? lastNetworkErr
+    : new Error(`Threads ${label}失敗: fetch failed`);
 }
 
 /**
@@ -751,6 +841,9 @@ async function waitForThreadsContainerReady(
 /** 画像なし TEXT を1本投稿。成功時は creationId / postId を返す。 */
 export async function publishThreadsTextPost(params: {
   text: string;
+  videoUrl?: string;
+  /** 自分の投稿への返信（商品リンクカード用）。videoUrl と同時指定不可 */
+  replyToId?: string;
   credentials?: ThreadsCredentials;
   /** false で refresh を省略（疎通固定文などで明示指定可）。既定 true */
   refreshToken?: boolean;
@@ -778,27 +871,52 @@ export async function publishThreadsTextPost(params: {
 
   const base = apiBase(creds.apiVersion);
   const ctx = { userId: creds.userId };
+  const videoUrl = String(params.videoUrl || "").trim();
+  const replyToId = String(params.replyToId || "").trim();
+  if (videoUrl && replyToId) {
+    throw new Error("Threads: videoUrl と replyToId は同時に使えません");
+  }
   // create / publish とも /me（token 紐づきアカウント）。userId はログ・同期用
   console.log(
     `Threads投稿開始: userId=${creds.userId} chars=${[...text].length}` +
+      ` media=${videoUrl ? "VIDEO" : "TEXT"}` +
+      `${replyToId ? ` reply_to=${replyToId}` : ""}` +
       ` create=${base}/me/threads publish=${base}/me/threads_publish`,
   );
 
   const created = await postForm(
     "container作成",
     `${base}/me/threads`,
-    {
-      media_type: "TEXT",
-      text,
-      access_token: creds.accessToken,
-    },
+    videoUrl
+      ? {
+          media_type: "VIDEO",
+          video_url: videoUrl,
+          text,
+          access_token: creds.accessToken,
+        }
+      : replyToId
+        ? {
+            media_type: "TEXT",
+            text,
+            reply_to_id: replyToId,
+            access_token: creds.accessToken,
+          }
+        : {
+            media_type: "TEXT",
+            text,
+            access_token: creds.accessToken,
+          },
     ctx,
   );
   const creationId = String(created.id ?? "").trim();
   if (!creationId) throw new Error("Threads container 応答に id がありません");
   console.log(`Threads creation_id=${creationId}`);
 
-  await waitForThreadsContainerReady(creationId, creds);
+  await waitForThreadsContainerReady(
+    creationId,
+    creds,
+    videoUrl ? { timeoutMs: 300_000, intervalMs: 5_000 } : undefined,
+  );
 
   let published: Record<string, unknown> | null = null;
   let lastErr: unknown;
