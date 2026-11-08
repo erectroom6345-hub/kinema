@@ -149,17 +149,19 @@ async function main(): Promise<void> {
 
   readThreadsCredentialsFromEnv();
 
-  // Threads は動画を付けるとリンクカードが出ず商品へ飛びにくい。
-  // Instagram だけリールにし、Threads はテキスト＋URL（タップ可）を既定にする。
-  // 例外: THREADS_ATTACH_VIDEO=true のときだけ videoUrl を付ける。
+  // Threads は動画＋本文URLを既定にする（検索・配信向け）。
+  // 動画タップでは飛べず、本文の青文字URLを押す前提。
+  // テキストのみに戻すときだけ THREADS_ATTACH_VIDEO=false。
   const videoUrl = String(insta?.videoUrl || "").trim();
+  const attachFlag = (process.env.THREADS_ATTACH_VIDEO || "true").trim().toLowerCase();
+  const attachVideo = !["0", "false", "no", "off"].includes(attachFlag);
   const wantVideo =
-    (process.env.THREADS_ATTACH_VIDEO || "").trim().toLowerCase() === "true" &&
+    attachVideo &&
     Boolean(videoUrl) &&
     ["reel", "reels", "video"].includes(String(insta?.mediaType || "").toLowerCase());
   if (videoUrl && !wantVideo) {
     console.log(
-      "Threads動画は付けません（商品リンク優先）。付ける場合は THREADS_ATTACH_VIDEO=true",
+      "Threads動画は付けません（THREADS_ATTACH_VIDEO=false または mediaType 不一致）",
     );
   }
   if (wantVideo) {

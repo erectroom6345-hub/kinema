@@ -42,6 +42,14 @@ const { buildSlideReel } = require("../scripts/lib/slide-reel.cjs") as {
 const articlePath = "input/article.json";
 const instaPath = "input/instagram-post.json";
 
+type ArticleProductLabels = {
+  sale?: boolean;
+  campaign?: boolean;
+  saleEndAt?: string;
+  campaignEndAt?: string;
+  [key: string]: unknown;
+};
+
 type ArticleInput = {
   title?: string;
   body?: string;
@@ -55,11 +63,53 @@ type ArticleInput = {
     rakutenUrl?: string;
     affiliate?: boolean;
     postType?: string;
+    interrupt?: string | null;
     ask?: string;
     aside?: string;
+    labels?: ArticleProductLabels;
     cardSlides?: { title?: string; pitch?: string }[];
   };
 };
+
+/** セール/キャンペーン中だけ「おトク」文言を使う */
+function isActiveRakutenDeal(product?: ArticleInput["product"]): boolean {
+  if (!product || product.affiliate === false) return false;
+  const postType = String(product.postType || "").toLowerCase();
+  if (postType === "sale" || postType === "campaign") return true;
+  const interrupt = String(product.interrupt || "").toLowerCase();
+  if (interrupt === "sale" || interrupt === "campaign") return true;
+  const labels = product.labels || {};
+  const now = Date.now();
+  const endOk = (iso?: string) => {
+    const raw = String(iso || "").trim();
+    if (!raw) return true;
+    const t = Date.parse(raw);
+    return Number.isFinite(t) ? t >= now : true;
+  };
+  if (labels.sale === true && endOk(labels.saleEndAt)) return true;
+  if (labels.campaign === true && endOk(labels.campaignEndAt)) return true;
+  return false;
+}
+
+/** 2枚目: 定番「楽天｜商品名 / チェック」、セール時のみ「おトク」 */
+function buildRakutenSlideCopy(displayName: string, onDeal: boolean): {
+  title: string;
+  pitch: string;
+} {
+  const name =
+    cleanDisplayNameForRakutenSlide(displayName) || displayName || "この商品";
+  return {
+    title: `楽天｜${name}`,
+    pitch: onDeal ? "おトク" : "チェック",
+  };
+}
+
+function cleanDisplayNameForRakutenSlide(raw: string): string {
+  return String(raw || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 20);
+}
 
 type InstaPost = {
   imageUrl?: string;
@@ -313,7 +363,7 @@ async function main() {
     pipelineGenre.includes("drink") ||
     productIdRaw.startsWith("drink-") ||
     genreLower === "drink";
-  /** living / gadget / food / drink: 商品写真1枚目 + 保存CTA */
+  /** living / gadget / food / drink: 1枚目商品写真 + 2枚目楽天CTA */
   const isProductFirstPipeline =
     isLivingPipeline || isGadgetPipeline || isFoodPipeline || isDrinkPipeline;
   const isBeautyPipeline = !isProductFirstPipeline;
@@ -405,7 +455,7 @@ async function main() {
             : { ...s, kind: "template" as const },
         );
     }
-    // living/gadget: tip=習慣メモ3枚 / 通常=1枚目商品写真 + 説明 + 保存CTA
+    // living/gadget/food/drink: tip=習慣メモ3枚 / 通常=1枚目商品 + 2枚目楽天CTA + 保存
     if (isProductFirstPipeline) {
       const defaultName = isDrinkPipeline
         ? "銘酒・季節酒"
@@ -466,9 +516,8 @@ async function main() {
           article.product?.name || article.title || defaultName,
           { maxLen: 24 },
         ) || defaultName;
-      const pitch = buildPitch(insta.caption || "", article.body || "", {
-        living: true,
-      });
+      const onDeal = isActiveRakutenDeal(article.product);
+      const rakutenSlide = buildRakutenSlideCopy(displayName, onDeal);
       const productFirstSlides: SlideOut[] = [];
       if (productImageUrl) {
         productFirstSlides.push({
@@ -484,10 +533,11 @@ async function main() {
           pitch: isGadgetPipeline ? "今日のガジェット" : "今日の便利グッズ",
         });
       }
+      // 2枚目: 楽天＋商品名（検索・視認用）。定番はチェック、セール/CP時のみおトク
       productFirstSlides.push({
         kind: "template",
-        title: displayName,
-        pitch: pitch || "使う場面がはっきりしているのがポイント",
+        title: rakutenSlide.title,
+        pitch: rakutenSlide.pitch,
       });
       productFirstSlides.push({
         kind: "template",
