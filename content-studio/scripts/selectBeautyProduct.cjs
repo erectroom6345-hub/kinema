@@ -133,6 +133,80 @@ function tokyoDayKey(d = new Date()) {
   return strategyTokyoDayKey(d);
 }
 
+function tokyoWeekdayKey(dateStr) {
+  const d = dateStr
+    ? new Date(`${String(dateStr).slice(0, 10)}T12:00:00+09:00`)
+    : new Date();
+  const short = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Tokyo",
+    weekday: "short",
+  }).format(d);
+  return (
+    {
+      Sun: "sun",
+      Mon: "mon",
+      Tue: "tue",
+      Wed: "wed",
+      Thu: "thu",
+      Fri: "fri",
+      Sat: "sat",
+    }[short] || ""
+  );
+}
+
+function loadBeautyTips(config) {
+  const rel = String(config?.tipPosts?.catalogPath || "input/products-beauty-tips.json");
+  const filePath = path.isAbsolute(rel) ? rel : path.join(__dirname, "..", rel);
+  const data = readJson(filePath, { tip: [] });
+  const list = Array.isArray(data.tip) ? data.tip : Array.isArray(data) ? data : [];
+  return list.filter((item) => item && item.id && item.ask);
+}
+
+function pickBeautyTip(tips, postedIds) {
+  const posted = Array.isArray(postedIds) ? postedIds.map((id) => String(id)) : [];
+  const unused = tips.filter((item) => !posted.includes(String(item.id)));
+  if (unused.length) return unused[0];
+  let best = tips[0];
+  let bestIdx = Infinity;
+  for (const item of tips) {
+    const idx = posted.lastIndexOf(String(item.id));
+    const rank = idx < 0 ? -1 : idx;
+    if (rank < bestIdx) {
+      bestIdx = rank;
+      best = item;
+    }
+  }
+  return best;
+}
+
+function toTipArticle(item) {
+  const ask = String(item.ask || "").trim();
+  const aside = String(item.aside || "").trim();
+  return {
+    title: item.articleTitle || ask,
+    body: item.articleBody || [ask, aside].filter(Boolean).join("\n"),
+    selectedSource: "tip",
+    pipelineGenre: "beauty",
+    product: {
+      id: item.id,
+      name: item.name || "今日の話",
+      brand: "",
+      category: item.category || "other",
+      genre: item.genre || "スキンケア",
+      url: "",
+      blogUrl: "",
+      imageUrl: "",
+      postType: "tip",
+      affiliate: false,
+      ask,
+      aside,
+      cardSlides: Array.isArray(item.cardSlides) ? item.cardSlides : [],
+      labels: { tip: true },
+    },
+    affiliateNote: "アフィ無し・話しかけ",
+  };
+}
+
 function productIdsPostedToday() {
   const today = tokyoDayKey();
   const ids = new Set();
@@ -624,9 +698,57 @@ function main() {
   );
 
   const selectConfig = loadSelectConfig();
+  const tipCfg = selectConfig.tipPosts || {};
+  const tipEnabled = tipCfg.enabled !== false;
+  const tipWeekday = String(tipCfg.weekday || "sat").toLowerCase();
+  const targetDate = args.targetDate || tokyoDayKey();
+  if (effectiveMode === "daily" && tipEnabled && tokyoWeekdayKey(targetDate) === tipWeekday) {
+    const tips = loadBeautyTips(selectConfig);
+    const tip = tips.length ? pickBeautyTip(tips, posted) : null;
+    if (!tip) {
+      console.error("[select:tip] 土曜ですが話しかけ原稿がありません");
+      process.exit(2);
+    }
+    const article = toTipArticle(tip);
+    console.log("選択された話しかけ:", tip.id);
+    console.log("selectedSource: tip");
+    console.log("weekday:", tokyoWeekdayKey(targetDate));
+    if (!isTestMode()) {
+      try {
+        assertProductionCopyClean([article.title, article.body, tip.ask, tip.aside], "select-tip");
+      } catch (err) {
+        console.error(err instanceof Error ? err.message : String(err));
+        process.exit(3);
+      }
+    }
+    if (args.dryRun) {
+      console.log("[select:dry-run] article.json / next-repost は書き込まない");
+      console.log(
+        JSON.stringify(
+          {
+            dryRun: true,
+            ok: true,
+            mode: effectiveMode,
+            selectedSource: "tip",
+            productId: tip.id,
+            ask: tip.ask,
+            aside: tip.aside,
+            targetDate,
+          },
+          null,
+          2,
+        ),
+      );
+      process.exit(0);
+    }
+    writeJson(articlePath, article);
+    console.log("article.json を更新しました (土曜の話しかけ)");
+    return;
+  }
+
   const strategyOpts = {
     config: selectConfig,
-    targetDate: args.targetDate || tokyoDayKey(),
+    targetDate,
     forceSaleDay: args.forceSaleDay,
     forceNicheDue: args.forceNicheDue,
     forceRoutineDue: args.forceRoutineDue,

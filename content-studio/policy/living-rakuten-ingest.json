@@ -55,6 +55,23 @@
     { "category": "cleaning", "keyword": "フローリング ワイパー シート", "hits": 2 },
     { "category": "cleaning", "keyword": "換気扇 フィルター", "hits": 2 },
     { "category": "other", "keyword": "玄関 傘立て スリム", "hits": 2 },
-    { "category": "other", "keyword": "洗濯 ネット 便利", "hits": 2 }
+    { "category": "other", "keyword": "洗濯 ネット 便利", "hits": 2 },
+    { "category": "other", "keyword": "カメムシ スプレー 忌避", "hits": 3 },
+    { "category": "cleaning", "keyword": "カメムシ 駆除", "hits": 2 },
+    { "category": "other", "keyword": "クマ撃退スプレー", "hits": 2 },
+    { "category": "other", "keyword": "熊よけ 鈴", "hits": 2 },
+    { "category": "other", "keyword": "携帯トイレ 防災 簡易", "hits": 3 },
+    { "category": "other", "keyword": "簡易トイレ 凝固剤", "hits": 2 },
+    { "category": "cleaning", "keyword": "花粉 衣類 スプレー", "hits": 2 },
+    { "category": "other", "keyword": "花粉 除去 ブラシ", "hits": 2 },
+    { "category": "cleaning", "keyword": "ゴキブリ 駆除 スプレー", "hits": 2 },
+    { "category": "kitchen", "keyword": "ゴキブリ 罠", "hits": 2 },
+    {
+      "category": "other",
+      "keyword": "防災グッズ セット 家庭",
+      "hits": 2,
+      "maxPrice": 100000,
+      "highTicket": true
+    }
   ]
 }

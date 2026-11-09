@@ -16,6 +16,8 @@
 #   SLACK_NOTIFY_REPOST_EMPTY=true 再投稿候補0(warn)
 #   SLACK_NOTIFY_REPOST_TOP=true   再投稿上位1(info)
 #   SLACK_MACOS_NOTIFY=true    Slack失敗時の macOS 通知（既定OFF）
+#   LINE_CHANNEL_ACCESS_TOKEN  失敗時の LINE push（長期トークン）
+#   LINE_TO_USER_ID            受け取る本人のユーザーID（Uで始まる）
 
 _notify_root() {
   if [[ -n "${ROOT:-}" && -d "${ROOT}/scripts/lib" ]]; then

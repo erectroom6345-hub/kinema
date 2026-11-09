@@ -39,10 +39,24 @@ const pipelineGenre = normalizePipelineGenre(
     insta.genre ||
     process.env.CONTENT_PIPELINE_GENRE,
 );
-// living: CTA は固定ページ一択
-const livingFixed = String(process.env.LIVING_FIXED_PAGE_URL || '').trim();
+// living/drink は SNS完結。food/gadget は通常SNS完結だが、備蓄期間だけ blogUrl を残す。
+const isTip = String(article.product?.postType || insta.postType || '') === 'tip';
+const stockpileBlog =
+  (pipelineGenre === 'food' || pipelineGenre === 'gadget') &&
+  (insta.stockpilePeriod === true ||
+    insta.cta === 'stockpile_blog' ||
+    String(process.env.FOOD_STOCKPILE_MODE || '').toLowerCase() === 'true' ||
+    String(process.env.GADGET_STOCKPILE_MODE || '').toLowerCase() === 'true');
+const snsSelfContained =
+  pipelineGenre === 'living' ||
+  pipelineGenre === 'drink' ||
+  ((pipelineGenre === 'food' || pipelineGenre === 'gadget') && !stockpileBlog);
 const effectiveBlogUrl =
-  pipelineGenre === 'living' && livingFixed ? livingFixed : rawBlogUrl;
+  snsSelfContained || isTip
+    ? ''
+    : stockpileBlog
+      ? insta.blogUrl || rawBlogUrl
+      : rawBlogUrl;
 const blogUrlUsable = !isUnusableBlogUrl(effectiveBlogUrl);
 const blogUrl = blogUrlUsable ? effectiveBlogUrl : '';
 const productId = (article.product?.id || '').trim();
@@ -59,8 +73,14 @@ insta.brand = article.product?.brand || '';
 insta.genre = article.product?.genre || '';
 insta.postType = article.product?.postType || '';
 
-// テンプレカード / カルーセル生成済みなら imageUrl(s) を上書きしない
-if (insta.imageSource !== 'template-card') {
+// 生成済みカード（美容テンプレ / living 商品写真先頭カルーセル）は上書きしない
+const keepGeneratedImages =
+  insta.imageSource === 'template-card' ||
+  insta.imageSource === 'product-first-carousel' ||
+  (Array.isArray(insta.imageUrls) &&
+    insta.imageUrls.length > 0 &&
+    /instagram-cards\//i.test(String(insta.imageUrl || insta.imageUrls[0] || '')));
+if (!keepGeneratedImages) {
   insta.imageUrl = article.product?.imageUrl || '';
   if (Array.isArray(insta.imageUrls)) delete insta.imageUrls;
   if (insta.mediaType) delete insta.mediaType;
@@ -80,10 +100,12 @@ if (
 writeJson(instaPath, insta);
 
 console.log('instagram-post.json に imageUrl / blogUrl / blogUtmUrl などを補完しました');
-if (insta.imageSource === 'template-card') {
+if (keepGeneratedImages) {
   const n = Array.isArray(insta.imageUrls) ? insta.imageUrls.length : 1;
   console.log(
-    '画像モード: template-card / mediaType=',
+    '画像モード:',
+    insta.imageSource || 'generated',
+    '/ mediaType=',
     insta.mediaType || 'image',
     '/ slides=',
     n,
@@ -93,7 +115,13 @@ if (insta.imageSource === 'template-card') {
 } else {
   console.log('画像モード: article.imageUrl / imageUrl=', insta.imageUrl || '(空)');
 }
-if (blogUrlUsable) {
+if (isTip) {
+  console.log('投稿モード: beauty_tip（URLなし。ブログ誘導なし）');
+} else if (stockpileBlog) {
+  console.log('投稿モード: stockpile_blog（備蓄期間。Threads/X にブログURL）');
+} else if (snsSelfContained) {
+  console.log('投稿モード: sns_self_contained（blog誘導なし。blog誘導は美容のみ）');
+} else if (blogUrlUsable) {
   console.log('---- Instagram Blogger UTM ----');
   console.log('productId:', productId || '-');
   console.log('pipelineGenre:', pipelineGenre);

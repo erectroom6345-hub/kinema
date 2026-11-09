@@ -1,20 +1,16 @@
 /**
- * living 向け X（Twitter）投稿 — OAuth 1.0a User Context。
+ * living / gadget 向け X（Twitter）投稿 — OAuth 1.0a User Context。
  * - 本文は instagram-post.json の xText（なければ短文を組み立て）
  * - X_ENABLED=true かつ OAuth 1.0a 4点が揃うときだけ投稿
  * - 未設定時はプレビューのみ（exit 0）
  *
- * .env（暮らし）:
- *   LIVING_X_ENABLED=true
- *   LIVING_X_API_KEY=              # Portal: API Key
- *   LIVING_X_API_SECRET=           # Portal: API Key Secret
- *   LIVING_X_ACCESS_TOKEN=         # Portal: Access Token
- *   LIVING_X_ACCESS_TOKEN_SECRET=  # Portal: Access Token Secret
+ * .env（ジャンル専用）:
+ *   LIVING_X_* / GADGET_X_*（ENABLED / API_KEY / API_SECRET / ACCESS_TOKEN / ACCESS_TOKEN_SECRET）
  */
 import "dotenv/config";
 import * as crypto from "node:crypto";
 import * as fs from "node:fs";
-import { buildTrackUrl, describeUtm } from "./utils/utm.ts";
+import { describeUtm } from "./utils/utm.ts";
 
 const articlePath = "input/article.json";
 const instaPath = "input/instagram-post.json";
@@ -29,22 +25,45 @@ function readJson<T>(filePath: string): T | null {
   }
 }
 
-function shouldUseLivingXEnv(): boolean {
+type DedicatedXGenre = "living" | "gadget" | "food" | "drink";
+
+function getDedicatedXGenre(): DedicatedXGenre | null {
   const genre = (process.env.CONTENT_PIPELINE_GENRE || "").trim().toLowerCase();
-  if (genre === "living") return true;
+  if (genre === "living" || genre === "gadget" || genre === "food" || genre === "drink") return genre;
   const posted = (process.env.POSTED_PRODUCTS_PATH || "").trim();
-  return /posted-living\.json$/i.test(posted) || posted.includes("posted-living");
+  if (/posted-living\.json$/i.test(posted) || posted.includes("posted-living")) {
+    return "living";
+  }
+  if (/posted-gadget\.json$/i.test(posted) || posted.includes("posted-gadget")) {
+    return "gadget";
+  }
+  if (/posted-food\.json$/i.test(posted) || posted.includes("posted-food")) {
+    return "food";
+  }
+  if (/posted-drink\.json$/i.test(posted) || posted.includes("posted-drink")) {
+    return "drink";
+  }
+  return null;
 }
 
-/** living 時は LIVING_X_* を共通 X_* へ載せる（美容キーへフォールバックしない） */
-function applyLivingXEnvOverrides(): void {
-  if (!shouldUseLivingXEnv()) return;
+function dedicatedXPrefix(genre: DedicatedXGenre): "LIVING" | "GADGET" | "FOOD" | "DRINK" {
+  if (genre === "drink") return "DRINK";
+  if (genre === "food") return "FOOD";
+  if (genre === "gadget") return "GADGET";
+  return "LIVING";
+}
+
+/** 専用ジャンル時は LIVING_X_* / GADGET_X_* を共通 X_* へ載せる（美容キーへフォールバックしない） */
+function applyDedicatedXEnvOverrides(): void {
+  const dedicated = getDedicatedXGenre();
+  if (!dedicated) return;
+  const prefix = dedicatedXPrefix(dedicated);
   const map: Array<[string, string]> = [
-    ["LIVING_X_ENABLED", "X_ENABLED"],
-    ["LIVING_X_API_KEY", "X_API_KEY"],
-    ["LIVING_X_API_SECRET", "X_API_SECRET"],
-    ["LIVING_X_ACCESS_TOKEN", "X_ACCESS_TOKEN"],
-    ["LIVING_X_ACCESS_TOKEN_SECRET", "X_ACCESS_TOKEN_SECRET"],
+    [`${prefix}_X_ENABLED`, "X_ENABLED"],
+    [`${prefix}_X_API_KEY`, "X_API_KEY"],
+    [`${prefix}_X_API_SECRET`, "X_API_SECRET"],
+    [`${prefix}_X_ACCESS_TOKEN`, "X_ACCESS_TOKEN"],
+    [`${prefix}_X_ACCESS_TOKEN_SECRET`, "X_ACCESS_TOKEN_SECRET"],
   ];
   let any = false;
   for (const [from, to] of map) {
@@ -56,19 +75,20 @@ function applyLivingXEnvOverrides(): void {
   }
   if (any) {
     console.log(
-      `[X認証] living OAuth1.0a 設定を適用: API_KEY=${
+      `[X認証] ${dedicated} OAuth1.0a 設定を適用: API_KEY=${
         (process.env.X_API_KEY || "").trim() ? "設定済" : "(empty)"
       } ACCESS_TOKEN=${(process.env.X_ACCESS_TOKEN || "").trim() ? "設定済" : "(empty)"}`,
     );
   }
 }
 
-applyLivingXEnvOverrides();
+applyDedicatedXEnvOverrides();
 
 function isXEnabled(): boolean {
-  if (shouldUseLivingXEnv()) {
-    const living = (process.env.LIVING_X_ENABLED || "").trim();
-    if (living) return living.toLowerCase() === "true";
+  const dedicated = getDedicatedXGenre();
+  if (dedicated) {
+    const flag = (process.env[`${dedicatedXPrefix(dedicated)}_X_ENABLED`] || "").trim();
+    if (flag) return flag.toLowerCase() === "true";
   }
   return (process.env.X_ENABLED ?? "").trim().toLowerCase() === "true";
 }
@@ -85,21 +105,26 @@ function readOAuth1Credentials(): {
   accessToken: string;
   accessTokenSecret: string;
 } | null {
-  const living = shouldUseLivingXEnv();
-  // living は LIVING_X_* のみ（美容 X_* へフォールバックしない）
-  const keys = living
-    ? {
-        apiKey: (process.env.LIVING_X_API_KEY || "").trim(),
-        apiSecret: (process.env.LIVING_X_API_SECRET || "").trim(),
-        accessToken: (process.env.LIVING_X_ACCESS_TOKEN || "").trim(),
-        accessTokenSecret: (process.env.LIVING_X_ACCESS_TOKEN_SECRET || "").trim(),
-        labels: [
-          "LIVING_X_API_KEY",
-          "LIVING_X_API_SECRET",
-          "LIVING_X_ACCESS_TOKEN",
-          "LIVING_X_ACCESS_TOKEN_SECRET",
-        ] as const,
-      }
+  const dedicated = getDedicatedXGenre();
+  // 専用ジャンルは LIVING_X_* / GADGET_X_* のみ（美容 X_* へフォールバックしない）
+  const keys = dedicated
+    ? (() => {
+        const prefix = dedicatedXPrefix(dedicated);
+        return {
+          apiKey: (process.env[`${prefix}_X_API_KEY`] || "").trim(),
+          apiSecret: (process.env[`${prefix}_X_API_SECRET`] || "").trim(),
+          accessToken: (process.env[`${prefix}_X_ACCESS_TOKEN`] || "").trim(),
+          accessTokenSecret: (
+            process.env[`${prefix}_X_ACCESS_TOKEN_SECRET`] || ""
+          ).trim(),
+          labels: [
+            `${prefix}_X_API_KEY`,
+            `${prefix}_X_API_SECRET`,
+            `${prefix}_X_ACCESS_TOKEN`,
+            `${prefix}_X_ACCESS_TOKEN_SECRET`,
+          ] as const,
+        };
+      })()
     : {
         apiKey: (process.env.X_API_KEY || "").trim(),
         apiSecret: (process.env.X_API_SECRET || "").trim(),
@@ -196,26 +221,30 @@ function buildText(): { text: string; utmUrl: string; productId: string; blogUrl
 
   const productId = (article?.product?.id || "").trim();
   const blogUrl = (insta?.blogUrl || article?.product?.blogUrl || "").trim();
-  const utmUrl =
-    (insta?.xUtmUrl || "").trim() ||
-    (blogUrl && productId
-      ? buildTrackUrl({ blogUrl, productId, source: "x", genre: "living" })
-      : "");
+  const pipelineGenre = getDedicatedXGenre() || "living";
+  // living/gadget/food/drink は SNS完結。ブログURLは付けない（blog誘導は美容のみ）
+  const utmUrl = "";
 
   let text = (insta?.xText || "").trim();
   if (!text) {
     const name = (insta?.productName || article?.product?.name || "").trim();
     const category = (insta?.category || article?.product?.category || "").trim();
     const hook =
-      category === "kitchen"
-        ? "キッチンまわりが少し楽になりそうな道具を見つけました"
-        : "暮らしの動線が少し楽になりそうな便利グッズを見つけました";
-    const body = name ? `${hook}。「${name}」` : hook;
-    if (!utmUrl) throw new Error("X投稿中止: blogUrl / UTM がありません");
-    text = `${body}\n詳しくはブログにまとめました。\n${utmUrl}`;
+      pipelineGenre === "drink"
+        ? "食卓の一杯向きの銘酒を見つけました"
+        : pipelineGenre === "food"
+          ? "手土産や食卓向きのフードを見つけました"
+          : pipelineGenre === "gadget"
+            ? category === "power"
+              ? "充電まわりが少し楽になりそうなガジェットを見つけました"
+              : "デスク周りが少し楽になりそうなガジェット小物を見つけました"
+            : category === "kitchen"
+              ? "キッチンまわりが少し楽になりそうな道具を見つけました"
+              : "暮らしの動線が少し楽になりそうな便利グッズを見つけました";
+    text = name ? `${hook}。「${name}」 ※PR` : `${hook} ※PR`;
   }
 
-  return { text, utmUrl, productId, blogUrl };
+  return { text, utmUrl, productId, blogUrl, genre: pipelineGenre };
 }
 
 function classifyXFailure(status: number, raw: string): string {
@@ -312,10 +341,10 @@ async function publishXText(text: string): Promise<{ id: string } | null> {
 }
 
 async function main(): Promise<void> {
-  applyLivingXEnvOverrides();
-  const { text, utmUrl, productId, blogUrl } = buildText();
+  applyDedicatedXEnvOverrides();
+  const { text, utmUrl, productId, blogUrl, genre } = buildText();
 
-  console.log("X投稿文プレビュー (living):");
+  console.log(`X投稿文プレビュー (${genre}):`);
   console.log(text);
   console.log("---");
   if (utmUrl) {
@@ -336,7 +365,7 @@ async function main(): Promise<void> {
         utmUrl: utmUrl || null,
         productId: productId || null,
         blogUrl: blogUrl || null,
-        genre: "living",
+        genre,
         auth: "oauth1.0a",
         at: new Date().toISOString(),
       },
@@ -372,7 +401,7 @@ async function main(): Promise<void> {
         text,
         utmUrl: utmUrl || null,
         productId: productId || null,
-        genre: "living",
+        genre,
         auth: "oauth1.0a",
         at: new Date().toISOString(),
       },

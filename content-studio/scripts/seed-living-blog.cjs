@@ -16,6 +16,7 @@ const {
   roundupTitleJa,
   root,
 } = require("./lib/living-ops.cjs");
+const { buildAffiliateImageBanner } = require("./lib/affiliate-image-banner.cjs");
 
 const productsPath = path.join(root, "input", "products-living.json");
 const registryPath = path.join(root, "data", "living-blog-roundups.json");
@@ -82,16 +83,21 @@ function buildProductBlock(item) {
         .map((f) => `<li>${escapeHtml(f)}</li>`)
         .join("")}</ul>`
     : "";
+  const banner = buildAffiliateImageBanner({
+    name,
+    url: tracked,
+    imageUrl: item.imageUrl || "",
+    priceRange: item.priceRange || "",
+    productId: id,
+    className: "living-banner",
+  });
 
   return [
     `<section class="living-item" data-product-id="${escapeHtml(id)}">`,
     `<h3>${escapeHtml(name)}</h3>`,
-    `<p>${escapeHtml(desc)}</p>`,
+    banner,
+    desc ? `<p>${escapeHtml(desc)}</p>` : "",
     featureHtml,
-    item.priceRange
-      ? `<p><em>目安価格: ${escapeHtml(item.priceRange)}</em></p>`
-      : "",
-    `<p><a href="${escapeHtml(tracked)}" rel="nofollow sponsored noopener" target="_blank">${escapeHtml(name)} を楽天で見る</a></p>`,
     `</section>`,
   ]
     .filter(Boolean)

@@ -1,4 +1,4 @@
-export type Genre = "beauty" | "living" | "lifestyle" | "gadget" | "food" | "generic";
+export type Genre = "beauty" | "living" | "lifestyle" | "gadget" | "food" | "drink" | "generic";
 
 export type StockProviderName = "pixabay" | "pexels";
 

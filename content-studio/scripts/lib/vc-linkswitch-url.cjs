@@ -89,17 +89,25 @@ const BRAND_DOMAIN_HINTS = {
  * 必要に応じてカテゴリURLを追加する。
  */
 const BRAND_LISTING_SEEDS = {
+  // basemakeup 一覧に /site/g/ 本商品が載る（TOPはカテゴリハブが多い）
   コスメデコルテ: [
     "https://www.decorte.com/site/basemakeup/r/r3025/",
-    "https://www.decorte.com/",
+    "https://www.decorte.com/site/skincare/r/r1010/",
   ],
-  decorté: ["https://www.decorte.com/site/basemakeup/r/r3025/", "https://www.decorte.com/"],
-  decorte: ["https://www.decorte.com/site/basemakeup/r/r3025/", "https://www.decorte.com/"],
-  イプサ: ["https://www.ipsa.co.jp/", "https://www.ipsa.co.jp/product/"],
-  ipsa: ["https://www.ipsa.co.jp/", "https://www.ipsa.co.jp/product/"],
-  fancl: ["https://www.fancl.co.jp/", "https://www.fancl.co.jp/beauty/"],
+  decorté: [
+    "https://www.decorte.com/site/basemakeup/r/r3025/",
+    "https://www.decorte.com/site/skincare/r/r1010/",
+  ],
+  decorte: [
+    "https://www.decorte.com/site/basemakeup/r/r3025/",
+    "https://www.decorte.com/site/skincare/r/r1010/",
+  ],
+  イプサ: ["https://www.ipsa.co.jp/product/"],
+  ipsa: ["https://www.ipsa.co.jp/product/"],
+  fancl: ["https://www.fancl.co.jp/beauty/"],
   "sk-ii": ["https://www.sk-ii.co.jp/", "https://www.sk-ii.com/"],
-  hince: ["https://www.hince.jp/", "https://hince.jp/"],
+  // TOPに HC* 商品カードが出る
+  hince: ["https://hince.jp/", "https://www.hince.jp/"],
 };
 
 function hostnameOf(url) {

@@ -35,29 +35,45 @@ function pipelineGenre() {
   const g = (arg("--genre") || process.env.CONTENT_PIPELINE_GENRE || "beauty")
     .trim()
     .toLowerCase();
-  return g === "living" ? "living" : "beauty";
+  if (g === "living") return "living";
+  if (g === "gadget") return "gadget";
+  if (g === "food") return "food";
+  if (g === "drink") return "drink";
+  return "beauty";
 }
 
 function productsPathFor(genre) {
-  return path.join(
-    root,
-    "input",
-    genre === "living" ? "products-living.json" : "products-beauty.json",
-  );
+  const name =
+    genre === "living"
+      ? "products-living.json"
+      : genre === "gadget"
+        ? "products-gadget.json"
+        : genre === "food"
+          ? "products-food.json"
+          : genre === "drink"
+            ? "products-drink.json"
+            : "products-beauty.json";
+  return path.join(root, "input", name);
 }
 
 function candidatesPathFor(genre) {
-  return path.join(
-    repostDir,
-    genre === "living" ? "candidates-living.json" : "candidates.json",
-  );
+  const name =
+    genre === "living"
+      ? "candidates-living.json"
+      : genre === "gadget"
+        ? "candidates-gadget.json"
+        : "candidates.json";
+  return path.join(repostDir, name);
 }
 
 function nextPathFor(genre) {
-  return path.join(
-    repostDir,
-    genre === "living" ? "next-repost-living.json" : "next-repost.json",
-  );
+  const name =
+    genre === "living"
+      ? "next-repost-living.json"
+      : genre === "gadget"
+        ? "next-repost-gadget.json"
+        : "next-repost.json";
+  return path.join(repostDir, name);
 }
 
 function readJson(filePath, fallback) {
@@ -83,15 +99,24 @@ function loadHistory(genre) {
       }
     })
     .filter(Boolean);
-  // genre / channel で beauty と living を分離（旧レコードは beauty 扱い）
+  // genre / channel で beauty / living / gadget を分離（旧レコードは beauty 扱い）
   return rows.filter((r) => {
     const g = String(r.genre || "").toLowerCase();
     const ch = String(r.channel || "").toLowerCase();
     const pid = String(r.productId || "");
-    if (genre === "living") {
-      return g === "living" || ch.startsWith("living") || pid.startsWith("living-");
-    }
-    return !(g === "living" || ch.startsWith("living") || pid.startsWith("living-"));
+    const isLiving =
+      g === "living" || ch.startsWith("living") || pid.startsWith("living-");
+    const isGadget =
+      g === "gadget" || ch.startsWith("gadget") || pid.startsWith("gadget-");
+    const isFood =
+      g === "food" || ch.startsWith("food") || pid.startsWith("food-");
+    const isDrink =
+      g === "drink" || ch.startsWith("drink") || pid.startsWith("drink-");
+    if (genre === "living") return isLiving;
+    if (genre === "gadget") return isGadget;
+    if (genre === "food") return isFood;
+    if (genre === "drink") return isDrink;
+    return !isLiving && !isGadget && !isFood && !isDrink;
   });
 }
 
@@ -126,6 +151,28 @@ function demoHistory(genre) {
         productId: "living-main-001",
         genre: "living",
         channel: "living-pipeline",
+        status: "success",
+        policyCheck: { result: "ok" },
+        metrics: { clicks: 4, impressions: 120 },
+      },
+    ];
+  }
+  if (genre === "gadget") {
+    return [
+      {
+        at: d(20),
+        productId: "gadget-main-001",
+        genre: "gadget",
+        channel: "gadget-pipeline",
+        status: "success",
+        policyCheck: { result: "ok" },
+        metrics: { clicks: 10, impressions: 300 },
+      },
+      {
+        at: d(5),
+        productId: "gadget-main-001",
+        genre: "gadget",
+        channel: "gadget-pipeline",
         status: "success",
         policyCheck: { result: "ok" },
         metrics: { clicks: 4, impressions: 120 },
@@ -336,7 +383,9 @@ function main() {
     console.log(
       genre === "living"
         ? `次回: node scripts/selectLivingProduct.cjs --use-repost-next`
-        : `次回: node scripts/selectBeautyProduct.cjs --use-repost-next`,
+        : genre === "gadget"
+          ? `次回: node scripts/selectGadgetProduct.cjs --use-repost-next`
+          : `次回: node scripts/selectBeautyProduct.cjs --use-repost-next`,
     );
     const { spawnSync } = require("child_process");
     spawnSync(

@@ -27,27 +27,66 @@ export type InstagramTokenDebug = {
   daysRemaining?: number;
 };
 
-/** living 投稿経路か（shell の CONTENT_PIPELINE_GENRE / POSTED_PRODUCTS_PATH） */
-export function shouldUseLivingInstagramEnv(): boolean {
+/** 専用アカウント系ジャンル（美容 INSTAGRAM_* にフォールバックしない） */
+export type DedicatedInstagramGenre = "living" | "gadget" | "food" | "drink";
+
+export function getDedicatedInstagramGenre(): DedicatedInstagramGenre | null {
   const genre = (process.env.CONTENT_PIPELINE_GENRE || "").trim().toLowerCase();
-  if (genre === "living") return true;
+  if (genre === "living" || genre === "gadget" || genre === "food" || genre === "drink") return genre;
   const posted = (process.env.POSTED_PRODUCTS_PATH || "").trim();
-  return /posted-living\.json$/i.test(posted) || posted.includes("posted-living");
+  if (/posted-living\.json$/i.test(posted) || posted.includes("posted-living")) {
+    return "living";
+  }
+  if (/posted-gadget\.json$/i.test(posted) || posted.includes("posted-gadget")) {
+    return "gadget";
+  }
+  if (/posted-food\.json$/i.test(posted) || posted.includes("posted-food")) {
+    return "food";
+  }
+  if (/posted-drink\.json$/i.test(posted) || posted.includes("posted-drink")) {
+    return "drink";
+  }
+  return null;
 }
 
-/**
- * dotenv 再読込で美容 INSTAGRAM_* に戻ったあと、暮らし用 LIVING_* を共通キーへ載せ直す。
- * LIVING_* が空なら何もしない（美容設定のまま＝run-living 側の警告と対応）。
- */
-export function applyLivingInstagramEnvOverrides(): void {
-  if (!shouldUseLivingInstagramEnv()) return;
+function dedicatedInstagramPrefix(
+  genre: DedicatedInstagramGenre,
+): "LIVING" | "GADGET" | "FOOD" | "DRINK" {
+  if (genre === "drink") return "DRINK";
+  if (genre === "food") return "FOOD";
+  if (genre === "gadget") return "GADGET";
+  return "LIVING";
+}
 
-  const token = (process.env.LIVING_INSTAGRAM_ACCESS_TOKEN || "").trim();
-  const accountId = (process.env.LIVING_INSTAGRAM_ACCOUNT_ID || "").trim();
-  const pageId = (process.env.LIVING_FACEBOOK_PAGE_ID || "").trim();
-  const preferPage = (process.env.LIVING_INSTAGRAM_PREFER_PAGE_TOKEN || "").trim();
-  const appId = (process.env.LIVING_FACEBOOK_APP_ID || "").trim();
-  const appSecret = (process.env.LIVING_FACEBOOK_APP_SECRET || "").trim();
+/** living 投稿経路か（shell の CONTENT_PIPELINE_GENRE / POSTED_PRODUCTS_PATH） */
+export function shouldUseLivingInstagramEnv(): boolean {
+  return getDedicatedInstagramGenre() === "living";
+}
+
+export function shouldUseGadgetInstagramEnv(): boolean {
+  return getDedicatedInstagramGenre() === "gadget";
+}
+
+export function shouldUseFoodInstagramEnv(): boolean {
+  return getDedicatedInstagramGenre() === "food";
+}
+
+export function shouldUseDrinkInstagramEnv(): boolean {
+  return getDedicatedInstagramGenre() === "drink";
+}
+
+function applyDedicatedInstagramEnvOverrides(
+  genre: DedicatedInstagramGenre,
+): void {
+  const prefix = dedicatedInstagramPrefix(genre);
+  const token = (process.env[`${prefix}_INSTAGRAM_ACCESS_TOKEN`] || "").trim();
+  const accountId = (process.env[`${prefix}_INSTAGRAM_ACCOUNT_ID`] || "").trim();
+  const pageId = (process.env[`${prefix}_FACEBOOK_PAGE_ID`] || "").trim();
+  const preferPage = (
+    process.env[`${prefix}_INSTAGRAM_PREFER_PAGE_TOKEN`] || ""
+  ).trim();
+  const appId = (process.env[`${prefix}_FACEBOOK_APP_ID`] || "").trim();
+  const appSecret = (process.env[`${prefix}_FACEBOOK_APP_SECRET`] || "").trim();
 
   if (!token && !accountId && !pageId) return;
 
@@ -59,16 +98,43 @@ export function applyLivingInstagramEnvOverrides(): void {
   if (appSecret) process.env.FACEBOOK_APP_SECRET = appSecret;
 
   console.log(
-    `[Instagram認証] living 設定を適用: ACCOUNT_ID=${accountId || "(empty)"}` +
+    `[Instagram認証] ${genre} 設定を適用: ACCOUNT_ID=${accountId || "(empty)"}` +
       ` PAGE_ID=${pageId || "(unset)"}` +
       ` TOKEN=${token ? `設定済(長さ${token.length})` : "(empty)"}`,
   );
+}
+
+/**
+ * dotenv 再読込で美容 INSTAGRAM_* に戻ったあと、暮らし用 LIVING_* を共通キーへ載せ直す。
+ * LIVING_* が空なら何もしない（美容設定のまま＝run-living 側の警告と対応）。
+ */
+export function applyLivingInstagramEnvOverrides(): void {
+  if (!shouldUseLivingInstagramEnv()) return;
+  applyDedicatedInstagramEnvOverrides("living");
+}
+
+export function applyGadgetInstagramEnvOverrides(): void {
+  if (!shouldUseGadgetInstagramEnv()) return;
+  applyDedicatedInstagramEnvOverrides("gadget");
+}
+
+export function applyFoodInstagramEnvOverrides(): void {
+  if (!shouldUseFoodInstagramEnv()) return;
+  applyDedicatedInstagramEnvOverrides("food");
+}
+
+export function applyDrinkInstagramEnvOverrides(): void {
+  if (!shouldUseDrinkInstagramEnv()) return;
+  applyDedicatedInstagramEnvOverrides("drink");
 }
 
 export function loadInstagramEnvFromFile(cwd = process.cwd()): string {
   const envPath = path.resolve(cwd, ".env");
   loadDotenv({ path: envPath, override: true });
   applyLivingInstagramEnvOverrides();
+  applyGadgetInstagramEnvOverrides();
+  applyFoodInstagramEnvOverrides();
+  applyDrinkInstagramEnvOverrides();
   return envPath;
 }
 
@@ -157,11 +223,12 @@ export function persistEnvKeySafe(
 export function persistInstagramAccessToken(newToken: string, envPath = path.resolve(".env")): void {
   const token = newToken.trim();
   if (!token) throw new Error("[Instagram認証] 空の token は保存できません");
-  const living = shouldUseLivingInstagramEnv();
-  const key = living ? "LIVING_INSTAGRAM_ACCESS_TOKEN" : "INSTAGRAM_ACCESS_TOKEN";
+  const dedicated = getDedicatedInstagramGenre();
+  const prefix = dedicated ? dedicatedInstagramPrefix(dedicated) : null;
+  const key = prefix ? `${prefix}_INSTAGRAM_ACCESS_TOKEN` : "INSTAGRAM_ACCESS_TOKEN";
   persistEnvKeySafe(key, token, envPath);
   process.env.INSTAGRAM_ACCESS_TOKEN = token;
-  if (living) process.env.LIVING_INSTAGRAM_ACCESS_TOKEN = token;
+  if (prefix) process.env[`${prefix}_INSTAGRAM_ACCESS_TOKEN`] = token;
   console.log(
     `[Instagram認証] .env の ${key} を更新しました（.bak-token 退避済み）`,
   );

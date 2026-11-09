@@ -166,6 +166,48 @@ function postSlackWebhook(webhookUrl, text) {
   });
 }
 
+function postLinePush(token, to, text) {
+  return new Promise((resolve) => {
+    const body = JSON.stringify({
+      to,
+      messages: [{ type: "text", text: String(text || "").slice(0, 4900) }],
+    });
+    const req = https.request(
+      {
+        method: "POST",
+        hostname: "api.line.me",
+        path: "/v2/bot/message/push",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(body),
+        },
+        timeout: 10000,
+      },
+      (res) => {
+        let data = "";
+        res.on("data", (c) => {
+          data += c;
+        });
+        res.on("end", () => {
+          const ok = res.statusCode >= 200 && res.statusCode < 300;
+          resolve({
+            ok,
+            detail: `HTTP ${res.statusCode} ${data.trim().slice(0, 180)}`,
+          });
+        });
+      },
+    );
+    req.on("error", (err) => resolve({ ok: false, detail: err.message }));
+    req.on("timeout", () => {
+      req.destroy();
+      resolve({ ok: false, detail: "timeout" });
+    });
+    req.write(body);
+    req.end();
+  });
+}
+
 /**
  * @returns {Promise<{ sent: boolean, skipped?: string, detail?: string }>}
  */
@@ -226,19 +268,40 @@ async function sendNotify(input = {}) {
   console.log("----------------");
 
   const webhook = (process.env.SLACK_WEBHOOK_URL || "").trim();
+  const lineToken = (process.env.LINE_CHANNEL_ACCESS_TOKEN || "").trim();
+  const lineTo = (process.env.LINE_TO_USER_ID || "").trim();
   let sent = false;
-  let detail = "";
+  const details = [];
 
   if (webhook) {
     const res = await postSlackWebhook(webhook, text);
-    sent = res.ok;
-    detail = res.detail;
-    if (sent) console.log("[notify] Slack 送信OK");
-    else console.error(`[notify] Slack 送信失敗: ${detail}`);
+    if (res.ok) {
+      sent = true;
+      console.log("[notify] Slack 送信OK");
+    } else {
+      console.error(`[notify] Slack 送信失敗: ${res.detail}`);
+    }
+    details.push(res.ok ? "slack:ok" : `slack:${res.detail}`);
   } else {
-    detail = "SLACK_WEBHOOK_URL unset";
+    details.push("slack:unset");
     console.log("[notify] SLACK_WEBHOOK_URL 未設定");
   }
+
+  if (level === "error" && lineToken && lineTo) {
+    const res = await postLinePush(lineToken, lineTo, text);
+    if (res.ok) {
+      sent = true;
+      console.log("[notify] LINE 送信OK");
+    } else {
+      console.error(`[notify] LINE 送信失敗: ${res.detail}`);
+    }
+    details.push(res.ok ? "line:ok" : `line:${res.detail}`);
+  } else if (level === "error" && (lineToken || lineTo)) {
+    details.push("line:incomplete");
+    console.log("[notify] LINE はトークンとユーザーIDの両方が必要");
+  }
+
+  let detail = details.join("; ");
 
   // macOS 通知は既定OFF（うるささ防止）。error かつ Slack失敗時のみ任意
   if (

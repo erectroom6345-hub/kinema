@@ -50,12 +50,13 @@ function main() {
   );
   assert.equal(floor.surged, false, "first weak sample");
 
-  const cal = detectSurge(
+  const baseline = detectSurge(
     null,
     { reviewSum: 200, apiCount: 100, calendarBoost: true },
     policy.pulse,
   );
-  assert.equal(cal.surged, true, "first+calendar");
+  assert.equal(baseline.surged, false, "first sample never surges");
+  assert.equal(baseline.reason, "baseline_only");
 
   const ratio = detectSurge(
     { reviewSum: 100, apiCount: 40 },
@@ -64,6 +65,14 @@ function main() {
   );
   assert.equal(ratio.surged, true, "ratio surge");
   assert.ok(ratio.ratio >= 1.35, "ratio value");
+
+  const soft = detectSurge(
+    { reviewSum: 100, apiCount: 40 },
+    { reviewSum: 125, apiCount: 50, calendarBoost: true },
+    { ...policy.pulse, surgeRatio: 1.35, minReviewSum: 80 },
+  );
+  assert.equal(soft.surged, true, "calendar softens ratio a bit");
+  assert.equal(soft.reason, "calendar_soft_ratio");
 
   const approved = approveTheme("stinkbug", {
     activePath,

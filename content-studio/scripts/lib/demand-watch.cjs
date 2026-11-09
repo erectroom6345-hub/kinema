@@ -241,10 +241,11 @@ function detectSurge(prev, curr, policyPulse = {}) {
     return { surged: false, reason: "below_floor", ratio: null, scored };
   }
   if (!prev) {
-    // 初回はカレンダー月ヒントがあるときだけ候補化（誤爆抑制）
+    // 初回は基準値だけ取る。カレンダー月でも候補化しない
+    // （カメムシ・熊のように「今年たまたま多い」は週次比で見る）
     return {
-      surged: Boolean(curr.calendarBoost),
-      reason: curr.calendarBoost ? "first_sample_calendar" : "first_sample",
+      surged: false,
+      reason: "baseline_only",
       ratio: null,
       scored,
     };
@@ -260,10 +261,18 @@ function detectSurge(prev, curr, policyPulse = {}) {
     (Number(curr.apiCount) || 0) * 0.5,
   );
   const ratio = currScore / prevScore;
-  const surged = ratio >= ratioNeed || (curr.calendarBoost && ratio >= 1.15);
+  // カレンダーは「閾値を少し下げる」補助だけ。単独では候補にしない
+  const softNeed = curr.calendarBoost
+    ? Math.max(1.2, ratioNeed * 0.9)
+    : ratioNeed;
+  const surged = ratio >= softNeed;
   return {
     surged,
-    reason: surged ? (ratio >= ratioNeed ? "ratio" : "calendar_soft") : "flat",
+    reason: surged
+      ? curr.calendarBoost && ratio < ratioNeed
+        ? "calendar_soft_ratio"
+        : "ratio"
+      : "flat",
     ratio: Math.round(ratio * 1000) / 1000,
     scored,
   };

@@ -7,6 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
+      <string>/usr/bin/caffeinate</string>
+      <string>-i</string>
       <string>/bin/bash</string>
       <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/run-living.sh</string>
     </array>
@@ -32,13 +34,13 @@
       <string>true</string>
     </dict>
 
-    <!-- 美容(9:00)のあと。IG/Threads のみ（X オフ） -->
+    <!-- 美容 9:00 → living 9:10（以降ジャンルは +10分刻み想定）。IG/Threads のみ（X オフ） -->
     <key>StartCalendarInterval</key>
     <dict>
       <key>Hour</key>
-      <integer>10</integer>
+      <integer>9</integer>
       <key>Minute</key>
-      <integer>0</integer>
+      <integer>10</integer>
     </dict>
 
     <key>StandardOutPath</key>

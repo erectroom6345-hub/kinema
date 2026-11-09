@@ -366,23 +366,23 @@ function postTypePhrases(
 } {
   if (postType === "sale") {
     return {
-      igOpen: `${topic}、いま気になっている方へ。セール対象かどうか、確認しておきたいタイミングかもしれません💭`,
-      igBody: `押し売りではなく、${genre.saleBody}を見ながら、詳細だけ先に押さえておくメモです。`,
+      igOpen: `${topic}、気になったら一度試してみてください。`,
+      igBody: `押し売りではなく、${genre.saleBody}を見ながら、自分の使いに合うか一度試してみる目安です。`,
       bullets: [
-        `${topic}の対象条件を確認する`,
+        `${topic}の使い心地を一度見てみる`,
         genre.saleBullet,
-        "合うかどうかは、詳細を見てから決める",
+        "合うかどうかは、使ってから決める",
       ],
-      saveLine: `${topic}の確認用に、保存しておいてもらえたら嬉しいです✨`,
-      urlLead: `${topic}の詳細は、こちらでも確認できます🌿`,
-      th1: `${topic}が気になるとき、セール対象かどうか先に見ておくと安心ですよね？💭`,
-      th1Follow: `${genre.saleShort}を意識して、条件だけ確認してみました🌿`,
-      th2: `${topic}は、急がなくて大丈夫。詳細を見てから判断するくらいで充分かもしれません✨`,
-      xLead: `${topic}のセール確認ポイント`,
-      x1: `${topic}は、対象条件を先に見ると迷いにくいです。`,
-      x3: `${topic}の詳細確認を、短くまとめています。`,
-      x5: `${topic}のセール確認メモとして置いています。`,
-      xClose: `${topic}の詳細はこちら。`,
+      saveLine: `${topic}を、あとで見返す用に保存しておいてもらえたら嬉しいです✨`,
+      urlLead: `${topic}の詳しい話は、こちらでも読めます🌿`,
+      th1: `${topic}、気になったら一度試してみてください💭`,
+      th1Follow: `${genre.saleShort}を見ながら、自分に合うか考えてみました🌿`,
+      th2: `${topic}は、急がなくて大丈夫。一度試してからで充分かもしれません✨`,
+      xLead: `${topic}を一度試すなら`,
+      x1: `${topic}は、自分の使いに合うか一度見てみると迷いが減ります。`,
+      x3: `${topic}の取り入れ方を、短くまとめています。`,
+      x5: `${topic}を、一度試すときの目安として置いています。`,
+      xClose: `${topic}の詳しい話はこちら。`,
     };
   }
 
@@ -390,13 +390,13 @@ function postTypePhrases(
   const dailyLead = postType === "main" ? "毎日使いの定番として" : "日常の中で";
   return {
     igOpen: `${topic}を、${dailyLead}どう取り入れるか。${genre.routineOpen}💭`,
-    igBody: `わたしは最近、${topic}について${genre.routineBody}を大切にしています。押し売りではなく、毎日使いのメモとして見てもらえたらうれしいです。`,
+    igBody: `わたしは最近、${topic}について${genre.routineBody}を大切にしています。押し売りではなく、毎日の使い方として見てもらえたらうれしいです。`,
     bullets: [
       `${topic}に求めることをひとつ決める`,
       genre.routineBullet,
       genre.easeBullet,
     ],
-    saveLine: `${topic}の日常メモとして、保存しておいてもらえたら嬉しいです✨`,
+    saveLine: `${topic}の日常の使い方として、保存しておいてもらえたら嬉しいです✨`,
     urlLead: `${topic}の整理は、こちらにもまとめています🌿`,
     th1: `${topic}、毎日どう使うか迷うことありませんか？💭`,
     th1Follow: `${genre.routineShort}を意識すると、気持ちが楽になることもあります🌿`,
@@ -404,7 +404,7 @@ function postTypePhrases(
     xLead: `${topic}の日常の取り入れ方`,
     x1: `${topic}は、${genre.easeX1}`,
     x3: `${topic}の日常使いの軸を、短くまとめています。`,
-    x5: `${topic}の日常メモとして置いています。`,
+    x5: `${topic}の日常の使い方として置いています。`,
     xClose: `${topic}の詳しい整理はこちら。`,
   };
 }

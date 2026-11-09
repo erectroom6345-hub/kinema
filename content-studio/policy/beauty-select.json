@@ -27,6 +27,12 @@
         "productId": "beauty-sale-001"
       }
     ],
-    "_autoMirroredAt": "2026-10-11T00:00:07.394Z"
+    "_autoMirroredAt": "2026-11-09T03:48:31.389Z"
+  },
+  "tipPosts": {
+    "enabled": true,
+    "weekday": "sat",
+    "catalogPath": "input/products-beauty-tips.json",
+    "description": "土曜はアフィ無しで、答えやすい質問を1つと自分の習慣を1つ。商品URLなし・ブログ誘導なし・※PRなし。"
   }
 }

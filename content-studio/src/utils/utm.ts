@@ -24,7 +24,7 @@ export type UtmParams = {
 export type SocialUtmSource = "threads" | "instagram" | "x";
 
 /** パイプラインジャンル識別子（UTM campaign 接頭辞） */
-export type PipelineGenre = "beauty" | "living";
+export type PipelineGenre = "beauty" | "living" | "gadget" | "food" | "drink";
 
 export function appendUtmParams(
   rawUrl: string,
@@ -71,7 +71,12 @@ export function sanitizeUtmToken(value: string, maxLen = 64): string {
 }
 
 export function normalizePipelineGenre(genre?: string): PipelineGenre {
-  return (genre || "").trim().toLowerCase() === "living" ? "living" : "beauty";
+  const g = (genre || "").trim().toLowerCase();
+  if (g === "living") return "living";
+  if (g === "gadget") return "gadget";
+  if (g === "food") return "food";
+  if (g === "drink") return "drink";
+  return "beauty";
 }
 
 export function normalizeSocialUtmSource(source?: string): SocialUtmSource {

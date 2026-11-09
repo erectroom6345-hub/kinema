@@ -44,9 +44,38 @@ async function main() {
   const ig = yn(Boolean(summary.igPostId) || stepOk("IG投稿"));
   const threads = yn(Boolean(summary.threadsPostId) || stepOk("Threads投稿"));
   const x = yn(Boolean(summary.xPostId) || stepOk("X投稿"));
-  const genre = summary.genre || (String(summary.channel || "").startsWith("living") ? "living" : "beauty");
-  const runLabel = genre === "living" ? "run-living" : "run-beauty";
-  const logName = genre === "living" ? "living-cron.log" : "beauty-cron.log";
+  const channel = String(summary.channel || "");
+  const genre =
+    summary.genre ||
+    (channel.startsWith("drink")
+      ? "drink"
+      : channel.startsWith("food")
+        ? "food"
+        : channel.startsWith("gadget")
+          ? "gadget"
+          : channel.startsWith("living")
+            ? "living"
+            : "beauty");
+  const runLabel =
+    genre === "drink"
+      ? "run-drink"
+      : genre === "food"
+        ? "run-food"
+        : genre === "gadget"
+          ? "run-gadget"
+          : genre === "living"
+            ? "run-living"
+            : "run-beauty";
+  const logName =
+    genre === "drink"
+      ? "drink-cron.log"
+      : genre === "food"
+        ? "food-cron.log"
+        : genre === "gadget"
+          ? "gadget-cron.log"
+          : genre === "living"
+            ? "living-cron.log"
+            : "beauty-cron.log";
 
   const kpi = readJson(path.join(root, "output", "metrics", "kpi-summary.json"), {});
   const k = kpi.kpis || {};

@@ -32,10 +32,16 @@ export const GENRE_PROFILES: Record<string, GenreProfile> = {
     caution: "スペックの誤記と過度なランキング煽りを避ける。",
   },
   food: {
-    label: "グルメ",
+    label: "旬・手土産の食べ物",
     heroQueries: ["simple homemade meal", "tea table still life"],
     inlineQueries: ["recipe notes", "kitchen ingredients"],
-    caution: "効能の断定や過度な健康効果の主張は避ける。",
+    caution: "効能の断定や過度な健康効果の主張は避ける。ご当地・観光ガイド化はしない。",
+  },
+  drink: {
+    label: "銘酒・季節酒",
+    heroQueries: ["sake bottle still life", "evening table drink"],
+    inlineQueries: ["wine tasting notes", "simple bar cart"],
+    caution: "過度な煽り・多飲勧奨は避ける。蔵めぐり・観光ガイド化はしない。",
   },
   generic: {
     label: "汎用",

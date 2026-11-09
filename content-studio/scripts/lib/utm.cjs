@@ -17,7 +17,12 @@ function formatUtmDate(date = new Date()) {
 }
 
 function normalizePipelineGenre(genre) {
-  return String(genre || "").trim().toLowerCase() === "living" ? "living" : "beauty";
+  const g = String(genre || "").trim().toLowerCase();
+  if (g === "living") return "living";
+  if (g === "gadget") return "gadget";
+  if (g === "food") return "food";
+  if (g === "drink") return "drink";
+  return "beauty";
 }
 
 function normalizeSocialUtmSource(source) {

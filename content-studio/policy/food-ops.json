@@ -46,7 +46,7 @@
     "snsDestination": "blog",
     "preferredCategories": ["table", "other", "sweets"],
     "description": "家庭備蓄の呼びかけ期間（food+gadget）。Threads/X は備蓄まとめページURL。楽天アフィ直載せはしない。drinkは対象外。FOOD_STOCKPILE_MODE で強制ON/OFF。",
-    "copyNotes": "日持ちする常備・ローリングストック・備蓄用なのに美味しい、を自然な一文で。煽りや戦争・災害の断定はしない。検索されやすい語は本文に1つだけ。"
+    "copyNotes": "日持ちする常備・ローリングストック・備蓄用なのに美味しい、を自然な一文で。チョコ羊羹・ペコちゃん缶・カンパンなど定番も可。煽りや戦争・災害の断定はしない。検索されやすい語は本文に1つだけ。"
   },
   "snsCopy": {
     "beats": [

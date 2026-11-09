@@ -88,6 +88,100 @@ async function main() {
   assert.strictEqual(campaignGate.status, "rejected");
   assert.ok(campaignGate.reasons.includes("campaign_page_without_sku"));
 
+  const boutiqueGate = evaluateCandidate(
+    {
+      brand: "コスメデコルテ",
+      productName: "DECORT&Eacute;（コスメデコルテ）公式オンラインブティック",
+      productUrl: "https://www.decorte.com/site/r/r101050/",
+      imageUrl: "https://www.decorte.com/resources/images/ogp.jpg",
+    },
+    { catalogUrlKeys: new Set(), catalogIds: new Set() },
+  );
+  assert.strictEqual(boutiqueGate.status, "rejected");
+  assert.ok(
+    boutiqueGate.reasons.includes("category_hub_path") ||
+      boutiqueGate.reasons.includes("storefront_name"),
+    `unexpected reasons=${boutiqueGate.reasons.join(",")}`,
+  );
+
+  const categoryNameGate = evaluateCandidate(
+    {
+      brand: "コスメデコルテ",
+      productName: "クレンジング",
+      productUrl: "https://www.decorte.com/site/r/r101010/",
+      imageUrl: "https://www.decorte.com/img/x.jpg",
+    },
+    { catalogUrlKeys: new Set(), catalogIds: new Set() },
+  );
+  assert.strictEqual(categoryNameGate.status, "rejected");
+
+  const teikiGate = evaluateCandidate(
+    {
+      brand: "コスメデコルテ",
+      productName: "リポソーム アドバンスト リペアセラム キット 定期お届け便",
+      productUrl: "https://www.decorte.com/site/p/teiki_liposome_serum_online.aspx",
+      imageUrl: "https://www.decorte.com/img/x.jpg",
+    },
+    { catalogUrlKeys: new Set(), catalogIds: new Set() },
+  );
+  assert.strictEqual(teikiGate.status, "rejected");
+  assert.ok(teikiGate.reasons.includes("subscription_landing_without_sku"));
+
+  const contactGate = evaluateCandidate(
+    {
+      brand: "hince",
+      productName: "お問い合わせフォーム（PR）",
+      productUrl: "https://hince.jp/c/category/face/HC123",
+      imageUrl: "https://hince.jp/img/x.jpg",
+    },
+    { catalogUrlKeys: new Set(), catalogIds: new Set() },
+  );
+  assert.strictEqual(contactGate.status, "rejected");
+  assert.ok(contactGate.reasons.includes("non_product_name"));
+
+  const decorteSkuGate = evaluateCandidate(
+    {
+      brand: "コスメデコルテ",
+      productName: "リポソーム アドバンスト リペアセラム",
+      productUrl: "https://www.decorte.com/site/g/gJVAN/",
+      imageUrl: "https://www.decorte.com/img/goods/S/JVAN.jpg",
+    },
+    { catalogUrlKeys: new Set(), catalogIds: new Set() },
+  );
+  assert.strictEqual(decorteSkuGate.status, "ready", decorteSkuGate.reasons.join(","));
+
+  const hinceCatGate = evaluateCandidate(
+    {
+      brand: "hince",
+      productName: "FACE",
+      productUrl: "https://hince.jp/c/category/face",
+      imageUrl: "https://hince.jp/img/x.jpg",
+    },
+    { catalogUrlKeys: new Set(), catalogIds: new Set() },
+  );
+  assert.strictEqual(hinceCatGate.status, "rejected");
+
+  const listingHtml2 = `
+    <a href="/c/category/face/HC390">New Blur</a>
+    <a href="/c/category/face">FACE</a>
+    <a href="/site/r/r101050/">美容液</a>
+    <a href="/site/g/gJVAN/">セラム</a>
+  `;
+  const links2 = extractListingProductLinks(
+    listingHtml2,
+    "https://www.decorte.com/",
+    "コスメデコルテ",
+  );
+  assert.ok(links2.some((l) => /\/site\/g\/gJVAN\//.test(l.productUrl)));
+  assert.ok(!links2.some((l) => /\/site\/r\//.test(l.productUrl)));
+  const linksHince = extractListingProductLinks(
+    `<a href="/c/category/face/HC390">x</a><a href="/c/category/face">FACE</a>`,
+    "https://hince.jp/",
+    "hince",
+  );
+  assert.strictEqual(linksHince.length, 1);
+  assert.ok(/HC390/.test(linksHince[0].productUrl));
+
   const catalogItem = toCatalogItem(
     {
       brand: "hince",

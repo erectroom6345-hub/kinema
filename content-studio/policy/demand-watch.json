@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "困りごと辞書。週1楽天脈拍で勢いを見て候補化し、手動OK後だけ投稿優先に使う。",
+  "description": "困りごと辞書。週1楽天脈拍の『先週比』で勢いを見て候補化し、手動OK後だけ投稿優先。初回サンプルやカレンダー月だけでは候補化しない（偶発の大量発生年を誤って常時ONにしない）。",
   "pulse": {
     "sleepMsBetweenRequests": 1200,
     "hitsPerTheme": 5,
@@ -25,8 +25,9 @@
         { "genre": "living", "category": "other", "keyword": "カメムシ スプレー 忌避" },
         { "genre": "living", "category": "cleaning", "keyword": "カメムシ 駆除" }
       ],
-      "defaultDays": 14,
-      "calendarMonths": [9, 10, 11]
+      "defaultDays": 10,
+      "calendarMonths": [9, 10],
+      "notes": "秋の侵入シーズンはヒントのみ。今年たまたま多い年は週次比＋手動OKで判断。"
     },
     {
       "id": "bear-deterrent",
@@ -43,8 +44,9 @@
         { "genre": "gadget", "category": "other", "keyword": "熊よけ 鈴" },
         { "genre": "living", "category": "other", "keyword": "クマ撃退スプレー" }
       ],
-      "defaultDays": 21,
-      "calendarMonths": [4, 5, 6, 9, 10, 11]
+      "defaultDays": 14,
+      "calendarMonths": [5, 6, 9, 10],
+      "notes": "出没は年による。カレンダーだけではONにしない。週次比＋手動OK。"
     },
     {
       "id": "blackout-power",
