@@ -18,13 +18,38 @@ const require = createRequire(import.meta.url);
 const { cleanGadgetProductName } = require("../scripts/lib/gadget-product-name.cjs") as {
   cleanGadgetProductName: (raw: string, opts?: { maxLen?: number }) => string;
 };
-const { buildReasonLine: buildBenefitReason } = require("../scripts/lib/product-benefit-copy.cjs") as {
+const {
+  buildReasonLine: buildBenefitReason,
+  buildDetailLine,
+  buildAudienceLine,
+  buildShortAffiliateThreadsText,
+} = require("../scripts/lib/product-benefit-copy.cjs") as {
   buildReasonLine: (opts: {
     genre: string;
     category?: string;
     name?: string;
     snippet?: string;
     maxLen?: number;
+  }) => string;
+  buildDetailLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+    snippet?: string;
+    maxLen?: number;
+  }) => string;
+  buildAudienceLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+  }) => string;
+  buildShortAffiliateThreadsText: (opts: {
+    line1: string;
+    line2: string;
+    affiliateUrl?: string;
+    tip?: boolean;
+    requirePr?: boolean;
+    prToken?: string;
   }) => string;
 };
 
@@ -272,7 +297,8 @@ function buildTipCaption(ask: string, aside: string, name: string): string {
   return mine ? `${question}\n${mine}` : question;
 }
 
-function buildFourBeatCaption(params: {
+/** Instagram: 場面→商品→具体→誰向け→（セール時）→保存CTA */
+function buildIgCaption(params: {
   name: string;
   category: string;
   description: string;
@@ -285,7 +311,18 @@ function buildFourBeatCaption(params: {
   tip?: boolean;
   stockpile?: boolean;
 }): string {
-  return [
+  const feature = params.features
+    .map((f) => String(f || "").trim())
+    .find(
+      (f) =>
+        f &&
+        !/^ショップ[:：]/u.test(f) &&
+        !/^税込目安/u.test(f) &&
+        !/^ポイント\d+倍$/u.test(f) &&
+        !/ランキング|送料|適格請求書|iPhone\d+/i.test(f),
+    );
+  const snippet = [feature, params.description].filter(Boolean).join(" ");
+  const lines = [
     worryLine(params.category, params.stockpile),
     changeLine(
       params.name,
@@ -295,33 +332,24 @@ function buildFourBeatCaption(params: {
       params.pointRate,
       params.stockpile,
     ),
-    reasonLine(params),
-    actionLine(params.prToken, params.requirePr),
-  ].join("\n");
-}
-
-/** Threads: 保存CTAを外し、楽天アフィURLを末尾に（tipはURLなし）。ブログ誘導はしない */
-function buildThreadsText(
-  caption: string,
-  affiliateUrl: string,
-  opts: { tip?: boolean; requirePr?: boolean; prToken?: string },
-): string {
-  let body = caption
-    .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
-    .replace(/\n*気になったら、動画の最後のQRからどうぞ\s*※?PR?\s*$/u, "")
-    .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
-    .replace(/\n*https?:\/\/\S+/gi, "")
-    .trim();
-  if (opts.tip || !affiliateUrl) {
-    if (!opts.tip && opts.requirePr && !/※PR/.test(body)) {
-      body = `${body} ${opts.prToken || "※PR"}`;
-    }
-    return body;
+    buildDetailLine({
+      genre: "gadget",
+      category: params.category,
+      name: params.name,
+      snippet,
+      maxLen: 72,
+    }),
+    buildAudienceLine({
+      genre: "gadget",
+      category: params.category,
+      name: params.name,
+    }),
+  ];
+  if (params.interrupt === "campaign" || params.interrupt === "sale") {
+    lines.push(reasonLine(params));
   }
-  if (opts.requirePr && !/※PR/.test(body)) {
-    body = `${body} ${opts.prToken || "※PR"}`;
-  }
-  return `${body}\n${affiliateUrl}`.trim();
+  lines.push(actionLine(params.prToken, params.requirePr));
+  return lines.join("\n");
 }
 
 function buildXText(params: {
@@ -414,10 +442,19 @@ function main() {
   const requirePr = tip ? false : ops.requirePr;
   const ask = (article.product?.ask || "").trim();
   const aside = (article.product?.aside || "").trim();
+  const scene = worryLine(category, stockpile);
+  const special = changeLine(
+    name,
+    category,
+    interrupt,
+    tip,
+    Number.isFinite(pointRate) ? pointRate : null,
+    stockpile,
+  );
   const caption = normalizeCaption(
     tip
       ? buildTipCaption(ask, aside, name)
-      : buildFourBeatCaption({
+      : buildIgCaption({
           name,
           category,
           description,
@@ -462,11 +499,16 @@ function main() {
   const snsUrlThreads = tip ? "" : stockpile ? blogUtmThreads : affiliateUrl;
   const snsUrlX = tip ? "" : stockpile ? blogUtmX : affiliateUrl;
 
-  const threadsText = buildThreadsText(caption, snsUrlThreads, {
-    tip,
-    requirePr,
-    prToken: ops.prToken,
-  });
+  const threadsText = tip
+    ? caption
+    : buildShortAffiliateThreadsText({
+        line1: scene,
+        line2: special,
+        affiliateUrl: snsUrlThreads,
+        tip,
+        requirePr,
+        prToken: ops.prToken,
+      });
   const xText = tip
     ? caption
     : buildXText({
@@ -533,7 +575,7 @@ function main() {
     "utf-8",
   );
 
-  console.log("caption生成成功 (gadget 4-beat + PR)");
+  console.log("caption生成成功 (gadget IG長文 + Threads短文 + PR)");
   console.log(caption);
   console.log("--- Threads ---");
   console.log(threadsText);

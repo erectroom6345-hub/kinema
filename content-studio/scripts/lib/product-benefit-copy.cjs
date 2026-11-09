@@ -181,6 +181,113 @@ function buildReasonLine(opts = {}) {
   return `${desc.slice(0, maxLen - 1)}…`;
 }
 
+function cuePatternFor(genre) {
+  if (genre === "drink") {
+    return /産地|酒蔵|県|市|町|香り|飲み口|甘み|キレ|吟醸|純米|本醸造|仕込み|冷酒|燗/;
+  }
+  if (genre === "food") {
+    return /香|匂い|におい|食感|味|甘|塩|旨|サク|もち|しっとり|濃厚|歯ごたえ|風味|タルト|ケーキ|チョコ|焼|揚|煮|炊|アソート/;
+  }
+  if (genre === "living") {
+    return /取り出し|片付け|収納|置き|掃除|動線|しまう|定位置/;
+  }
+  if (genre === "gadget") {
+    return /充電|配線|デスク|コンパクト|持ち運|差し替え|置き場|ケーブル/;
+  }
+  return /./;
+}
+
+function pickCueSentence(text, genre) {
+  const t = String(text || "").trim();
+  if (!t) return "";
+  const cue = cuePatternFor(genre);
+  const parts = t
+    .split(/[。．！？\n]/u)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const hit = parts.find((p) => cue.test(p) && p.length >= 8);
+  return hit || parts[0] || t;
+}
+
+function stripAudienceClause(raw) {
+  return String(raw || "")
+    .replace(/[（(][^）)]*向け[^）)]*[）)]/g, " ")
+    .replace(/[^。．\n]*向け[。．]?/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * IG長文化用の具体行（産地・食感・使いどころ）。「向け」は付けない。
+ */
+function buildDetailLine(opts = {}) {
+  const genre = String(opts.genre || "living").toLowerCase();
+  const category = String(opts.category || "").trim();
+  const name = String(opts.name || opts.displayName || "").trim();
+  const maxLen = Math.max(36, Number(opts.maxLen) || 72);
+  const scrubbed = scrubMerchantNoise(
+    opts.snippet || opts.catchcopy || opts.caption || "",
+  );
+
+  let core = "";
+  if (scrubbed && !looksLikeKeywordSoup(scrubbed) && scrubbed.length >= 8) {
+    core = pickCueSentence(scrubbed, genre);
+  } else {
+    core = stripAudienceClause(benefitFallback(genre, category, name));
+  }
+  core = stripAudienceClause(core)
+    .replace(/[。．]+$/u, "")
+    .trim();
+  if (!core) {
+    core = stripAudienceClause(benefitFallback(genre, category, name)).replace(
+      /[。．]+$/u,
+      "",
+    );
+  }
+  let out = `${core}。`;
+  if (out.length > maxLen) {
+    out = `${out.slice(0, maxLen - 1)}…`;
+  }
+  return out;
+}
+
+/** IG長文化用の「誰向け」行 */
+function buildAudienceLine(opts = {}) {
+  const genre = String(opts.genre || "living").toLowerCase();
+  const category = String(opts.category || "").trim();
+  const name = String(opts.name || opts.displayName || "").trim();
+  return `${audienceFor(genre, category, name)}向け。`;
+}
+
+/**
+ * Threads用の短文（IGの長文をそのまま載せない）。
+ * line1/line2 + ※PR + URL
+ */
+function buildShortAffiliateThreadsText(opts = {}) {
+  const tip = Boolean(opts.tip);
+  const requirePr = opts.requirePr !== false;
+  const prToken = String(opts.prToken || "※PR").trim() || "※PR";
+  const affiliateUrl = String(opts.affiliateUrl || "").trim();
+  const line1 = String(opts.line1 || "").trim();
+  const line2 = String(opts.line2 || "").trim();
+  let body = [line1, line2].filter(Boolean).join("\n").trim();
+  body = body
+    .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
+    .replace(/\n*動画の最後は楽天QRです\s*※?PR?\s*$/u, "")
+    .replace(/\n*https?:\/\/\S+/gi, "")
+    .trim();
+  if (tip || !affiliateUrl) {
+    if (!tip && requirePr && body && !/※PR/.test(body)) {
+      body = `${body} ${prToken}`;
+    }
+    return body;
+  }
+  if (requirePr && !/※PR/.test(body)) {
+    body = `${body} ${prToken}`;
+  }
+  return `${body}\n${affiliateUrl}`.trim();
+}
+
 module.exports = {
   scrubMerchantNoise,
   looksLikeKeywordSoup,
@@ -188,4 +295,7 @@ module.exports = {
   benefitFallback,
   buildBenefitDescription,
   buildReasonLine,
+  buildDetailLine,
+  buildAudienceLine,
+  buildShortAffiliateThreadsText,
 };

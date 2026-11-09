@@ -18,7 +18,12 @@ const require = createRequire(import.meta.url);
 const { cleanFoodProductName } = require("../scripts/lib/food-product-name.cjs") as {
   cleanFoodProductName: (raw: string, opts?: { maxLen?: number }) => string;
 };
-const { buildReasonLine: buildBenefitReason } = require("../scripts/lib/product-benefit-copy.cjs") as {
+const {
+  buildReasonLine: buildBenefitReason,
+  buildDetailLine,
+  buildAudienceLine,
+  buildShortAffiliateThreadsText,
+} = require("../scripts/lib/product-benefit-copy.cjs") as {
   buildReasonLine: (opts: {
     genre: string;
     category?: string;
@@ -26,7 +31,37 @@ const { buildReasonLine: buildBenefitReason } = require("../scripts/lib/product-
     snippet?: string;
     maxLen?: number;
   }) => string;
+  buildDetailLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+    snippet?: string;
+    maxLen?: number;
+  }) => string;
+  buildAudienceLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+  }) => string;
+  buildShortAffiliateThreadsText: (opts: {
+    line1: string;
+    line2: string;
+    affiliateUrl?: string;
+    tip?: boolean;
+    requirePr?: boolean;
+    prToken?: string;
+  }) => string;
 };
+
+type FoodVoice = "morning" | "evening";
+
+function resolveFoodVoice(): FoodVoice {
+  const slot = String(process.env.FOOD_POST_SLOT || "morning")
+    .trim()
+    .toLowerCase();
+  if (slot === "evening" || slot === "night") return "evening";
+  return "morning";
+}
 
 const inputPath = "input/article.json";
 const outputPath = "input/instagram-post.json";
@@ -144,8 +179,25 @@ function resolveFixedPageUrl(configured: string): string {
   return "";
 }
 
-function sceneLine(category: string, stockpile?: boolean): string {
+function sceneLine(
+  category: string,
+  stockpile?: boolean,
+  voice: FoodVoice = "morning",
+): string {
   if (stockpile) {
+    if (voice === "evening") {
+      switch ((category || "").trim().toLowerCase()) {
+        case "gift":
+          return "明日の手土産にもなる、日持ちする常備を決めておきませんか。";
+        case "sweets":
+          return "夜の備えに、美味しい甘い常備を一品足しませんか。";
+        case "seasonal":
+          return "今日のうちに、日持ちする季節の常備を足しておきませんか。";
+        case "table":
+        default:
+          return "今夜の安心のために、日持ちする常備を少し多めにしませんか。";
+      }
+    }
     switch ((category || "").trim().toLowerCase()) {
       case "gift":
         return "手土産にもなる、日持ちする常備食を探していませんか。";
@@ -156,6 +208,20 @@ function sceneLine(category: string, stockpile?: boolean): string {
       case "table":
       default:
         return "家庭の常備備蓄、日持ちするものを少し多めに、と思っていませんか。";
+    }
+  }
+  if (voice === "evening") {
+    switch ((category || "").trim().toLowerCase()) {
+      case "seasonal":
+        return "今日の締めに、いまの季節のご褒美を一品足しませんか。";
+      case "gift":
+        return "明日の手土産、無難すぎず派手すぎない一品を決めておきませんか。";
+      case "sweets":
+        return "夜のひと息、甘いもので気持ちを切り替えませんか。";
+      case "table":
+        return "今夜の食卓、もう一品あると安心、と思っていませんか。";
+      default:
+        return "今日の終わりに、食卓か手土産の一品を選んでおきませんか。";
     }
   }
   switch ((category || "").trim().toLowerCase()) {
@@ -286,7 +352,8 @@ function buildTipCaption(ask: string, aside: string, name: string): string {
   return mine ? `${question}\n${mine}` : question;
 }
 
-function buildFourBeatCaption(params: {
+/** Instagram: 場面→商品→具体（香・食感など）→誰向け→（セール時は条件）→保存CTA */
+function buildIgCaption(params: {
   name: string;
   category: string;
   description: string;
@@ -298,9 +365,22 @@ function buildFourBeatCaption(params: {
   interrupt?: string | null;
   tip?: boolean;
   stockpile?: boolean;
+  voice?: FoodVoice;
 }): string {
-  return [
-    sceneLine(params.category, params.stockpile),
+  const voice = params.voice || "morning";
+  const feature = params.features
+    .map((f) => String(f || "").trim())
+    .find(
+      (f) =>
+        f &&
+        !/^ショップ[:：]/u.test(f) &&
+        !/^税込目安/u.test(f) &&
+        !/^ポイント\d+倍$/u.test(f) &&
+        !/ランキング|送料|ギフト包装|法事/.test(f),
+    );
+  const snippet = [feature, params.description].filter(Boolean).join(" ");
+  const lines = [
+    sceneLine(params.category, params.stockpile, voice),
     specialLine(
       params.name,
       params.category,
@@ -309,33 +389,25 @@ function buildFourBeatCaption(params: {
       params.pointRate,
       params.stockpile,
     ),
-    reasonLine(params),
-    actionLine(params.prToken, params.requirePr),
-  ].join("\n");
-}
-
-/** Threads: 保存CTAを外し、楽天アフィURLを末尾に（tipはURLなし） */
-function buildThreadsText(
-  caption: string,
-  affiliateUrl: string,
-  opts: { tip?: boolean; requirePr?: boolean; prToken?: string },
-): string {
-  let body = caption
-    .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
-    .replace(/\n*気になったら、動画の最後のQRからどうぞ\s*※?PR?\s*$/u, "")
-    .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
-    .replace(/\n*https?:\/\/\S+/gi, "")
-    .trim();
-  if (opts.tip || !affiliateUrl) {
-    if (!opts.tip && opts.requirePr && !/※PR/.test(body)) {
-      body = `${body} ${opts.prToken || "※PR"}`;
-    }
-    return body;
+    buildDetailLine({
+      genre: "food",
+      category: params.category,
+      name: params.name,
+      snippet,
+      maxLen: 72,
+    }),
+    buildAudienceLine({
+      genre: "food",
+      category: params.category,
+      name: params.name,
+    }),
+  ];
+  // 価格・倍はセール/キャンペーン時だけ。通常は具体＋誰向けで足りる
+  if (params.interrupt === "campaign" || params.interrupt === "sale") {
+    lines.push(reasonLine(params));
   }
-  if (opts.requirePr && !/※PR/.test(body)) {
-    body = `${body} ${opts.prToken || "※PR"}`;
-  }
-  return `${body}\n${affiliateUrl}`.trim();
+  lines.push(actionLine(params.prToken, params.requirePr));
+  return lines.join("\n");
 }
 
 function buildXText(params: {
@@ -432,10 +504,20 @@ function main() {
   const requirePr = tip ? false : ops.requirePr;
   const ask = (article.product?.ask || "").trim();
   const aside = (article.product?.aside || "").trim();
+  const voice = resolveFoodVoice();
+  const scene = sceneLine(category, stockpile, voice);
+  const special = specialLine(
+    name,
+    category,
+    interrupt,
+    tip,
+    Number.isFinite(pointRate) ? pointRate : null,
+    stockpile,
+  );
   const caption = normalizeCaption(
     tip
       ? buildTipCaption(ask, aside, name)
-      : buildFourBeatCaption({
+      : buildIgCaption({
           name,
           category,
           description,
@@ -447,6 +529,7 @@ function main() {
           interrupt,
           tip,
           stockpile,
+          voice,
         }),
   );
 
@@ -481,11 +564,16 @@ function main() {
   const snsUrlX = tip ? "" : stockpile ? blogUtmX : affiliateUrl;
   // IGキャプションにURLは載せない（タップ不可）。Threads/X にだけ付ける。
 
-  const threadsText = buildThreadsText(caption, snsUrlThreads, {
-    tip,
-    requirePr,
-    prToken: ops.prToken,
-  });
+  const threadsText = tip
+    ? caption
+    : buildShortAffiliateThreadsText({
+        line1: scene,
+        line2: special,
+        affiliateUrl: snsUrlThreads,
+        tip,
+        requirePr,
+        prToken: ops.prToken,
+      });
   const xText = tip
     ? caption
     : buildXText({
@@ -502,6 +590,7 @@ function main() {
   console.log("---- food SNS CTA ----");
   console.log(`productId: ${productId}`);
   console.log(`postType: ${tip ? "tip" : "product"}`);
+  console.log(`voice/slot: ${voice}`);
   console.log(
     `cta: ${
       tip
@@ -542,6 +631,8 @@ function main() {
     affiliate: !tip && !stockpile,
     stockpilePeriod: stockpile,
     postType: tip ? "tip" : article.product?.postType || "main",
+    postSlot: voice,
+    voice,
   };
 
   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + "\n", "utf-8");
@@ -552,7 +643,7 @@ function main() {
     "utf-8",
   );
 
-  console.log("caption生成成功 (food 4-beat + PR)");
+  console.log("caption生成成功 (food IG長文 + Threads短文 + PR)");
   console.log(caption);
   console.log("--- Threads ---");
   console.log(threadsText);

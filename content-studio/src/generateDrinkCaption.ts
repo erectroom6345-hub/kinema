@@ -17,13 +17,38 @@ const require = createRequire(import.meta.url);
 const { cleanDrinkProductName } = require("../scripts/lib/drink-product-name.cjs") as {
   cleanDrinkProductName: (raw: string, opts?: { maxLen?: number }) => string;
 };
-const { buildReasonLine: buildBenefitReason } = require("../scripts/lib/product-benefit-copy.cjs") as {
+const {
+  buildReasonLine: buildBenefitReason,
+  buildDetailLine,
+  buildAudienceLine,
+  buildShortAffiliateThreadsText,
+} = require("../scripts/lib/product-benefit-copy.cjs") as {
   buildReasonLine: (opts: {
     genre: string;
     category?: string;
     name?: string;
     snippet?: string;
     maxLen?: number;
+  }) => string;
+  buildDetailLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+    snippet?: string;
+    maxLen?: number;
+  }) => string;
+  buildAudienceLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+  }) => string;
+  buildShortAffiliateThreadsText: (opts: {
+    line1: string;
+    line2: string;
+    affiliateUrl?: string;
+    tip?: boolean;
+    requirePr?: boolean;
+    prToken?: string;
   }) => string;
 };
 
@@ -220,7 +245,8 @@ function buildTipCaption(ask: string, aside: string, name: string): string {
   return mine ? `${question}\n${mine}` : question;
 }
 
-function buildFourBeatCaption(params: {
+/** Instagram: 場面→商品→具体（産地・香りなど）→誰向け→（セール時）→楽天QR */
+function buildIgCaption(params: {
   name: string;
   category: string;
   description: string;
@@ -232,7 +258,18 @@ function buildFourBeatCaption(params: {
   interrupt?: string | null;
   tip?: boolean;
 }): string {
-  return [
+  const feature = params.features
+    .map((f) => String(f || "").trim())
+    .find(
+      (f) =>
+        f &&
+        !/^ショップ[:：]/u.test(f) &&
+        !/^税込目安/u.test(f) &&
+        !/^ポイント\d+倍$/u.test(f) &&
+        !/ランキング|送料|ギフト包装|法事|仏事|還暦|感謝箱/.test(f),
+    );
+  const snippet = [feature, params.description].filter(Boolean).join(" ");
+  const lines = [
     sceneLine(params.category),
     specialLine(
       params.name,
@@ -241,34 +278,24 @@ function buildFourBeatCaption(params: {
       params.tip,
       params.pointRate,
     ),
-    reasonLine(params),
-    actionLine(params.prToken, params.requirePr),
-  ].join("\n");
-}
-
-/** Threads: 保存CTAを外し、楽天アフィURLを末尾に（tipはURLなし） */
-function buildThreadsText(
-  caption: string,
-  affiliateUrl: string,
-  opts: { tip?: boolean; requirePr?: boolean; prToken?: string },
-): string {
-  let body = caption
-    .replace(/\n*気になったら、保存して見返してみてください\s*※?PR?\s*$/u, "")
-    .replace(/\n*動画の最後は楽天QRです\s*※?PR?\s*$/u, "")
-    .replace(/\n*気になったら、動画の最後のQRからどうぞ\s*※?PR?\s*$/u, "")
-    .replace(/\n*詳しくは、プロフィールのリンクからご覧ください\s*※?PR?\s*$/u, "")
-    .replace(/\n*https?:\/\/\S+/gi, "")
-    .trim();
-  if (opts.tip || !affiliateUrl) {
-    if (!opts.tip && opts.requirePr && !/※PR/.test(body)) {
-      body = `${body} ${opts.prToken || "※PR"}`;
-    }
-    return body;
+    buildDetailLine({
+      genre: "drink",
+      category: params.category,
+      name: params.name,
+      snippet,
+      maxLen: 72,
+    }),
+    buildAudienceLine({
+      genre: "drink",
+      category: params.category,
+      name: params.name,
+    }),
+  ];
+  if (params.interrupt === "campaign" || params.interrupt === "sale") {
+    lines.push(reasonLine(params));
   }
-  if (opts.requirePr && !/※PR/.test(body)) {
-    body = `${body} ${opts.prToken || "※PR"}`;
-  }
-  return `${body}\n${affiliateUrl}`.trim();
+  lines.push(actionLine(params.prToken, params.requirePr));
+  return lines.join("\n");
 }
 
 function buildXText(params: {
@@ -354,10 +381,18 @@ function main() {
   const requirePr = tip ? false : ops.requirePr;
   const ask = (article.product?.ask || "").trim();
   const aside = (article.product?.aside || "").trim();
+  const scene = sceneLine(category);
+  const special = specialLine(
+    name,
+    category,
+    interrupt,
+    tip,
+    Number.isFinite(pointRate) ? pointRate : null,
+  );
   const caption = normalizeCaption(
     tip
       ? buildTipCaption(ask, aside, name)
-      : buildFourBeatCaption({
+      : buildIgCaption({
           name,
           category,
           description,
@@ -371,11 +406,16 @@ function main() {
         }),
   );
 
-  const threadsText = buildThreadsText(caption, affiliateUrl, {
-    tip,
-    requirePr,
-    prToken: ops.prToken,
-  });
+  const threadsText = tip
+    ? caption
+    : buildShortAffiliateThreadsText({
+        line1: scene,
+        line2: special,
+        affiliateUrl,
+        tip,
+        requirePr,
+        prToken: ops.prToken,
+      });
   const xText = tip
     ? caption
     : buildXText({
@@ -427,7 +467,7 @@ function main() {
     "utf-8",
   );
 
-  console.log("caption生成成功 (drink 4-beat + PR)");
+  console.log("caption生成成功 (drink IG長文 + Threads短文 + PR)");
   console.log(caption);
   console.log("--- Threads ---");
   console.log(threadsText);
