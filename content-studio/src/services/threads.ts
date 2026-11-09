@@ -789,6 +789,43 @@ async function postForm(
  * container が publish 可能になるまで待機。
  * 即 publish すると code=24 / subcode=4279009 (Media Not Found) になりやすい。
  */
+async function fetchThreadsContainerStatus(
+  creationId: string,
+  creds: ThreadsCredentials,
+): Promise<{ status: string; errorMessage: string }> {
+  const base = apiBase(creds.apiVersion);
+  const url =
+    `${base}/${encodeURIComponent(creationId)}` +
+    `?fields=status,error_message` +
+    `&access_token=${encodeURIComponent(creds.accessToken)}`;
+  let res: Response;
+  try {
+    res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    throw new Error(
+      `Threads container-status失敗: fetch failed (${msg}) creation_id=${creationId}`,
+    );
+  }
+  const raw = await res.text();
+  let json: { status?: string; error_message?: string; error?: { message?: string } } = {};
+  try {
+    json = raw ? (JSON.parse(raw) as typeof json) : {};
+  } catch {
+    json = {};
+  }
+  if (!res.ok) {
+    throw new Error(
+      `Threads container-status失敗: HTTP ${res.status}` +
+        ` creation_id=${creationId} url=${redactUrl(url)} body=${raw.slice(0, 300)}`,
+    );
+  }
+  return {
+    status: String(json.status ?? "").toUpperCase(),
+    errorMessage: String(json.error_message || json.error?.message || ""),
+  };
+}
+
 async function waitForThreadsContainerReady(
   creationId: string,
   creds: ThreadsCredentials,
@@ -796,43 +833,50 @@ async function waitForThreadsContainerReady(
 ): Promise<void> {
   const timeoutMs = opts?.timeoutMs ?? 45_000;
   const intervalMs = opts?.intervalMs ?? 2_000;
-  const base = apiBase(creds.apiVersion);
   const started = Date.now();
   let lastStatus = "";
 
   while (Date.now() - started < timeoutMs) {
-    const url =
-      `${base}/${encodeURIComponent(creationId)}` +
-      `?fields=status,error_message` +
-      `&access_token=${encodeURIComponent(creds.accessToken)}`;
-    const res = await fetch(url);
-    const raw = await res.text();
-    let json: { status?: string; error_message?: string; error?: { message?: string } } = {};
-    try {
-      json = raw ? (JSON.parse(raw) as typeof json) : {};
-    } catch {
-      json = {};
-    }
-    if (!res.ok) {
-      throw new Error(
-        `Threads container-status失敗: HTTP ${res.status}` +
-          ` creation_id=${creationId} url=${redactUrl(url)} body=${raw.slice(0, 300)}`,
-      );
-    }
-    const status = String(json.status ?? "").toUpperCase();
+    const { status, errorMessage } = await fetchThreadsContainerStatus(
+      creationId,
+      creds,
+    );
     if (status && status !== lastStatus) {
       console.log(`Threads container status=${status} creation_id=${creationId}`);
       lastStatus = status;
     }
-    if (status === "FINISHED") return;
+    if (status === "FINISHED" || status === "PUBLISHED") return;
     if (status === "ERROR" || status === "EXPIRED") {
       throw new Error(
         `Threads container 準備失敗: creation_id=${creationId} status=${status}` +
-          ` detail=${json.error_message || json.error?.message || ""}`,
+          ` detail=${errorMessage}`,
       );
     }
     await sleep(intervalMs);
   }
+
+  // タイムアウト直後にもう一度だけ見る（FINISHED直後を取りこぼしやすい）
+  try {
+    const final = await fetchThreadsContainerStatus(creationId, creds);
+    if (final.status && final.status !== lastStatus) {
+      console.log(
+        `Threads container status=${final.status} creation_id=${creationId} (timeout後再確認)`,
+      );
+      lastStatus = final.status;
+    }
+    if (final.status === "FINISHED" || final.status === "PUBLISHED") return;
+    if (final.status === "ERROR" || final.status === "EXPIRED") {
+      throw new Error(
+        `Threads container 準備失敗: creation_id=${creationId} status=${final.status}` +
+          ` detail=${final.errorMessage}`,
+      );
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (/準備失敗/.test(msg)) throw err;
+    console.warn(`Threads container timeout後の再確認に失敗: ${msg}`);
+  }
+
   throw new Error(
     `Threads container 準備タイムアウト: creation_id=${creationId} (${timeoutMs}ms) last=${lastStatus || "?"}`,
   );
@@ -884,75 +928,99 @@ export async function publishThreadsTextPost(params: {
       ` create=${base}/me/threads publish=${base}/me/threads_publish`,
   );
 
-  const created = await postForm(
-    "container作成",
-    `${base}/me/threads`,
-    videoUrl
-      ? {
-          media_type: "VIDEO",
-          video_url: videoUrl,
-          text,
-          access_token: creds.accessToken,
-        }
-      : replyToId
+  async function createAndPublish(media: {
+    videoUrl?: string;
+    replyToId?: string;
+  }): Promise<ThreadsPublishResult> {
+    const mediaVideoUrl = String(media.videoUrl || "").trim();
+    const mediaReplyToId = String(media.replyToId || "").trim();
+    const created = await postForm(
+      "container作成",
+      `${base}/me/threads`,
+      mediaVideoUrl
         ? {
-            media_type: "TEXT",
+            media_type: "VIDEO",
+            video_url: mediaVideoUrl,
             text,
-            reply_to_id: replyToId,
             access_token: creds.accessToken,
           }
-        : {
-            media_type: "TEXT",
-            text,
+        : mediaReplyToId
+          ? {
+              media_type: "TEXT",
+              text,
+              reply_to_id: mediaReplyToId,
+              access_token: creds.accessToken,
+            }
+          : {
+              media_type: "TEXT",
+              text,
+              access_token: creds.accessToken,
+            },
+      ctx,
+    );
+    const creationId = String(created.id ?? "").trim();
+    if (!creationId) throw new Error("Threads container 応答に id がありません");
+    console.log(`Threads creation_id=${creationId}`);
+
+    await waitForThreadsContainerReady(
+      creationId,
+      creds,
+      mediaVideoUrl ? { timeoutMs: 300_000, intervalMs: 5_000 } : undefined,
+    );
+
+    let published: Record<string, unknown> | null = null;
+    let lastErr: unknown;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        published = await postForm(
+          "publish",
+          `${base}/me/threads_publish`,
+          {
+            creation_id: creationId,
             access_token: creds.accessToken,
           },
-    ctx,
-  );
-  const creationId = String(created.id ?? "").trim();
-  if (!creationId) throw new Error("Threads container 応答に id がありません");
-  console.log(`Threads creation_id=${creationId}`);
-
-  await waitForThreadsContainerReady(
-    creationId,
-    creds,
-    videoUrl ? { timeoutMs: 300_000, intervalMs: 5_000 } : undefined,
-  );
-
-  let published: Record<string, unknown> | null = null;
-  let lastErr: unknown;
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    try {
-      published = await postForm(
-        "publish",
-        `${base}/me/threads_publish`,
-        {
-          creation_id: creationId,
-          access_token: creds.accessToken,
-        },
-        ctx,
-      );
-      break;
-    } catch (err) {
-      lastErr = err;
-      const apiCode = (err as { apiCode?: number }).apiCode;
-      // code=24 Media Not Found は未準備の典型。同一 creation_id で再試行
-      if (apiCode === 24 && attempt < 3) {
-        console.warn(
-          `Threads publish code=24 — 再試行 ${attempt}/3 creation_id=${creationId}`,
+          ctx,
         );
-        await sleep(3_000 * attempt);
-        continue;
+        break;
+      } catch (err) {
+        lastErr = err;
+        const apiCode = (err as { apiCode?: number }).apiCode;
+        // code=24 Media Not Found は未準備の典型。同一 creation_id で再試行
+        if (apiCode === 24 && attempt < 3) {
+          console.warn(
+            `Threads publish code=24 — 再試行 ${attempt}/3 creation_id=${creationId}`,
+          );
+          await sleep(3_000 * attempt);
+          continue;
+        }
+        throw err;
       }
-      throw err;
     }
+    if (!published) throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
+
+    const postId = String(published.id ?? "").trim();
+    if (!postId) throw new Error("Threads publish 応答に id がありません");
+
+    console.log(
+      `Threads投稿成功: post_id=${postId} creation_id=${creationId} userId=${creds.userId}` +
+        ` media=${mediaVideoUrl ? "VIDEO" : "TEXT"}`,
+    );
+    return { creationId, postId, text };
   }
-  if (!published) throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
 
-  const postId = String(published.id ?? "").trim();
-  if (!postId) throw new Error("Threads publish 応答に id がありません");
-
-  console.log(`Threads投稿成功: post_id=${postId} creation_id=${creationId} userId=${creds.userId}`);
-  return { creationId, postId, text };
+  try {
+    return await createAndPublish({ videoUrl, replyToId });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    // 動画処理が遅いときの救済: 本文＋URLのテキスト投稿へフォールバック
+    if (videoUrl && /準備タイムアウト|container 準備失敗|Media Not Found|code=24/.test(msg)) {
+      console.warn(
+        `Threads動画投稿に失敗したためテキストへフォールバック: ${msg}`,
+      );
+      return await createAndPublish({ replyToId });
+    }
+    throw err;
+  }
 }
 
 export interface ThreadsMediaSummary {
