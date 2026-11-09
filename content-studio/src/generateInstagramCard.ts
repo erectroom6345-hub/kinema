@@ -38,6 +38,15 @@ const { buildSlideReel } = require("../scripts/lib/slide-reel.cjs") as {
     qr: boolean;
   }>;
 };
+const { buildOverlayHookLine } = require("../scripts/lib/product-benefit-copy.cjs") as {
+  buildOverlayHookLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+    snippet?: string;
+    maxLen?: number;
+  }) => string;
+};
 
 const articlePath = "input/article.json";
 const instaPath = "input/instagram-post.json";
@@ -56,8 +65,10 @@ type ArticleInput = {
   product?: {
     id?: string;
     genre?: string;
+    category?: string;
     name?: string;
     brand?: string;
+    description?: string;
     imageUrl?: string;
     url?: string;
     rakutenUrl?: string;
@@ -186,14 +197,25 @@ function usableProductImageUrl(raw: string): string {
   return url;
 }
 
+function escapeXml(s: string): string {
+  return String(s || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 /**
  * 商品写真を 1080 正方形カードに載せる（便利グッズ系は1枚目商品写真が定石）。
+ * overlayText があるときは下余白帯に短文を載せ、商品本体とは重ねない。
  * 失敗時は null（呼び出し側でテンプレにフォールバック）。
  */
 async function renderProductPhotoCard(
   productImageUrl: string,
   width: number,
   height: number,
+  overlayText = "",
 ): Promise<Buffer | null> {
   try {
     const res = await fetch(productImageUrl, {
@@ -202,14 +224,39 @@ async function renderProductPhotoCard(
     });
     if (!res.ok) return null;
     const src = Buffer.from(await res.arrayBuffer());
-    // 余白を少し広げて「カード感」を出す（美容の見栄え用）
-    const maxW = Math.floor(width * 0.86);
-    const maxH = Math.floor(height * 0.86);
+    const hook = String(overlayText || "").trim();
+    const bandH = hook ? Math.max(120, Math.round(height * 0.12)) : 0;
+    const sidePad = Math.round(width * 0.07);
+    const topPad = Math.round(height * 0.07);
+    const maxW = width - sidePad * 2;
+    const maxH = height - topPad - Math.max(topPad, bandH + 16);
     const productPng = await sharp(src)
       .rotate()
       .resize(maxW, maxH, { fit: "inside", withoutEnlargement: false })
       .png()
       .toBuffer();
+    const meta = await sharp(productPng).metadata();
+    const pw = meta.width || maxW;
+    const ph = meta.height || maxH;
+    const usableH = height - bandH;
+    const left = Math.round((width - pw) / 2);
+    const top = Math.round(Math.max(topPad * 0.5, (usableH - ph) / 2));
+    const layers: sharp.OverlayOptions[] = [
+      { input: productPng, left, top },
+    ];
+    if (hook && bandH > 0) {
+      const font =
+        "Hiragino Sans, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif";
+      const fontSize = hook.length > 16 ? 34 : 38;
+      const bandY = height - bandH;
+      const textY = bandY + Math.round(bandH * 0.62);
+      const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  <rect x="0" y="${bandY}" width="${width}" height="${bandH}" fill="#161311" fill-opacity="0.82"/>
+  <text x="${Math.round(width / 2)}" y="${textY}" text-anchor="middle" fill="#F8F5F1" font-size="${fontSize}" font-weight="600" font-family="${font}">${escapeXml(hook)}</text>
+</svg>`;
+      layers.push({ input: Buffer.from(svg), left: 0, top: 0 });
+    }
     return sharp({
       create: {
         width,
@@ -218,7 +265,7 @@ async function renderProductPhotoCard(
         background: { r: 248, g: 245, b: 241 },
       },
     })
-      .composite([{ input: productPng, gravity: "centre" }])
+      .composite(layers)
       .png()
       .toBuffer();
   } catch {
@@ -372,6 +419,30 @@ async function main() {
     : null;
   const patternName = pattern ? patternLabel(pattern) : "";
   const productImageUrl = usableProductImageUrl(article.product?.imageUrl || "");
+  const benefitGenre = isDrinkPipeline
+    ? "drink"
+    : isFoodPipeline
+      ? "food"
+      : isGadgetPipeline
+        ? "gadget"
+        : isLivingPipeline
+          ? "living"
+          : genreLower || "beauty";
+  const productOverlayHook = productImageUrl
+    ? buildOverlayHookLine({
+        genre: benefitGenre,
+        category: String(article.product?.category || "").trim(),
+        name: String(article.product?.name || article.title || "").trim(),
+        snippet: String(
+          article.product?.description ||
+            article.product?.aside ||
+            insta.caption ||
+            article.body ||
+            "",
+        ).trim(),
+        maxLen: 18,
+      })
+    : "";
 
   type SlideOut = {
     title: string;
@@ -422,7 +493,7 @@ async function main() {
                     ? "ガジェット小物"
                     : "便利グッズ")
             ).trim(),
-            pitch: "",
+            pitch: productOverlayHook,
             renderProduct: true,
           },
         ];
@@ -451,7 +522,12 @@ async function main() {
         .slice(0, maxSlides)
         .map((s) =>
           s.kind === "product" && productImageUrl
-            ? { ...s, kind: "product" as const, renderProduct: true }
+            ? {
+                ...s,
+                kind: "product" as const,
+                pitch: productOverlayHook || s.pitch,
+                renderProduct: true,
+              }
             : { ...s, kind: "template" as const },
         );
     }
@@ -523,7 +599,7 @@ async function main() {
         productFirstSlides.push({
           kind: "product",
           title: displayName,
-          pitch: "",
+          pitch: productOverlayHook,
           renderProduct: true,
         });
       } else {
@@ -592,7 +668,12 @@ async function main() {
         : `${productId}-${ts}-s${i + 1}.png`;
     let png: Buffer | null = null;
     if (slide.renderProduct && productImageUrl) {
-      png = await renderProductPhotoCard(productImageUrl, width, height);
+      png = await renderProductPhotoCard(
+        productImageUrl,
+        width,
+        height,
+        slide.pitch || productOverlayHook,
+      );
       if (png) usedProductPhoto = true;
     }
     if (!png) {

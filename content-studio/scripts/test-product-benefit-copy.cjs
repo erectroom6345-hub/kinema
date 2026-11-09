@@ -4,6 +4,7 @@ const {
   scrubMerchantNoise,
   buildBenefitDescription,
   buildReasonLine,
+  buildOverlayHookLine,
   audienceFor,
 } = require("./lib/product-benefit-copy.cjs");
 const { buildArticleCopy } = require("./lib/beauty-catalog-ingest.cjs");
@@ -32,6 +33,23 @@ const gadget = buildReasonLine({
 });
 assert.ok(gadget.length <= 60, gadget);
 assert.ok(/充電|向け|人/.test(gadget), gadget);
+
+const overlay = buildOverlayHookLine({
+  genre: "living",
+  category: "kitchen",
+  name: "密閉保存容器",
+  snippet: "取り出しやすくて片付けやすい密閉容器",
+});
+assert.ok(overlay.length >= 4 && overlay.length <= 22, overlay);
+assert.ok(!/密閉保存容器/.test(overlay), overlay);
+
+const overlayGadget = buildOverlayHookLine({
+  genre: "gadget",
+  category: "power",
+  name: "GaN充電器",
+});
+assert.ok(/充電/.test(overlayGadget), overlayGadget);
+assert.ok(overlayGadget.length <= 22, overlayGadget);
 
 const beauty = buildArticleCopy({
   brand: "hince",

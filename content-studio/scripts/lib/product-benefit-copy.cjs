@@ -259,6 +259,77 @@ function buildAudienceLine(opts = {}) {
   return `${audienceFor(genre, category, name)}向け。`;
 }
 
+/** 余白帯専用の短い得一文（商品名なし・向けなし） */
+function overlayFallbackShort(genre, category, name = "") {
+  const cat = String(category || "").toLowerCase();
+  const n = String(name || "");
+  if (genre === "living") {
+    if (cat === "kitchen") return "取り出し・片付けが楽に";
+    if (cat === "storage") return "置き場所が決まって探しやすい";
+    if (cat === "cleaning") return "毎日のちょい掃除が続く";
+    return "動線のひと手間を減らす";
+  }
+  if (genre === "gadget") {
+    if (cat === "power") return "充電まわりをスッキリ";
+    if (cat === "cable") return "配線のごちゃつきを抑える";
+    if (cat === "desk") return "デスクの作業スペースを残す";
+    if (/防災|停電|ソーラー|トイレ/.test(n)) return "もしもの備えを進める";
+    return "持ち運び・置き場のストレス減";
+  }
+  if (genre === "food") {
+    if (cat === "gift" || cat === "sweets") return "食感と見た目で満足しやすい";
+    if (cat === "seasonal") return "今の時期だけの味を楽しむ";
+    if (/備蓄|非常|保存/.test(n)) return "日持ちする備えを増やす";
+    return "食卓やおやつに一品足す";
+  }
+  if (genre === "drink") {
+    if (cat === "sake") return "香りと飲み口のバランス";
+    if (cat === "shochu") return "キレと飲みやすさを確かめる";
+    if (cat === "seasonal") return "季節酒を一度味わってみる";
+    if (cat === "fruit") return "食後やギフトで楽しみやすい";
+    return "飲む場面から選びやすい";
+  }
+  if (genre === "beauty") {
+    if (/ファンデ|クッション|下地|ベース/.test(n)) return "朝の時短メイクを整える";
+    if (/リップ|ティント|グロス/.test(n)) return "色と塗り心地のバランス";
+    if (/化粧液|化粧水|美容液|クリーム|乳液|スキン/.test(n)) {
+      return "毎日のスキンケアが続きやすい";
+    }
+    return "自分のペースで選びやすい";
+  }
+  return "使いどころがはっきり";
+}
+
+/**
+ * 商品写真カードの余白帯用。商品名を繰り返さず、短い得一文だけ返す。
+ * 目安 18 字（最大 22）。
+ */
+function buildOverlayHookLine(opts = {}) {
+  const genre = String(opts.genre || "living").toLowerCase();
+  const category = String(opts.category || "").trim();
+  const name = String(opts.name || opts.displayName || "").trim();
+  const maxLen = Math.min(22, Math.max(10, Number(opts.maxLen) || 18));
+  const scrubbed = scrubMerchantNoise(
+    opts.snippet || opts.catchcopy || opts.caption || "",
+  );
+  let s = "";
+  if (scrubbed && !looksLikeKeywordSoup(scrubbed) && scrubbed.length >= 8) {
+    s = pickCueSentence(scrubbed, genre)
+      .replace(/[。．！？]+$/u, "")
+      .replace(/^[\s\S]{1,24}?は[、,]\s*/u, "")
+      .replace(/向け.*$/u, "")
+      .replace(/\s+/g, "")
+      .trim();
+  }
+  if (!s || s.length < 4) {
+    s = overlayFallbackShort(genre, category, name);
+  }
+  if (s.length > maxLen) {
+    return `${s.slice(0, maxLen - 1)}…`;
+  }
+  return s;
+}
+
 /**
  * Threads用の短文（IGの長文をそのまま載せない）。
  * line1/line2 + ※PR + URL
@@ -297,5 +368,6 @@ module.exports = {
   buildReasonLine,
   buildDetailLine,
   buildAudienceLine,
+  buildOverlayHookLine,
   buildShortAffiliateThreadsText,
 };
