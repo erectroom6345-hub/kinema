@@ -1,0 +1,92 @@
+{
+  "tip": [
+    {
+      "id": "living-tip-kitchen-zone-01",
+      "productId": "living-tip-kitchen-zone-01",
+      "name": "シンク周りの一時置き",
+      "ask": "シンク周り、洗ったあとの一時置きは決まっていますか？参考に聞かせてください。",
+      "aside": "ちなみに私は、シンク横の一か所だけ決めておくと、散らかりがそこ止まります。",
+      "category": "kitchen",
+      "description": "洗ったあとの皿や食材を置く場所を1か所に決めると、散らかりの発生源が減ります。",
+      "priceRange": "0円",
+      "features": ["一時置きを1か所に", "動線が短くなる", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "living",
+      "labels": { "tip": true },
+      "articleTitle": "シンク周りの一時置き、決まってる？",
+      "articleBody": "シンク周り、洗ったあとの一時置きは決まっていますか？ちなみに私は、シンク横の一か所だけ決めておくと、散らかりがそこ止まります。",
+      "cardSlides": [
+        { "title": "一時置き、決まってますか？", "pitch": "シンク周り" },
+        { "title": "ちなみに私は", "pitch": "シンク横の一か所だけ" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "living-tip-storage-stand-01",
+      "productId": "living-tip-storage-stand-01",
+      "name": "引き出しは重ねる派か立てる派か",
+      "ask": "引き出し、重ねて入れる派ですか、立てる派ですか？参考に聞かせてください。",
+      "aside": "ちなみに私は、立てて入れるようにしてから、探し物が減りました。",
+      "category": "storage",
+      "description": "重ね置きより立てる収納の方が、取り出しと戻しが早くなります。",
+      "priceRange": "0円",
+      "features": ["立てると迷子が減る", "戻しやすい", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "living",
+      "labels": { "tip": true },
+      "articleTitle": "引き出しは重ねる派？立てる派？",
+      "articleBody": "引き出し、重ねて入れる派ですか、立てる派ですか？ちなみに私は、立てて入れるようにしてから、探し物が減りました。",
+      "cardSlides": [
+        { "title": "重ねる派？立てる派？", "pitch": "引き出し" },
+        { "title": "ちなみに私は", "pitch": "立ててから探し物が減った" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "living-tip-cleaning-2min-01",
+      "productId": "living-tip-cleaning-2min-01",
+      "name": "掃除は一気か短時間か",
+      "ask": "掃除、一気にやる派ですか、短時間で区切る派ですか？参考に聞かせてください。",
+      "aside": "ちなみに私は、2分だけと決めると、後回しが減ります。",
+      "category": "cleaning",
+      "description": "完璧を目指さず2分だけやると、後回しのハードルが下がります。",
+      "priceRange": "0円",
+      "features": ["2分タイマー", "完璧を求めない", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "living",
+      "labels": { "tip": true },
+      "articleTitle": "掃除は一気派？短時間派？",
+      "articleBody": "掃除、一気にやる派ですか、短時間で区切る派ですか？ちなみに私は、2分だけと決めると、後回しが減ります。",
+      "cardSlides": [
+        { "title": "一気派？短時間派？", "pitch": "掃除のやり方" },
+        { "title": "ちなみに私は", "pitch": "2分だけと決める" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "living-tip-other-entrance-01",
+      "productId": "living-tip-other-entrance-01",
+      "name": "帰宅したときの置き場",
+      "ask": "帰宅したとき、鍵や袋はどこに置いていますか？参考に聞かせてください。",
+      "aside": "ちなみに私は、玄関の帰る動線に置き場を固定しています。",
+      "category": "other",
+      "description": "鍵・袋・上着の置き場を帰る動線上に揃えると、散らかりが玄関で止まります。",
+      "priceRange": "0円",
+      "features": ["帰る動線を優先", "置き場を固定", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "living",
+      "labels": { "tip": true },
+      "articleTitle": "帰宅したとき、鍵はどこ？",
+      "articleBody": "帰宅したとき、鍵や袋はどこに置いていますか？ちなみに私は、玄関の帰る動線に置き場を固定しています。",
+      "cardSlides": [
+        { "title": "鍵や袋、どこに置きますか？", "pitch": "帰宅したとき" },
+        { "title": "ちなみに私は", "pitch": "帰る動線に固定" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    }
+  ]
+}

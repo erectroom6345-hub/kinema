@@ -1,0 +1,853 @@
+{
+  "version": 7,
+  "genre": "adult-en",
+  "label": "Adult EN (DTI / FC2 / X)",
+  "affiliate": "dti_video_live_goods_paused",
+  "enRulesLocked": {
+    "status": "locked",
+    "lockedAt": "2026-11-02",
+    "updatedAt": "2026-11-03",
+    "tone": "sharper_than_jp",
+    "summary": [
+      "第1ゲート（同時判定）: 使えるDTIアフィリ かつ 英語導線（英語ページ着地）。字幕の話ではない。",
+      "ClickIDだけ／日本語着地だけはここで落とす。discovered に残してもシートには出さない。",
+      "第2ゲート: 着衣クリエイティブ。通ったものだけ status=usable。",
+      "そのあと角度（美人／人気／コス／マニア文面）。",
+      "平常 1→4→3 / マニア 1→2→3→4 / ライブ 1→4。マニア週2＋ライブ土。",
+      "同月アフィリ一意: 同じクリックURL（同じアフィリリンク）は1ヶ月に1回だけ。",
+      "同月URL一意は硬（X予約で同月重複アフィを避ける）。先月パックのURLは優先してよい。",
+      "不足時はCarib深リンク自動拡張→ライブ切れは映像。同月再利用はしない。足りなければ欠日WARN。",
+      "カタログ構成: 本家Caribが主。Premiumは深リンクで伸ばす（毎日埋めない）。10musume/muramura/pacopacomamaは月1本ずつ。",
+      "着地は Direct（moviepages）優先。eng/index2.htm などサイト入口クリックはスケジュールに使わない（着衣顔素材のみ可）。"
+    ],
+    "catalogMix": {
+      "main": "caribbeancom",
+      "grow": "caribbeancompr_deep_links",
+      "monthlyOneEach": ["10musume", "muramura", "pacopacomama"],
+      "live": ["dxlive", "sakuralive"],
+      "landing": "prefer_deep_direct_moviepages",
+      "excludeFromSchedule": ["caribbeancom_entrance_index2"],
+      "notes": "Premiumは別カタログ。単価は上がりやすいので週数本。3サイトはユニークURLが薄いので月1が上限。入口トップはX→もう一クリックになるので使わない。"
+    },
+    "preferDeepDirect": {
+      "locked": true,
+      "rule": "clickUrl に moviepages を含む Direct を優先。入口（index2.htm 等）はパックに出さない。",
+      "entrancePortraits": "SFW顔・ライブ日の顔画像流用のみ。投稿リンクには使わない。",
+      "enforcedBy": "scripts/generate-adult-month-packs.py"
+    },
+    "sameMonthUniqueAffiliate": {
+      "locked": true,
+      "unit": "clickUrl",
+      "rule": "同じクリックURLは同一カレンダー月に2回出さない（硬）。先月分の使い直しは月が変われば可。",
+      "onShortage": "Carib deep-link 自動追加と live→video。同月再利用禁止。それでも不足なら欠日を残してWARN（--strict で失敗）。",
+      "preferPrevMonth": true,
+      "sameMonthReuse": false,
+      "zeroGap": "aim",
+      "enforcedBy": "scripts/generate-adult-month-packs.py"
+    }
+  },
+  "selectionPriority": {
+    "steps": {
+      "1": "usableAffiliate_and_englishLanding_together",
+      "2": "sharpVoiceFaceText_maniacDaysOnly",
+      "3": "preferDayAngle_beautyPopularCosplay",
+      "4": "sfwCreativeGate_clothed"
+    },
+    "gate1": {
+      "name": "affiliate_plus_english_landing",
+      "runTogether": true,
+      "efficiency": "Click取得と英語着地確認を同じパスでやる。後から英語チェックしない。",
+      "passIf": [
+        "DTI click/direct with user id",
+        "follow redirect lands on English UI or /eng/ path (not JP-only top)"
+      ],
+      "failIf": [
+        "no click url",
+        "JP-only landing",
+        "404 affiliate link"
+      ],
+      "notAbout": "video subtitles"
+    },
+    "usableAffiliateMeans": {
+      "requireAll": [
+        "affiliate=dti",
+        "clickUrl_with_user_id",
+        "english_landing_confirmed",
+        "status=usable",
+        "sfwVerified=true"
+      ],
+      "notEnough": [
+        "ClickIDだけ（英語着地未確認）",
+        "日本語トップだけのリンク",
+        "着衣未確認"
+      ]
+    },
+    "normalDayOrder": ["1", "4", "3"],
+    "maniacDayOrder": ["1", "2", "3", "4"],
+    "liveDayOrder": ["1", "4"],
+    "locked": true,
+    "sheetGeneration": "rules_locked_sheets_not_yet",
+    "catalogPath": "input/affiliate-offers-adult-en.json",
+    "efficiencyNotes": [
+      "Gate1でアフィ＋英語着地を同時判定。落ちたサイトは着衣確認に進まない。",
+      "Gate1通過後だけ着衣（4）。両方通って usable。",
+      "投稿生成は status=usable かつ sfwVerified=true のみ。"
+    ],
+    "rules": [
+      "第1に『DTI usable かつ 英語導線』を同時判定。",
+      "英語導線＝着地ページの言語。字幕ではない。",
+      "着衣NGはスキップして別候補。アフィ無し禁止。",
+      "平常: 1→4→3 / マニア: 1→2→3→4 / ライブ: 1→4。",
+      "FANZA/DMMは海外版で使わない。"
+    ]
+  },
+  "selectionFilters": {
+    "dtiDiscovery": {
+      "role": "inventory_only",
+      "where": "scripts/harvest-dti-offers.py → discoveredSites",
+      "outputs": "discovered_click_only",
+      "doesNotMeanUsable": true,
+      "promoteToUsableWhen": [
+        "english_landing_confirmed",
+        "clothed_creative_sfwVerified",
+        "status flipped to usable in affiliate-offers-adult-en.json"
+      ],
+      "tryOrder": ["Caribbeancom", "1pondo", "HEYZO", "Caribbeancom Premium", "10musume", "pacopacomama", "DXLIVE", "SakuraLive"],
+      "rejectFromScheduleIf": ["discovered_only", "no_english_asset", "no_clothed_creative", "voyeur_school_only"]
+    },
+    "clothedCreativeAnswer": {
+      "hasClothed": true,
+      "where": "Caribbeancom EN entrance portraits (/eng/images/entrance/*.jpg)",
+      "verifiedClothed": ["asakura", "maeda", "ohashi", "uehara", "sena", "onoue"],
+      "rejected": [
+        {"id": "hatano", "reason": "topless_star_censor"},
+        {"id": "aso", "reason": "bra_lingerie"},
+        {"id": "banner_sakura", "reason": "explicit_live_banner"}
+      ],
+      "movieListThumbs": "原則使わない。都度目視が必要ならスキップ優先。",
+      "dtiAdminBanners": "管理画面の英語バナーも着衣確認できれば offers に追加可。"
+    },
+    "textFields": ["title", "subtitle", "description", "tags"],
+    "includeSignals": {
+      "oho": {
+        "lane": "maniac",
+        "anyOf": ["oho", "ohh", "オホ", "オホ声"]
+      },
+      "moanVoice": {
+        "lane": "maniac",
+        "label": "喘ぎ声",
+        "anyOf": ["moan", "moaning", "loud moan", "heavy breathing", "喘ぎ", "喘ぎ声", "甘い声", "声が"]
+      },
+      "animeVoice": {
+        "lane": "maniac",
+        "label": "アニメ声",
+        "anyOf": ["anime voice", "anime-voice", "seiyuu", "voice actress", "アニメ声", "声優", "二次声", "キャラ声"]
+      },
+      "ahegao": {
+        "lane": "maniac",
+        "anyOf": ["ahegao", "ahe", "rolled eyes", "orgasm face", "fuck face", "アヘ", "アヘ顔"]
+      },
+      "beautyForeign": {
+        "lane": "normal",
+        "anyOf": ["blonde", "caucasian", "western", "eurasian", "mixed", "foreign", "international"]
+      },
+      "beautyJpForEn": {
+        "lane": "normal",
+        "notes": "EN向けのJP美人レーン。外国人目線で刺さる顔。"
+      },
+      "popular": {
+        "lane": "normal",
+        "anyOf": ["popular", "best", "ranking", "legendary", "famous", "series"],
+        "notes": "サイト内人気・シリーズ常連。固定推しリストは作らない。同一女優の別作品は可。"
+      },
+      "cosplay": {
+        "lane": "normal",
+        "anyOf": ["cosplay", "costume", "roleplay", "nurse", "bunny", "maid"],
+        "forbidAnyOf": ["school", "student", "uniform girl", "teen", "学園", "JK"]
+      }
+    },
+    "maniacTextRule": {
+      "adoptIfAnyOfLanes": ["oho", "moanVoice", "animeVoice", "ahegao"],
+      "notes": "マニア日はタイトル／サブ／説明のいずれかに上記があれば採用候補。着衣ゲートは別途必須。"
+    },
+    "dayTypes": {
+      "normal": {
+        "pipeline": ["1_dti_usable", "4_clothed", "3_angle"],
+        "angles": ["beautyForeign", "beautyJpForEn", "popular", "cosplay"]
+      },
+      "maniac": {
+        "pipeline": ["1_dti_usable", "2_sharp_voice_face_text", "3_angle_optional", "4_clothed"],
+        "maxPerWeek": 2,
+        "notes": "海外版は尖り多め。喘ぎ声・アニメ声・オホ・アヘ。"
+      },
+      "live": {
+        "label": "ライブチャット",
+        "weekday": "sat",
+        "pipeline": ["1_dti_live_click", "4_clothed_or_partner_fallback"],
+        "affiliate": "dti",
+        "copyFocus": "who is on now + reaction",
+        "notes": "カリビアンコム映像日と混ぜない。専用SFWが無ければ同網着衣フォールバック。"
+      }
+    },
+    "weeklyPreferred": {
+      "mon": "maniac_moan_or_anime",
+      "tue": "beautyForeign",
+      "wed": "maniac_ahegao_or_oho",
+      "thu": "popular",
+      "fri": "cosplay",
+      "sat": "liveChat",
+      "sun": "beautyJpForEn",
+      "status": "locked",
+      "notes": "マニア週2＋ライブ週1でJPより尖る。平常は美人／人気／コス。"
+    },
+    "skipAndRefill": {
+      "onClothedNg": "skip_title_try_next",
+      "neverEmit": ["post_without_dti_url", "blank_image_row"],
+      "maniacFallbackToNormal": true
+    },
+    "actressPolicy": {
+      "fixedActressList": false,
+      "samePersonDifferentWorks": true,
+      "maxSameActressPerMonth": 3,
+      "source": "dti_site_title_and_official_creative"
+    }
+  },
+  "affiliateNotes": "海外向け映像は DTI CASH。着衣あり（Caribbeancom EN entrance で確認済み6枚）。一本道・HEYZO は ClickID＋着衣バナー確認後に追加。ライブ専用SFWは未取得のため暫定で同網着衣。グッズは FNCash/TENGA 承認後。DMMは海外版では使わない。",
+  "dtiVideoSites": {
+    "primary": ["Caribbeancom"],
+    "tryNext": ["1pondo", "HEYZO", "Caribbeancom Premium"],
+    "optional": ["10musume", "pacopacomama"],
+    "avoidOnX": ["voyeur", "盗撮", "school framing"],
+    "linkRule": "広告素材は言語:英語。着衣確認できたバナー／入口画像だけ X に使う。サイトごとに ClickID を分け、notes にサイト名を残す。",
+    "notes": "着衣クリエイティブが無いサイトはリンクだけ先に持たない。素材が揃ってから offers へ。"
+  },
+  "affiliateStatus": "partnered",
+  "account": "genre_dedicated",
+  "automation": {
+    "mode": "semi_auto_monthly_schedule",
+    "reason": "X無料枠では API 自動投稿不可。月1回バッチ生成 → X予約投稿で運用。",
+    "xApiLivePost": false,
+    "notes": "他ジャンルの postX 自動投稿は使わない。成果物は予約パック（本文・画像・日時）。"
+  },
+  "accountStatus": {
+    "x": "created",
+    "xHandleEnv": "ADULT_EN_X_HANDLE",
+    "fc2": "exists_jp_needs_en",
+    "fc2Url": "https://tatsuportal.blog.fc2.com/",
+    "envPrefix": "ADULT_EN_",
+    "envReady": {
+      "xHandle": true,
+      "dmmAffiliateId": true,
+      "fc2Url": true,
+      "xOauthApiKeys": false
+    },
+    "notes": "HANDLE / DMM ID / FC2 URL 済み。OAuth API鍵は予約運用のため不要。"
+  },
+  "brandIsolation": {
+    "separateFromTreasureShop": true,
+    "notes": "treasure-shop / beauty / living 等と相互フォロー・相互リンク・同一カード資産を使わない。adult-jp とはアカウント、文面、リンク、美人の選定を共有しない。"
+  },
+  "audience": {
+    "primary": "en",
+    "locale": "en-US",
+    "viewer": "male",
+    "ageGate": "18+",
+    "notes": "見る人は男。英語キャプション・英語ブログ。beauty は foreign / jp を分ける。グッズは日本製＋サイズ適合明示。"
+  },
+  "persona": {
+    "gender": "male",
+    "perspective": "first_person",
+    "archetype": "male_reaction_curator",
+    "inspiredBy": "人気の男向け反応系（短文・体験・声/顔ピンポイント）。カタログ口調やレビュアー肩書きは使わない。",
+    "voice": {
+      "register": "casual_explicit_ok",
+      "focusByCategory": {
+        "oho": "声だけ。『声だけでいける』『この喘ぎで持ってかれた』系。映像説明はしない。",
+        "ahegao": "顔だけ。『この顔クセになる』『崩れた瞬間がヤバい』系。ストーリーは書かない。",
+        "beautyForeign": "ルックスへの即反応。欧米基準で刺さった点を一言。",
+        "beautyJp": "JP美人レーンである一言＋反応。",
+        "cosplay": "衣装の瞬間＋反応。プロットなし。",
+        "liveChat": "今いる相手への反応。『入ったらこの子がいた』系。バナー羅列や料金表は書かない。",
+        "goods": "休止中。FNCash/TENGA 承認後に再開。嵌り方・サイズ感。"
+      }
+    },
+    "exampleHooks": {
+      "oho": [
+        "Voice alone got me — didn’t need the rest.",
+        "That soft moan looped in my head.",
+        "Finished to the audio. Twice."
+      ],
+      "ahegao": [
+        "That face is addictive.",
+        "Eyes gone, mouth open — couldn’t look away.",
+        "Rewound just for the face melt."
+      ]
+    },
+    "forbid": [
+      "product brochure tone",
+      "actress resume dump",
+      "we / our channel corporate voice",
+      "female-coded narrator"
+    ]
+  },
+  "profile": {
+    "pinnedBioRequired": true,
+    "bioLanguage": "en",
+    "termGlossary": {
+      "oho": {
+        "label": "Oho voice (オホ声)",
+        "bioBlurb": "Oho voice = intense, high moans — the loud “ohh…” that takes over.",
+        "nuance": "激しい声寄り（弱い吐息より、喘ぎが強くなる瞬間）。",
+        "expandInFirstPosts": true
+      },
+      "ahegao": {
+        "label": "Ahegao (アヘ顔)",
+        "bioBlurb": "Ahegao = the overwhelmed face: eyes rolled, tongue out, totally gone.",
+        "expandInFirstPosts": true
+      }
+    },
+    "bioTemplate": "18+ male picks (DMM/FANZA affiliate).\nOho = intense moans that hit hard.\nAhegao = overwhelmed face, eyes rolled.\nReviews only — voice, face, fit.",
+    "bioNotes": "プロフィール欄でオホ声・アヘ顔の意味を必ず書いておく。オホは激しい声ニュアンス。"
+  },
+  "posting": {
+    "perDay": 1,
+    "requirePr": true,
+    "preferredHourLocal": "12:00",
+    "timezone": "Asia/Tokyo",
+    "preferredHourRationale": "米西海岸の夜前〜夜（PDT 20:00頃）に当たりやすい。EN反応系のゴールデンに寄せる。",
+    "mode": "x_native_schedule",
+    "batch": {
+      "cadence": "monthly",
+      "postsPerMonth": 28,
+      "generateAheadDays": 28,
+      "primaryFormat": "csv",
+      "workSurface": "mac_browser_x_plus_sheets_or_csv",
+      "scheduleOnlyOn": "mac_web_x",
+      "outputDir": "output/adult-en",
+      "files": {
+        "csv": "output/adult-en/x-schedule-pack.csv",
+        "json": "output/adult-en/x-schedule-pack.json",
+        "copyHtml": "output/adult-en/x-schedule-pack.copy.html",
+        "templateCsv": "templates/adult-en/x-schedule-pack.template.csv",
+        "templateJson": "templates/adult-en/x-schedule-pack.template.json"
+      },
+      "monthRoll": {
+        "order": ["adult-en", "adult-jp"],
+        "description": "先に海外版1ヶ月分の copy.html を出す。続けて日本版1ヶ月分を出す。予約作業もその順。",
+        "onNewMonth": "月末prepの最初に前月シートを消す。対象は adult-en/jp の csv・json・copy.html・dups・teasers・teasers-dups、手載せHTML、_gate2_probe、_bak。adult-sfw-bank は残す。",
+        "uniqueAffiliate": "sameMonthUniqueClickUrl — 予約投入前にURL重複ゼロを確認。"
+      },
+      "monthEndPrep": {
+        "enabled": true,
+        "when": "毎月27–29日 10:00（launchd・JPと共通／30–31予約前）",
+        "script": "scripts/prep-adult-next-month.sh",
+        "runner": "run-adult-month-prep.sh",
+        "install": "scripts/install-adult-month-prep-agent.sh",
+        "auto": [
+          "DTI harvest（credsあれば）",
+          "Carib/Premium 深リンク拡張（generator内）",
+          "unique clickUrl 在庫カウント",
+          "翌月 EN+JP pack 生成",
+          "不足をログ／通知"
+        ],
+        "stillManual": [
+          "着衣ゲート（sfwVerified）の目視確認が残る分",
+          "X手載せ予約（Webのみ）"
+        ],
+        "targetUniqueUrls": "翌月の投稿日数以上（目安28〜31）。入口URL共有のオファーは1URL扱い。"
+      },
+      "macScheduleRules": {
+        "reason": "Xの予約投稿はWeb（パソコン）のみ。携帯では予約できない。",
+        "steps": [
+          "月次パック（csv）を Sheets に取り込むか、Excel/Numbers で開く",
+          "status=ready の1行を開く",
+          "text をコピー",
+          "image_local の画像を1枚添付（無ければ image_url）",
+          "ブラウザの X で予約投稿（date / time = JST）",
+          "status を scheduled に更新"
+        ],
+        "avoid": [
+          "携帯アプリで予約しようとする",
+          "画像フォルダを全部アップロードする",
+          "text のURLを手で書き換えない"
+        ]
+      },
+      "imagePrepOnMac": {
+        "maxWidthPx": 1200,
+        "maxFileKb": 300,
+        "format": "jpeg",
+        "naming": "{date}_{productId}.jpg",
+        "localDir": "output/adult-en/teasers/",
+        "notes": "予約はMacのローカル teasers（image_local）を優先。image_url は任意。"
+      },
+      "csvColumns": [
+        {
+          "name": "date",
+          "required": true,
+          "example": "2026-11-01",
+          "notes": "YYYY-MM-DD（JST）"
+        },
+        {
+          "name": "time",
+          "required": true,
+          "example": "12:00",
+          "notes": "JST 24h。既定 12:00"
+        },
+        {
+          "name": "category",
+          "required": true,
+          "example": "oho"
+        },
+        {
+          "name": "product_id",
+          "required": true,
+          "example": "dmm-oho-001"
+        },
+        {
+          "name": "text",
+          "required": true,
+          "example": "Voice alone got me.\\n\\nhttps://...\\n#ad 18+",
+          "notes": "完成文面（改行はCSV内で保持。Sheetsではセル内改行）。コピペ用本体。"
+        },
+        {
+          "name": "dmm_url",
+          "required": true,
+          "example": "https://al.fanza.co.jp/...",
+          "notes": "text 内にも同じURLを含める。確認用に列でも持つ。"
+        },
+        {
+          "name": "image_url",
+          "required": false,
+          "example": "https://...",
+          "notes": "任意。Macでは image_local を優先。"
+        },
+        {
+          "name": "image_local",
+          "required": true,
+          "example": "output/adult-en/teasers/2026-11-01_dmm-oho-001.jpg",
+          "notes": "Mac予約で添付する1枚。"
+        },
+        {
+          "name": "status",
+          "required": true,
+          "example": "ready",
+          "notes": "ready | scheduled | posted | skipped。予約したパソコンで更新。"
+        },
+        {
+          "name": "notes",
+          "required": false,
+          "example": "moan sample ok",
+          "notes": "自分用メモ。投稿には使わない。"
+        }
+      ],
+      "jsonShape": {
+        "version": 1,
+        "genre": "adult-en",
+        "timezone": "Asia/Tokyo",
+        "generatedAt": "ISO8601",
+        "month": "YYYY-MM",
+        "posts": "array of row objects (same keys as csvColumns)"
+      },
+      "workflow": [
+        "Mac: 月次パック生成（csv + json）。画像は teasers/ に圧縮して image_local を埋める",
+        "CSVを Sheets か Excel/Numbers で開く（作業台はパソコン）",
+        "ブラウザの X で1行ずつ予約（text + image_local）",
+        "status を scheduled に更新",
+        "月末: scheduled/posted を posted-adult-en.json に反映"
+      ],
+      "humanSteps": [
+        "パソコンでパック確認",
+        "ブラウザXで予約投入",
+        "FC2英語ページへサンプル紹介を追記（別作業・月数回で可）"
+      ]
+    },
+    "cta": "x_self_contained",
+    "ctaNotes": {
+      "x": "SNS完結: DMMアフィリエイトURL直載せ。ブログ誘導なし。感想本文＋リンク。商品スペック説明は書かない。予約投稿で配信。",
+      "blog": "FC2はまとめサイト。本編なし。既存JPはそのまま、ENページを新設。",
+      "instagram": "使わない",
+      "threads": "使わない"
+    },
+    "platforms": ["x"],
+    "noDmCommentReplyCta": true,
+    "mediaPolicy": {
+      "x": {
+        "default": "affiliate_sfw_creative",
+        "prefer": [
+          "affiliate_official_clothed_portrait",
+          "affiliate_official_swimsuit_banner",
+          "curiosity_gap_tease"
+        ],
+        "avoidDefault": [
+          "fanza_package_pl_jpg",
+          "hardcore_official_thumb_as_main",
+          "explicit_ahegao_still_on_timeline",
+          "topless_star_censor",
+          "lingerie_bra_closeup"
+        ],
+        "rationale": "アフィリエイト優先。海外版は DTI 公式プロモの着衣だけを使う。FANZA パッケージは海外版のリンク先でもなく NSFW なので禁止。",
+        "exception": "goods は商品パッケージ／公式物撮りでよい（露出が主目的のサムネは避ける）。"
+      },
+      "fc2": {
+        "default": "sample_still_or_clip",
+        "prefer": ["official_sample_extract", "package_shot_for_goods"],
+        "notes": "まとめページではサンプル抜粋を使ってよい（短尺OK）。"
+      },
+      "rights": "公式サンプル／公式プレス静止画のみ。無断切り抜きの再配布はしない。抜粋は紹介目的の短尺。",
+      "avoid": ["custom_nsfw_collage", "face_crops_without_rights", "full_video_hosting_on_fc2"]
+    }
+  },
+  "samplePolicy": {
+    "hostFullVideo": false,
+    "minDurationSec": 1,
+    "maxDurationSec": 20,
+    "shortOk": true,
+    "byCategory": {
+      "oho": {
+        "extract": "moan_only",
+        "notes": "喘ぎ声の区間だけ抜く。映像説明は不要。声が分かれば秒数は短くてよい。"
+      },
+      "ahegao": {
+        "extract": "face_visible",
+        "notes": "顔（アヘ顔）が見れればよい。秒数は短くてよい。"
+      }
+    },
+    "source": "official_sample_only",
+    "fc2Usage": "oho/ahegao 紹介エントリにのみサンプル抜粋を添える。beauty/cosplay はブログ既定対象外。"
+  },
+  "tipPosts": {
+    "enabled": true,
+    "weekday": "sat",
+    "requirePr": false,
+    "catalogPath": "input/products-adult-en-tips.json",
+    "description": "土曜はアフィ無しの用語メモも可。通常は goods の日。tip に差し替える週は手動。"
+  },
+  "snsCopy": {
+    "language": "en",
+    "style": "reaction_first",
+    "beats": [
+      "hook_sensation",
+      "body_reaction",
+      "specific_moment",
+      "soft_cta_link"
+    ],
+    "maxLines": 5,
+    "prToken": "#ad",
+    "forbidBeats": [
+      "feature_list",
+      "spec_dump",
+      "generic_product_description",
+      "plot_synopsis_long"
+    ],
+    "copyPrinciples": [
+      "男の一人称・反応が本体。商品説明は書かない。",
+      "oho は声、ahegao は顔にピンポイント。",
+      "主語は I。カタログ口調にしない。"
+    ],
+    "reactionLexicon": {
+      "preferred": [
+        "voice alone got me",
+        "finished more than once",
+        "that face is addictive",
+        "couldn’t look away",
+        "rewound just for that moment"
+      ],
+      "avoid": [
+        "high quality video",
+        "great production",
+        "recommended product",
+        "must buy",
+        "best seller"
+      ]
+    },
+    "xAction": "link under the reaction — no soft sell paragraph"
+  },
+  "categories": [
+    "oho",
+    "ahegao",
+    "beautyForeign",
+    "beautyJp",
+    "cosplay",
+    "liveChat",
+    "goods",
+    "other"
+  ],
+  "categoryRoles": {
+    "main": ["oho", "ahegao", "beautyForeign", "beautyJp", "cosplay"],
+    "support": ["liveChat"],
+    "paused": ["goods"],
+    "occasional": ["other"],
+    "notes": "グッズ未承認のため土曜は liveChat。ASMR枠なし。otherはたまに（interrupt）。"
+  },
+  "categoryDefs": {
+    "oho": {
+      "label": "Oho voice",
+      "productTypes": ["video"],
+      "channels": ["x", "fc2_sample_intro"],
+      "copyFocus": "voice alone",
+      "profileTerm": "oho"
+    },
+    "ahegao": {
+      "label": "Ahegao",
+      "productTypes": ["video"],
+      "channels": ["x", "fc2_sample_intro"],
+      "copyFocus": "face addiction",
+      "profileTerm": "ahegao"
+    },
+    "beautyForeign": {
+      "label": "Beauty (foreign look)",
+      "productTypes": ["video"],
+      "channels": ["x"],
+      "beautyLens": "foreign"
+    },
+    "beautyJp": {
+      "label": "Beauty (Japanese look)",
+      "productTypes": ["video"],
+      "channels": ["x"],
+      "beautyLens": "jp_for_en"
+    },
+    "cosplay": {
+      "label": "Cosplay / character",
+      "productTypes": ["video"],
+      "channels": ["x"],
+      "copyFocus": "costume moment + reaction",
+      "notes": "学校・未成年に見える演出は動画でも禁止。"
+    },
+    "liveChat": {
+      "label": "Live chat",
+      "productTypes": ["live"],
+      "channels": ["x"],
+      "affiliate": "dti",
+      "offer": "SakuraLive / DTI live click banners",
+      "copyFocus": "who is on now + reaction",
+      "notes": "グッズ枠の代わり。クリック報酬バナー可。未成年・学校に見える配信は出さない。カリビアンコムの映像日とは混ぜない。"
+    },
+    "goods": {
+      "label": "Japanese adult goods",
+      "productTypes": ["goods"],
+      "channels": ["x", "fc2_roundup"],
+      "status": "paused_indefinitely_for_now",
+      "origin": "jp",
+      "sizeFitRequired": true,
+      "preferredLines": [
+        "fleshlight_fncash",
+        "tenga_and_compatible"
+      ],
+      "notes": "当分休止（TENGAは情勢で遅延見込み・グッズ枠はライブ土で代替）。FNCash/TENGA承認まで土曜はSakuraLive/DXLIVE。制服コス・未成年示唆は禁止。"
+    },
+    "other": {
+      "label": "Other / seasonal",
+      "productTypes": ["video", "goods"],
+      "channels": ["x"],
+      "notes": "たまにだけ。"
+    }
+  },
+  "beautyLensRules": {
+    "doNotMixInSamePost": true,
+    "foreign": {
+      "selectHints": ["Western / Eurasian features preferred by EN feed"],
+      "copyHints": ["name the look briefly if needed"]
+    },
+    "jp_for_en": {
+      "selectHints": ["JP AV beauty codes"],
+      "copyHints": ["one short cue that this is the JP beauty lane"]
+    }
+  },
+  "categorySchedule": {
+    "timezone": "Asia/Tokyo",
+    "status": "locked",
+    "weekly": {
+      "mon": "maniac_moan_or_anime",
+      "tue": "beautyForeign",
+      "wed": "maniac_ahegao_or_oho",
+      "thu": "popular",
+      "fri": "cosplay",
+      "sat": "liveChat",
+      "sun": "beautyJp"
+    },
+    "maniacDays": ["mon", "wed"],
+    "liveDay": "sat",
+    "weeklyCountsTarget": {
+      "maniac": 2,
+      "beautyForeign": 1,
+      "popular": 1,
+      "cosplay": 1,
+      "liveChat": 1,
+      "beautyJp": 1,
+      "goods": 0,
+      "other": 0
+    },
+    "minCategoryGapDays": 1,
+    "fallbackOrder": [
+      "beautyForeign",
+      "popular",
+      "cosplay",
+      "beautyJp",
+      "liveChat"
+    ],
+    "otherPolicy": "fixed weekday に入れない。sale/campaign interrupt のときだけ。",
+    "notes": "尖り構成ロック。マニア月・水、ライブ土。グッズはFNCash承認後かつセール時のみ割込。"
+  },
+  "interrupt": {
+    "enabled": true,
+    "maxPerWeek": 2,
+    "priority": ["campaign", "sale"],
+    "respectCategoryGap": true,
+    "description": "sale/campaign は週最大2回。other としても使える。"
+  },
+  "seedCatalog": {
+    "path": "input/affiliate-offers-adult-en.json",
+    "legacyFanzaCatalog": "input/products-adult-en.json",
+    "legacyNotes": "products-adult-en.json は FC2 まとめや将来の参照用。X月次パックの入力には使わない。",
+    "goodsSeedHints": [
+      "FNCash/TENGA 承認後に offers へ追加",
+      "TENGA U.S. (Ultra Size) Cup 系を最低1",
+      "TENGA EGG / 伸縮系を最低1"
+    ]
+  },
+  "productRules": {
+    "currency": "JPY",
+    "priceMinYen": 300,
+    "priceMaxYen": 15000,
+    "preferredPriceMinYen": 500,
+    "preferredPriceMaxYen": 5000,
+    "productCoolDownDays": 21,
+    "minAgeContent": 18,
+    "requiredFields": [
+      "id",
+      "name",
+      "category",
+      "productType",
+      "beautyLens",
+      "reactionHooks",
+      "dmmUrl",
+      "imageUrl"
+    ],
+    "optionalFields": [
+      "priceRange",
+      "sale",
+      "campaign",
+      "popular",
+      "campaignEndAt",
+      "saleEndAt",
+      "tags",
+      "sampleUrl",
+      "sampleExtractNote",
+      "teaserImageUrl",
+      "sizeFit",
+      "sizeNotes"
+    ],
+    "fieldNotes": {
+      "description": "使わない。",
+      "features": "使わない。",
+      "reactionHooks": "string[] — 感想の種。必須。",
+      "beautyLens": "null | foreign | jp_for_en",
+      "productType": "video | goods",
+      "sampleUrl": "公式サンプル。oho/ahegao のFC2用。",
+      "sampleExtractNote": "oho=moan_only / ahegao=face_visible など。",
+      "teaserImageUrl": "X用。水着・服・顔控えめの公式静止画。無ければ imageUrl を使い、明示的エロサムネは後段で落とす。",
+      "sizeFit": "goods: standard | ultra | stretch | unknown",
+      "sizeNotes": "TENGA U.S. 等の寸法を一行。"
+    },
+    "goodsSizePolicy": {
+      "requireSizeFit": true,
+      "preferLinesWithForeignerFriendlyOptions": true,
+      "tengaNotes": "U.S.(Ultra Size) Cup ≈18cm / 幅≈6cm（標準の約1.2倍）。それ以上は EGG / 3D など伸縮系。標準Cupを『誰でも』とは書かない。",
+      "costumeNotes": "制服コスは成人向け衣装として扱う。海外サイズ（XL等）が無い商品は EN 向け優先度を下げる。未成年・学園エロの文言は禁止。"
+    },
+    "labelFields": {
+      "sale": "boolean",
+      "campaign": "boolean",
+      "popular": "boolean",
+      "campaignEndAt": "ISO日付",
+      "saleEndAt": "ISO日付"
+    },
+    "forbidInCatalogCopy": [
+      "long plot synopsis",
+      "actress bio dump",
+      "runtime / codec as selling points"
+    ]
+  },
+  "utm": {
+    "enabled": true,
+    "pattern": "existing_content_studio",
+    "fields": {
+      "utm_source": "x | fc2",
+      "utm_medium": "social | affiliate",
+      "utm_campaign": "adult-en_{productId}",
+      "utm_content": "{source}_{YYYYMMDD}"
+    },
+    "notes": "他ジャンルの utm.ts / utm.cjs と同じ型。DMM側でクエリが落ちる場合はアフィパラメータ優先・UTMは付く範囲で。"
+  },
+  "growth": {
+    "windowHours": 48,
+    "primaryPlatform": "x",
+    "likeMedianMultiplier": 2,
+    "recentWindow": 20,
+    "minRepliesPlusQuotes": 2
+  },
+  "blog": {
+    "platform": "fc2",
+    "url": "https://tatsuportal.blog.fc2.com/",
+    "mode": "category_roundup",
+    "role": "summary_site",
+    "status": "exists_jp",
+    "hostFullVideo": false,
+    "bilingual": {
+      "jp": {
+        "status": "exists",
+        "keepAsIs": true,
+        "notes": "既存の日本語コンテンツは維持。ENと混ぜない。"
+      },
+      "en": {
+        "status": "needed",
+        "language": "en",
+        "approach": "same_blog_separate_en_pages",
+        "notes": "同一FC2内に英語まとめページを新設。JP記事の翻訳ではなく、EN向けに書き下ろし（反応・サンプル・サイズ）。"
+      }
+    },
+    "enPages": {
+      "xLanding": {
+        "title": "Oho, ahegao, and Japanese toys that fit",
+        "draftPath": "templates/adult-en/fc2-en-x-landing.html",
+        "purpose": "Xから貼る英語記事はこれ1本。オホ・アヘは説明用サンプル各1。本体は外国人向け日本グッズ。",
+        "expectedUrlAfterNextPublish": "https://tatsuportal.blog.fc2.com/blog-entry-5.html",
+        "doNotLinkBlogRootFromX": true,
+        "notes": "ブログトップは日本語のFANZA解説（entry 1-4）。Xにはこの英語記事の個別URLだけ貼る。公開前のURLは未確定。次に公開すれば entry-5 になる想定。"
+      }
+    },
+    "seedPerCategory": 2,
+    "appendOnlyOnHit": true,
+    "splitAfterProducts": 15,
+    "entryStyle": "sample_intro_or_goods_reaction",
+    "includeCategories": ["oho", "ahegao", "goods"],
+    "excludeFromBlogByDefault": ["beautyForeign", "beautyJp", "cosplay", "other"],
+    "roundupTitles": {
+      "oho": "Oho voice intros (moan samples)",
+      "ahegao": "Ahegao intros (face samples)",
+      "goods": "Japanese goods that actually hit"
+    },
+    "entryRules": {
+      "oho": "本編なし。EN感想＋喘ぎ抜粋サンプル＋DMM。",
+      "ahegao": "本編なし。EN感想＋顔が見える短尺サンプル＋DMM。",
+      "goods": "EN感想＋sizeFit一行。TENGA優先。"
+    },
+    "publishMode": "manual_or_semi",
+    "publishNotes": "FC2もAPI完全自動は後回し可。月次でENまとめを追記する運用でよい。"
+  },
+  "compliance": {
+    "requireAgeLabel": true,
+    "ageLabelToken": "18+",
+    "noMinorsImageryOrThemes": true,
+    "noSchoolUniformFetishFraming": true,
+    "adultCostumeGoodsAllowed": true,
+    "adultCostumeGoodsNotes": "成人サイズのコス衣装販売は可。動画・文言で未成年・学園エロを連想させない。",
+    "affiliateDisclosure": "Always include #ad on affiliate posts."
+  },
+  "openItems": [
+    "ADULT_EN_DTI_PASSWORD を .env に1回入れるか、ブラウザログイン後に harvest-dti-offers.py を走らせて他サイトClickIDを自動取得",
+    "取得後、着衣バナーだけ目視ゲートして pending_clothed → usable",
+    "DXLIVE / SakuraLive の専用 SFW バナーを取得してライブ日の顔フォールバックをやめる",
+    "FNCash/TENGA 承認後に goods offer を追加"
+  ]
+}

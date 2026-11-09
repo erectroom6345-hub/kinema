@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "genre": "adult-en",
+  "timezone": "Asia/Tokyo",
+  "generatedAt": "2026-10-19T12:00:00+09:00",
+  "month": "2026-11",
+  "phoneLight": true,
+  "notes": "CSV/Sheets が作業台。image_url を携帯で1枚だけ使う。teasers/ は同期しない。",
+  "posts": [
+    {
+      "date": "2026-11-01",
+      "time": "12:00",
+      "category": "oho",
+      "product_id": "dmm-oho-001",
+      "text": "Voice alone got me — didn’t need the rest.\n\nhttps://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm\n#ad 18+",
+      "dmm_url": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "image_url": "https://example.cdn/teaser-oho-001.jpg",
+      "image_local": "output/adult-en/teasers/2026-11-01_dmm-oho-001.jpg",
+      "status": "ready",
+      "notes": "moan-focused"
+    },
+    {
+      "date": "2026-11-02",
+      "time": "12:00",
+      "category": "ahegao",
+      "product_id": "dmm-ahe-001",
+      "text": "That face is addictive. Rewound just for the melt.\n\nhttps://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm\n#ad 18+",
+      "dmm_url": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "image_url": "https://example.cdn/teaser-ahe-001.jpg",
+      "image_local": "output/adult-en/teasers/2026-11-02_dmm-ahe-001.jpg",
+      "status": "ready",
+      "notes": "face-only sample"
+    }
+  ]
+}

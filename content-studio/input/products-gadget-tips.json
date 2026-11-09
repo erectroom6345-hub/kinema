@@ -1,0 +1,92 @@
+{
+  "tip": [
+    {
+      "id": "gadget-tip-cable-one-01",
+      "productId": "gadget-tip-cable-one-01",
+      "name": "デスクのケーブルの分け方",
+      "ask": "デスクのケーブル、役割ごとに分けていますか？参考に聞かせてください。",
+      "aside": "ちなみに私は、充電用と映像用で分けてから、抜き差しが楽になりました。",
+      "category": "cable",
+      "description": "充電・映像・周辺機器で色や長さを分けると、抜き差しの迷いが減ります。",
+      "priceRange": "0円",
+      "features": ["役割を1本に固定", "抜き差しが速くなる", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "gadget",
+      "labels": { "tip": true },
+      "articleTitle": "ケーブル、役割ごとに分けてる？",
+      "articleBody": "デスクのケーブル、役割ごとに分けていますか？ちなみに私は、充電用と映像用で分けてから、抜き差しが楽になりました。",
+      "cardSlides": [
+        { "title": "役割ごとに分けてますか？", "pitch": "デスクのケーブル" },
+        { "title": "ちなみに私は", "pitch": "充電用と映像用で分ける" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "gadget-tip-power-night-01",
+      "productId": "gadget-tip-power-night-01",
+      "name": "寝る前充電の置き場",
+      "ask": "寝る前の充電、置く場所は決まっていますか？参考に聞かせてください。",
+      "aside": "ちなみに私は、ベッドサイドの一か所に決めています。",
+      "category": "power",
+      "description": "充電器とスマホの置き場をベッドサイドに固定すると、朝の電池切れが減ります。",
+      "priceRange": "0円",
+      "features": ["置き場を固定", "朝の電池切れ防止", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "gadget",
+      "labels": { "tip": true },
+      "articleTitle": "寝る前充電、置き場は決まってる？",
+      "articleBody": "寝る前の充電、置く場所は決まっていますか？ちなみに私は、ベッドサイドの一か所に決めています。",
+      "cardSlides": [
+        { "title": "置く場所、決まってますか？", "pitch": "寝る前の充電" },
+        { "title": "ちなみに私は", "pitch": "ベッドサイドの一か所" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "gadget-tip-desk-zone-01",
+      "productId": "gadget-tip-desk-zone-01",
+      "name": "デスクの常用品の置き場",
+      "ask": "デスクで毎日使うもの、利き手の近くに置いていますか？参考に聞かせてください。",
+      "aside": "ちなみに私は、利き手の届く範囲に寄せてから、立ち上がる回数が減りました。",
+      "category": "desk",
+      "description": "毎日使うものだけ利き手の届く範囲に置くと、作業中の立ち上がりが減ります。",
+      "priceRange": "0円",
+      "features": ["常用を利き手側へ", "立ち上がりが減る", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "gadget",
+      "labels": { "tip": true },
+      "articleTitle": "常用品、利き手の近く？",
+      "articleBody": "デスクで毎日使うもの、利き手の近くに置いていますか？ちなみに私は、利き手の届く範囲に寄せてから、立ち上がる回数が減りました。",
+      "cardSlides": [
+        { "title": "利き手の近くに置いてますか？", "pitch": "毎日使うもの" },
+        { "title": "ちなみに私は", "pitch": "届く範囲に寄せる" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "gadget-tip-phone-notify-01",
+      "productId": "gadget-tip-phone-notify-01",
+      "name": "集中したいときの通知",
+      "ask": "集中したいとき、通知はどこまで切っていますか？参考に聞かせてください。",
+      "aside": "ちなみに私は、着信とメッセージ以外を切ると、画面を見る回数が減ります。",
+      "category": "phone",
+      "description": "作業中は着信・メッセージ以外をオフにすると、画面を見る回数が減ります。",
+      "priceRange": "0円",
+      "features": ["通知を絞る", "画面を見る回数が減る", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "gadget",
+      "labels": { "tip": true },
+      "articleTitle": "集中したいとき、通知は？",
+      "articleBody": "集中したいとき、通知はどこまで切っていますか？ちなみに私は、着信とメッセージ以外を切ると、画面を見る回数が減ります。",
+      "cardSlides": [
+        { "title": "通知、どこまで切りますか？", "pitch": "集中したいとき" },
+        { "title": "ちなみに私は", "pitch": "着信とメッセージ以外は切る" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    }
+  ]
+}

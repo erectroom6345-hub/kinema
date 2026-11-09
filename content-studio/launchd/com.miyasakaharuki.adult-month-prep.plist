@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.miyasakaharuki.adult-month-prep</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/run-adult-month-prep.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <key>HOME</key>
+      <string>/Users/miyasakaharuki</string>
+      <key>ADULT_MONTH_PREP_LOG</key>
+      <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/adult-month-prep.log</string>
+    </dict>
+
+    <!-- 予約(30–31)前に取る: 27–29日 10:00。スクリプト側で day in 27..29 だけ本実行 -->
+    <key>StartCalendarInterval</key>
+    <array>
+      <dict>
+        <key>Day</key>
+        <integer>27</integer>
+        <key>Hour</key>
+        <integer>10</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+      </dict>
+      <dict>
+        <key>Day</key>
+        <integer>28</integer>
+        <key>Hour</key>
+        <integer>10</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+      </dict>
+      <dict>
+        <key>Day</key>
+        <integer>29</integer>
+        <key>Hour</key>
+        <integer>10</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+      </dict>
+    </array>
+
+    <key>StandardOutPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/adult-month-prep.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/adult-month-prep.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+  </dict>
+</plist>

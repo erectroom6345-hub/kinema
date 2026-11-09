@@ -1,0 +1,713 @@
+{
+  "version": 4,
+  "genre": "adult-jp",
+  "label": "Adult JP (DMM / X)",
+  "separateFrom": "adult-en",
+  "jpRulesLocked": {
+    "status": "locked",
+    "lockedAt": "2026-11-02",
+    "summary": [
+      "使えるアフィリエイト優先（DMMのみ）。全投稿にリンク必須。",
+      "バン耐性優先。着衣NGはスキップして別候補。空投稿・アフィ無し禁止。",
+      "平常: 1→4→3。角度は素人／SNS出身／美人／新人など。職業単独は平常主軸にしない。",
+      "マニア: 木曜週1。1→2→3→4。オホ↔アヘ隔週。アヘ不足はオホ着衣で埋める。",
+      "グッズ: 安売り時だけ割込。平常ルーチンには入れない。",
+      "18禁映画・公式ヌード作品: 月1まで。",
+      "SNS出身は同一人物の別作品OK（月内女優上限あり）。",
+      "同月アフィリ一意: 同じDMMアフィリURL（同じcidリンク）は1ヶ月に1回だけ。",
+      "同月URL一意は硬。先月パックのURLは優先してよい。",
+      "不足時は検索ワード掘り（input/adult-jp-search-queries.json）で sfwVerified を増やす。同月再利用はしない。"
+    ],
+    "sameMonthUniqueAffiliate": {
+      "locked": true,
+      "unit": "dmmUrl",
+      "rule": "同じDMMアフィリURLは同一カレンダー月に2回出さない（硬）。先月分の使い直しは月が変われば可。",
+      "onShortage": "cross-category → parked。同月再利用禁止。在庫は検索ワードで先に増やす。それでも不足なら欠日WARN。",
+      "preferPrevMonth": true,
+      "sameMonthReuse": false,
+      "searchQueries": "input/adult-jp-search-queries.json",
+      "zeroGap": "aim",
+      "enforcedBy": "scripts/generate-adult-month-packs.py"
+    }
+  },
+  "isolation": {
+    "doNotShareWithAdultEn": [
+      "xHandle",
+      "posts",
+      "captions",
+      "beautyPicks",
+      "productCatalog",
+      "teasers",
+      "schedulePack"
+    ],
+    "doNotShareWithTreasureShop": true,
+    "notes": "海外版は英語・DTI映像。日本語版は別XでDMMのみ。投稿・プロフィール・美人の基準を翻訳して使わない。"
+  },
+  "affiliate": "dmm_only",
+  "affiliateIdEnv": "ADULT_JP_DMM_AFFILIATE_ID",
+  "selectionPriority": {
+    "steps": {
+      "1": "usableAffiliate_dmm",
+      "2": "ohoOrAhegaoTextSignal_maniacDaysOnly",
+      "3": "preferNormalAngleOrClothedLikelihood",
+      "4": "sfwCreativeGate_clothed"
+    },
+    "normalDayOrder": [
+      "1",
+      "4",
+      "3"
+    ],
+    "maniacDayOrder": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "locked": true,
+    "sheetGeneration": "rules_locked_sheets_not_yet",
+    "efficiencyNotes": [
+      "平常日は着衣ゲート（4）を先に通す。",
+      "平常日の3は当日の平常角度（素人／SNS／美人／新人等）への寄せ。必須ではない。",
+      "マニア日だけ2を入れる。母集合が狭いので着衣率の高い候補を3で先に当ててから4。",
+      "スキップ後は必ず別候補。アフィリエイトURL無しは禁止。"
+    ],
+    "rules": [
+      "使えるアフィリエイト優先: 日本語Xは DMM（tatsuportal-002）のみ。全投稿にDMMリンク必須。",
+      "着衣NGはスキップして別候補を当てる。空投稿・リンク無しは出さない。",
+      "2（オホ／アヘ文面）はマニアの日だけの作業。",
+      "平常日の順: 1 → 4 → 3。",
+      "マニア日の順: 1 → 2 → 3 → 4。",
+      "グッズは安売り時だけ。18禁映画系は月1。",
+      "pl.jpg 直出し禁止。",
+      "同月アフィリ一意: 同じ dmmUrl は月内1回だけ。"
+    ]
+  },
+  "selectionFilters": {
+    "primaryPool": "usable_dmm_then_clothed",
+    "primaryReason": "DMMが使える前提で、先に着衣を通す。オホ／アヘはマニア日だけ。",
+    "textFields": [
+      "title",
+      "subtitle",
+      "description",
+      "genreTags"
+    ],
+    "includeSignals": {
+      "oho": {
+        "weight": "maniac_day_only",
+        "anyOf": [
+          "オホ声",
+          "オホ",
+          "喘ぎ",
+          "声が",
+          "鳴く"
+        ],
+        "copyAngle": "oho",
+        "when": "maniacDays"
+      },
+      "ahegao": {
+        "weight": "maniac_day_only",
+        "anyOf": [
+          "アヘ顔",
+          "アヘ",
+          "トロけ",
+          "目が上が",
+          "イキ顔"
+        ],
+        "copyAngle": "ahegao",
+        "when": "maniacDays"
+      },
+      "debut": {
+        "weight": "boost_after_or_before_gate",
+        "anyOf": [
+          "新人",
+          "デビュー",
+          "専属決定",
+          "AV女優になった",
+          "初めての",
+          "初撮り",
+          "debut"
+        ],
+        "notes": "平常日は着衣通過後の優先ソート。マニア日は着衣チェック前の優先探索。"
+      },
+      "occupationUniform": {
+        "weight": "boost_after_or_before_gate",
+        "reason": "職業ものは着衣・制服ビジュアルが多い。学校制服は除外。",
+        "anyOf": [
+          "ナース",
+          "看護師",
+          "女医",
+          "医師",
+          "CA",
+          "客室乗務",
+          "OL",
+          "秘書",
+          "女教師",
+          "教師",
+          "警察官",
+          "婦警",
+          "美容師",
+          "エステ",
+          "巫女",
+          "レースクイーン"
+        ],
+        "forbidAnyOf": [
+          "学園",
+          "学校",
+          "生徒",
+          "クラスメイト",
+          "JK",
+          "制服姿の少女",
+          "ロリ"
+        ]
+      }
+    },
+    "skipAndRefill": {
+      "onClothedNg": "skip_title_try_next",
+      "neverEmit": [
+        "post_without_dmm_url",
+        "blank_image_row",
+        "empty_day_without_search"
+      ],
+      "refillOrder": [
+        "next_candidate_same_filters",
+        "on_ahegao_day_fill_from_usable_oho_clothed",
+        "relax_boost_keep_affiliate_and_clothed",
+        "on_maniac_day_if_exhausted_relax_text_signal_last_resort_false"
+      ],
+      "notes": "アヘ週に着衣アヘが足りないときは、まずオホ着衣 usable で埋める（文面はオホ）。それでも無ければ平常パイプライン（1→4→3）。リンク無しより角度放棄を選ぶ。"
+    },
+    "dayTypes": {
+      "normal": {
+        "label": "平常日",
+        "isNot": [
+          "新人中心日",
+          "職業コス中心日"
+        ],
+        "definition": "マニアではない日。DMM＋着衣が通る作品。角度は『実在感・顔・出身』寄り。職業単独は平常の主軸にしない。",
+        "must": [
+          "DMMアフィリエイトURLがある",
+          "着衣・水着など X でバンりにくい画像",
+          "コンプライアンス除外語に当たらない"
+        ],
+        "mustNot": [
+          "オホ／アヘ文面が必須",
+          "職業コスだけで平常を埋める",
+          "有名女優の固定リストから埋める",
+          "pl.jpg の丸見えパッケージ"
+        ],
+        "anglePool": {
+          "status": "locked",
+          "primary": [
+            "amateur",
+            "snsOrigin",
+            "beauty",
+            "debut"
+          ],
+          "secondary": [
+            "girlfriendReal",
+            "occupationPlusAmateur"
+          ],
+          "interrupt": [
+            "goodsSaleBundle"
+          ],
+          "monthlySpecial": [
+            "r18FilmOrCrossover"
+          ],
+          "parkedFromNormal": [
+            "occupationSolo"
+          ]
+        },
+        "preferIs": "平常角度の週次ローテ。ゼロ件なら他の平常角度へフォールバック。それでも無ければ着衣DMMで埋める。",
+        "copy": {
+          "default": "角度に合わせた短感想（素人感／SNSで見た／顔で止まった／出たて）",
+          "ifTitleHasOhoOrAhegao": "寄せてよいが必須ではない",
+          "forbid": "アフィ無し、画像無し、ロリ／学園系、未成年に見える配信者煽り"
+        },
+        "pipeline": [
+          "1_usable_dmm",
+          "4_clothed_gate",
+          "3_prefer_normal_angle_of_the_day"
+        ]
+      },
+      "maniac": {
+        "label": "マニア日",
+        "definition": "オホ or アヘの文面シグナルが必須の日（週1・木曜）。",
+        "pipeline": [
+          "1_usable_dmm",
+          "2_oho_or_ahegao_text",
+          "3_prefer_clothed_likelihood",
+          "4_clothed_gate"
+        ]
+      }
+    },
+    "normalAngles": {
+      "status": "locked",
+      "amateur": {
+        "label": "素人・一般人感",
+        "why": "平常向き。実在感が強く、着衣ジャケットも比較的多い。",
+        "textAnyOf": [
+          "素人",
+          "一般人",
+          "普通の女の子",
+          "ナンパ",
+          "モニタリング"
+        ]
+      },
+      "snsOrigin": {
+        "label": "SNS／配信出身",
+        "why": "TikTok・YouTuber・配信者は『見たことある』が出しやすい。顔出し着衣も取りやすい。",
+        "textAnyOf": [
+          "TikTok",
+          "ティックトック",
+          "YouTuber",
+          "ユーチューバー",
+          "配信者",
+          "インフルエンサー",
+          "フォロワー",
+          "SNSで話題",
+          "インスタ"
+        ],
+        "samePersonDifferentWorks": true,
+        "samePersonNotes": "同じSNS出身でも別作品なら紹介してよい。女優固定リスト化はしない。月内上限（maxSameActressPerMonth）は守る。",
+        "caution": "タイトルの盛りの可能性あり。未成年示唆・学校関連は除外。実在誹謗にしない。"
+      },
+      "goodsSaleBundle": {
+        "label": "グッズ安売りまとめ買い",
+        "why": "セール時の割込専用。映像に頼らずアフィを回せる。",
+        "when": "sale_only",
+        "onNormalRoutine": false,
+        "preferDays": [
+          "mon",
+          "thu"
+        ],
+        "maxPerWeek": 2,
+        "copy": "安くなってる。まとめ買いするなら今。",
+        "image": "商品パッケージ／公式物撮り（露出目的のサムネは避ける）",
+        "replacesScheduledNormalOrManiac": true
+      },
+      "r18FilmOrCrossover": {
+        "label": "成人映画・一般寄り女優の公式ヌード作品",
+        "why": "『知ってる人が出た公式の18禁』フック。頻度は抑える。",
+        "existsOnDmm": true,
+        "frequency": "monthly_max_1",
+        "maxPerMonth": 1,
+        "examplesOfCategory": [
+          "DMMの成人映画／オリジナル成人映画／シネマ系",
+          "ピンク映画・日活ロマンポルノ系の配信",
+          "元グラビア・タレントの公式ヘアヌード写真集・映像（DMM取扱があるもの）"
+        ],
+        "textAnyOf": [
+          "成人映画",
+          "R18",
+          "R-18",
+          "ヘアヌード",
+          "ヌード",
+          "映画",
+          "劇場"
+        ],
+        "rules": [
+          "月1本まで。平常の毎週枠にはしない。",
+          "DMMに商品ページがあり、アフィリエイトできる公式作品だけ。",
+          "噂・リーク・不正流出は禁止。",
+          "特定の有名人名を先に決めて探さない。カタログに有るタイトルから選ぶ。",
+          "X画像は着衣・ポスター寄り。本編のヌード静止画は出さない。",
+          "未成年時代の話題・学生イメージは使わない。"
+        ],
+        "notes": "個別の有名人名は、公式作品がDMM等で今も売っているか都度確認。無ければ使わない。"
+      },
+      "beauty": {
+        "label": "美人・顔",
+        "why": "マニア無しでも刺さる。着衣ポートレートと相性が良い。",
+        "textAnyOf": [
+          "美人",
+          "美少女は使わない",
+          "可愛いより美人",
+          "顔面",
+          "ルックス"
+        ]
+      },
+      "debut": {
+        "label": "新人",
+        "why": "着衣率ブースト兼・第一印象枠。平常の1角度であって全体の主軸ではない。",
+        "textAnyOf": [
+          "新人",
+          "デビュー",
+          "初撮り",
+          "専属決定"
+        ]
+      },
+      "girlfriendReal": {
+        "label": "彼女感・リアル",
+        "why": "生活感・距離の近さ。着衣の導入カットが多い。",
+        "textAnyOf": [
+          "彼女",
+          "お泊まり",
+          "同棲",
+          "恋人",
+          "彼氏"
+        ]
+      },
+      "occupationPlusAmateur": {
+        "label": "職業＋素人",
+        "why": "職業単独（コス寄り）は弱いので、素人感が付くときだけ平常に入れる。",
+        "requireAllGroups": [
+          [
+            "ナース",
+            "看護師",
+            "女医",
+            "OL",
+            "CA",
+            "秘書"
+          ],
+          [
+            "素人",
+            "一般",
+            "本物"
+          ]
+        ],
+        "notSoloOccupation": true
+      },
+      "occupationSolo": {
+        "label": "職業単独",
+        "onNormal": false,
+        "whyParked": "コスプレ寄りのため平常主軸にしない。マニア日の着衣探索ブーストか、月1の遊び枠に回す。"
+      }
+    },
+    "lanes": {
+      "normal": {
+        "label": "DMM着衣レーン（平常）",
+        "onX": true,
+        "order": [
+          "1",
+          "4",
+          "3"
+        ],
+        "require": [
+          "usableAffiliate_dmm",
+          "sfwVerified"
+        ],
+        "prefer": [
+          "normal_angle_of_the_day"
+        ]
+      },
+      "maniac": {
+        "label": "DMMオホ／アヘ着衣レーン",
+        "onX": true,
+        "order": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "require": [
+          "usableAffiliate_dmm",
+          "oho_or_ahegao_text_signal",
+          "sfwVerified"
+        ],
+        "fallbackToNormalIfEmpty": true,
+        "ahegaoShortageFill": {
+          "when": "maniac_angle_is_ahegao_and_ahegao_clothed_exhausted",
+          "use": "usable_oho_clothed",
+          "copyAngle": "oho",
+          "reason": "アヘ着衣が薄い。足りないアヘ枠にオホ着衣を入れる。空投稿よりオホ感想を優先。",
+          "beforeNormalFallback": true
+        }
+      }
+    },
+    "excludeSignals": {
+      "anyOf": [
+        "ロリ",
+        "幼",
+        "○学生",
+        "学生服",
+        "学園",
+        "学校",
+        "妹",
+        "姪",
+        "パパ活"
+      ],
+      "notes": "コンプライアンス除外。職業の『女教師』は可だが学園エロ文脈は不可。"
+    },
+    "actressPolicy": {
+      "fixedActressList": false,
+      "reason": "使えるアフィリが少ないときの保険。JPはDMMが使えるのでタイトル単位でローテ。",
+      "source": "title_subtitle_description",
+      "rotate": true,
+      "maxSameActressPerMonth": 3
+    },
+    "imageGate": {
+      "allow": [
+        "clothed",
+        "swimsuit",
+        "occupation_uniform_adult"
+      ],
+      "deny": [
+        "fanza_pl_jpg_as_x_image",
+        "explicit_sex_still",
+        "nipple_visible",
+        "school_uniform_framing"
+      ],
+      "occupationUniformOk": true,
+      "schoolUniformOk": false
+    },
+    "rotationFeasibility": {
+      "verdict": "この順の方が効率良い。平常は着衣先行、マニア日だけ文面→新人職業→着衣。スキップ後は必ず別候補でリンク付きを埋める。"
+    }
+  },
+  "affiliateNotes": "日本語Xだけ。tatsuportal-002。海外版のDTIリンクと英語記事は貼らない。",
+  "affiliateStatus": "approved",
+  "account": "genre_dedicated",
+  "automation": {
+    "mode": "semi_auto_monthly_schedule",
+    "reason": "X無料枠では API 自動投稿不可。月1回パックを作り、日本語Xの予約投稿に手載せする。",
+    "xApiLivePost": false
+  },
+  "accountStatus": {
+    "x": "created_no_handle_recorded",
+    "xHandleEnv": "ADULT_JP_X_HANDLE",
+    "profileSubmitted": true,
+    "dmmSiteAdd": "submitted",
+    "envPrefix": "ADULT_JP_"
+  },
+  "audience": {
+    "primary": "ja",
+    "locale": "ja-JP",
+    "viewer": "male",
+    "ageGate": "18+"
+  },
+  "persona": {
+    "gender": "male",
+    "perspective": "first_person",
+    "voice": "男の感想。スペックや経歴は書かない。ブログ誘導の定型より、体験の続きで締める。",
+    "exampleHooks": {
+      "oho": [
+        "声だけで持っていかれた。\n朝比奈柚羽のオホ声、画面見なくても……\n18禁"
+      ],
+      "ahegao": [
+        "その顔クセになる。\n目が上がった瞬間、もう終わり。\n18禁"
+      ]
+    },
+    "forbid": [
+      "未成年に見える表現",
+      "ロリ、およびその言い換え",
+      "低身長をロリの代わりに使うこと",
+      "可愛いをロリの代わりに使うこと",
+      "学校・学園・生徒・JKを性的に扱うこと",
+      "成人の職業制服（ナース等）以外の『制服』をエロの主軸にすること",
+      "海外版の英語文の翻訳",
+      "beautyForeign の人選",
+      "詳しくはプロフィールのブログから、だけで締めること",
+      "女優の固定リストから月次を埋めること"
+    ]
+  },
+  "profile": {
+    "bioLanguage": "ja",
+    "alreadySubmitted": true,
+    "bioTemplate": "18禁 / FANZAアフィリエイト\nオホ声＝激しい喘ぎで持っていかれる声\nアヘ顔＝目が上がって、とろけた顔\n男の感想だけ書きます"
+  },
+  "posting": {
+    "perDay": 1,
+    "preferredHourLocal": "21:00",
+    "timezone": "Asia/Tokyo",
+    "preferredHourRationale": "日本の夜。海外版の12:00（米西海岸の夜）とは別。",
+    "requireTags": [
+      "#ad",
+      "18禁"
+    ],
+    "image": "水着か着衣の公式スチルのみ。FANZAパッケージ pl.jpg は禁止。sfwVerified が無い作品はパックに出さない（空欄行も作らない）。",
+    "link": "DMMアフィリエイト（tatsuportal-002）。1投稿1リンク。画像とリンクの女優は一致させる。",
+    "sameMonthUniqueAffiliate": true,
+    "monthEndPrep": {
+      "enabled": true,
+      "when": "毎月27–29日 10:00（launchd・ENと共通／30–31予約前）",
+      "script": "scripts/prep-adult-next-month.sh",
+      "runner": "run-adult-month-prep.sh",
+      "install": "scripts/install-adult-month-prep-agent.sh",
+      "auto": [
+        "EN+JP 共通月末ジョブで在庫カウント",
+        "翌月 pack 生成（同月URL一意・先月優先）",
+        "カテゴリ切れは cross-category / parked（同月再利用なし）",
+        "gap 時は adult-jp-search-queries.json をログ出力"
+      ],
+      "stillManual": [
+        "検索ワード掘り → 着衣目視 → sfwVerified 追加",
+        "X手載せ予約"
+      ],
+      "targetUniqueProducts": "翌月の投稿日数以上（目安31）。足りなければ検索ワードで着衣在庫を増やす。"
+    }
+  },
+  "categories": [
+    "oho",
+    "debut",
+    "beauty",
+    "ahegao",
+    "famous",
+    "snsTalk",
+    "goods"
+  ],
+  "categoryDefs": {
+    "oho": {
+      "label": "オホ声",
+      "copy": "激しい喘ぎ。声だけで持っていかれた、という感想。締めは『画面見なくても……』のように体験の続きで止める。ブログ誘導の定型は使わない。",
+      "sampleApprovedByUser": "声だけで持っていかれた。\n朝比奈柚羽のオホ声、画面見なくても……\n18禁"
+    },
+    "ahegao": {
+      "label": "アヘ顔",
+      "copy": "目が上がってとろけた顔。その顔がクセになる、という感想。締めは体験の続きで止める。"
+    },
+    "beauty": {
+      "label": "美人",
+      "beautyLens": "jp_domestic",
+      "copy": "日本人の男が見て美人だと思う顔。オホ声・アヘ顔とは同じ投稿に混ぜない。",
+      "notTheSameAs": {
+        "adultEn.beautyForeign": "英語圏の読者向けの外国人顔。日本語版では使わない。",
+        "adultEn.beautyJp": "英語圏の読者に説明する日本の美人。人選が重なっても、文面とアカウントは別。"
+      }
+    },
+    "debut": {
+      "label": "新人",
+      "copy": "18歳以上で、出たばかりの第一印象。タイトル文言ベース。",
+      "forbid": [
+        "幼さ",
+        "学園",
+        "生徒",
+        "未成年に見える書き方"
+      ],
+      "roleInFilters": "primaryPool"
+    },
+    "famous": {
+      "label": "有名",
+      "copy": "テキスト上で有名と分かるときだけ。固定の売れ筋リストは使わない。",
+      "roleInFilters": "secondary_optional"
+    },
+    "snsTalk": {
+      "label": "SNSで話題",
+      "copy": "その週テキストや話題で見かける名前。固定リスト禁止。",
+      "roleInFilters": "secondary_optional"
+    },
+    "occupation": {
+      "label": "職業・制服（成人）",
+      "copy": "ナース等の職業もの。着衣・制服ビジュアル前提。学校制服は禁止。",
+      "roleInFilters": "strong_include"
+    },
+    "goods": {
+      "label": "グッズ",
+      "when": "sale_only",
+      "onNormalRoutine": false,
+      "preferDays": [
+        "mon",
+        "thu"
+      ],
+      "preferDaysReason": "安売り期間中だけ、平常またはマニア枠を差し替える。",
+      "copy": "安くなってる。まとめ買いするなら今。",
+      "maxPerWeek": 2
+    },
+    "r18Film": {
+      "label": "18禁映画・公式ヌード作品",
+      "when": "monthly_max_1",
+      "maxPerMonth": 1,
+      "copy": "公式に出ている作品だけ。知ってる名前／ポスターで止まった、という感想。"
+    },
+    "live": {
+      "label": "有名人のライブ",
+      "channel": "fc2_jp",
+      "url": "https://tatsuportal.blog.fc2.com/blog-entry-1.html",
+      "copy": "月次のX予約では当日の配信に間に合わない。誰が今いるかはブログからFANZAライブチャットへ送る。名前はその夜で変わるので記事に固定しない。",
+      "when": "Xの曜日枠には入れない。"
+    }
+  },
+  "categorySchedule": {
+    "timezone": "Asia/Tokyo",
+    "mode": "copy_angle_from_text_within_filters",
+    "maniacDays": [
+      "thu"
+    ],
+    "maniacDaysMaxPerWeek": 1,
+    "maniacDaysNote": "週1が既定。余裕が出たら月を追加して週2まで可。バン耐性が先。",
+    "maniacAngleRotate": [
+      "oho",
+      "ahegao"
+    ],
+    "weeklyPreferred": {
+      "mon": "amateur",
+      "tue": "snsOrigin",
+      "wed": "beauty",
+      "thu": "maniac",
+      "fri": "debut",
+      "sat": "girlfriendReal",
+      "sun": "normal_flex"
+    },
+    "weeklyCountsTarget": {
+      "maniac": 1,
+      "normal": 6,
+      "goods": 0,
+      "r18Film": 0
+    },
+    "monthlySpecial": {
+      "r18FilmOrCrossover": {
+        "maxPerMonth": 1,
+        "replaces": "one_normal_day"
+      }
+    },
+    "notes": "マニアは木曜週1（オホ↔アヘ隔週）。アヘ週の不足はオホ着衣で埋める（文面オホ）。グッズは安売り割込のみ。18禁映画は月1。海外版の曜日はコピーしない。",
+    "maniacAhegaoFillFromOho": true
+  },
+  "interrupt": {
+    "enabled": true,
+    "replacesScheduledPost": true,
+    "onePostPerDay": true,
+    "priority": [
+      "goodsSale",
+      "r18FilmMonthly"
+    ],
+    "goodsSale": {
+      "when": "sale_only",
+      "maxPerWeek": 2,
+      "preferDays": [
+        "mon",
+        "thu"
+      ],
+      "description": "安売り時だけまとめ買い紹介で枠を差し替える。セールが無い週は出さない。"
+    },
+    "r18FilmMonthly": {
+      "maxPerMonth": 1,
+      "description": "成人映画・公式ヌード作品は月1。平常日1本と入れ替え。無ければスキップして平常を続ける。"
+    },
+    "live": {
+      "onX": false,
+      "description": "ライブ紹介はXの予約に挟まない。日本語ブログの登録記事からFANZAライブチャットへ送る。"
+    }
+  },
+  "catalog": {
+    "path": "input/products-adult-jp.json",
+    "status": "affiliate_first_sfw_gated",
+    "requiredForSchedule": [
+      "id",
+      "name",
+      "dmmUrl",
+      "sfwVerified",
+      "creativeLocal",
+      "status"
+    ],
+    "doNotImport": "input/products-adult-en.json",
+    "notes": "blocked_no_sfw はカタログに残してよいが月次パックには入らない。"
+  },
+  "output": {
+    "dir": "output/adult-jp",
+    "postedPath": "data/posted-adult-jp.json",
+    "files": {
+      "csv": "output/adult-jp/x-schedule-pack.csv",
+      "json": "output/adult-jp/x-schedule-pack.json",
+      "copyHtml": "output/adult-jp/x-schedule-pack.copy.html"
+    },
+    "monthRoll": {
+      "after": "adult-en",
+      "description": "海外版の月次パックのあとに、同じ月の日本版 copy.html を出す。",
+      "onNewMonth": "月末prepの最初に前月シートを消す。csv・json・copy.html・dups・teasers・選定スクラッチ。着衣バンク（adult-sfw-bank）は残す。"
+    },
+    "copyHtml": {
+      "primaryWorkSurface": true,
+      "notes": "ワンクリック Copy 用。Sheets は任意のチェック表。"
+    }
+  }
+}

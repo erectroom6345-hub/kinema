@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "genre": "food",
+  "categories": {
+    "seasonal": {
+      "current": {
+        "postId": "4772889793696860225",
+        "url": "https://taberunosuki-suki.blogspot.com/2026/10/blog-post.html",
+        "title": "旬・季節の食べ物まとめ",
+        "productIds": [
+          "food-drugpure-10224022",
+          "food-japangift-10529103"
+        ],
+        "localPath": "output/food/roundups/seasonal-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:35.885Z"
+      },
+      "archive": []
+    },
+    "gift": {
+      "current": {
+        "postId": "3875719480989700410",
+        "url": "https://taberunosuki-suki.blogspot.com/2026/10/blog-post_19.html",
+        "title": "手土産・フードギフトまとめ",
+        "productIds": [
+          "food-at-rescue-10003129",
+          "food-warabimochi-kamakura-10000001"
+        ],
+        "localPath": "output/food/roundups/gift-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:35.898Z"
+      },
+      "archive": []
+    },
+    "sweets": {
+      "current": {
+        "postId": "8235977276274425898",
+        "url": "https://taberunosuki-suki.blogspot.com/2026/10/blog-post_424.html",
+        "title": "銘菓・スイーツまとめ",
+        "productIds": [
+          "food-e-omiyage-10187905",
+          "food-rouge-yao-10023970"
+        ],
+        "localPath": "output/food/roundups/sweets-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:35.899Z"
+      },
+      "archive": []
+    },
+    "table": {
+      "current": {
+        "postId": "6908777605701889490",
+        "url": "https://taberunosuki-suki.blogspot.com/2026/10/blog-post_273.html",
+        "title": "食卓・常備フードまとめ",
+        "productIds": [
+          "food-imaifarm-10000630",
+          "food-gogocurry-shop-10000217"
+        ],
+        "localPath": "output/food/roundups/table-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:35.901Z"
+      },
+      "archive": []
+    },
+    "other": {
+      "current": {
+        "postId": "8846962033763335802",
+        "url": "https://taberunosuki-suki.blogspot.com/2026/10/blog-post_537.html",
+        "title": "旬・手土産フードメモまとめ",
+        "productIds": [
+          "food-mogoog-10000034",
+          "food-inaba-peanuts-10000010"
+        ],
+        "localPath": "output/food/roundups/other-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:35.902Z"
+      },
+      "archive": []
+    }
+  },
+  "fixedPageUrl": "https://taberunosuki-suki.blogspot.com/p/blog-page.html",
+  "updatedAt": "2026-11-09T02:30:36.845Z",
+  "fixedPageId": "5212869231361663852",
+  "stockpilePageUrl": "https://taberunosuki-suki.blogspot.com/p/blog-page_28.html",
+  "stockpilePageId": "1371102138149717031",
+  "stockpileUpdatedAt": "2026-11-02T10:06:52.713Z"
+}

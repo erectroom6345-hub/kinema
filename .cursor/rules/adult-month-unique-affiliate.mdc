@@ -1,0 +1,20 @@
+---
+description: Adult EN/JP X packs — hard same-month unique URL + prefer prev month
+globs: content-studio/**/adult-*/**,content-studio/scripts/generate-adult-month-packs.py,content-studio/scripts/prep-adult-next-month.sh,content-studio/policy/adult-*-ops.json
+alwaysApply: false
+---
+
+# Adult schedule: same-month unique hard + prefer previous month
+
+- EN: same `clickUrl` at most **once** per calendar month (hard). No same-month reuse.
+- JP: same `dmmUrl` at most **once** per calendar month (hard). No same-month reuse.
+- Cross-month OK: prefer affiliates that appeared in the previous month's pack (`fromPrevMonth`).
+- Why no same-month reuse: X native schedule may reject / look spammy with duplicate affiliate URLs in one month.
+- Zero-gap aim: expand inventory first (EN Carib deep links / JP search queries), then fill. If still short → WARN + leave gap (pack still written). `--strict` hard-fails.
+- JP dig list: `input/adult-jp-search-queries.json` (search keywords, not new weekday genres).
+- EN catalog mix: Caribbeancom main; Caribbeancom Premium deep-links to grow; 10musume / muramura / pacopacomama = one each per month.
+- EN landing: **Direct (`moviepages`) first**. Site entrance (`eng/index2.htm` etc.) is not scheduled — entrance portraits are SFW face assets only.
+- Generator: `scripts/generate-adult-month-packs.py`.
+- Month-end auto (EN+JP): launchd `com.miyasakaharuki.adult-month-prep` → 毎月27–29日 10:00 → `run-adult-month-prep.sh` → `prep-adult-next-month.sh`（30–31でX予約想定）.
+- Install: `scripts/install-adult-month-prep-agent.sh`. Log: `output/adult-month-prep.log`.
+- Hand-load: EN copy.html first, then JP. X schedule is Mac web only. Mac must not sleep through the window.

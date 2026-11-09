@@ -1,0 +1,5295 @@
+{
+  "version": 1,
+  "genre": "adult-en",
+  "rule": "gate1=DTI+englishLanding together → gate2=clothed → angles; discovered≠usable",
+  "notes": [
+    "海外版のXは DTI のみ。DMM/FANZA不可。",
+    "第1ゲートで使えるアフィリと英語着地を同時判定（字幕ではない）。",
+    "usable = gate1通過 + sfwVerified 着衣。シートに出してよいのは usable のみ。",
+    "discoveredSites は Click取得途中の在庫。英語着地未確認ならここで止める。",
+    "今の usable は Caribbeancom（英語入口＋着衣）と DXLIVE（英語ライブ導線・着衣はCarib流用）。",
+    "usable に 10musume(292) / pacopacomama(320) / muramura(365) を追加（着衣眼チェック済み）。1pondo/HEYZO/SakuraLive/Premium は着衣クリエイティブ不足で pending。",
+    "候補追加: SakuraLive(ライブ) / HEYZO(メンテ中) / docodemodouga(低優先)。fanblebeeは映像向きでないので除外。1pondo・caribbeancomprは着衣通過分をusable化。",
+    "SakuraLive usable化（着衣はDXLIVE同様 Caribポートレート流用）。TENGA/グッズは情勢により当分休止。",
+    "2026-11欠落9日補充: caribbeancom movie deep link +9（110426〜101726）。",
+    "zero-gap auto-expand +4 carib movie deep links",
+    "DTI Carib deep-link batch +20 (unique→51)",
+    "EN catalog mix: Carib main + Premium deep-links +13 (existing Premium Direct化 2); 10musume/muramura/pacopacomama = max 1 unique URL each per month."
+  ],
+  "offers": [
+    {
+      "id": "dti-caribbeancom-asakura",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait",
+      "displayName": "Asakura",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "oho",
+        "cosplay"
+      ]
+    },
+    {
+      "id": "dti-caribbeancom-maeda",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait",
+      "displayName": "Maeda",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "oho",
+        "ahegao"
+      ]
+    },
+    {
+      "id": "dti-caribbeancom-ohashi",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait",
+      "displayName": "Ohashi",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "beautyForeign"
+      ]
+    },
+    {
+      "id": "dti-caribbeancom-uehara",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait",
+      "displayName": "Uehara",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "oho"
+      ]
+    },
+    {
+      "id": "dti-caribbeancom-sena",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait",
+      "displayName": "Sena",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/sena.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_sena.jpg",
+      "categoriesSoft": [
+        "ahegao",
+        "beautyJp",
+        "cosplay"
+      ]
+    },
+    {
+      "id": "dti-caribbeancom-onoue",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait",
+      "displayName": "Onoue",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/eng/index2.htm",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/onoue.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_onoue.jpg",
+      "categoriesSoft": [
+        "cosplay",
+        "beautyJp",
+        "oho"
+      ]
+    },
+    {
+      "id": "dti-live-dxlive",
+      "affiliate": "dti",
+      "offer": "dxlive",
+      "productType": "live",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "partner_clothed_portrait_fallback",
+      "displayName": "live",
+      "clickUrl": "https://click.dtiserv2.com/Click/1-103-240932",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "creativeNote": "DXLIVE専用SFWバナー未取得。同DTI網の着衣ポートレートを暫定使用。",
+      "categoriesSoft": [
+        "liveChat"
+      ],
+      "usableAffiliate": true,
+      "notes": "EN usable link (DXLIVE). Clothed creative is partner fallback until live SFW banner exists."
+    },
+    {
+      "id": "dti-caribbeancom-movie-102926-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Ryoka Sakurai",
+      "movieId": "102926-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102926-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102726-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Misaki Nanbara",
+      "movieId": "102726-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102726-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102626-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Miyu Yokota",
+      "movieId": "102626-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102626-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102526-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Kaede Takagaki",
+      "movieId": "102526-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102526-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102326-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Mai Honda",
+      "movieId": "102326-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102326-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/sena.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_sena.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102226-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Nana Okada Miyu Morita Sanae Hosoda Rion",
+      "movieId": "102226-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102226-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/onoue.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_onoue.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102126-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Anastasia",
+      "movieId": "102126-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102126-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102026-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Yui Sayama",
+      "movieId": "102026-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102026-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-080313-397",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Yuu Asakura",
+      "movieId": "080313-397",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/080313-397/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-072513-390",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Maki Koizumi",
+      "movieId": "072513-390",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/072513-390/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay"
+      ],
+      "notes": "同一サイトDeepリンク。着衣は入口ポートレート流用（作品list.jpgは使わない）。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-110426-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 110426",
+      "movieId": "110426-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/110426-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-110326-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 110326",
+      "movieId": "110326-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/110326-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-110226-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 110226",
+      "movieId": "110226-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/110226-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-110126-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 110126",
+      "movieId": "110126-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/110126-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-103126-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 103126",
+      "movieId": "103126-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/103126-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/sena.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_sena.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-103026-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 103026",
+      "movieId": "103026-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/103026-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/onoue.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_onoue.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-102426-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 102426",
+      "movieId": "102426-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/102426-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-101826-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101826",
+      "movieId": "101826-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101826-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-101726-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101726",
+      "movieId": "101726-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101726-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "同一サイトDeepリンク補充。着衣は入口ポートレート流用。list取得時403のため作品名はID表記。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-101926-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101926",
+      "movieId": "101926-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101926-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "zero-gap auto deep-link. SFW entrance portrait reuse."
+    },
+    {
+      "id": "dti-caribbeancom-movie-101626-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101626",
+      "movieId": "101626-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101626-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "zero-gap auto deep-link. SFW entrance portrait reuse."
+    },
+    {
+      "id": "dti-caribbeancom-movie-101526-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101526",
+      "movieId": "101526-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101526-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "zero-gap auto deep-link. SFW entrance portrait reuse."
+    },
+    {
+      "id": "dti-caribbeancom-movie-101326-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101326",
+      "movieId": "101326-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101326-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "zero-gap auto deep-link. SFW entrance portrait reuse."
+    },
+    {
+      "id": "dti-caribbeancom-movie-101226-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101226",
+      "movieId": "101226-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101226-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-101126-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101126",
+      "movieId": "101126-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101126-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-101026-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 101026",
+      "movieId": "101026-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/101026-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100926-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100926",
+      "movieId": "100926-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100926-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100826-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100826",
+      "movieId": "100826-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100826-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/sena.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_sena.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100726-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100726",
+      "movieId": "100726-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100726-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/onoue.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_onoue.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100526-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100526",
+      "movieId": "100526-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100526-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100426-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100426",
+      "movieId": "100426-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100426-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100326-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100326",
+      "movieId": "100326-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100326-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100226-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100226",
+      "movieId": "100226-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100226-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-100126-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 100126",
+      "movieId": "100126-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/100126-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/sena.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_sena.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-093026-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 093026",
+      "movieId": "093026-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/093026-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/onoue.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_onoue.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092926-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092926",
+      "movieId": "092926-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092926-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092826-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092826",
+      "movieId": "092826-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092826-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092726-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092726",
+      "movieId": "092726-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092726-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092626-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092626",
+      "movieId": "092626-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092626-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092526-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092526",
+      "movieId": "092526-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092526-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/sena.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_sena.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092426-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092426",
+      "movieId": "092426-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092426-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/onoue.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_onoue.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092326-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092326",
+      "movieId": "092326-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092326-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-caribbeancom-movie-092226-001",
+      "affiliate": "dti",
+      "offer": "caribbeancom",
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Caribbeancom 092226",
+      "movieId": "092226-001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-6-240932/moviepages/092226-001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "DTI深リンク増強。着衣は入口ポートレート流用。"
+    },
+    {
+      "id": "dti-10musume-110326",
+      "affiliate": "dti",
+      "offer": "10musume",
+      "siteId": 292,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_dress",
+      "displayName": "10musume 110326",
+      "movieId": "110326_01",
+      "clickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "creativeUrl": "https://en.10musume.com/assets/sample/110326_01/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/10m_110326_dress.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "popular"
+      ],
+      "notes": "天然むすめ Gate1+着衣ドレス poster_en。"
+    },
+    {
+      "id": "dti-10musume-103126",
+      "affiliate": "dti",
+      "offer": "10musume",
+      "siteId": 292,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_dress",
+      "displayName": "10musume 103126",
+      "movieId": "103126_01",
+      "clickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "creativeUrl": "https://en.10musume.com/assets/sample/103126_01/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/10m_103126_polka.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "oho"
+      ],
+      "notes": "着衣ポルカドットドレス。"
+    },
+    {
+      "id": "dti-10musume-110126",
+      "affiliate": "dti",
+      "offer": "10musume",
+      "siteId": 292,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "cosplay_bunny",
+      "displayName": "10musume 110126",
+      "movieId": "110126_01",
+      "clickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "creativeUrl": "https://en.10musume.com/assets/sample/110126_01/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/10m_110126_bunny.jpg",
+      "categoriesSoft": [
+        "cosplay",
+        "beautyJp",
+        "oho"
+      ],
+      "notes": "バニーコス着衣（レオタード＋タイツ）。"
+    },
+    {
+      "id": "dti-10musume-102426",
+      "affiliate": "dti",
+      "offer": "10musume",
+      "siteId": 292,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "swimsuit_costume",
+      "displayName": "10musume 102426",
+      "movieId": "102426_01",
+      "clickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "creativeUrl": "https://en.10musume.com/assets/sample/102426_01/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/10m_102426_leopard.jpg",
+      "categoriesSoft": [
+        "cosplay",
+        "beautyJp"
+      ],
+      "notes": "レオパード水着コス。"
+    },
+    {
+      "id": "dti-10musume-121025",
+      "affiliate": "dti",
+      "offer": "10musume",
+      "siteId": 292,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_blouse",
+      "displayName": "10musume 121025",
+      "movieId": "121025_01",
+      "clickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "creativeUrl": "https://en.10musume.com/assets/sample/121025_01/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/10m_121025_blouse.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "popular"
+      ],
+      "notes": "ブラウス＋スカート着衣。"
+    },
+    {
+      "id": "dti-10musume-120724",
+      "affiliate": "dti",
+      "offer": "10musume",
+      "siteId": 292,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_sweater",
+      "displayName": "10musume 120724",
+      "movieId": "120724_01",
+      "clickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "creativeUrl": "https://en.10musume.com/assets/sample/120724_01/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/10m_120724_sweater.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "ahegao"
+      ],
+      "notes": "セーター＋スカート着衣。"
+    },
+    {
+      "id": "dti-10musume-110325",
+      "affiliate": "dti",
+      "offer": "10musume",
+      "siteId": 292,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "swimsuit_costume",
+      "displayName": "10musume 110325",
+      "movieId": "110325_01",
+      "clickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "creativeUrl": "https://en.10musume.com/assets/sample/110325_01/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/10m_110325_tiger_bikini.jpg",
+      "categoriesSoft": [
+        "cosplay",
+        "beautyJp",
+        "oho"
+      ],
+      "notes": "タイガービキニコス。"
+    },
+    {
+      "id": "dti-pacopacomama-fall-promo",
+      "affiliate": "dti",
+      "offer": "pacopacomama",
+      "siteId": 320,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_promo",
+      "displayName": "Pacopacomama Fall",
+      "clickUrl": "https://clear-tv.com/Click194/1-320-240932",
+      "creativeUrl": "https://en.pacopacomama.com/dyn/dla/images/top/1a10d05af65bba3b71b0a108121162f9.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/paco_fall_promo.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "popular"
+      ],
+      "notes": "パコパコママ英語Fallプロモ（セーター着衣）。"
+    },
+    {
+      "id": "dti-pacopacomama-091526",
+      "affiliate": "dti",
+      "offer": "pacopacomama",
+      "siteId": 320,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_occupation",
+      "displayName": "Pacopacomama 091526",
+      "movieId": "091526_100",
+      "clickUrl": "https://clear-tv.com/Click194/1-320-240932",
+      "creativeUrl": "https://en.pacopacomama.com/assets/sample/091526_100/poster_en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/paco_091526_massage.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "oho"
+      ],
+      "notes": "マッサージ着衣シーン。職業寄り。"
+    },
+    {
+      "id": "dti-muramura-103126",
+      "affiliate": "dti",
+      "offer": "muramura",
+      "siteId": 365,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_outdoor",
+      "displayName": "Muramura 103126",
+      "movieId": "103126_1273",
+      "clickUrl": "https://clear-tv.com/Click902/1-365-240932",
+      "creativeUrl": "https://en.muramura.tv/assets/sample/103126_1273/str.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/mura_103126_outdoor.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "popular"
+      ],
+      "notes": "ムラムラ着衣アウトドア。"
+    },
+    {
+      "id": "dti-muramura-102526",
+      "affiliate": "dti",
+      "offer": "muramura",
+      "siteId": 365,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_dress",
+      "displayName": "Muramura 102526",
+      "movieId": "102526_1272",
+      "clickUrl": "https://clear-tv.com/Click902/1-365-240932",
+      "creativeUrl": "https://en.muramura.tv/assets/sample/102526_1272/str.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/mura_102526_dress.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "cosplay"
+      ],
+      "notes": "黒ドレス着衣アウトドア。"
+    },
+    {
+      "id": "dti-muramura-102126",
+      "affiliate": "dti",
+      "offer": "muramura",
+      "siteId": 365,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_sweater",
+      "displayName": "Muramura 102126",
+      "movieId": "102126_1271",
+      "clickUrl": "https://clear-tv.com/Click902/1-365-240932",
+      "creativeUrl": "https://en.muramura.tv/assets/sample/102126_1271/str.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/mura_102126_sweater.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "ahegao"
+      ],
+      "notes": "セーター着衣ポートレート。"
+    },
+    {
+      "id": "dti-1pondo-hikari-bikini",
+      "affiliate": "dti",
+      "offer": "1pondo",
+      "siteId": 18,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "swimsuit_costume",
+      "displayName": "Hikari",
+      "movieId": "021315_027",
+      "clickUrl": "https://clear-tv.com/Click194/1-18-240932",
+      "creativeUrl": "https://en.1pondo.tv/dyn/dla/images/movies/021315_027/jacket/jacket-en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/1pondo_hikari_bikini.jpg",
+      "categoriesSoft": [
+        "cosplay",
+        "beautyJp",
+        "popular"
+      ],
+      "notes": "一本道 jacket-en レオパード水着。Gate1+着衣。"
+    },
+    {
+      "id": "dti-1pondo-miharu-clothed",
+      "affiliate": "dti",
+      "offer": "1pondo",
+      "siteId": 18,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait",
+      "displayName": "Miharu Himesaki",
+      "movieId": "010326_001",
+      "clickUrl": "https://clear-tv.com/Click194/1-18-240932",
+      "creativeUrl": "https://en.1pondo.tv/dyn/dla/images/movies/010326_001/jacket/jacket-en.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/1pondo_miharu_clothed.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "popular"
+      ],
+      "notes": "一本道 jacket-en 黒トップ＋スカート着衣。"
+    },
+    {
+      "id": "dti-caribbeancompr-110226-cheer",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "cosplay_cheer",
+      "displayName": "Kujo Yoko cheer",
+      "movieId": "110226_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/110226_001/index.html",
+      "creativeUrl": "https://en.caribbeancompr.com/moviepages/110226_001/images/main_b.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/caribpr_110226_cheer.jpg",
+      "categoriesSoft": [
+        "cosplay",
+        "beautyJp",
+        "oho"
+      ],
+      "notes": "Carib Premium チアコス着衣 main_b。 Direct deep-link化でユニークURL化。"
+    },
+    {
+      "id": "dti-caribbeancompr-101926-yukata",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_yukata",
+      "displayName": "Iwata Minori yukata",
+      "movieId": "101926_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/101926_001/index.html",
+      "creativeUrl": "https://en.caribbeancompr.com/moviepages/101926_001/images/main_b.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/caribpr_101926_yukata.jpg",
+      "categoriesSoft": [
+        "beautyJp",
+        "popular"
+      ],
+      "notes": "Carib Premium 浴衣着衣 main_b。 Direct deep-link化でユニークURL化。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-101226_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 101226",
+      "movieId": "101226_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/101226_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-100526_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 100526",
+      "movieId": "100526_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/100526_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-092826_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 092826",
+      "movieId": "092826_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/092826_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-091526_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 091526",
+      "movieId": "091526_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/091526_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-083126_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 083126",
+      "movieId": "083126_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/083126_001/index.html",
+      "creativeUrl": "https://en.caribbeancompr.com/moviepages/110226_001/images/main_b.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/caribpr_110226_cheer.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-082426_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 082426",
+      "movieId": "082426_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/082426_001/index.html",
+      "creativeUrl": "https://en.caribbeancompr.com/moviepages/101926_001/images/main_b.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/caribpr_101926_yukata.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-081726_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 081726",
+      "movieId": "081726_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/081726_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-081026_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 081026",
+      "movieId": "081026_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/081026_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/maeda.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_maeda.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-080326_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 080326",
+      "movieId": "080326_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/080326_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-072726_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 072726",
+      "movieId": "072726_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/072726_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/uehara.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_uehara.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-072026_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 072026",
+      "movieId": "072026_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/072026_001/index.html",
+      "creativeUrl": "https://en.caribbeancompr.com/moviepages/110226_001/images/main_b.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/caribpr_110226_cheer.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-071326_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 071326",
+      "movieId": "071326_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/071326_001/index.html",
+      "creativeUrl": "https://en.caribbeancompr.com/moviepages/101926_001/images/main_b.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/caribpr_101926_yukata.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-caribbeancompr-movie-070626_001",
+      "affiliate": "dti",
+      "offer": "caribbeancompr",
+      "siteId": 290,
+      "productType": "video",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "clothed_portrait_reused",
+      "displayName": "Carib Premium 070626",
+      "movieId": "070626_001",
+      "clickUrl": "https://click.dtiserv2.com/Direct/1-290-240932/moviepages/070626_001/index.html",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/asakura.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_asakura.jpg",
+      "categoriesSoft": [
+        "popular",
+        "beautyJp",
+        "beautyForeign",
+        "cosplay",
+        "oho",
+        "ahegao"
+      ],
+      "notes": "Premium深リンク増。着衣は確認済み素材流用。週数本枠。"
+    },
+    {
+      "id": "dti-heyzo-candidate",
+      "affiliate": "dti",
+      "offer": "heyzo",
+      "siteId": 450,
+      "productType": "video",
+      "status": "candidate",
+      "sfwVerified": false,
+      "displayName": "HEYZO",
+      "clickUrl": "https://clear-tv.com/Click902/1-450-240932",
+      "needNext": [
+        "click_restore",
+        "clothed_creative_sfwVerified"
+      ],
+      "categoriesSoft": [
+        "beautyJp",
+        "beautyForeign",
+        "popular"
+      ],
+      "notes": "候補。現在メンテ/403。復旧後に着衣掘り→usable。"
+    },
+    {
+      "id": "dti-docodemodouga-candidate",
+      "affiliate": "dti",
+      "offer": "docodemodouga",
+      "siteId": 372,
+      "productType": "video",
+      "status": "candidate",
+      "sfwVerified": false,
+      "displayName": "Docodemodouga",
+      "clickUrl": "https://clear-tv.com/Click902/1-372-240932",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "categoriesSoft": [
+        "popular"
+      ],
+      "notes": "低優先候補。ブランド弱い。"
+    },
+    {
+      "id": "dti-live-sakuralive",
+      "affiliate": "dti",
+      "offer": "sakuralive",
+      "siteId": 354,
+      "productType": "live",
+      "status": "usable",
+      "sfwVerified": true,
+      "sfwLens": "partner_clothed_portrait_fallback",
+      "displayName": "live",
+      "clickUrl": "https://clear-tv.com/Click/1-354-240932",
+      "creativeUrl": "https://www.caribbeancom.com/eng/images/entrance/ohashi.jpg",
+      "creativeLocal": "output/adult-sfw-bank/en/carib_ohashi.jpg",
+      "creativeNote": "SakuraLive専用SFWバナー未取得（splashはpasties混在でNG）。同DTI網の着衣ポートレートを暫定使用。DXLIVEと同方針。",
+      "categoriesSoft": [
+        "liveChat"
+      ],
+      "usableAffiliate": true,
+      "notes": "EN usable live link (SakuraLive). Clothed creative is partner fallback until live SFW banner exists."
+    }
+  ],
+  "rejectedCreatives": [
+    {
+      "id": "carib_hatano",
+      "reason": "topless_star_censor"
+    },
+    {
+      "id": "carib_aso",
+      "reason": "bra_lingerie"
+    },
+    {
+      "id": "banner_sakura",
+      "reason": "explicit_live_banner"
+    },
+    {
+      "id": "sakura_girls2",
+      "reason": "bikini_and_pasties_not_clothed_gate"
+    }
+  ],
+  "discoveryReport": "output/adult-en/dti-usable-discovery.json",
+  "checklistHtml": "output/adult-en/dti-clickid-checklist.html",
+  "lastHarvest": {
+    "pagesVisited": 39,
+    "csvCandidates": [],
+    "siteIdCount": 36,
+    "interpretedAs": "discovered_inventory_not_usable"
+  },
+  "discoveredSites": [
+    {
+      "site": "dti-site-100",
+      "siteId": 100,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-100-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-100-240932",
+        "https://clear-tv.com/Join/1-100-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click/1-100-240932",
+      "gate1Final": "https://www.dxlive.com/job/mo/",
+      "contentFit": false,
+      "contentFitReason": "dxlive_job_recruit"
+    },
+    {
+      "site": "dti-site-123",
+      "siteId": 123,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-123-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-123-240932",
+        "https://clear-tv.com/Click12/1-123-240932",
+        "https://clear-tv.com/Click16/1-123-240932",
+        "https://clear-tv.com/Click5/1-123-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/bunko/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/bunko/b011/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click16/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/pickup_n/5/w6511/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/bunko/b004/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-123-240932/eng/",
+          "ok": false,
+          "final": "https://www.yumegumi.net/bunko/eng/",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-132",
+      "siteId": 132,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-132-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-132-240932",
+        "https://clear-tv.com/Click105/1-132-240932",
+        "https://clear-tv.com/Click2/1-132-240932",
+        "https://clear-tv.com/Click28/1-132-240932",
+        "https://clear-tv.com/Click73/1-132-240932",
+        "https://clear-tv.com/Click9/1-132-240932",
+        "https://clear-tv.com/Join/1-132-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click105/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/howto",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/home",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click28/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/faq/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click73/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/first",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-173",
+      "siteId": 173,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-173-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-173-240932",
+        "https://clear-tv.com/Click141/1-173-240932",
+        "https://clear-tv.com/Click143/1-173-240932",
+        "https://clear-tv.com/Click2/1-173-240932",
+        "https://clear-tv.com/Join/1-173-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click141/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/join.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click143/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/faq.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/home",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/join.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-18",
+      "siteId": 18,
+      "status": "usable_partial",
+      "clickUrl": "https://clear-tv.com/Click/1-18-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-18-240932",
+        "https://clear-tv.com/Click10/1-18-240932",
+        "https://clear-tv.com/Click190/1-18-240932",
+        "https://clear-tv.com/Click194/1-18-240932",
+        "https://clear-tv.com/Click2/1-18-240932",
+        "https://clear-tv.com/Click211/1-18-240932",
+        "https://clear-tv.com/Click25/1-18-240932",
+        "https://clear-tv.com/Click4/1-18-240932",
+        "https://clear-tv.com/Click400/1-18-240932",
+        "https://clear-tv.com/Click79/1-18-240932",
+        "https://clear-tv.com/Click800/1-18-240932",
+        "https://clear-tv.com/Click9/1-18-240932",
+        "https://clear-tv.com/Click901/1-18-240932",
+        "https://clear-tv.com/Click902/1-18-240932",
+        "https://clear-tv.com/Join/1-18-240932"
+      ],
+      "usable": true,
+      "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+      "needNext": [],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click194/1-18-240932",
+      "gate1Final": "https://wm.1pondo.tv/wm/en/index.html",
+      "contentFit": true,
+      "sfwVerified": true
+    },
+    {
+      "site": "dti-site-22",
+      "siteId": 22,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-22-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-22-240932",
+        "https://clear-tv.com/Click7/1-22-240932",
+        "https://clear-tv.com/Join/1-22-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-22-240932/eng/",
+      "gate1Final": "https://www.dticash.com/eng/",
+      "contentFit": false,
+      "contentFitReason": "dticash_guide_not_content"
+    },
+    {
+      "site": "dti-site-262",
+      "siteId": 262,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-262-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-262-240932",
+        "https://clear-tv.com/Click10/1-262-240932",
+        "https://clear-tv.com/Click11/1-262-240932",
+        "https://clear-tv.com/Click12/1-262-240932",
+        "https://clear-tv.com/Click13/1-262-240932",
+        "https://clear-tv.com/Click15/1-262-240932",
+        "https://clear-tv.com/Click16/1-262-240932",
+        "https://clear-tv.com/Click3/1-262-240932",
+        "https://clear-tv.com/Click8/1-262-240932",
+        "https://clear-tv.com/Click9/1-262-240932",
+        "https://clear-tv.com/Click902/1-262-240932",
+        "https://clear-tv.com/Join/1-262-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=156",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=159",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=168",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=166",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-286",
+      "siteId": 286,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-286-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-286-240932",
+        "https://clear-tv.com/Click10/1-286-240932",
+        "https://clear-tv.com/Click11/1-286-240932",
+        "https://clear-tv.com/Click12/1-286-240932",
+        "https://clear-tv.com/Click13/1-286-240932",
+        "https://clear-tv.com/Click14/1-286-240932",
+        "https://clear-tv.com/Click16/1-286-240932",
+        "https://clear-tv.com/Click3/1-286-240932",
+        "https://clear-tv.com/Click4/1-286-240932",
+        "https://clear-tv.com/Click5/1-286-240932",
+        "https://clear-tv.com/Click8/1-286-240932",
+        "https://clear-tv.com/Click9/1-286-240932",
+        "https://clear-tv.com/Click902/1-286-240932",
+        "https://clear-tv.com/Join/1-286-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=317",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=318",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=304",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=302",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-290",
+      "siteId": 290,
+      "status": "usable_partial",
+      "clickUrl": "https://clear-tv.com/Click/1-290-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-290-240932",
+        "https://clear-tv.com/Click2/1-290-240932",
+        "https://clear-tv.com/Click20/1-290-240932",
+        "https://clear-tv.com/Click21/1-290-240932",
+        "https://clear-tv.com/Click22/1-290-240932",
+        "https://clear-tv.com/Click24/1-290-240932",
+        "https://clear-tv.com/Click3/1-290-240932",
+        "https://clear-tv.com/Click33/1-290-240932",
+        "https://clear-tv.com/Click902/1-290-240932",
+        "https://clear-tv.com/Join/1-290-240932"
+      ],
+      "usable": true,
+      "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+      "needNext": [],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click902/1-290-240932",
+      "gate1Final": "https://en.caribbeancompr.com/eng/index2.html",
+      "contentFit": true,
+      "sfwVerified": true
+    },
+    {
+      "site": "dti-site-292",
+      "siteId": 292,
+      "status": "usable_partial",
+      "clickUrl": "https://clear-tv.com/Click/1-292-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-292-240932",
+        "https://clear-tv.com/Click190/1-292-240932",
+        "https://clear-tv.com/Click194/1-292-240932",
+        "https://clear-tv.com/Click2/1-292-240932",
+        "https://clear-tv.com/Click211/1-292-240932",
+        "https://clear-tv.com/Click29/1-292-240932",
+        "https://clear-tv.com/Click3/1-292-240932",
+        "https://clear-tv.com/Click300/1-292-240932",
+        "https://clear-tv.com/Click4/1-292-240932",
+        "https://clear-tv.com/Click800/1-292-240932",
+        "https://clear-tv.com/Click902/1-292-240932",
+        "https://clear-tv.com/Join/1-292-240932"
+      ],
+      "usable": true,
+      "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+      "needNext": [],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "gate1Final": "https://wm.10musume.com/free/en/index2.html",
+      "contentFit": true,
+      "sfwVerified": true
+    },
+    {
+      "site": "dti-site-318",
+      "siteId": 318,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-318-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-318-240932",
+        "https://clear-tv.com/Click10/1-318-240932",
+        "https://clear-tv.com/Click11/1-318-240932",
+        "https://clear-tv.com/Click12/1-318-240932",
+        "https://clear-tv.com/Click13/1-318-240932",
+        "https://clear-tv.com/Click14/1-318-240932",
+        "https://clear-tv.com/Click15/1-318-240932",
+        "https://clear-tv.com/Click3/1-318-240932",
+        "https://clear-tv.com/Click7/1-318-240932",
+        "https://clear-tv.com/Click8/1-318-240932",
+        "https://clear-tv.com/Click9/1-318-240932",
+        "https://clear-tv.com/Click902/1-318-240932",
+        "https://clear-tv.com/Join/1-318-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=430",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=439",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=420",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=421",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-320",
+      "siteId": 320,
+      "status": "usable_partial",
+      "clickUrl": "https://clear-tv.com/Click/1-320-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-320-240932",
+        "https://clear-tv.com/Click10/1-320-240932",
+        "https://clear-tv.com/Click190/1-320-240932",
+        "https://clear-tv.com/Click194/1-320-240932",
+        "https://clear-tv.com/Click2/1-320-240932",
+        "https://clear-tv.com/Click211/1-320-240932",
+        "https://clear-tv.com/Click3/1-320-240932",
+        "https://clear-tv.com/Click7/1-320-240932",
+        "https://clear-tv.com/Click8/1-320-240932",
+        "https://clear-tv.com/Click800/1-320-240932",
+        "https://clear-tv.com/Click9/1-320-240932",
+        "https://clear-tv.com/Click902/1-320-240932",
+        "https://clear-tv.com/Join/1-320-240932"
+      ],
+      "usable": true,
+      "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+      "needNext": [],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click194/1-320-240932",
+      "gate1Final": "https://wm.pacopacomama.com/wm/en/index.html",
+      "contentFit": true,
+      "sfwVerified": true
+    },
+    {
+      "site": "dti-site-347",
+      "siteId": 347,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-347-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-347-240932",
+        "https://clear-tv.com/Click5/1-347-240932",
+        "https://clear-tv.com/Click902/1-347-240932",
+        "https://clear-tv.com/Join/1-347-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-347-240932",
+          "ok": false,
+          "final": "https://www.3d-eros.net/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-347-240932",
+          "ok": false,
+          "final": "https://www.3d-eros.net/howto.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-347-240932",
+          "ok": false,
+          "final": "https://en.3d-eros.net/index.html",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-347-240932",
+          "ok": false,
+          "final": "https://www.3d-eros.net/join.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-347-240932/eng/",
+          "ok": false,
+          "final": "https://www.3d-eros.net/eng/",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-352",
+      "siteId": 352,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-352-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-352-240932",
+        "https://clear-tv.com/Click13/1-352-240932",
+        "https://clear-tv.com/Click2/1-352-240932",
+        "https://clear-tv.com/Click3/1-352-240932",
+        "https://clear-tv.com/Click4/1-352-240932",
+        "https://clear-tv.com/Click400/1-352-240932",
+        "https://clear-tv.com/Click5/1-352-240932",
+        "https://clear-tv.com/Click7/1-352-240932",
+        "https://clear-tv.com/Click8/1-352-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/service.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/list_category.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-354",
+      "siteId": 354,
+      "status": "usable_partial",
+      "clickUrl": "https://clear-tv.com/Click/1-354-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-354-240932",
+        "https://clear-tv.com/Click2/1-354-240932",
+        "https://clear-tv.com/Click26/1-354-240932",
+        "https://clear-tv.com/Click3/1-354-240932",
+        "https://clear-tv.com/Click4/1-354-240932",
+        "https://clear-tv.com/Click5/1-354-240932",
+        "https://clear-tv.com/Click6/1-354-240932",
+        "https://clear-tv.com/Join/1-354-240932"
+      ],
+      "usable": true,
+      "reason": "Usable with partner_clothed_portrait_fallback (same pattern as DXLIVE).",
+      "needNext": [
+        "prefer_site_own_clothed_banner_later"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click/1-354-240932",
+      "gate1Final": "https://www.sakuralive.com",
+      "contentFit": true,
+      "sfwVerified": true
+    },
+    {
+      "site": "dti-site-356",
+      "siteId": 356,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-356-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-356-240932",
+        "https://clear-tv.com/Click5/1-356-240932",
+        "https://clear-tv.com/Click6/1-356-240932",
+        "https://clear-tv.com/Click902/1-356-240932",
+        "https://clear-tv.com/Join/1-356-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-356-240932",
+          "ok": false,
+          "final": "https://www.kin8tengoku.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-356-240932",
+          "ok": false,
+          "final": "https://exbabes.kin8tengoku.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-356-240932",
+          "ok": false,
+          "final": "https://enexbabes.kin8tengoku.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-356-240932",
+          "ok": false,
+          "final": "https://en.kin8tengoku.com/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-356-240932",
+          "ok": false,
+          "final": "https://www.kin8tengoku.com/join",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-359",
+      "siteId": 359,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click2/1-359-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click2/1-359-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click2/1-359-240932",
+          "ok": true,
+          "final": "https://www.okasegi.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-359-240932/eng/",
+          "ok": false,
+          "final": "https://www.okasegi.com/eng/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-359-240932/en/",
+          "ok": false,
+          "final": "https://www.okasegi.com/en/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-359-240932/eng/index2.htm",
+          "ok": false,
+          "final": "https://www.okasegi.com/eng/index2.htm",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Click/1-359-240932",
+          "ok": true,
+          "final": "https://www.okasegi.com/",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-360",
+      "siteId": 360,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-360-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-360-240932",
+        "https://clear-tv.com/Click15/1-360-240932",
+        "https://clear-tv.com/Click19/1-360-240932",
+        "https://clear-tv.com/Click21/1-360-240932",
+        "https://clear-tv.com/Click25/1-360-240932",
+        "https://clear-tv.com/Click3/1-360-240932",
+        "https://clear-tv.com/Click4/1-360-240932",
+        "https://clear-tv.com/Click5/1-360-240932",
+        "https://clear-tv.com/Click6/1-360-240932",
+        "https://clear-tv.com/Click8/1-360-240932",
+        "https://clear-tv.com/Join/1-360-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click15/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/goods",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click19/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/home?ageVerifiedC=1",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click21/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/home",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click25/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/promo/godo.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-361",
+      "siteId": 361,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-361-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-361-240932",
+        "https://clear-tv.com/Click3/1-361-240932",
+        "https://clear-tv.com/Click4/1-361-240932",
+        "https://clear-tv.com/Click5/1-361-240932",
+        "https://clear-tv.com/Click6/1-361-240932",
+        "https://clear-tv.com/Click7/1-361-240932",
+        "https://clear-tv.com/Click8/1-361-240932",
+        "https://clear-tv.com/Click902/1-361-240932",
+        "https://clear-tv.com/Join/1-361-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/category_847_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/category_860_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/category_850_1.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-363",
+      "siteId": 363,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click2/1-363-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click2/1-363-240932",
+        "https://clear-tv.com/Click3/1-363-240932",
+        "https://clear-tv.com/Click4/1-363-240932",
+        "https://clear-tv.com/Click5/1-363-240932",
+        "https://clear-tv.com/Click6/1-363-240932",
+        "https://clear-tv.com/Click7/1-363-240932",
+        "https://clear-tv.com/Join/1-363-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click2/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_1.html?sort=popular",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_categories.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_1.html?sort=comment&provider_id=4030",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-365",
+      "siteId": 365,
+      "status": "usable_partial",
+      "clickUrl": "https://clear-tv.com/Click/1-365-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-365-240932",
+        "https://clear-tv.com/Click2/1-365-240932",
+        "https://clear-tv.com/Click32/1-365-240932",
+        "https://clear-tv.com/Click40/1-365-240932",
+        "https://clear-tv.com/Click5/1-365-240932",
+        "https://clear-tv.com/Click800/1-365-240932",
+        "https://clear-tv.com/Click902/1-365-240932",
+        "https://clear-tv.com/Join/1-365-240932"
+      ],
+      "usable": true,
+      "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+      "needNext": [],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click902/1-365-240932",
+      "gate1Final": "https://en.muramura.tv/",
+      "contentFit": true,
+      "sfwVerified": true
+    },
+    {
+      "site": "dti-site-367",
+      "siteId": 367,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-367-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-367-240932",
+        "https://clear-tv.com/Click10/1-367-240932",
+        "https://clear-tv.com/Click11/1-367-240932",
+        "https://clear-tv.com/Click12/1-367-240932",
+        "https://clear-tv.com/Click3/1-367-240932",
+        "https://clear-tv.com/Click4/1-367-240932",
+        "https://clear-tv.com/Click6/1-367-240932",
+        "https://clear-tv.com/Click7/1-367-240932",
+        "https://clear-tv.com/Click8/1-367-240932",
+        "https://clear-tv.com/Click9/1-367-240932",
+        "https://clear-tv.com/Click902/1-367-240932",
+        "https://clear-tv.com/Join/1-367-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1029_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1036_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1041_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1013_1.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-369",
+      "siteId": 369,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-369-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-369-240932",
+        "https://clear-tv.com/Click2/1-369-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click/1-369-240932",
+      "gate1Final": "https://www.sakuralive.com/job/",
+      "contentFit": false,
+      "contentFitReason": "sakuralive_job_recruit"
+    },
+    {
+      "site": "dti-site-372",
+      "siteId": 372,
+      "status": "candidate_low_priority",
+      "clickUrl": "https://clear-tv.com/Click/1-372-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-372-240932",
+        "https://clear-tv.com/Click2/1-372-240932",
+        "https://clear-tv.com/Click902/1-372-240932",
+        "https://clear-tv.com/Join/1-372-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click902/1-372-240932",
+      "gate1Final": "https://en.docodemodouga.com/index2.html",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-378",
+      "siteId": 378,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-378-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-378-240932",
+        "https://clear-tv.com/Click5/1-378-240932",
+        "https://clear-tv.com/Click6/1-378-240932",
+        "https://clear-tv.com/Click902/1-378-240932",
+        "https://clear-tv.com/Join/1-378-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/listpages/1562_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/listpages/1561_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-378-240932",
+          "ok": false,
+          "final": "https://en.unkotare.com/index_en.html",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/join.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-40",
+      "siteId": 40,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-40-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-40-240932",
+        "https://clear-tv.com/Click10/1-40-240932",
+        "https://clear-tv.com/Click11/1-40-240932",
+        "https://clear-tv.com/Click2/1-40-240932",
+        "https://clear-tv.com/Click3/1-40-240932",
+        "https://clear-tv.com/Click4/1-40-240932",
+        "https://clear-tv.com/Click5/1-40-240932",
+        "https://clear-tv.com/Click9/1-40-240932",
+        "https://clear-tv.com/Click902/1-40-240932",
+        "https://clear-tv.com/Join/1-40-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/search/q=%CD%F0%B8%F2",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/search/q=%A5%B3%A5%B9%A5%D7%A5%EC",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/index2.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/listpages/all_1.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-450",
+      "siteId": 450,
+      "status": "candidate_click_down",
+      "clickUrl": "https://clear-tv.com/Click/1-450-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-450-240932",
+        "https://clear-tv.com/Click11/1-450-240932",
+        "https://clear-tv.com/Click12/1-450-240932",
+        "https://clear-tv.com/Click13/1-450-240932",
+        "https://clear-tv.com/Click14/1-450-240932",
+        "https://clear-tv.com/Click15/1-450-240932",
+        "https://clear-tv.com/Click2/1-450-240932",
+        "https://clear-tv.com/Click21/1-450-240932",
+        "https://clear-tv.com/Click3/1-450-240932",
+        "https://clear-tv.com/Click4/1-450-240932",
+        "https://clear-tv.com/Click400/1-450-240932",
+        "https://clear-tv.com/Click5/1-450-240932",
+        "https://clear-tv.com/Click6/1-450-240932",
+        "https://clear-tv.com/Click7/1-450-240932",
+        "https://clear-tv.com/Click8/1-450-240932",
+        "https://clear-tv.com/Click902/1-450-240932",
+        "https://clear-tv.com/Join/1-450-240932"
+      ],
+      "usable": false,
+      "reason": "Promoted to candidates but click currently 403/maintenance.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1Trials": [
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-450-240932/en/",
+          "ok": false,
+          "final": "https://www.heyzo.com/en/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Click/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com/search/%E3%83%91%E3%82%A4%E3%83%91%E3%83%B3/1.html?sort=pop",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com/ppv/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com/ppv/listpages/all_1.html",
+          "englishLanding": false
+        }
+      ],
+      "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-450-240932/en/",
+      "gate1Final": "https://www.heyzo.com/en/",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-520",
+      "siteId": 520,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-520-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-520-240932",
+        "https://clear-tv.com/Click13/1-520-240932",
+        "https://clear-tv.com/Click2/1-520-240932",
+        "https://clear-tv.com/Click3/1-520-240932",
+        "https://clear-tv.com/Click4/1-520-240932",
+        "https://clear-tv.com/Click5/1-520-240932",
+        "https://clear-tv.com/Click6/1-520-240932",
+        "https://clear-tv.com/Click9/1-520-240932",
+        "https://clear-tv.com/Join/1-520-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/service.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/listpages/category_2048_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/index.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-522",
+      "siteId": 522,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-522-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-522-240932",
+        "https://clear-tv.com/Click2/1-522-240932",
+        "https://clear-tv.com/Click3/1-522-240932",
+        "https://clear-tv.com/Click902/1-522-240932",
+        "https://clear-tv.com/Join/1-522-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com?over18=1",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com/about.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-522-240932",
+          "ok": false,
+          "final": "https://en.pikkur.com/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com/join.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-523",
+      "siteId": 523,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-523-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-523-240932",
+        "https://clear-tv.com/Click2/1-523-240932",
+        "https://clear-tv.com/Click3/1-523-240932",
+        "https://clear-tv.com/Click4/1-523-240932",
+        "https://clear-tv.com/Click5/1-523-240932",
+        "https://clear-tv.com/Click6/1-523-240932",
+        "https://clear-tv.com/Join/1-523-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/movie_search.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/list_actor.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/list_tag.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/about.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-524",
+      "siteId": 524,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-524-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-524-240932",
+        "https://clear-tv.com/Click2/1-524-240932",
+        "https://clear-tv.com/Click902/1-524-240932",
+        "https://clear-tv.com/Join/1-524-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-524-240932",
+          "ok": false,
+          "final": "https://jp.javholic.com",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-524-240932",
+          "ok": false,
+          "final": "https://jp.javholic.com/movie/list",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-524-240932",
+          "ok": false,
+          "final": "https://www.javholic.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-524-240932",
+          "ok": false,
+          "final": "https://jp.javholic.com/join.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-524-240932/eng/",
+          "ok": false,
+          "final": "https://jp.javholic.com/eng/",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-531",
+      "siteId": 531,
+      "status": "gate1_pass_content_reject",
+      "clickUrl": "https://clear-tv.com/Click/1-531-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-531-240932"
+      ],
+      "usable": false,
+      "reason": "Not a video content site for EN schedule angles.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-531-240932/eng/",
+      "gate1Final": "https://www.fanblebee.com/eng/",
+      "contentFit": false,
+      "contentFitReason": "fanclub_sns_not_video"
+    },
+    {
+      "site": "dti-site-532",
+      "siteId": 532,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-532-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-532-240932",
+        "https://clear-tv.com/Click2/1-532-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-532-240932",
+          "ok": true,
+          "final": "https://www.okasegilady.com/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-532-240932",
+          "ok": true,
+          "final": "https://www.mypurevoice.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-532-240932/eng/",
+          "ok": false,
+          "final": "https://www.mypurevoice.com/eng/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-532-240932/en/",
+          "ok": false,
+          "final": "https://www.mypurevoice.com/en/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-532-240932/eng/index2.htm",
+          "ok": false,
+          "final": "https://www.mypurevoice.com/eng/index2.htm",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-90",
+      "siteId": 90,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-90-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-90-240932",
+        "https://clear-tv.com/Click10/1-90-240932",
+        "https://clear-tv.com/Click11/1-90-240932",
+        "https://clear-tv.com/Click12/1-90-240932",
+        "https://clear-tv.com/Click13/1-90-240932",
+        "https://clear-tv.com/Click14/1-90-240932",
+        "https://clear-tv.com/Click15/1-90-240932",
+        "https://clear-tv.com/Click16/1-90-240932",
+        "https://clear-tv.com/Click18/1-90-240932",
+        "https://clear-tv.com/Click19/1-90-240932",
+        "https://clear-tv.com/Click2/1-90-240932",
+        "https://clear-tv.com/Click20/1-90-240932",
+        "https://clear-tv.com/Click200/1-90-240932",
+        "https://clear-tv.com/Click201/1-90-240932",
+        "https://clear-tv.com/Click202/1-90-240932",
+        "https://clear-tv.com/Click203/1-90-240932",
+        "https://clear-tv.com/Click204/1-90-240932",
+        "https://clear-tv.com/Click205/1-90-240932",
+        "https://clear-tv.com/Click206/1-90-240932",
+        "https://clear-tv.com/Click207/1-90-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-90-240932",
+          "ok": false,
+          "final": "https://www.yumegumi.net",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/princess/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/hotleg/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/club_jb/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/tousakuyugi/index.html",
+          "englishLanding": false
+        }
+      ]
+    }
+  ],
+  "usableSummary": {
+    "count": 34,
+    "ids": [
+      "dti-caribbeancom-asakura",
+      "dti-caribbeancom-maeda",
+      "dti-caribbeancom-ohashi",
+      "dti-caribbeancom-uehara",
+      "dti-caribbeancom-sena",
+      "dti-caribbeancom-onoue",
+      "dti-live-dxlive",
+      "dti-caribbeancom-movie-102926-001",
+      "dti-caribbeancom-movie-102726-001",
+      "dti-caribbeancom-movie-102626-001",
+      "dti-caribbeancom-movie-102526-001",
+      "dti-caribbeancom-movie-102326-001",
+      "dti-caribbeancom-movie-102226-001",
+      "dti-caribbeancom-movie-102126-001",
+      "dti-caribbeancom-movie-102026-001",
+      "dti-caribbeancom-movie-080313-397",
+      "dti-caribbeancom-movie-072513-390",
+      "dti-10musume-110326",
+      "dti-10musume-103126",
+      "dti-10musume-110126",
+      "dti-10musume-102426",
+      "dti-10musume-121025",
+      "dti-10musume-120724",
+      "dti-10musume-110325",
+      "dti-pacopacomama-fall-promo",
+      "dti-pacopacomama-091526",
+      "dti-muramura-103126",
+      "dti-muramura-102526",
+      "dti-muramura-102126",
+      "dti-1pondo-hikari-bikini",
+      "dti-1pondo-miharu-clothed",
+      "dti-caribbeancompr-110226-cheer",
+      "dti-caribbeancompr-101926-yukata",
+      "dti-live-sakuralive"
+    ],
+    "discoveredCount": 34,
+    "sitesUsable": [
+      "10musume",
+      "1pondo",
+      "caribbeancom",
+      "caribbeancompr",
+      "dxlive",
+      "muramura",
+      "pacopacomama",
+      "sakuralive"
+    ],
+    "liveUsable": [
+      "dti-live-dxlive",
+      "dti-live-sakuralive"
+    ],
+    "goods": "paused_indefinitely_for_now_no_TENGA",
+    "note": "Schedule generator must read offers[status=usable] only; ignore discoveredSites and status=candidate."
+  },
+  "gate1Report": {
+    "passedCount": 12,
+    "failedCount": 22,
+    "contentFitPassed": [
+      {
+        "site": "dti-site-18",
+        "siteId": 18,
+        "status": "gate1_pass_pending_clothed",
+        "clickUrl": "https://clear-tv.com/Click/1-18-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-18-240932",
+          "https://clear-tv.com/Click10/1-18-240932",
+          "https://clear-tv.com/Click190/1-18-240932",
+          "https://clear-tv.com/Click194/1-18-240932",
+          "https://clear-tv.com/Click2/1-18-240932",
+          "https://clear-tv.com/Click211/1-18-240932",
+          "https://clear-tv.com/Click25/1-18-240932",
+          "https://clear-tv.com/Click4/1-18-240932",
+          "https://clear-tv.com/Click400/1-18-240932",
+          "https://clear-tv.com/Click79/1-18-240932",
+          "https://clear-tv.com/Click800/1-18-240932",
+          "https://clear-tv.com/Click9/1-18-240932",
+          "https://clear-tv.com/Click901/1-18-240932",
+          "https://clear-tv.com/Click902/1-18-240932",
+          "https://clear-tv.com/Join/1-18-240932"
+        ],
+        "usable": false,
+        "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+        "needNext": [
+          "clothed_creative_sfwVerified"
+        ],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://clear-tv.com/Click194/1-18-240932",
+        "gate1Final": "https://wm.1pondo.tv/wm/en/index.html",
+        "contentFit": true
+      },
+      {
+        "site": "dti-site-290",
+        "siteId": 290,
+        "status": "gate1_pass_pending_clothed",
+        "clickUrl": "https://clear-tv.com/Click/1-290-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-290-240932",
+          "https://clear-tv.com/Click2/1-290-240932",
+          "https://clear-tv.com/Click20/1-290-240932",
+          "https://clear-tv.com/Click21/1-290-240932",
+          "https://clear-tv.com/Click22/1-290-240932",
+          "https://clear-tv.com/Click24/1-290-240932",
+          "https://clear-tv.com/Click3/1-290-240932",
+          "https://clear-tv.com/Click33/1-290-240932",
+          "https://clear-tv.com/Click902/1-290-240932",
+          "https://clear-tv.com/Join/1-290-240932"
+        ],
+        "usable": false,
+        "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+        "needNext": [
+          "clothed_creative_sfwVerified"
+        ],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://clear-tv.com/Click902/1-290-240932",
+        "gate1Final": "https://en.caribbeancompr.com/eng/index2.html",
+        "contentFit": true
+      },
+      {
+        "site": "dti-site-292",
+        "siteId": 292,
+        "status": "usable_partial",
+        "clickUrl": "https://clear-tv.com/Click/1-292-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-292-240932",
+          "https://clear-tv.com/Click190/1-292-240932",
+          "https://clear-tv.com/Click194/1-292-240932",
+          "https://clear-tv.com/Click2/1-292-240932",
+          "https://clear-tv.com/Click211/1-292-240932",
+          "https://clear-tv.com/Click29/1-292-240932",
+          "https://clear-tv.com/Click3/1-292-240932",
+          "https://clear-tv.com/Click300/1-292-240932",
+          "https://clear-tv.com/Click4/1-292-240932",
+          "https://clear-tv.com/Click800/1-292-240932",
+          "https://clear-tv.com/Click902/1-292-240932",
+          "https://clear-tv.com/Join/1-292-240932"
+        ],
+        "usable": true,
+        "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+        "needNext": [],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://clear-tv.com/Click194/1-292-240932",
+        "gate1Final": "https://wm.10musume.com/free/en/index2.html",
+        "contentFit": true,
+        "sfwVerified": true
+      },
+      {
+        "site": "dti-site-320",
+        "siteId": 320,
+        "status": "usable_partial",
+        "clickUrl": "https://clear-tv.com/Click/1-320-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-320-240932",
+          "https://clear-tv.com/Click10/1-320-240932",
+          "https://clear-tv.com/Click190/1-320-240932",
+          "https://clear-tv.com/Click194/1-320-240932",
+          "https://clear-tv.com/Click2/1-320-240932",
+          "https://clear-tv.com/Click211/1-320-240932",
+          "https://clear-tv.com/Click3/1-320-240932",
+          "https://clear-tv.com/Click7/1-320-240932",
+          "https://clear-tv.com/Click8/1-320-240932",
+          "https://clear-tv.com/Click800/1-320-240932",
+          "https://clear-tv.com/Click9/1-320-240932",
+          "https://clear-tv.com/Click902/1-320-240932",
+          "https://clear-tv.com/Join/1-320-240932"
+        ],
+        "usable": true,
+        "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+        "needNext": [],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://clear-tv.com/Click194/1-320-240932",
+        "gate1Final": "https://wm.pacopacomama.com/wm/en/index.html",
+        "contentFit": true,
+        "sfwVerified": true
+      },
+      {
+        "site": "dti-site-354",
+        "siteId": 354,
+        "status": "gate1_pass_pending_clothed",
+        "clickUrl": "https://clear-tv.com/Click/1-354-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-354-240932",
+          "https://clear-tv.com/Click2/1-354-240932",
+          "https://clear-tv.com/Click26/1-354-240932",
+          "https://clear-tv.com/Click3/1-354-240932",
+          "https://clear-tv.com/Click4/1-354-240932",
+          "https://clear-tv.com/Click5/1-354-240932",
+          "https://clear-tv.com/Click6/1-354-240932",
+          "https://clear-tv.com/Join/1-354-240932"
+        ],
+        "usable": false,
+        "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+        "needNext": [
+          "clothed_creative_sfwVerified"
+        ],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://clear-tv.com/Click/1-354-240932",
+        "gate1Final": "https://www.sakuralive.com",
+        "contentFit": true
+      },
+      {
+        "site": "dti-site-365",
+        "siteId": 365,
+        "status": "usable_partial",
+        "clickUrl": "https://clear-tv.com/Click/1-365-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-365-240932",
+          "https://clear-tv.com/Click2/1-365-240932",
+          "https://clear-tv.com/Click32/1-365-240932",
+          "https://clear-tv.com/Click40/1-365-240932",
+          "https://clear-tv.com/Click5/1-365-240932",
+          "https://clear-tv.com/Click800/1-365-240932",
+          "https://clear-tv.com/Click902/1-365-240932",
+          "https://clear-tv.com/Join/1-365-240932"
+        ],
+        "usable": true,
+        "reason": "Gate2 pass: clothed creatives banked → usable offers added.",
+        "needNext": [],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://clear-tv.com/Click902/1-365-240932",
+        "gate1Final": "https://en.muramura.tv/",
+        "contentFit": true,
+        "sfwVerified": true
+      },
+      {
+        "site": "dti-site-372",
+        "siteId": 372,
+        "status": "gate1_pass_pending_clothed",
+        "clickUrl": "https://clear-tv.com/Click/1-372-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-372-240932",
+          "https://clear-tv.com/Click2/1-372-240932",
+          "https://clear-tv.com/Click902/1-372-240932",
+          "https://clear-tv.com/Join/1-372-240932"
+        ],
+        "usable": false,
+        "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+        "needNext": [
+          "clothed_creative_sfwVerified"
+        ],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://clear-tv.com/Click902/1-372-240932",
+        "gate1Final": "https://en.docodemodouga.com/index2.html",
+        "contentFit": true
+      },
+      {
+        "site": "dti-site-450",
+        "siteId": 450,
+        "status": "gate1_pass_pending_clothed",
+        "clickUrl": "https://clear-tv.com/Click/1-450-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-450-240932",
+          "https://clear-tv.com/Click11/1-450-240932",
+          "https://clear-tv.com/Click12/1-450-240932",
+          "https://clear-tv.com/Click13/1-450-240932",
+          "https://clear-tv.com/Click14/1-450-240932",
+          "https://clear-tv.com/Click15/1-450-240932",
+          "https://clear-tv.com/Click2/1-450-240932",
+          "https://clear-tv.com/Click21/1-450-240932",
+          "https://clear-tv.com/Click3/1-450-240932",
+          "https://clear-tv.com/Click4/1-450-240932",
+          "https://clear-tv.com/Click400/1-450-240932",
+          "https://clear-tv.com/Click5/1-450-240932",
+          "https://clear-tv.com/Click6/1-450-240932",
+          "https://clear-tv.com/Click7/1-450-240932",
+          "https://clear-tv.com/Click8/1-450-240932",
+          "https://clear-tv.com/Click902/1-450-240932",
+          "https://clear-tv.com/Join/1-450-240932"
+        ],
+        "usable": false,
+        "reason": "Gate1 pass: English /en/ path confirmed (destination may 403 to bots). Needs clothed creative.",
+        "needNext": [
+          "clothed_creative_sfwVerified"
+        ],
+        "englishLanding": true,
+        "gate1Trials": [
+          {
+            "url": "https://click.dtiserv2.com/Direct/1-450-240932/en/",
+            "ok": false,
+            "final": "https://www.heyzo.com/en/",
+            "englishLanding": true
+          },
+          {
+            "url": "https://clear-tv.com/Click/1-450-240932",
+            "ok": false,
+            "final": "https://www.heyzo.com",
+            "englishLanding": false
+          },
+          {
+            "url": "https://clear-tv.com/Click11/1-450-240932",
+            "ok": false,
+            "final": "https://www.heyzo.com/search/%E3%83%91%E3%82%A4%E3%83%91%E3%83%B3/1.html?sort=pop",
+            "englishLanding": false
+          },
+          {
+            "url": "https://clear-tv.com/Click12/1-450-240932",
+            "ok": false,
+            "final": "https://www.heyzo.com/ppv/index.html",
+            "englishLanding": false
+          },
+          {
+            "url": "https://clear-tv.com/Click13/1-450-240932",
+            "ok": false,
+            "final": "https://www.heyzo.com/ppv/listpages/all_1.html",
+            "englishLanding": false
+          }
+        ],
+        "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-450-240932/en/",
+        "gate1Final": "https://www.heyzo.com/en/",
+        "contentFit": true
+      },
+      {
+        "site": "dti-site-531",
+        "siteId": 531,
+        "status": "gate1_pass_pending_clothed",
+        "clickUrl": "https://clear-tv.com/Click/1-531-240932",
+        "allUrls": [
+          "https://clear-tv.com/Click/1-531-240932"
+        ],
+        "usable": false,
+        "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+        "needNext": [
+          "clothed_creative_sfwVerified"
+        ],
+        "englishLanding": true,
+        "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-531-240932/eng/",
+        "gate1Final": "https://www.fanblebee.com/eng/",
+        "contentFit": true
+      }
+    ],
+    "passed": [
+      {
+        "siteId": 100,
+        "click": "https://clear-tv.com/Click/1-100-240932",
+        "final": "https://www.dxlive.com/job/mo/",
+        "contentFit": false
+      },
+      {
+        "siteId": 18,
+        "click": "https://clear-tv.com/Click194/1-18-240932",
+        "final": "https://wm.1pondo.tv/wm/en/index.html",
+        "contentFit": true
+      },
+      {
+        "siteId": 22,
+        "click": "https://click.dtiserv2.com/Direct/1-22-240932/eng/",
+        "final": "https://www.dticash.com/eng/",
+        "contentFit": false
+      },
+      {
+        "siteId": 290,
+        "click": "https://clear-tv.com/Click902/1-290-240932",
+        "final": "https://en.caribbeancompr.com/eng/index2.html",
+        "contentFit": true
+      },
+      {
+        "siteId": 292,
+        "click": "https://clear-tv.com/Click194/1-292-240932",
+        "final": "https://wm.10musume.com/free/en/index2.html",
+        "contentFit": true
+      },
+      {
+        "siteId": 320,
+        "click": "https://clear-tv.com/Click194/1-320-240932",
+        "final": "https://wm.pacopacomama.com/wm/en/index.html",
+        "contentFit": true
+      },
+      {
+        "siteId": 354,
+        "click": "https://clear-tv.com/Click/1-354-240932",
+        "final": "https://www.sakuralive.com",
+        "contentFit": true
+      },
+      {
+        "siteId": 365,
+        "click": "https://clear-tv.com/Click902/1-365-240932",
+        "final": "https://en.muramura.tv/",
+        "contentFit": true
+      },
+      {
+        "siteId": 369,
+        "click": "https://clear-tv.com/Click/1-369-240932",
+        "final": "https://www.sakuralive.com/job/",
+        "contentFit": false
+      },
+      {
+        "siteId": 372,
+        "click": "https://clear-tv.com/Click902/1-372-240932",
+        "final": "https://en.docodemodouga.com/index2.html",
+        "contentFit": true
+      },
+      {
+        "siteId": 450,
+        "click": "https://click.dtiserv2.com/Direct/1-450-240932/en/",
+        "final": "https://www.heyzo.com/en/",
+        "contentFit": true
+      },
+      {
+        "siteId": 531,
+        "click": "https://click.dtiserv2.com/Direct/1-531-240932/eng/",
+        "final": "https://www.fanblebee.com/eng/",
+        "contentFit": true
+      }
+    ]
+  },
+  "gate1PassedSites": [
+    {
+      "site": "dti-site-100",
+      "siteId": 100,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-100-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-100-240932",
+        "https://clear-tv.com/Join/1-100-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click/1-100-240932",
+      "gate1Final": "https://www.dxlive.com/job/mo/",
+      "contentFit": false,
+      "contentFitReason": "dxlive_job_recruit"
+    },
+    {
+      "site": "dti-site-18",
+      "siteId": 18,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-18-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-18-240932",
+        "https://clear-tv.com/Click10/1-18-240932",
+        "https://clear-tv.com/Click190/1-18-240932",
+        "https://clear-tv.com/Click194/1-18-240932",
+        "https://clear-tv.com/Click2/1-18-240932",
+        "https://clear-tv.com/Click211/1-18-240932",
+        "https://clear-tv.com/Click25/1-18-240932",
+        "https://clear-tv.com/Click4/1-18-240932",
+        "https://clear-tv.com/Click400/1-18-240932",
+        "https://clear-tv.com/Click79/1-18-240932",
+        "https://clear-tv.com/Click800/1-18-240932",
+        "https://clear-tv.com/Click9/1-18-240932",
+        "https://clear-tv.com/Click901/1-18-240932",
+        "https://clear-tv.com/Click902/1-18-240932",
+        "https://clear-tv.com/Join/1-18-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click194/1-18-240932",
+      "gate1Final": "https://wm.1pondo.tv/wm/en/index.html",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-22",
+      "siteId": 22,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-22-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-22-240932",
+        "https://clear-tv.com/Click7/1-22-240932",
+        "https://clear-tv.com/Join/1-22-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-22-240932/eng/",
+      "gate1Final": "https://www.dticash.com/eng/",
+      "contentFit": false,
+      "contentFitReason": "dticash_guide_not_content"
+    },
+    {
+      "site": "dti-site-290",
+      "siteId": 290,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-290-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-290-240932",
+        "https://clear-tv.com/Click2/1-290-240932",
+        "https://clear-tv.com/Click20/1-290-240932",
+        "https://clear-tv.com/Click21/1-290-240932",
+        "https://clear-tv.com/Click22/1-290-240932",
+        "https://clear-tv.com/Click24/1-290-240932",
+        "https://clear-tv.com/Click3/1-290-240932",
+        "https://clear-tv.com/Click33/1-290-240932",
+        "https://clear-tv.com/Click902/1-290-240932",
+        "https://clear-tv.com/Join/1-290-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click902/1-290-240932",
+      "gate1Final": "https://en.caribbeancompr.com/eng/index2.html",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-292",
+      "siteId": 292,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-292-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-292-240932",
+        "https://clear-tv.com/Click190/1-292-240932",
+        "https://clear-tv.com/Click194/1-292-240932",
+        "https://clear-tv.com/Click2/1-292-240932",
+        "https://clear-tv.com/Click211/1-292-240932",
+        "https://clear-tv.com/Click29/1-292-240932",
+        "https://clear-tv.com/Click3/1-292-240932",
+        "https://clear-tv.com/Click300/1-292-240932",
+        "https://clear-tv.com/Click4/1-292-240932",
+        "https://clear-tv.com/Click800/1-292-240932",
+        "https://clear-tv.com/Click902/1-292-240932",
+        "https://clear-tv.com/Join/1-292-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click194/1-292-240932",
+      "gate1Final": "https://wm.10musume.com/free/en/index2.html",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-320",
+      "siteId": 320,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-320-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-320-240932",
+        "https://clear-tv.com/Click10/1-320-240932",
+        "https://clear-tv.com/Click190/1-320-240932",
+        "https://clear-tv.com/Click194/1-320-240932",
+        "https://clear-tv.com/Click2/1-320-240932",
+        "https://clear-tv.com/Click211/1-320-240932",
+        "https://clear-tv.com/Click3/1-320-240932",
+        "https://clear-tv.com/Click7/1-320-240932",
+        "https://clear-tv.com/Click8/1-320-240932",
+        "https://clear-tv.com/Click800/1-320-240932",
+        "https://clear-tv.com/Click9/1-320-240932",
+        "https://clear-tv.com/Click902/1-320-240932",
+        "https://clear-tv.com/Join/1-320-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click194/1-320-240932",
+      "gate1Final": "https://wm.pacopacomama.com/wm/en/index.html",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-354",
+      "siteId": 354,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-354-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-354-240932",
+        "https://clear-tv.com/Click2/1-354-240932",
+        "https://clear-tv.com/Click26/1-354-240932",
+        "https://clear-tv.com/Click3/1-354-240932",
+        "https://clear-tv.com/Click4/1-354-240932",
+        "https://clear-tv.com/Click5/1-354-240932",
+        "https://clear-tv.com/Click6/1-354-240932",
+        "https://clear-tv.com/Join/1-354-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click/1-354-240932",
+      "gate1Final": "https://www.sakuralive.com",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-365",
+      "siteId": 365,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-365-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-365-240932",
+        "https://clear-tv.com/Click2/1-365-240932",
+        "https://clear-tv.com/Click32/1-365-240932",
+        "https://clear-tv.com/Click40/1-365-240932",
+        "https://clear-tv.com/Click5/1-365-240932",
+        "https://clear-tv.com/Click800/1-365-240932",
+        "https://clear-tv.com/Click902/1-365-240932",
+        "https://clear-tv.com/Join/1-365-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click902/1-365-240932",
+      "gate1Final": "https://en.muramura.tv/",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-369",
+      "siteId": 369,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-369-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-369-240932",
+        "https://clear-tv.com/Click2/1-369-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click/1-369-240932",
+      "gate1Final": "https://www.sakuralive.com/job/",
+      "contentFit": false,
+      "contentFitReason": "sakuralive_job_recruit"
+    },
+    {
+      "site": "dti-site-372",
+      "siteId": 372,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-372-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-372-240932",
+        "https://clear-tv.com/Click2/1-372-240932",
+        "https://clear-tv.com/Click902/1-372-240932",
+        "https://clear-tv.com/Join/1-372-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://clear-tv.com/Click902/1-372-240932",
+      "gate1Final": "https://en.docodemodouga.com/index2.html",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-450",
+      "siteId": 450,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-450-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-450-240932",
+        "https://clear-tv.com/Click11/1-450-240932",
+        "https://clear-tv.com/Click12/1-450-240932",
+        "https://clear-tv.com/Click13/1-450-240932",
+        "https://clear-tv.com/Click14/1-450-240932",
+        "https://clear-tv.com/Click15/1-450-240932",
+        "https://clear-tv.com/Click2/1-450-240932",
+        "https://clear-tv.com/Click21/1-450-240932",
+        "https://clear-tv.com/Click3/1-450-240932",
+        "https://clear-tv.com/Click4/1-450-240932",
+        "https://clear-tv.com/Click400/1-450-240932",
+        "https://clear-tv.com/Click5/1-450-240932",
+        "https://clear-tv.com/Click6/1-450-240932",
+        "https://clear-tv.com/Click7/1-450-240932",
+        "https://clear-tv.com/Click8/1-450-240932",
+        "https://clear-tv.com/Click902/1-450-240932",
+        "https://clear-tv.com/Join/1-450-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: English /en/ path confirmed (destination may 403 to bots). Needs clothed creative.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1Trials": [
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-450-240932/en/",
+          "ok": false,
+          "final": "https://www.heyzo.com/en/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Click/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com/search/%E3%83%91%E3%82%A4%E3%83%91%E3%83%B3/1.html?sort=pop",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com/ppv/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-450-240932",
+          "ok": false,
+          "final": "https://www.heyzo.com/ppv/listpages/all_1.html",
+          "englishLanding": false
+        }
+      ],
+      "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-450-240932/en/",
+      "gate1Final": "https://www.heyzo.com/en/",
+      "contentFit": true
+    },
+    {
+      "site": "dti-site-531",
+      "siteId": 531,
+      "status": "gate1_pass_pending_clothed",
+      "clickUrl": "https://clear-tv.com/Click/1-531-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-531-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 pass: DTI click + English landing. Needs clothed creative for usable.",
+      "needNext": [
+        "clothed_creative_sfwVerified"
+      ],
+      "englishLanding": true,
+      "gate1ClickUrl": "https://click.dtiserv2.com/Direct/1-531-240932/eng/",
+      "gate1Final": "https://www.fanblebee.com/eng/",
+      "contentFit": true
+    }
+  ],
+  "gate1FailedSites": [
+    {
+      "site": "dti-site-123",
+      "siteId": 123,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-123-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-123-240932",
+        "https://clear-tv.com/Click12/1-123-240932",
+        "https://clear-tv.com/Click16/1-123-240932",
+        "https://clear-tv.com/Click5/1-123-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/bunko/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/bunko/b011/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click16/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/pickup_n/5/w6511/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-123-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/bunko/b004/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-123-240932/eng/",
+          "ok": false,
+          "final": "https://www.yumegumi.net/bunko/eng/",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-132",
+      "siteId": 132,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-132-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-132-240932",
+        "https://clear-tv.com/Click105/1-132-240932",
+        "https://clear-tv.com/Click2/1-132-240932",
+        "https://clear-tv.com/Click28/1-132-240932",
+        "https://clear-tv.com/Click73/1-132-240932",
+        "https://clear-tv.com/Click9/1-132-240932",
+        "https://clear-tv.com/Join/1-132-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click105/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/howto",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/home",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click28/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/faq/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click73/1-132-240932",
+          "ok": true,
+          "final": "https://kanjukulive.com/first",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-173",
+      "siteId": 173,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-173-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-173-240932",
+        "https://clear-tv.com/Click141/1-173-240932",
+        "https://clear-tv.com/Click143/1-173-240932",
+        "https://clear-tv.com/Click2/1-173-240932",
+        "https://clear-tv.com/Join/1-173-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click141/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/join.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click143/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/faq.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/home",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-173-240932",
+          "ok": true,
+          "final": "https://www.caribbeancomgirl.com/join.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-262",
+      "siteId": 262,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-262-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-262-240932",
+        "https://clear-tv.com/Click10/1-262-240932",
+        "https://clear-tv.com/Click11/1-262-240932",
+        "https://clear-tv.com/Click12/1-262-240932",
+        "https://clear-tv.com/Click13/1-262-240932",
+        "https://clear-tv.com/Click15/1-262-240932",
+        "https://clear-tv.com/Click16/1-262-240932",
+        "https://clear-tv.com/Click3/1-262-240932",
+        "https://clear-tv.com/Click8/1-262-240932",
+        "https://clear-tv.com/Click9/1-262-240932",
+        "https://clear-tv.com/Click902/1-262-240932",
+        "https://clear-tv.com/Join/1-262-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=156",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=159",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=168",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-262-240932",
+          "ok": false,
+          "final": "https://www.h4610.com/list.html?category_id=166",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-286",
+      "siteId": 286,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-286-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-286-240932",
+        "https://clear-tv.com/Click10/1-286-240932",
+        "https://clear-tv.com/Click11/1-286-240932",
+        "https://clear-tv.com/Click12/1-286-240932",
+        "https://clear-tv.com/Click13/1-286-240932",
+        "https://clear-tv.com/Click14/1-286-240932",
+        "https://clear-tv.com/Click16/1-286-240932",
+        "https://clear-tv.com/Click3/1-286-240932",
+        "https://clear-tv.com/Click4/1-286-240932",
+        "https://clear-tv.com/Click5/1-286-240932",
+        "https://clear-tv.com/Click8/1-286-240932",
+        "https://clear-tv.com/Click9/1-286-240932",
+        "https://clear-tv.com/Click902/1-286-240932",
+        "https://clear-tv.com/Join/1-286-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=317",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=318",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=304",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-286-240932",
+          "ok": false,
+          "final": "https://www.h0930.com/list.html?category_id=302",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-318",
+      "siteId": 318,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-318-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-318-240932",
+        "https://clear-tv.com/Click10/1-318-240932",
+        "https://clear-tv.com/Click11/1-318-240932",
+        "https://clear-tv.com/Click12/1-318-240932",
+        "https://clear-tv.com/Click13/1-318-240932",
+        "https://clear-tv.com/Click14/1-318-240932",
+        "https://clear-tv.com/Click15/1-318-240932",
+        "https://clear-tv.com/Click3/1-318-240932",
+        "https://clear-tv.com/Click7/1-318-240932",
+        "https://clear-tv.com/Click8/1-318-240932",
+        "https://clear-tv.com/Click9/1-318-240932",
+        "https://clear-tv.com/Click902/1-318-240932",
+        "https://clear-tv.com/Join/1-318-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=430",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=439",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=420",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-318-240932",
+          "ok": false,
+          "final": "https://www.c0930.com/list.html?category_id=421",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-347",
+      "siteId": 347,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-347-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-347-240932",
+        "https://clear-tv.com/Click5/1-347-240932",
+        "https://clear-tv.com/Click902/1-347-240932",
+        "https://clear-tv.com/Join/1-347-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-347-240932",
+          "ok": false,
+          "final": "https://www.3d-eros.net/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-347-240932",
+          "ok": false,
+          "final": "https://www.3d-eros.net/howto.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-347-240932",
+          "ok": false,
+          "final": "https://en.3d-eros.net/index.html",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-347-240932",
+          "ok": false,
+          "final": "https://www.3d-eros.net/join.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-347-240932/eng/",
+          "ok": false,
+          "final": "https://www.3d-eros.net/eng/",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-352",
+      "siteId": 352,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-352-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-352-240932",
+        "https://clear-tv.com/Click13/1-352-240932",
+        "https://clear-tv.com/Click2/1-352-240932",
+        "https://clear-tv.com/Click3/1-352-240932",
+        "https://clear-tv.com/Click4/1-352-240932",
+        "https://clear-tv.com/Click400/1-352-240932",
+        "https://clear-tv.com/Click5/1-352-240932",
+        "https://clear-tv.com/Click7/1-352-240932",
+        "https://clear-tv.com/Click8/1-352-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/service.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-352-240932",
+          "ok": false,
+          "final": "https://www.heydouga.com/list_category.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-356",
+      "siteId": 356,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-356-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-356-240932",
+        "https://clear-tv.com/Click5/1-356-240932",
+        "https://clear-tv.com/Click6/1-356-240932",
+        "https://clear-tv.com/Click902/1-356-240932",
+        "https://clear-tv.com/Join/1-356-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-356-240932",
+          "ok": false,
+          "final": "https://www.kin8tengoku.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-356-240932",
+          "ok": false,
+          "final": "https://exbabes.kin8tengoku.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-356-240932",
+          "ok": false,
+          "final": "https://enexbabes.kin8tengoku.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-356-240932",
+          "ok": false,
+          "final": "https://en.kin8tengoku.com/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-356-240932",
+          "ok": false,
+          "final": "https://www.kin8tengoku.com/join",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-359",
+      "siteId": 359,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click2/1-359-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click2/1-359-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click2/1-359-240932",
+          "ok": true,
+          "final": "https://www.okasegi.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-359-240932/eng/",
+          "ok": false,
+          "final": "https://www.okasegi.com/eng/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-359-240932/en/",
+          "ok": false,
+          "final": "https://www.okasegi.com/en/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-359-240932/eng/index2.htm",
+          "ok": false,
+          "final": "https://www.okasegi.com/eng/index2.htm",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Click/1-359-240932",
+          "ok": true,
+          "final": "https://www.okasegi.com/",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-360",
+      "siteId": 360,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-360-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-360-240932",
+        "https://clear-tv.com/Click15/1-360-240932",
+        "https://clear-tv.com/Click19/1-360-240932",
+        "https://clear-tv.com/Click21/1-360-240932",
+        "https://clear-tv.com/Click25/1-360-240932",
+        "https://clear-tv.com/Click3/1-360-240932",
+        "https://clear-tv.com/Click4/1-360-240932",
+        "https://clear-tv.com/Click5/1-360-240932",
+        "https://clear-tv.com/Click6/1-360-240932",
+        "https://clear-tv.com/Click8/1-360-240932",
+        "https://clear-tv.com/Join/1-360-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click15/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/goods",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click19/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/home?ageVerifiedC=1",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click21/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/home",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click25/1-360-240932",
+          "ok": true,
+          "final": "https://www.monroo.com/promo/godo.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-361",
+      "siteId": 361,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-361-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-361-240932",
+        "https://clear-tv.com/Click3/1-361-240932",
+        "https://clear-tv.com/Click4/1-361-240932",
+        "https://clear-tv.com/Click5/1-361-240932",
+        "https://clear-tv.com/Click6/1-361-240932",
+        "https://clear-tv.com/Click7/1-361-240932",
+        "https://clear-tv.com/Click8/1-361-240932",
+        "https://clear-tv.com/Click902/1-361-240932",
+        "https://clear-tv.com/Join/1-361-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/category_847_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/category_860_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-361-240932",
+          "ok": false,
+          "final": "https://www.nyoshin.com/listpages/category_850_1.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-363",
+      "siteId": 363,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click2/1-363-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click2/1-363-240932",
+        "https://clear-tv.com/Click3/1-363-240932",
+        "https://clear-tv.com/Click4/1-363-240932",
+        "https://clear-tv.com/Click5/1-363-240932",
+        "https://clear-tv.com/Click6/1-363-240932",
+        "https://clear-tv.com/Click7/1-363-240932",
+        "https://clear-tv.com/Join/1-363-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click2/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_1.html?sort=popular",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_categories.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-363-240932",
+          "ok": false,
+          "final": "https://av9898.heydouga.com/monthly/av9898/listpages/all_1.html?sort=comment&provider_id=4030",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-367",
+      "siteId": 367,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-367-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-367-240932",
+        "https://clear-tv.com/Click10/1-367-240932",
+        "https://clear-tv.com/Click11/1-367-240932",
+        "https://clear-tv.com/Click12/1-367-240932",
+        "https://clear-tv.com/Click3/1-367-240932",
+        "https://clear-tv.com/Click4/1-367-240932",
+        "https://clear-tv.com/Click6/1-367-240932",
+        "https://clear-tv.com/Click7/1-367-240932",
+        "https://clear-tv.com/Click8/1-367-240932",
+        "https://clear-tv.com/Click9/1-367-240932",
+        "https://clear-tv.com/Click902/1-367-240932",
+        "https://clear-tv.com/Join/1-367-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1029_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1036_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1041_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-367-240932",
+          "ok": false,
+          "final": "https://www.h0230.com/listpages/1013_1.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-378",
+      "siteId": 378,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-378-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-378-240932",
+        "https://clear-tv.com/Click5/1-378-240932",
+        "https://clear-tv.com/Click6/1-378-240932",
+        "https://clear-tv.com/Click902/1-378-240932",
+        "https://clear-tv.com/Join/1-378-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/listpages/1562_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click6/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/listpages/1561_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-378-240932",
+          "ok": false,
+          "final": "https://en.unkotare.com/index_en.html",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-378-240932",
+          "ok": false,
+          "final": "https://www.unkotare.com/join.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-40",
+      "siteId": 40,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-40-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-40-240932",
+        "https://clear-tv.com/Click10/1-40-240932",
+        "https://clear-tv.com/Click11/1-40-240932",
+        "https://clear-tv.com/Click2/1-40-240932",
+        "https://clear-tv.com/Click3/1-40-240932",
+        "https://clear-tv.com/Click4/1-40-240932",
+        "https://clear-tv.com/Click5/1-40-240932",
+        "https://clear-tv.com/Click9/1-40-240932",
+        "https://clear-tv.com/Click902/1-40-240932",
+        "https://clear-tv.com/Join/1-40-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/search/q=%CD%F0%B8%F2",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/search/q=%A5%B3%A5%B9%A5%D7%A5%EC",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/index2.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-40-240932",
+          "ok": false,
+          "final": "https://www.hgmo.com/listpages/all_1.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-520",
+      "siteId": 520,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-520-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-520-240932",
+        "https://clear-tv.com/Click13/1-520-240932",
+        "https://clear-tv.com/Click2/1-520-240932",
+        "https://clear-tv.com/Click3/1-520-240932",
+        "https://clear-tv.com/Click4/1-520-240932",
+        "https://clear-tv.com/Click5/1-520-240932",
+        "https://clear-tv.com/Click6/1-520-240932",
+        "https://clear-tv.com/Click9/1-520-240932",
+        "https://clear-tv.com/Join/1-520-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/service.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/listpages/category_2048_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-520-240932",
+          "ok": false,
+          "final": "https://channel.heydouga.com/monthly/channel/index.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-522",
+      "siteId": 522,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-522-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-522-240932",
+        "https://clear-tv.com/Click2/1-522-240932",
+        "https://clear-tv.com/Click3/1-522-240932",
+        "https://clear-tv.com/Click902/1-522-240932",
+        "https://clear-tv.com/Join/1-522-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com?over18=1",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com/listpages/all_1.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com/about.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-522-240932",
+          "ok": false,
+          "final": "https://en.pikkur.com/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-522-240932",
+          "ok": false,
+          "final": "https://www.pikkur.com/join.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-523",
+      "siteId": 523,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-523-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-523-240932",
+        "https://clear-tv.com/Click2/1-523-240932",
+        "https://clear-tv.com/Click3/1-523-240932",
+        "https://clear-tv.com/Click4/1-523-240932",
+        "https://clear-tv.com/Click5/1-523-240932",
+        "https://clear-tv.com/Click6/1-523-240932",
+        "https://clear-tv.com/Join/1-523-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/movie_search.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click3/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/list_actor.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click4/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/list_tag.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click5/1-523-240932",
+          "ok": false,
+          "final": "https://www.a-vod.com/about.html",
+          "englishLanding": false
+        }
+      ]
+    },
+    {
+      "site": "dti-site-524",
+      "siteId": 524,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-524-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-524-240932",
+        "https://clear-tv.com/Click2/1-524-240932",
+        "https://clear-tv.com/Click902/1-524-240932",
+        "https://clear-tv.com/Join/1-524-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-524-240932",
+          "ok": false,
+          "final": "https://jp.javholic.com",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-524-240932",
+          "ok": false,
+          "final": "https://jp.javholic.com/movie/list",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click902/1-524-240932",
+          "ok": false,
+          "final": "https://www.javholic.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Join/1-524-240932",
+          "ok": false,
+          "final": "https://jp.javholic.com/join.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-524-240932/eng/",
+          "ok": false,
+          "final": "https://jp.javholic.com/eng/",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-532",
+      "siteId": 532,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-532-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-532-240932",
+        "https://clear-tv.com/Click2/1-532-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-532-240932",
+          "ok": true,
+          "final": "https://www.okasegilady.com/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click2/1-532-240932",
+          "ok": true,
+          "final": "https://www.mypurevoice.com/",
+          "englishLanding": false
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-532-240932/eng/",
+          "ok": false,
+          "final": "https://www.mypurevoice.com/eng/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-532-240932/en/",
+          "ok": false,
+          "final": "https://www.mypurevoice.com/en/",
+          "englishLanding": true
+        },
+        {
+          "url": "https://click.dtiserv2.com/Direct/1-532-240932/eng/index2.htm",
+          "ok": false,
+          "final": "https://www.mypurevoice.com/eng/index2.htm",
+          "englishLanding": true
+        }
+      ]
+    },
+    {
+      "site": "dti-site-90",
+      "siteId": 90,
+      "status": "gate1_fail",
+      "clickUrl": "https://clear-tv.com/Click/1-90-240932",
+      "allUrls": [
+        "https://clear-tv.com/Click/1-90-240932",
+        "https://clear-tv.com/Click10/1-90-240932",
+        "https://clear-tv.com/Click11/1-90-240932",
+        "https://clear-tv.com/Click12/1-90-240932",
+        "https://clear-tv.com/Click13/1-90-240932",
+        "https://clear-tv.com/Click14/1-90-240932",
+        "https://clear-tv.com/Click15/1-90-240932",
+        "https://clear-tv.com/Click16/1-90-240932",
+        "https://clear-tv.com/Click18/1-90-240932",
+        "https://clear-tv.com/Click19/1-90-240932",
+        "https://clear-tv.com/Click2/1-90-240932",
+        "https://clear-tv.com/Click20/1-90-240932",
+        "https://clear-tv.com/Click200/1-90-240932",
+        "https://clear-tv.com/Click201/1-90-240932",
+        "https://clear-tv.com/Click202/1-90-240932",
+        "https://clear-tv.com/Click203/1-90-240932",
+        "https://clear-tv.com/Click204/1-90-240932",
+        "https://clear-tv.com/Click205/1-90-240932",
+        "https://clear-tv.com/Click206/1-90-240932",
+        "https://clear-tv.com/Click207/1-90-240932"
+      ],
+      "usable": false,
+      "reason": "Gate1 fail: no English landing among tested click/direct URLs.",
+      "needNext": [],
+      "englishLanding": false,
+      "gate1Trials": [
+        {
+          "url": "https://clear-tv.com/Click/1-90-240932",
+          "ok": false,
+          "final": "https://www.yumegumi.net",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click10/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/princess/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click11/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/hotleg/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click12/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/club_jb/index.html",
+          "englishLanding": false
+        },
+        {
+          "url": "https://clear-tv.com/Click13/1-90-240932",
+          "ok": false,
+          "final": "https://yumegumi.net/ent/tousakuyugi/index.html",
+          "englishLanding": false
+        }
+      ]
+    }
+  ],
+  "candidates": {
+    "rule": "candidate ≠ usable。シート生成は status=usable のみ。候補は着衣/クリック復旧後に昇格。",
+    "priority": [
+      {
+        "priority": 1,
+        "offer": "sakuralive",
+        "siteId": 354,
+        "productType": "live",
+        "why": "土のライブ日のDXLIVE代替。英語着地OK。着衣専用バナー未取得→partner_clothed fallback可。",
+        "gate1ClickUrl": "https://clear-tv.com/Click/1-354-240932",
+        "gate1Final": "https://www.sakuralive.com",
+        "status": "usable_with_partner_fallback",
+        "blockers": [],
+        "angles": [
+          "liveChat"
+        ],
+        "promotedAt": "2026-11-03",
+        "note": "昇格済み: dti-live-sakuralive（着衣はCarib流用）"
+      },
+      {
+        "priority": 2,
+        "offer": "heyzo",
+        "siteId": 450,
+        "productType": "video",
+        "why": "ops tryNext。英語導線実績あり。ただし今はメンテ／Click403でリンク不通。復旧後に着衣掘り。",
+        "gate1ClickUrl": "https://clear-tv.com/Click902/1-450-240932",
+        "gate1Final": "https://www.heyzo.com/en/",
+        "status": "candidate_click_down",
+        "blockers": [
+          "maintenance_or_403",
+          "no_clothed_bank_yet"
+        ],
+        "angles": [
+          "beautyJp",
+          "beautyForeign",
+          "popular"
+        ]
+      },
+      {
+        "priority": 3,
+        "offer": "docodemodouga",
+        "siteId": 372,
+        "productType": "video",
+        "why": "英語着地OKだが他サイト寄せ集め感が強くブランド弱い。予備。",
+        "gate1ClickUrl": "https://clear-tv.com/Click902/1-372-240932",
+        "gate1Final": "https://en.docodemodouga.com/index2.html",
+        "status": "candidate_low_priority",
+        "blockers": [
+          "weak_brand",
+          "thumbs_often_nsfw_or_borrowed"
+        ],
+        "angles": [
+          "popular"
+        ]
+      }
+    ],
+    "rejectFromSchedule": [
+      {
+        "offer": "fanblebee",
+        "siteId": 531,
+        "reason": "映像サイトではない（ベビーピンクワーカー向けファンクラブSNS）。EN動画角度に非適合。",
+        "gate1Final": "https://www.fanblebee.com/eng/"
+      },
+      {
+        "offer": "dticash",
+        "siteId": 22,
+        "reason": "ガイドページ。コンテンツではない。"
+      },
+      {
+        "offer": "sakuralive-job",
+        "siteId": 369,
+        "reason": "求人ページ。"
+      }
+    ],
+    "recommendedNextHarvest": [
+      "heyzo_after_maintenance",
+      "1pondo_more_jackets",
+      "caribbeancompr_more_clothed_main_b"
+    ]
+  },
+  "catalogMix": {
+    "main": "caribbeancom",
+    "grow": "caribbeancompr_deep_links",
+    "monthlyOneEach": [
+      "10musume",
+      "muramura",
+      "pacopacomama"
+    ],
+    "live": [
+      "dxlive",
+      "sakuralive"
+    ],
+    "avoidHardPush": [
+      "1pondo",
+      "heyzo"
+    ]
+  }
+}

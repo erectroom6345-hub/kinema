@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.miyasakaharuki.contentstudio-drink-followup</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/bin/caffeinate</string>
+      <string>-i</string>
+      <string>/bin/bash</string>
+      <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/run-drink-followup.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <key>HOME</key>
+      <string>/Users/miyasakaharuki</string>
+      <key>CONTENT_PIPELINE_GENRE</key>
+      <string>drink</string>
+      <key>POSTED_PRODUCTS_PATH</key>
+      <string>data/posted-drink.json</string>
+    </dict>
+
+    <!-- 毎日 11:20（投稿 9:20 の約2時間後 / living followup 11:10 の次） -->
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key>
+      <integer>11</integer>
+      <key>Minute</key>
+      <integer>40</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/drink-followup-cron.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/miyasakaharuki/treasure-shop-hp/content-studio/output/drink-followup-cron.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+  </dict>
+</plist>

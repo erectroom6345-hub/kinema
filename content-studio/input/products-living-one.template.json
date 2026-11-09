@@ -1,0 +1,17 @@
+{
+  "_comment": "本番1件の貼り付け用テンプレ。値を埋めたら products-living.json の main[] 先頭（または同id）にマージする。",
+  "id": "living-kitchen-real-001",
+  "productId": "living-kitchen-real-001",
+  "name": "（楽天商品名をそのまま）",
+  "category": "kitchen",
+  "description": "（誰向け・何が楽になるかを1〜2文）",
+  "priceRange": "1,500〜3,000円",
+  "features": ["特徴1", "特徴2", "特徴3"],
+  "rakutenUrl": "https://item.rakuten.co.jp/SHOP_ID/ITEM_ID/",
+  "imageUrl": "https://（商品画像のHTTPS直URL・または既存カード用画像）",
+  "postType": "main",
+  "genre": "living",
+  "labels": { "popular": true },
+  "articleTitle": "（短めの記事見出し）",
+  "articleBody": "（選んだ理由を1〜2文）"
+}

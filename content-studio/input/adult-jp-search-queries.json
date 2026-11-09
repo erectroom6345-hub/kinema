@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "genre": "adult-jp",
+  "purpose": "DMM在庫を月日数以上に保つための検索ワード。ジャンル追加より先にこれを回す。",
+  "target": "unique dmmUrl + sfwVerified clothed/swimsuit >= 月の日数（目安31）",
+  "excludeWords": [
+    "学園",
+    "学校",
+    "生徒",
+    "JK",
+    "ロリ",
+    "未成年",
+    "制服"
+  ],
+  "queries": [
+    {
+      "id": "clothed-amateur",
+      "q": "素人 着衣",
+      "angle": "debut",
+      "why": "平常・デビュー枠の着衣在庫"
+    },
+    {
+      "id": "clothed-beauty",
+      "q": "美人 着衣",
+      "angle": "beauty",
+      "why": "美人レーン"
+    },
+    {
+      "id": "swimsuit-beauty",
+      "q": "水着 単体",
+      "angle": "beauty",
+      "why": "水着は着衣ゲート通過しやすい"
+    },
+    {
+      "id": "oho-clothed",
+      "q": "オホ声 着衣",
+      "angle": "oho",
+      "why": "マニア／オホ週"
+    },
+    {
+      "id": "ahe-clothed",
+      "q": "アヘ顔 着衣",
+      "angle": "ahegao",
+      "why": "アヘ不足時。無ければオホ着衣で埋める前提"
+    },
+    {
+      "id": "sns-origin",
+      "q": "SNS 素人",
+      "angle": "snsTalk",
+      "why": "TLで見た系の文面用"
+    },
+    {
+      "id": "office-clothed",
+      "q": "OL 着衣",
+      "angle": "debut",
+      "why": "職業は単独軸にせず、着衣が通るものだけ"
+    },
+    {
+      "id": "yukata-clothed",
+      "q": "浴衣 単体",
+      "angle": "beauty",
+      "why": "季節物の着衣ポートレート"
+    },
+    {
+      "id": "girlfriend-real",
+      "q": "彼女 着衣",
+      "angle": "snsTalk",
+      "why": "実在感寄りの平常枠"
+    },
+    {
+      "id": "famous-clothed",
+      "q": "人気女優 着衣",
+      "angle": "famous",
+      "why": "日曜フレックス用。露出パッケージは却下"
+    }
+  ],
+  "workflow": [
+    "月末: queries を上からDMM検索",
+    "着衣/水着スチルがあるものだけ candidate に入れる",
+    "sfwVerified + creativeLocal を付けて usable か parked へ",
+    "prep-adult-next-month.sh の unique dmmUrl >= 日数 を確認"
+  ]
+}

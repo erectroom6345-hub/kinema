@@ -1,0 +1,48 @@
+{
+  "tip": [
+    {
+      "id": "food-tip-gift-wrap-01",
+      "productId": "food-tip-gift-wrap-01",
+      "name": "手土産は個包装かどうか",
+      "ask": "手土産、配るときは個包装派ですか？参考に聞かせてください。",
+      "aside": "ちなみに私は、味の前に個包装かどうかを見てから選ぶことが多いです。",
+      "category": "gift",
+      "description": "配りやすさは個包装で決まることが多い。味の前に包装を確認すると失敗が減ります。",
+      "priceRange": "0円",
+      "features": ["個包装を先に確認", "配りやすい", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "food",
+      "labels": { "tip": true },
+      "articleTitle": "手土産は個包装派？",
+      "articleBody": "手土産、配るときは個包装派ですか？ちなみに私は、味の前に個包装かどうかを見てから選ぶことが多いです。",
+      "cardSlides": [
+        { "title": "手土産、個包装派ですか？", "pitch": "配るときの基準" },
+        { "title": "ちなみに私は", "pitch": "味より先に個包装を見る" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "food-tip-seasonal-keep-01",
+      "productId": "food-tip-seasonal-keep-01",
+      "name": "季節ものはいつ食べるか",
+      "ask": "季節の食べ物、届いたらいつ食べる派ですか？参考に聞かせてください。",
+      "aside": "ちなみに私は、届いた日に食べ切る日を決めておかないと、つい後回しにします。",
+      "category": "seasonal",
+      "description": "旬の魅力は短い。届いた日に食べ切る日を決めておくと、余らせにくいです。",
+      "priceRange": "0円",
+      "features": ["食べ切る日を決める", "余らせ防止", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "food",
+      "labels": { "tip": true },
+      "articleTitle": "季節ものはいつ食べる？",
+      "articleBody": "季節の食べ物、届いたらいつ食べる派ですか？ちなみに私は、届いた日に食べ切る日を決めておかないと、つい後回しにします。",
+      "cardSlides": [
+        { "title": "届いたら、いつ食べますか？", "pitch": "季節の食べ物" },
+        { "title": "ちなみに私は", "pitch": "届いた日に食べ切る日を決める" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "genre": "gadget",
+  "affiliate": "rakuten_only",
+  "fixedPageUrl": "https://gadgetk-omono.blogspot.com/p/blog-page.html",
+  "updatedAt": "2026-11-09T02:30:41.582Z",
+  "categories": {
+    "power": {
+      "current": {
+        "postId": "6172590806739143621",
+        "url": "https://gadgetk-omono.blogspot.com/2026/10/blog-post.html",
+        "title": "充電・電源ガジェットまとめ",
+        "productIds": [
+          "gadget-benma-10003449",
+          "gadget-pc-express-10766008"
+        ],
+        "localPath": "output/gadget/roundups/power-01.html",
+        "index": 1,
+        "seededAt": "2026-10-14T09:30:08.455Z"
+      },
+      "archive": []
+    },
+    "cable": {
+      "current": {
+        "postId": "3209932214656783357",
+        "url": "https://gadgetk-omono.blogspot.com/2026/10/blog-post_14.html",
+        "title": "ケーブル・配線まわりまとめ",
+        "productIds": [
+          "gadget-pro-shop-10093622",
+          "gadget-hauhau-10033860"
+        ],
+        "localPath": "output/gadget/roundups/cable-01.html",
+        "index": 1,
+        "seededAt": "2026-10-14T09:30:08.477Z"
+      },
+      "archive": []
+    },
+    "desk": {
+      "current": {
+        "postId": "7297852204234732792",
+        "url": "https://gadgetk-omono.blogspot.com/2026/10/blog-post_181.html",
+        "title": "デスク周りのガジェットまとめ",
+        "productIds": [
+          "gadget-leilo-10009133",
+          "gadget-kaedesou-10010925"
+        ],
+        "localPath": "output/gadget/roundups/desk-01.html",
+        "index": 1,
+        "seededAt": "2026-10-14T09:30:08.477Z"
+      },
+      "archive": []
+    },
+    "audio": {
+      "current": {
+        "postId": "8124939416807478924",
+        "url": "https://gadgetk-omono.blogspot.com/2026/10/blog-post_71.html",
+        "title": "イヤホン・オーディオ小物まとめ",
+        "productIds": [
+          "gadget-aidort-10001503",
+          "gadget-hobinavi-10586219"
+        ],
+        "localPath": "output/gadget/roundups/audio-01.html",
+        "index": 1,
+        "seededAt": "2026-10-14T09:30:08.478Z"
+      },
+      "archive": []
+    },
+    "phone": {
+      "current": {
+        "postId": "9111273987719208784",
+        "url": "https://gadgetk-omono.blogspot.com/2026/10/blog-post_416.html",
+        "title": "スマホ周辺ガジェットまとめ",
+        "productIds": [
+          "gadget-honest-online-10000774",
+          "gadget-auc-risecreation-10004531"
+        ],
+        "localPath": "output/gadget/roundups/phone-01.html",
+        "index": 1,
+        "seededAt": "2026-10-14T09:30:08.478Z"
+      },
+      "archive": []
+    },
+    "other": {
+      "current": {
+        "postId": "953635077287561754",
+        "url": "https://gadgetk-omono.blogspot.com/2026/10/blog-post_628.html",
+        "title": "ガジェット小物まとめ",
+        "productIds": [
+          "gadget-businessleather-10000143",
+          "gadget-excitech-10000365"
+        ],
+        "localPath": "output/gadget/roundups/other-01.html",
+        "index": 1,
+        "seededAt": "2026-10-14T09:30:08.479Z"
+      },
+      "archive": []
+    }
+  },
+  "stockpilePageUrl": "https://gadgetk-omono.blogspot.com/p/blog-page_28.html",
+  "stockpilePageId": "4846337070679320795",
+  "stockpileUpdatedAt": "2026-11-02T09:56:05.609Z"
+}

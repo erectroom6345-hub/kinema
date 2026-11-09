@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "genre": "drink",
+  "categories": {
+    "sake": {
+      "current": {
+        "postId": "4885806018634104432",
+        "url": "https://sake-nomanoma.blogspot.com/2026/10/blog-post.html",
+        "title": "日本酒まとめ",
+        "productIds": [
+          "drink-syuraku-shop-10011259",
+          "drink-auc-suwabe-10000396"
+        ],
+        "localPath": "output/drink/roundups/sake-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:46.231Z"
+      },
+      "archive": []
+    },
+    "shochu": {
+      "current": {
+        "postId": "7377547281270145034",
+        "url": "https://sake-nomanoma.blogspot.com/2026/10/blog-post_19.html",
+        "title": "焼酎・泡盛まとめ",
+        "productIds": [
+          "drink-sake-gets-17497874",
+          "drink-hombo-10000541"
+        ],
+        "localPath": "output/drink/roundups/shochu-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:46.237Z"
+      },
+      "archive": []
+    },
+    "fruit": {
+      "current": {
+        "postId": "1551556280036110315",
+        "url": "https://sake-nomanoma.blogspot.com/2026/10/blog-post_396.html",
+        "title": "梅酒・リキュールまとめ",
+        "productIds": [
+          "drink-kitanomori-10009002",
+          "drink-b-liquors-10006187"
+        ],
+        "localPath": "output/drink/roundups/fruit-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:46.238Z"
+      },
+      "archive": []
+    },
+    "seasonal": {
+      "current": {
+        "postId": "8274321112235231430",
+        "url": "https://sake-nomanoma.blogspot.com/2026/10/blog-post_477.html",
+        "title": "季節酒・限定醸造まとめ",
+        "productIds": [
+          "drink-m-sakaya-10007188",
+          "drink-asabiraki-10000186"
+        ],
+        "localPath": "output/drink/roundups/seasonal-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:46.238Z"
+      },
+      "archive": []
+    },
+    "other": {
+      "current": {
+        "postId": "3387190305271632632",
+        "url": "https://sake-nomanoma.blogspot.com/2026/10/blog-post_732.html",
+        "title": "銘酒メモまとめ",
+        "productIds": [
+          "drink-craftginger-10000048",
+          "drink-craftginger-10000060"
+        ],
+        "localPath": "output/drink/roundups/other-01.html",
+        "index": 1,
+        "seededAt": "2026-10-19T08:06:46.239Z"
+      },
+      "archive": []
+    }
+  },
+  "fixedPageUrl": "https://sake-nomanoma.blogspot.com/p/blog-page.html",
+  "updatedAt": "2026-11-09T02:48:08.420Z",
+  "fixedPageId": "53289283035971276"
+}

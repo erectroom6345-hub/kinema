@@ -1,0 +1,48 @@
+{
+  "tip": [
+    {
+      "id": "drink-tip-sake-temp-01",
+      "productId": "drink-tip-sake-temp-01",
+      "name": "日本酒はどの温度で飲むか",
+      "ask": "日本酒、常温と少し冷やしたの、どっちで飲むことが多いですか？参考に聞かせてください。",
+      "aside": "ちなみに私は、まず常温で一杯飲んでから、温度を変えてみることが多いです。",
+      "category": "sake",
+      "description": "同じ銘柄でも温度で印象が変わる。まずは常温で一本の基準を作ると選びやすいです。",
+      "priceRange": "0円",
+      "features": ["温度を固定して比べる", "選びやすくなる", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "drink",
+      "labels": { "tip": true },
+      "articleTitle": "日本酒は常温派？冷や派？",
+      "articleBody": "日本酒、常温と少し冷やしたの、どっちで飲むことが多いですか？ちなみに私は、まず常温で一杯飲んでから、温度を変えてみることが多いです。",
+      "cardSlides": [
+        { "title": "常温派？少し冷や派？", "pitch": "日本酒の温度" },
+        { "title": "ちなみに私は", "pitch": "まず常温で一杯" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    },
+    {
+      "id": "drink-tip-seasonal-pair-01",
+      "productId": "drink-tip-seasonal-pair-01",
+      "name": "季節の一杯は何と合わせるか",
+      "ask": "季節の一杯、何と合わせることが多いですか？参考に聞かせてください。",
+      "aside": "ちなみに私は、飲む前に合わせる一皿を決めてから選ぶことが多いです。",
+      "category": "seasonal",
+      "description": "季節酒は香りが立ちやすいものが多い。先に合わせる一皿を決めると、選ぶ迷いが減ります。",
+      "priceRange": "0円",
+      "features": ["合わせる一皿を先に", "迷いが減る", "商品リンクなし"],
+      "postType": "tip",
+      "affiliate": false,
+      "genre": "drink",
+      "labels": { "tip": true },
+      "articleTitle": "季節の一杯は何と合わせる？",
+      "articleBody": "季節の一杯、何と合わせることが多いですか？ちなみに私は、飲む前に合わせる一皿を決めてから選ぶことが多いです。",
+      "cardSlides": [
+        { "title": "何と合わせることが多い？", "pitch": "季節の一杯" },
+        { "title": "ちなみに私は", "pitch": "飲む前に一皿を決める" },
+        { "title": "よかったら教えてください", "pitch": "商品リンクなし" }
+      ]
+    }
+  ]
+}
