@@ -21,6 +21,7 @@ const {
   buildReasonLine: buildBenefitReason,
   buildDetailLine,
   buildAudienceLine,
+  buildFutureLine,
   buildShortAffiliateThreadsText,
 } = require("../scripts/lib/product-benefit-copy.cjs") as {
   buildReasonLine: (opts: {
@@ -38,6 +39,11 @@ const {
     maxLen?: number;
   }) => string;
   buildAudienceLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+  }) => string;
+  buildFutureLine: (opts: {
     genre: string;
     category?: string;
     name?: string;
@@ -245,7 +251,7 @@ function buildTipCaption(ask: string, aside: string, name: string): string {
   return mine ? `${question}\n${mine}` : question;
 }
 
-/** Instagram: 場面→商品→具体（産地・香りなど）→誰向け→（セール時）→楽天QR */
+/** Instagram: 場面→商品→具体→誰向け→理想の未来→（セール時）→楽天QR */
 function buildIgCaption(params: {
   name: string;
   category: string;
@@ -286,6 +292,11 @@ function buildIgCaption(params: {
       maxLen: 72,
     }),
     buildAudienceLine({
+      genre: "drink",
+      category: params.category,
+      name: params.name,
+    }),
+    buildFutureLine({
       genre: "drink",
       category: params.category,
       name: params.name,

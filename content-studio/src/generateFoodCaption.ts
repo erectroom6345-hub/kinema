@@ -22,6 +22,7 @@ const {
   buildReasonLine: buildBenefitReason,
   buildDetailLine,
   buildAudienceLine,
+  buildFutureLine,
   buildShortAffiliateThreadsText,
 } = require("../scripts/lib/product-benefit-copy.cjs") as {
   buildReasonLine: (opts: {
@@ -39,6 +40,11 @@ const {
     maxLen?: number;
   }) => string;
   buildAudienceLine: (opts: {
+    genre: string;
+    category?: string;
+    name?: string;
+  }) => string;
+  buildFutureLine: (opts: {
     genre: string;
     category?: string;
     name?: string;
@@ -352,7 +358,7 @@ function buildTipCaption(ask: string, aside: string, name: string): string {
   return mine ? `${question}\n${mine}` : question;
 }
 
-/** Instagram: 場面→商品→具体（香・食感など）→誰向け→（セール時は条件）→保存CTA */
+/** Instagram: 場面→商品→具体→誰向け→理想の未来→（セール時は条件）→保存CTA */
 function buildIgCaption(params: {
   name: string;
   category: string;
@@ -401,8 +407,13 @@ function buildIgCaption(params: {
       category: params.category,
       name: params.name,
     }),
+    buildFutureLine({
+      genre: "food",
+      category: params.category,
+      name: params.name,
+    }),
   ];
-  // 価格・倍はセール/キャンペーン時だけ。通常は具体＋誰向けで足りる
+  // 価格・倍はセール/キャンペーン時だけ。通常は具体＋誰向け＋未来で足りる
   if (params.interrupt === "campaign" || params.interrupt === "sale") {
     lines.push(reasonLine(params));
   }

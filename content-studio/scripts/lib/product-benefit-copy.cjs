@@ -259,6 +259,71 @@ function buildAudienceLine(opts = {}) {
   return `${audienceFor(genre, category, name)}向け。`;
 }
 
+/**
+ * IG用の理想の未来1行（効果断定なし・観察口調）。
+ * 悩み→誰向けのあとに置き、商品を手段として見せる。
+ */
+function buildFutureLine(opts = {}) {
+  const genre = String(opts.genre || "living").toLowerCase();
+  const cat = String(opts.category || "").toLowerCase();
+  const name = String(opts.name || opts.displayName || "");
+  if (genre === "living") {
+    if (cat === "kitchen") {
+      return "取り出しが一度で済むと、朝の詰まりが減って続きやすいです。";
+    }
+    if (cat === "storage") {
+      return "置き場所が決まると、探し物が減って気持ちが楽になります。";
+    }
+    if (cat === "cleaning") {
+      return "ちょい掃除が続くと、散らかる前に戻せるようになります。";
+    }
+    return "動線の一手間が減ると、毎日の疲れ方が少し変わります。";
+  }
+  if (genre === "gadget") {
+    if (cat === "power") {
+      return "差し替えが減ると、充電まわりがすっきり続きやすいです。";
+    }
+    if (cat === "cable") {
+      return "配線が整うと、取り出すたびに迷わなくなります。";
+    }
+    if (cat === "desk") {
+      return "作業スペースが残ると、机上が散らかりにくくなります。";
+    }
+    if (/防災|停電|ソーラー|トイレ/.test(name)) {
+      return "備えがあると、もしものとき慌てにくくなります。";
+    }
+    return "定位置ができると、スマホ周りのストレスが減りやすいです。";
+  }
+  if (genre === "food") {
+    if (cat === "gift" || cat === "sweets") {
+      return "一品決まると、手土産やご褒美の迷いが減ります。";
+    }
+    if (cat === "seasonal") {
+      return "今の味を楽しめると、季節の食卓が選びやすくなります。";
+    }
+    if (/備蓄|非常|保存/.test(name) || cat === "table") {
+      return "常備が一品あると、食卓の迷いが減って安心しやすいです。";
+    }
+    return "食卓に一品あると、迷いが減って選びやすくなります。";
+  }
+  if (genre === "drink") {
+    if (cat === "sake") {
+      return "合う料理が決まると、晩酌の一本が選びやすくなります。";
+    }
+    if (cat === "shochu") {
+      return "飲み口が分かると、いつもの晩酌が選びやすくなります。";
+    }
+    if (cat === "seasonal") {
+      return "季節の一杯が決まると、今だけの楽しみ方がしやすくなります。";
+    }
+    if (cat === "fruit") {
+      return "食後や手土産の一杯が決まると、迷いが減ります。";
+    }
+    return "飲む場面が決まると、一本選びがしやすくなります。";
+  }
+  return "使いどころが決まると、選び直しが減って続きやすいです。";
+}
+
 /** 余白帯専用の短い得一文（商品名なし・向けなし） */
 function overlayFallbackShort(genre, category, name = "") {
   const cat = String(category || "").toLowerCase();
@@ -368,6 +433,7 @@ module.exports = {
   buildReasonLine,
   buildDetailLine,
   buildAudienceLine,
+  buildFutureLine,
   buildOverlayHookLine,
   buildShortAffiliateThreadsText,
 };
