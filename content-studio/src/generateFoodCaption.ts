@@ -43,11 +43,19 @@ const {
     genre: string;
     category?: string;
     name?: string;
+    description?: string;
+    features?: string[];
+    nicheAudience?: string;
+    nicheEnv?: string;
   }) => string;
   buildFutureLine: (opts: {
     genre: string;
     category?: string;
     name?: string;
+    description?: string;
+    features?: string[];
+    nicheAudience?: string;
+    nicheEnv?: string;
   }) => string;
   buildShortAffiliateThreadsText: (opts: {
     line1: string;
@@ -57,6 +65,19 @@ const {
     requirePr?: boolean;
     prToken?: string;
   }) => string;
+};
+const {
+  discoveryHookLine,
+  buildHashtags,
+  appendHashtagsToCaption,
+} = require("../scripts/lib/product-sharpen.cjs") as {
+  discoveryHookLine: (genre: string, item: Record<string, unknown>) => string;
+  buildHashtags: (
+    genre: string,
+    item: Record<string, unknown>,
+    opts?: { max?: number },
+  ) => string[];
+  appendHashtagsToCaption: (caption: string, hashtags: string[]) => string;
 };
 
 type FoodVoice = "morning" | "evening";
@@ -93,6 +114,9 @@ type ArticleInput = {
     postType?: string;
     affiliate?: boolean;
     interrupt?: string | null;
+    nicheAudience?: string;
+    nicheEnv?: string;
+    ingestedAt?: string;
     labels?: {
       sale?: boolean;
       campaign?: boolean;
@@ -100,6 +124,9 @@ type ArticleInput = {
       limited?: boolean;
       arrival?: boolean;
       tip?: boolean;
+      underknown?: boolean;
+      fresh?: boolean;
+      sharpen?: boolean;
     };
   };
 };
@@ -358,7 +385,7 @@ function buildTipCaption(ask: string, aside: string, name: string): string {
   return mine ? `${question}\n${mine}` : question;
 }
 
-/** Instagram: 場面→商品→具体→誰向け→理想の未来→（セール時は条件）→保存CTA */
+/** Instagram: 場面→商品→発見フック→具体→誰向け→理想の未来→（セール時）→保存CTA→タグ */
 function buildIgCaption(params: {
   name: string;
   category: string;
@@ -372,6 +399,9 @@ function buildIgCaption(params: {
   tip?: boolean;
   stockpile?: boolean;
   voice?: FoodVoice;
+  nicheAudience?: string;
+  nicheEnv?: string;
+  labels?: Record<string, unknown>;
 }): string {
   const voice = params.voice || "morning";
   const feature = params.features
@@ -385,6 +415,15 @@ function buildIgCaption(params: {
         !/ランキング|送料|ギフト包装|法事/.test(f),
     );
   const snippet = [feature, params.description].filter(Boolean).join(" ");
+  const nicheItem = {
+    name: params.name,
+    category: params.category,
+    description: params.description,
+    features: params.features,
+    nicheAudience: params.nicheAudience,
+    nicheEnv: params.nicheEnv,
+    labels: params.labels || {},
+  };
   const lines = [
     sceneLine(params.category, params.stockpile, voice),
     specialLine(
@@ -395,6 +434,7 @@ function buildIgCaption(params: {
       params.pointRate,
       params.stockpile,
     ),
+    discoveryHookLine("food", nicheItem),
     buildDetailLine({
       genre: "food",
       category: params.category,
@@ -406,11 +446,19 @@ function buildIgCaption(params: {
       genre: "food",
       category: params.category,
       name: params.name,
+      description: params.description,
+      features: params.features,
+      nicheAudience: params.nicheAudience,
+      nicheEnv: params.nicheEnv,
     }),
     buildFutureLine({
       genre: "food",
       category: params.category,
       name: params.name,
+      description: params.description,
+      features: params.features,
+      nicheAudience: params.nicheAudience,
+      nicheEnv: params.nicheEnv,
     }),
   ];
   // 価格・倍はセール/キャンペーン時だけ。通常は具体＋誰向け＋未来で足りる
@@ -418,7 +466,10 @@ function buildIgCaption(params: {
     lines.push(reasonLine(params));
   }
   lines.push(actionLine(params.prToken, params.requirePr));
-  return lines.join("\n");
+  return appendHashtagsToCaption(
+    lines.join("\n"),
+    buildHashtags("food", nicheItem, { max: 6 }),
+  );
 }
 
 function buildXText(params: {
@@ -541,6 +592,9 @@ function main() {
           tip,
           stockpile,
           voice,
+          nicheAudience: String(article.product?.nicheAudience || "").trim(),
+          nicheEnv: String(article.product?.nicheEnv || "").trim(),
+          labels: (article.product?.labels || {}) as Record<string, unknown>,
         }),
   );
 

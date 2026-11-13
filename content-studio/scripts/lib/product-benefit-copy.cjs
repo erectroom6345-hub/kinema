@@ -3,6 +3,11 @@
  * 「体感＋誰向け」が残る短い文にする。
  */
 
+const {
+  nicheAudienceLine,
+  nicheFutureLine,
+} = require("./product-sharpen.cjs");
+
 const NOISE_RE =
   /ポイント\d+倍|送料無料|あす楽|即日発送|楽天総合ランキング|楽天\s*ランキング|ランキング\d*位|\d+位|適格請求書|インボイス|メーカー希望小売|関連キーワード|法事|仏事|還暦|帰省|感謝箱|化粧箱入り|ギフト包装|のし対応|のし紙|包装無料|業務用|卸売|税込|送料|クーポン|タイムセール|スーパーセール|お買い物マラソン/gi;
 
@@ -251,12 +256,29 @@ function buildDetailLine(opts = {}) {
   return out;
 }
 
-/** IG長文化用の「誰向け」行 */
+function itemForNiche(opts = {}) {
+  return {
+    name: String(opts.name || opts.displayName || "").trim(),
+    category: String(opts.category || "").trim(),
+    description: String(opts.description || opts.snippet || "").trim(),
+    features: Array.isArray(opts.features) ? opts.features : [],
+    nicheAudience: String(opts.nicheAudience || "").trim(),
+    nicheEnv: String(opts.nicheEnv || "").trim(),
+    labels: opts.labels && typeof opts.labels === "object" ? opts.labels : {},
+  };
+}
+
+/** IG長文化用の「誰向け」行（職種・現場が取れたらそちら優先） */
 function buildAudienceLine(opts = {}) {
   const genre = String(opts.genre || "living").toLowerCase();
   const category = String(opts.category || "").trim();
   const name = String(opts.name || opts.displayName || "").trim();
-  return `${audienceFor(genre, category, name)}向け。`;
+  const explicit = String(opts.nicheAudience || "").trim();
+  if (explicit) {
+    return /向け/.test(explicit) ? explicit : `${explicit}向け。`;
+  }
+  const fallback = `${audienceFor(genre, category, name)}向け。`;
+  return nicheAudienceLine(genre, itemForNiche(opts), fallback) || fallback;
 }
 
 /**
@@ -267,61 +289,53 @@ function buildFutureLine(opts = {}) {
   const genre = String(opts.genre || "living").toLowerCase();
   const cat = String(opts.category || "").toLowerCase();
   const name = String(opts.name || opts.displayName || "");
+  let fallback = "使いどころが決まると、選び直しが減って続きやすいです。";
   if (genre === "living") {
     if (cat === "kitchen") {
-      return "取り出しが一度で済むと、朝の詰まりが減って続きやすいです。";
+      fallback = "取り出しが一度で済むと、朝の詰まりが減って続きやすいです。";
+    } else if (cat === "storage") {
+      fallback = "置き場所が決まると、探し物が減って気持ちが楽になります。";
+    } else if (cat === "cleaning") {
+      fallback = "ちょい掃除が続くと、散らかる前に戻せるようになります。";
+    } else {
+      fallback = "動線の一手間が減ると、毎日の疲れ方が少し変わります。";
     }
-    if (cat === "storage") {
-      return "置き場所が決まると、探し物が減って気持ちが楽になります。";
-    }
-    if (cat === "cleaning") {
-      return "ちょい掃除が続くと、散らかる前に戻せるようになります。";
-    }
-    return "動線の一手間が減ると、毎日の疲れ方が少し変わります。";
-  }
-  if (genre === "gadget") {
+  } else if (genre === "gadget") {
     if (cat === "power") {
-      return "差し替えが減ると、充電まわりがすっきり続きやすいです。";
+      fallback = "差し替えが減ると、充電まわりがすっきり続きやすいです。";
+    } else if (cat === "cable") {
+      fallback = "配線が整うと、取り出すたびに迷わなくなります。";
+    } else if (cat === "desk") {
+      fallback = "作業スペースが残ると、机上が散らかりにくくなります。";
+    } else if (/防災|停電|ソーラー|トイレ/.test(name)) {
+      fallback = "備えがあると、もしものとき慌てにくくなります。";
+    } else {
+      fallback = "定位置ができると、スマホ周りのストレスが減りやすいです。";
     }
-    if (cat === "cable") {
-      return "配線が整うと、取り出すたびに迷わなくなります。";
-    }
-    if (cat === "desk") {
-      return "作業スペースが残ると、机上が散らかりにくくなります。";
-    }
-    if (/防災|停電|ソーラー|トイレ/.test(name)) {
-      return "備えがあると、もしものとき慌てにくくなります。";
-    }
-    return "定位置ができると、スマホ周りのストレスが減りやすいです。";
-  }
-  if (genre === "food") {
+  } else if (genre === "food") {
     if (cat === "gift" || cat === "sweets") {
-      return "一品決まると、手土産やご褒美の迷いが減ります。";
+      fallback = "一品決まると、手土産やご褒美の迷いが減ります。";
+    } else if (cat === "seasonal") {
+      fallback = "今の味を楽しめると、季節の食卓が選びやすくなります。";
+    } else if (/備蓄|非常|保存/.test(name) || cat === "table") {
+      fallback = "常備が一品あると、食卓の迷いが減って安心しやすいです。";
+    } else {
+      fallback = "食卓に一品あると、迷いが減って選びやすくなります。";
     }
-    if (cat === "seasonal") {
-      return "今の味を楽しめると、季節の食卓が選びやすくなります。";
-    }
-    if (/備蓄|非常|保存/.test(name) || cat === "table") {
-      return "常備が一品あると、食卓の迷いが減って安心しやすいです。";
-    }
-    return "食卓に一品あると、迷いが減って選びやすくなります。";
-  }
-  if (genre === "drink") {
+  } else if (genre === "drink") {
     if (cat === "sake") {
-      return "合う料理が決まると、晩酌の一本が選びやすくなります。";
+      fallback = "合う料理が決まると、晩酌の一本が選びやすくなります。";
+    } else if (cat === "shochu") {
+      fallback = "飲み口が分かると、いつもの晩酌が選びやすくなります。";
+    } else if (cat === "seasonal") {
+      fallback = "季節の一杯が決まると、今だけの楽しみ方がしやすくなります。";
+    } else if (cat === "fruit") {
+      fallback = "食後や手土産の一杯が決まると、迷いが減ります。";
+    } else {
+      fallback = "飲む場面が決まると、一本選びがしやすくなります。";
     }
-    if (cat === "shochu") {
-      return "飲み口が分かると、いつもの晩酌が選びやすくなります。";
-    }
-    if (cat === "seasonal") {
-      return "季節の一杯が決まると、今だけの楽しみ方がしやすくなります。";
-    }
-    if (cat === "fruit") {
-      return "食後や手土産の一杯が決まると、迷いが減ります。";
-    }
-    return "飲む場面が決まると、一本選びがしやすくなります。";
   }
-  return "使いどころが決まると、選び直しが減って続きやすいです。";
+  return nicheFutureLine(genre, itemForNiche(opts), fallback) || fallback;
 }
 
 /** 余白帯専用の短い得一文（商品名なし・向けなし） */

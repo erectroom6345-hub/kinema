@@ -55,7 +55,31 @@
     { "category": "fruit", "keyword": "梅酒 ギフト", "hits": 3 },
     { "category": "fruit", "keyword": "果実酒 リキュール", "hits": 2 },
     { "category": "other", "keyword": "日本酒 飲み比べ セット", "hits": 2 },
-    { "category": "other", "keyword": "クラフトジン 国産", "hits": 2 }
+    { "category": "other", "keyword": "クラフトジン 国産", "hits": 2 },
+    {
+      "category": "sake",
+      "keyword": "現場 差し入れ 日本酒",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "seasonal",
+      "keyword": "新発売 日本酒",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "seasonal",
+      "keyword": "限定醸造 日本酒 希少",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "fruit",
+      "keyword": "話題 梅酒 ギフト",
+      "hits": 2,
+      "sharpenSearch": true
+    }
   ],
   "avoidSearchKeywords": ["地酒", "ご当地", "名産", "蔵めぐり", "酒蔵ツアー"],
   "manualOnlyLabels": ["arrival"],

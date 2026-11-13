@@ -93,7 +93,11 @@
       "sale"
     ],
     "respectCategoryGap": true,
-    "description": "sale/campaign は週最大2回まで曜日予定を上書き。popular は通常枠内の優先度のみ。"
+    "description": "sale/campaign は週最大2回まで曜日予定を上書き。通常枠は sharpen で未周知・現場特化を優先。"
+  },
+  "sharpen": {
+    "enabled": true,
+    "description": "定番 popular を減点し、未周知・新しめ（〜約5〜6ヶ月）・職種/現場キーワードを優先。ops.sharpen.enabled=false で旧 popular 優先に戻せる。"
   },
   "productRules": {
     "priceMinYen": 300,
@@ -130,7 +134,11 @@
     "labelFields": {
       "sale": "boolean — セール品",
       "campaign": "boolean — キャンペーン中",
-      "popular": "boolean — 人気/定番（通常枠で優先）",
+      "popular": "boolean — 人気/定番（通常枠では減点。旧挙動は sharpen.enabled=false）",
+      "underknown": "boolean — 未周知寄り（ingest で popular 以外に付与）",
+      "fresh": "boolean — 新商品・発売直後寄り",
+      "sharpen": "boolean — 尖り検索由来",
+      "ingestedAt": "ISO日付 — カタログ投入時刻（尖りスコアの新しさ）",
       "campaignEndAt": "ISO日付 — キャンペーン終了日（過ぎたら出さない）",
       "saleEndAt": "ISO日付 — セール終了日（任意）"
     }

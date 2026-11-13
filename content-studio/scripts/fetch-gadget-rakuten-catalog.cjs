@@ -25,6 +25,7 @@ const {
   cleanGadgetProductName,
   cleanGadgetSnippet,
 } = require("./lib/gadget-product-name.cjs");
+const { stampIngestedAt } = require("./lib/product-sharpen.cjs");
 
 const root = path.join(__dirname, "..");
 dotenv.config({ path: path.join(root, ".env") });
@@ -159,6 +160,7 @@ function toGadgetProduct(item, category, index, opts = {}) {
   }
   if (opts.highTicket) labels.highTicket = true;
   if (opts.stockpile) labels.stockpile = true;
+  if (opts.sharpenSearch) labels.sharpenSearch = true;
   if (item.pointRate && item.pointRate >= 5) {
     labels.popular = true;
   }
@@ -166,7 +168,7 @@ function toGadgetProduct(item, category, index, opts = {}) {
   if (item.pointRate) {
     features.unshift(`ポイント${item.pointRate}倍`);
   }
-  return {
+  return stampIngestedAt({
     id,
     productId: id,
     name,
@@ -186,7 +188,8 @@ function toGadgetProduct(item, category, index, opts = {}) {
     labels,
     articleTitle: name,
     articleBody: description,
-  };
+    ingestedAt: opts.priorIngestedAt || "",
+  });
 }
 
 function isSampleUrl(url) {
@@ -247,6 +250,23 @@ async function fetchCatalog({ dryRun = false } = {}) {
 
   const seenCodes = new Set();
   const seenUrls = new Set();
+  const existingEarly = readJson(productsPath, {
+    main: [],
+    sale: [],
+    niche: [],
+    routine: [],
+  });
+  const priorIngestedByCode = new Map();
+  for (const bucket of ["main", "sale", "niche", "routine"]) {
+    for (const p of existingEarly[bucket] || []) {
+      const code = String(p?.itemCode || "").trim();
+      const at = String(p?.ingestedAt || p?.labels?.ingestedAt || "").trim();
+      if (code && at && !priorIngestedByCode.has(code)) {
+        priorIngestedByCode.set(code, at);
+      }
+    }
+  }
+
   const main = [];
   const logs = [];
   const ngKeyword = String(policy.ngKeyword || "").trim();
@@ -291,6 +311,8 @@ async function fetchCatalog({ dryRun = false } = {}) {
         toGadgetProduct(item, category, main.length + 1, {
           highTicket: search.highTicket === true,
           stockpile,
+          sharpenSearch: search.sharpenSearch === true,
+          priorIngestedAt: priorIngestedByCode.get(String(item.itemCode || "")) || "",
         }),
       );
       added += 1;
@@ -374,12 +396,7 @@ async function fetchCatalog({ dryRun = false } = {}) {
     );
   }
 
-  const existing = readJson(productsPath, {
-    main: [],
-    sale: [],
-    niche: [],
-    routine: [],
-  });
+  const existing = existingEarly;
   const next = {
     main: replaceMain ? main : [...main, ...(existing.main || [])],
     sale,

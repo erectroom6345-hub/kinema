@@ -2,7 +2,7 @@
  * gadget 商品選定。
  * - 曜日カレンダー（power / desk / cable / audio / phone）
  * - sale/campaign 割り込み（週最大2回）
- * - popular は通常枠内で優先
+ * - 尖り優先（未周知・現場特化・新しめ）。popular 定番は減点
  * - 同一 category 連続禁止 / 同一商品 14日クールダウン
  * - 価格帯 500–8000（優先 1000–4000）
  */
@@ -25,6 +25,10 @@ const {
 } = require("./lib/stockpile-period.cjs");
 const { pickDemandFromPool } = require("./lib/demand-watch.cjs");
 const { itemPriceOk } = require("./lib/price-band.cjs");
+const {
+  pickBestSharpened,
+  inferNiche,
+} = require("./lib/product-sharpen.cjs");
 
 const productsPath = path.join(__dirname, "..", "input", "products-gadget.json");
 const tipsPath = path.join(__dirname, "..", "input", "products-gadget-tips.json");
@@ -157,16 +161,21 @@ function isPreferredPrice(item, ops) {
   return yen >= min && yen <= max;
 }
 
-/** 通常枠: popular → 優先価格帯 → その他 */
+/** 通常枠: 尖り優先（未周知・現場特化・新しめ）→ 価格帯。popular は減点 */
 function pickBest(candidates, ops) {
   if (!candidates.length) return null;
-  const rank = (item) => {
-    let score = 0;
-    if (isPopular(item)) score += 100;
-    if (isPreferredPrice(item, ops)) score += 10;
-    return score;
-  };
-  return [...candidates].sort((a, b) => rank(b) - rank(a))[0];
+  if (ops?.sharpen?.enabled === false) {
+    const rank = (item) => {
+      let score = 0;
+      if (isPopular(item)) score += 100;
+      if (isPreferredPrice(item, ops)) score += 10;
+      return score;
+    };
+    return [...candidates].sort((a, b) => rank(b) - rank(a))[0];
+  }
+  return pickBestSharpened(candidates, ops, "gadget", {
+    isPreferredPrice: (item) => isPreferredPrice(item, ops),
+  });
 }
 
 function countInterruptsThisWeek(history) {
@@ -525,6 +534,7 @@ function toArticleJson(item, ops, meta = {}) {
     : kind === "sale" || kind === "campaign"
       ? kind
       : item.postType || "main";
+  const niche = tip ? { matched: false } : inferNiche("gadget", item);
 
   return {
     title,
@@ -554,6 +564,9 @@ function toArticleJson(item, ops, meta = {}) {
       labels,
       interrupt: kind || null,
       cardSlides: Array.isArray(item.cardSlides) ? item.cardSlides : undefined,
+      ingestedAt: item.ingestedAt || labels.ingestedAt || "",
+      nicheAudience: niche.matched ? niche.audience : "",
+      nicheEnv: niche.matched ? niche.env : "",
     },
     affiliateNote: tip ? "アフィ無し・話しかけ" : buildFeaturesNote(item),
   };

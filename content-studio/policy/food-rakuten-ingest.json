@@ -70,7 +70,37 @@
     { "category": "other", "keyword": "ペットボトル 水 長期保存", "hits": 2 },
     { "category": "other", "keyword": "ペコちゃん ミルク缶", "hits": 3 },
     { "category": "other", "keyword": "不二家 ペコちゃん 缶", "hits": 2 },
-    { "category": "other", "keyword": "ペコちゃん 保存缶", "hits": 2 }
+    { "category": "other", "keyword": "ペコちゃん 保存缶", "hits": 2 },
+    {
+      "category": "table",
+      "keyword": "現場 弁当 差し入れ",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "table",
+      "keyword": "介護食 やわらか レトルト",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "other",
+      "keyword": "夜食 レトルト 簡単",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "seasonal",
+      "keyword": "新発売 スイーツ",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "gift",
+      "keyword": "話題 お菓子 個包装",
+      "hits": 2,
+      "sharpenSearch": true
+    }
   ],
   "avoidSearchKeywords": ["ご当地", "名産", "名物", "北海道", "九州", "沖縄", "産地直送"],
   "manualOnlyLabels": ["arrival"],

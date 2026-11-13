@@ -72,6 +72,30 @@
       "hits": 2,
       "maxPrice": 100000,
       "highTicket": true
+    },
+    {
+      "category": "other",
+      "keyword": "介護 手すり 室内",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "storage",
+      "keyword": "一人暮らし 収納 スリム",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "kitchen",
+      "keyword": "狭いキッチン 便利",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "cleaning",
+      "keyword": "新発売 掃除 便利",
+      "hits": 2,
+      "sharpenSearch": true
     }
   ]
 }

@@ -87,6 +87,36 @@
       "hits": 2,
       "maxPrice": 100000,
       "highTicket": true
+    },
+    {
+      "category": "other",
+      "keyword": "鳶 道具 腰袋",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "other",
+      "keyword": "足場 ヘルメット ライト",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "other",
+      "keyword": "介護 ナースコール 便利",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "other",
+      "keyword": "夜勤 グッズ 便利",
+      "hits": 2,
+      "sharpenSearch": true
+    },
+    {
+      "category": "desk",
+      "keyword": "新発売 デスク ガジェット",
+      "hits": 2,
+      "sharpenSearch": true
     }
   ]
 }
